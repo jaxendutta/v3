@@ -36,7 +36,7 @@ export default function DateTimePlace() {
                 <PiGlobeSimpleThin className="text-3xl" />
             </motion.div>
             <div className="flex flex-col text-xs text-left">
-                <span>WATERLOO, ON</span>
+                <span>OTTAWA, ON</span>
                 <span>{currentTime}</span>
             </div>
         </div>
