@@ -2,6 +2,37 @@
 import { WorkData } from "@/types/work";
 
 export const workData: WorkData = {
+    uO: {
+        title: "GRADUATE RESEARCH ASSISTANT",
+        company: "UNIVERSITY OF OTTAWA",
+        url: "https://uottawa.ca/",
+        duration: {
+            start: new Date("2025-09-10"),
+            end: new Date("2026-04-10"),
+        },
+        team: {
+            name: "Telfer School of Management",
+            url: "https://telfer.uottawa.ca/en",
+        },
+        skills: [
+            "sec-api-io",
+            "Python",
+            "Ollama",
+            "OpenAI",
+            "Anthropic",
+            "Google Gemma",
+            "Deepseek",
+            "Mistral AI",
+            "Qwen",
+            "NVivo"
+        ],
+        description: [
+            "Conducting research on financial text pattern analysis and its implications on decision-making under the supervision of <a href='https://telfer.uottawa.ca/en/directory/rajaiya-harshit/'>Dr. Harshit Rajaiya</a>.",
+            "Assisting <a href='https://telfer.uottawa.ca/en/directory/ramzi-fathallah/'>Dr. Ramzi Fathallah</a> explore entrepreneurship patterns on non-heteronormative family business structures.",
+            "Utilizing qualitative and quantitative data analysis techniques to explore the impact of linguistic cues on financial decision-making.",
+            "Collaborating with interdisciplinary teams to develop novel approaches for analyzing unstructured financial data.",
+        ]
+    },
     ontario: {
         title: "SYSTEMS SOFTWARE ENGINEER",
         company: "GOVERNMENT OF ONTARIO",

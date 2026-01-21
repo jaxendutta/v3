@@ -90,7 +90,7 @@ export const projectsData: ProjectsData = {
                 "TailwindCSS 4.1",
                 "Framer Motion",
             ],
-            Backend: ["Server Actions", "Resend Email API"],
+            Backend: ["Server Actions", "Resend API"],
             Development: ["ESLint", "Prettier", "Vercel"],
         },
         footer: "This portfolio revamp is built with Next.js 15 and React 19, preserving the visual identity of v1 while adding significant technical improvements. The implementation uses a hybrid rendering strategy with Server Components for static content and Client Components for interactive elements. For styling, I leveraged TailwindCSS 4.1 with custom design tokens that maintain the original color scheme while enabling the theme switching with zero flicker. The contact form uses React Server Actions with zod validation and the Resend API for email delivery. All animations were recreated using Framer Motion, reducing animation code by 70% while maintaining the same visual effects. Image loading is optimized through Next.js Image component with proper sizing, formats, and lazy loading. The site is fully accessible with perfect Lighthouse scores and 100% keyboard navigability. Analytics and performance monitoring are implemented using Vercel's built-in tools.",
