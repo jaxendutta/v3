@@ -1,0 +1,161 @@
+@import "tailwindcss";
+
+:root {
+    /* Dark theme colors (default) */
+    --color-background: #18181b;
+    --color-text: #fff7ed;
+    --color-accent: #e11d48;
+    --color-highlight-bg: #1e3a8a;
+    --color-highlight-text: #bef264;
+    --font-background: url("https://i.gifer.com/ByRk.gif");
+    --noise-filter: contrast(145%) brightness(650%) invert(100%);
+}
+
+/* Light theme colors */
+.light {
+    --color-background: #fff7ed;
+    --color-text: #1d4ed8;
+    --color-accent: #f43f5e;
+    --color-highlight-bg: #1d4ed8;
+    --color-highlight-text: #bef264;
+    --font-background: url("https://media.giphy.com/media/YAxpwobytgjWgmIbP9/giphy.gif");
+    --noise-filter: contrast(125%) brightness(400%) invert(0%);
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+html::-webkit-scrollbar {
+    display: none;
+}
+
+body {
+    margin: 0;
+    overflow-x: hidden;
+    width: 100vw;
+    min-height: 100vh;
+    color-scheme: dark light;
+    background-color: var(--color-background);
+    color: var(--color-text);
+}
+
+/* Apply transitions to all elements */
+*,
+*::before,
+*::after {
+    transition:
+        color 0.1s ease,
+        background-color 0.1s ease,
+        border-color 0.1s ease,
+        box-shadow 0.1s ease;
+}
+
+/* BUT exclude transitions from complex animations and interactions */
+.marquee-content,
+.rotating-text,
+[class*="animate-"] {
+    transition: none;
+}
+
+a {
+    text-decoration: underline;
+    color: inherit;
+}
+
+a:hover {
+    color: var(--color-accent);
+}
+
+/* Tailwind utility classes for theme variables */
+.bg-theme {
+    background-color: var(--color-background);
+}
+
+.text-theme {
+    color: var(--color-text);
+}
+
+.text-accent {
+    color: var(--color-accent);
+}
+
+.bg-highlight {
+    background-color: var(--color-highlight-bg);
+}
+
+.text-highlight {
+    color: var(--color-highlight-text);
+}
+
+@layer base {
+    button:not(:disabled),
+    [role="button"]:not(:disabled) {
+        cursor: pointer;
+    }
+}
+
+@utility no-scrollbar {
+  @apply [scrollbar-width:none] [&::-webkit-scrollbar]:hidden;
+}
+
+/* For clip-text effect */
+.clip-text {
+    background-image: var(--font-background);
+    background-size: cover;
+    background-position: top left;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+/* Marquee styling */
+.marquee-container {
+    display: flex;
+    overflow: hidden;
+}
+
+.marquee-content {
+    display: flex;
+    flex-shrink: 0;
+    justify-content: space-around;
+    gap: var(--gap);
+    min-width: 100%;
+    animation: marquee var(--duration) linear infinite;
+}
+
+.reverse .marquee-content {
+    animation-direction: reverse;
+}
+
+.pause-on-hover:hover .marquee-content {
+    animation-play-state: paused;
+}
+
+.vertical {
+    flex-direction: column;
+    height: 300px;
+}
+
+.vertical .marquee-content {
+    flex-direction: column;
+    animation: marquee-vertical var(--duration) linear infinite;
+}
+
+@keyframes marquee {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(calc(-100% - var(--gap)));
+    }
+}
+
+@keyframes marquee-vertical {
+    from {
+        transform: translateY(0);
+    }
+    to {
+        transform: translateY(calc(-100% - var(--gap)));
+    }
+}
