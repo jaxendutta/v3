@@ -48,11 +48,11 @@ export const projectsData: ProjectsData = {
         links: [
             {
                 name: "GitHub",
-                url: "https://github.com/jaxendutta/asher-kim-portfolio",
+                url: "https://github.com/jaxendutta/asher",
             },
             {
                 name: "Live Site",
-                url: "https://asherkim.ca",
+                url: "https://asher.anirban.ca",
             },
         ],
         typography: [
