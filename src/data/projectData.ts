@@ -8,6 +8,7 @@ import {
     GiCardJoker,
     GiOrbital,
     GiNestedEclipses,
+    GiCat,
 } from "react-icons/gi";
 import { AiOutlineFolderView } from "react-icons/ai";
 import { PiCodesandboxLogoLight } from "react-icons/pi";
@@ -16,6 +17,83 @@ const calloutStyle =
     "border border-2 border-dashed py-2 px-2 md:px-4 rounded-2xl mt-8";
 
 export const projectsData: ProjectsData = {
+    asher: {
+        name: "Asher Kim's Portfolio",
+        icon: GiCat,
+        type: "development",
+        date: new Date("2025-12-15"),
+        screenshotDevice: "mobile",
+        overview: [
+            [
+                {
+                    className: calloutStyle,
+                    content: "A Portfolio that Stands Out",
+                },
+                {
+                    content:
+                        "Developed a visually striking portfolio for Asher Kim, a budding software developer. The site showcases his projects and skills with a modern design and smooth animations.",
+                },
+            ],
+            [
+                {
+                    className: calloutStyle,
+                    content: "Tech Stack & Features",
+                },
+                {
+                    content:
+                        "Built with Next.js 15, React 19, and Tailwind 4.1, the portfolio features responsive design, interactive elements, and optimized performance for an engaging user experience.",
+                },
+            ],
+        ],
+        links: [
+            {
+                name: "GitHub",
+                url: "https://github.com/jaxendutta/asher-kim-portfolio",
+            },
+            {
+                name: "Live Site",
+                url: "https://asherkim.ca",
+            },
+        ],
+        typography: [
+            {
+                name: "Major Mono Display",
+                fontFamily: '"Major Mono Display", monospace',
+                url: "https://fonts.googleapis.com/css2?family=Major+Mono+Display&display=swap",
+                description: "Major Mono Display serves as the primary heading font, providing a distinctive, technical aesthetic that reflects my background in software development. Its monospaced, geometric design evokes a sense of precision and digital craftsmanship.",
+            },
+            {
+                name: "Fira Code",
+                fontFamily: '"Fira Code", monospace',
+                url: "https://fonts.googleapis.com/css2?family=Fira+Code:wght@300..700&display=swap",
+                description: "Fira Code, with its developer-friendly ligatures and clean appearance, is used for code snippets and technical content. This font enhances readability while maintaining the site's modern, technical aesthetic.",
+            },
+        ],
+        colors: [
+            {
+                palette: ["#17181C", "#F4F1EA", "#D7482F", "#DEEFB7"],
+                description:
+                    "The dark theme features a deep charcoal background (#17181C) with warm off-white text (#F4F1EA), creating strong contrast for readability. Vibrant red (#D7482F) accents add energy while soft lime (#DEEFB7) highlights create visual interest.",
+            },
+            {
+                palette: ["#F4F1EA", "#001ECB", "#28B7D0", "#001ECB"],
+                description:
+                    "The light theme employs a warm off-white background (#F4F1EA) with deep blue text (#001ECB) for comfortable reading. Bright teal accents (#28B7D0) provide visual interest without sacrificing accessibility.",
+            },
+        ],
+        techStack: {
+            Frontend: [
+                "Next.js 16",
+                "React 19",
+                "TypeScript",
+                "Tailwind 4.1",
+                "Framer Motion",
+            ],
+            Backend: ["Server Actions"],
+            Development: ["Vercel"],
+        },
+        footer: "Asher Kim's Portfolio is built with Next.js 15 and React 19, featuring a modern design that highlights his skills and projects. The site utilizes Tailwind 4.1 for styling, ensuring a responsive and visually appealing layout. Interactive elements and smooth animations are powered by Framer Motion, enhancing user engagement. The portfolio is optimized for performance and accessibility, providing an excellent browsing experience across devices.", 
+    },
     "portfolio-v2": {
         name: "Portfolio v2",
         icon: GiOrbital,
@@ -30,7 +108,7 @@ export const projectsData: ProjectsData = {
                 },
                 {
                     content:
-                        "This portfolio revamp preserves the original's style while upgrading to Next.js 15, React 19, and TailwindCSS 4.1. Modern architecture with the same visual impact, but significantly faster performance.",
+                        "This portfolio revamp preserves the original's style while upgrading to Next.js 15, React 19, and Tailwind 4.1. Modern architecture with the same visual impact, but significantly faster performance.",
                 },
             ],
             [
@@ -87,13 +165,13 @@ export const projectsData: ProjectsData = {
                 "Next.js 15",
                 "React 19",
                 "TypeScript",
-                "TailwindCSS 4.1",
+                "Tailwind 4.1",
                 "Framer Motion",
             ],
             Backend: ["Server Actions", "Resend API"],
             Development: ["ESLint", "Prettier", "Vercel"],
         },
-        footer: "This portfolio revamp is built with Next.js 15 and React 19, preserving the visual identity of v1 while adding significant technical improvements. The implementation uses a hybrid rendering strategy with Server Components for static content and Client Components for interactive elements. For styling, I leveraged TailwindCSS 4.1 with custom design tokens that maintain the original color scheme while enabling the theme switching with zero flicker. The contact form uses React Server Actions with zod validation and the Resend API for email delivery. All animations were recreated using Framer Motion, reducing animation code by 70% while maintaining the same visual effects. Image loading is optimized through Next.js Image component with proper sizing, formats, and lazy loading. The site is fully accessible with perfect Lighthouse scores and 100% keyboard navigability. Analytics and performance monitoring are implemented using Vercel's built-in tools.",
+        footer: "This portfolio revamp is built with Next.js 15 and React 19, preserving the visual identity of v1 while adding significant technical improvements. The implementation uses a hybrid rendering strategy with Server Components for static content and Client Components for interactive elements. For styling, I leveraged Tailwind 4.1 with custom design tokens that maintain the original color scheme while enabling the theme switching with zero flicker. The contact form uses React Server Actions with zod validation and the Resend API for email delivery. All animations were recreated using Framer Motion, reducing animation code by 70% while maintaining the same visual effects. Image loading is optimized through Next.js Image component with proper sizing, formats, and lazy loading. The site is fully accessible with perfect Lighthouse scores and 100% keyboard navigability. Analytics and performance monitoring are implemented using Vercel's built-in tools.",
     },
 
     "evse-opt": {
