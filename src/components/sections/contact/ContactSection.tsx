@@ -17,7 +17,7 @@ export default function ContactSection() {
 
             <CaseGlitch
                 text="or buzz me right here."
-                className={`${displayFont}`}
+                className={`${displayFont} text-center`}
             />
 
             <ContactForm />
