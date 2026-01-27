@@ -12,7 +12,7 @@ export default function Home() {
     return (
         <div className="max-w-screen min-h-screen">
             <Navbar />
-            <main className="flex flex-col items-center justify-center relative">
+            <main className="flex flex-col items-center justify-center">
                 <Hero />
                 <Suspense
                     fallback={

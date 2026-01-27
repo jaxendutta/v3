@@ -24,7 +24,7 @@ export default function DateTimePlace() {
     }, []);
 
     return (
-        <div className={`flex flex-row items-center justify-center gap-2`}>
+        <div className={`flex flex-row items-center justify-center gap-1 md:gap-1.5`}>
             <motion.div
                 animate={{ rotate: 360 }}
                 transition={{
@@ -33,9 +33,9 @@ export default function DateTimePlace() {
                     ease: "linear",
                 }}
             >
-                <PiGlobeSimpleThin className="text-3xl" />
+                <PiGlobeSimpleThin className="text-xl md:text-3xl" />
             </motion.div>
-            <div className="flex flex-col text-xs text-left">
+            <div className="flex flex-col text-[8.5px] md:text-xs text-left leading-2.5 md:leading-4">
                 <span>OTTAWA, ON</span>
                 <span>{currentTime}</span>
             </div>

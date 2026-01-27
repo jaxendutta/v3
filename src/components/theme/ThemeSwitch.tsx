@@ -3,8 +3,7 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import { useTheme } from "@/components/theme/ThemeProvider";
-import { GiUbisoftSun } from "react-icons/gi";
-import { SiIcomoon } from "react-icons/si";
+import { GiMoon, GiSun } from "react-icons/gi";
 
 export default function ThemeSwitch() {
     const { theme, toggleTheme } = useTheme();
@@ -14,7 +13,7 @@ export default function ThemeSwitch() {
             type="button"
             onClick={() => toggleTheme()}
             aria-label={`Switch to ${theme} mode`}
-            className={`text-4xl mixed-blend-difference`}
+            className={`text-2xl md:text-3xl mixed-blend-difference`}
             animate={{ rotate: 360 }}
             transition={{
                 duration: 10,
@@ -31,9 +30,9 @@ export default function ThemeSwitch() {
         >
             <AnimatePresence mode="wait" initial={false}>
                 {theme === "dark" ? (
-                    <GiUbisoftSun />
+                    <GiSun />
                 ) : (
-                    <SiIcomoon className="p-0.5" />
+                    <GiMoon />
                 )}
             </AnimatePresence>
         </motion.button>

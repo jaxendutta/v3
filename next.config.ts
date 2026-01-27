@@ -22,6 +22,11 @@ const nextConfig: NextConfig = {
         },
     },
     async headers() {
+        // Return empty headers in development so the browser always asks for the latest code
+        if (process.env.NODE_ENV === "development") {
+            return [];
+        }
+
         return [
             {
                 source: "/:all*(svg|jpg|png|webp|avif|woff2|woff)",
