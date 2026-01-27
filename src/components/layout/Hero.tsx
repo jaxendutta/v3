@@ -3,7 +3,7 @@
 
 import RotatingButton from "@/components/ui/RotatingButton";
 import NightSky from "@/components/ui/NightSky";
-import { displayFont, googleSansFlex } from "@/lib/fonts";
+import { googleSansFlex } from "@/lib/fonts";
 import { GiMaterialsScience } from "react-icons/gi";
 
 export default function Hero() {
@@ -17,7 +17,7 @@ export default function Hero() {
 
             {/* Main intro content */}
             <div className="absolute text-center top-[10vh] w-screen h-screen flex flex-col justify-center items-center gap-[5vh]">
-                <div className={`w-full flex flex-col text-7xl md:text-9xl px-4 mix-blend-exclusion text-theme ${googleSansFlex.className}`}>
+                <div className={`w-full flex flex-col text-7xl md:text-9xl px-4 ${googleSansFlex.className}`}>
                     <span>Jaxen</span>
                     <span>Anirban</span>
                     <span>Dutta.</span>
