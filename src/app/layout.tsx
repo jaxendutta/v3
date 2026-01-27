@@ -1,6 +1,6 @@
 import "@/styles/globals.css";
 import type { Metadata } from "next";
-import { majorMono, firaCode } from "@/lib/fonts";
+import { majorMono, googleSansCode } from "@/lib/fonts";
 import { Analytics } from "@vercel/analytics/react";
 import { ThemeProvider } from "@/components/theme/ThemeProvider";
 import BottomBar from "@/components/layout/BottomBar";
@@ -58,7 +58,7 @@ export default function RootLayout({
         <html
             lang="en"
             suppressHydrationWarning
-            className={`${majorMono.className} ${firaCode.className}`}
+            className={`${majorMono.className} ${googleSansCode.className}`}
         >
             <head>
                 <meta charSet="utf-8" />

@@ -44,7 +44,7 @@ export default function ProjectsSection() {
                 href="/projects"
                 centerIcon={GiStrongbox}
                 variant="glow"
-                className="-translate-y-[100%]"
+                className="-translate-y-[50%]"
             />
         </Section>
     );

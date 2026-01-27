@@ -5,6 +5,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { useTheme } from "@/components/theme/ThemeProvider";
+import { googleSansCode, googleSansFlex } from "@/lib/fonts";
 
 // Define nav link type with proper typing
 type NavLinkType = {
@@ -72,7 +73,7 @@ export default function Navbar() {
         <nav
             className={`fixed left-0 right-0 top-0 z-50 p-4 text-theme mix-blend-difference ${theme === "light" && "invert"}`}
         >
-            <div className="flex items-center justify-between">
+            <div className={`flex items-center justify-between ${googleSansCode.className}`}>
                 <div className="flex items-center justify-between gap-6">
                     {leftLinks.map((link) => (
                         <NavLink key={link.name} {...link} />
