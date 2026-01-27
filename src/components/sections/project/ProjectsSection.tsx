@@ -22,13 +22,13 @@ export default function ProjectsSection() {
                 },
             }}
         >
-            <div className="my-10 flex flex-col items-center">
+            <div className="flex flex-col items-center">
                 {projectIds
                     .slice(0, Math.min(topCount, projectIds.length))
                     .map((id, index) => (
                         <div
                             key={id}
-                            className={`w-full px-2 py-8 border-b border-current ${index % 2 === 0 ? "border-r" : "border-l"}`}
+                            className={`w-full py-8 border-b border-current ${index % 2 === 0 ? "border-r pr-2" : "border-l pl-2"}`}
                         >
                             <ProjectCard
                                 id={id}
