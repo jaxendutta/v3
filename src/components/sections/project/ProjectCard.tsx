@@ -13,17 +13,21 @@ import RotatingButton from "@/components/ui/RotatingButton";
 interface ProjectCardProps {
     id: string;
     project: ProjectData;
+
+    skillLimit?: number;
     reversed?: boolean;
 }
 
 export default function ProjectCard({
     id,
     project,
+    skillLimit = 8,
     reversed = false,
 }: ProjectCardProps) {
     // Use mobile screenshot vs desktop logic based on the ID
     const isMobileProject = project.screenshotDevice === "mobile";
     const projectLink = `/projects/${id}`;
+    const skillCount = Object.values(project.techStack || []).flat().length;
 
     const exploreButton = (
         <RotatingButton
@@ -54,7 +58,7 @@ export default function ProjectCard({
                     <div className="flex flex-row gap-4 items-center justify-center">
                         <Link
                             href={projectLink}
-                            className={`text-4xl md:text-5xl lg:text-6xl ${displayFont} italic hover:text-accent transition-colors`}
+                            className={`text-xl md:text-5xl lg:text-6xl ${displayFont} italic hover:text-accent transition-colors`}
                             style={{
                                 textDecoration: "none",
                                 fontStyle: "italic",
@@ -62,7 +66,7 @@ export default function ProjectCard({
                         >
                             {project.name}
                             {project.subtitle && (
-                                <span className="text-2xl md:text-3xl">
+                                <span className="text-xl md:text-3xl">
                                     {` ${project.subtitle}`}
                                 </span>
                             )}
@@ -76,19 +80,13 @@ export default function ProjectCard({
                         {project.techStack &&
                             Object.values(project.techStack)
                                 .flat()
-                                .slice(0, 8) // Limit to first 8 technologies for UI cleanliness
+                                .slice(0, skillLimit)
                                 .map((tech, i) => <Tag key={i} text={tech} />)}
 
                         {/* Show more indicator if technologies are truncated */}
                         {project.techStack &&
-                            Object.values(project.techStack).flat().length >
-                                8 && (
-                                <motion.span className="px-3 py-1 border border-current rounded-full text-sm whitespace-nowrap">
-                                    +
-                                    {Object.values(project.techStack).flat()
-                                        .length - 8}{" "}
-                                    more
-                                </motion.span>
+                            Object.values(project.techStack).flat().length > skillLimit && (
+                                <Tag text={`+${skillCount - skillLimit} more`} glowOnHover={true} />
                             )}
                     </div>
 
