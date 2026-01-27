@@ -28,7 +28,7 @@ function Noise() {
         <motion.div
             className={`w-full h-full`}
             style={{
-                backgroundImage: `radial-gradient(circle at 10% 10%, 
+                backgroundImage: `radial-gradient(circle at 0% 0%, 
                                 ${theme === "dark" ? "rgba(0, 0, 0, 1), rgba(0, 0, 0, 0)" : "rgb(0, 20, 90), rgba(255, 255, 0, 0)"}),
                                 url("data:image/svg+xml,%3Csvg viewBox='0 0 600 600' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' numOctaves='0' /%3E%3C/filter%3E%3Crect width='100%' height='100%' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
                 filter: getFilterValue(),
