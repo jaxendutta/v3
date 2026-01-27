@@ -86,7 +86,7 @@ export function CaseGlitch({ text, className }: CaseGlitchProps) {
 
     return (
         <motion.div
-            className={`my-20 flex items-center justify-center gap-4 text-accent ${className}`}
+            className={`flex items-center justify-center text-accent ${className}`}
             animate={glitchVariants[glitchState]}
             transition={{
                 duration: 0.05,

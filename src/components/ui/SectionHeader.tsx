@@ -26,7 +26,7 @@ export default function SectionHeader({
             {Array(8)
                 .fill(0)
                 .map((_, index) => (
-                    <FaPersonWalking key={index} className="mx-10 text-4xl" />
+                    <FaPersonWalking key={index} className="mx-6" />
                 ))}
         </div>
     );
@@ -39,29 +39,29 @@ export default function SectionHeader({
     );
 
     return (
-        <div className={`relative mt-20 ${actionButton ? "mb-10" : "mb-40"}`}>
+        <div className={`relative mt-14 md:mt-20 ${actionButton ? "mb-10" : "mb-20 md:mb-40"}`}>
             {/* Container for the marquee and button */}
             <div
-                className={`relative text-6xl md:text-8xl lg:text-10xl flex items-center justify-center content-center`}
+                className={`relative flex items-center justify-center content-center`}
             >
                 <div className={`absolute inset-0 ${headingFont}`}>
                     {/* Top marquee with walking icons */}
-                    <Marquee direction="right" className="opacity-20">
+                    <Marquee direction="right" className="opacity-15 text-3xl md:text-5xl lg:text-8xl">
                         {iconContent}
                     </Marquee>
 
                     {/* Main title marquee */}
                     <Marquee
                         direction="left"
-                        className="-mt-[0.2em] opacity-100"
+                        className="-mt-[0.3em] md:-mt-[0.35em] opacity-100 text-6xl md:text-8xl lg:text-10xl"
                     >
                         {textContent}
                     </Marquee>
 
-                    {/* Bottom marquee (opposite direction) */}
+                    {/* Background marquee */}
                     <Marquee
                         direction="right"
-                        className="-mt-[0.7em] opacity-20"
+                        className="-mt-[0.775em] opacity-15 text-5xl md:text-6xl lg:text-8xl"
                     >
                         {textContent}
                     </Marquee>

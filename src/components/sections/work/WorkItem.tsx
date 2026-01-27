@@ -1,7 +1,6 @@
 // src/components/sections/work/WorkItem.tsx
 "use client";
 
-import React from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { WorkExperience } from "@/types/work";
 import parse from "html-react-parser";
@@ -9,6 +8,7 @@ import { RxPlus } from "react-icons/rx";
 import { workData } from "@/data/workData";
 import StyledLink from "@/components/ui/StyledLink";
 import Tag from "@/components/ui/Tag";
+import { formatDate } from "@/lib/format";
 
 export const WorkItem = ({
     data,
@@ -25,20 +25,20 @@ export const WorkItem = ({
         <div className={`w-full border-b border-current`}>
             {/* Header section - clickable */}
             <div
-                className={`flex h-24 items-center justify-between px-2 py-2 md:px-4 ${!isActive && "cursor-pointer"}`}
+                className={`flex items-center justify-between px-1 py-3 md:py-5 md:px-4 ${!isActive && "cursor-pointer"}`}
                 onClick={() => !isActive && onToggle()}
             >
-                <div className="flex items-center">
-                    <div className="mr-5 flex items-center text-3xl md:text-4xl lg:text-5xl">
+                <div className="flex items-start md:items-center gap-3 md:gap-5">
+                    <div className="flex items-center text-[26px] md:text-4xl lg:text-5xl font-thin">
                         {(index + 1).toString().padStart(2, "0")}.
                     </div>
-                    <div className="flex-grow flex flex-col justify-center pr-8">
-                        <div className="text-lg md:text-2xl md:font-medium">
+                    <div className="flex-grow flex flex-col justify-center pr-4 md:pr-8 gap-0.5">
+                        <div className="text-base md:text-2xl leading-[1.2] ">
                             {data.title}
                         </div>
                         <StyledLink
                             href={data.url}
-                            className="z-30 flex flex-wrap items-center gap-1 text-inherit text-sm no-underline md:text-xl"
+                            className="z-30 font-thin flex flex-wrap items-center gap-1 text-inherit text-xs md:text-xl no-underline"
                             onClick={(e) => e.stopPropagation()}
                             text={data.company}
                         />
@@ -81,11 +81,11 @@ export const WorkItem = ({
                         }}
                         className="overflow-hidden"
                     >
-                        <div className="relative flex flex-row px-2 pb-8 md:px-4">
+                        <div className="relative flex flex-row px-2 pt-4 pb-6 md:py-8 md:px-4">
                             {/* Main content */}
-                            <div className="w-3/4 pr-8">
+                            <div className="pr-12 md:w-4/5">
                                 {/* Skills tags */}
-                                <div className="mb-6 flex flex-wrap justify-start gap-2.5 pointer-events-auto">
+                                <div className="mb-2 md:mb-6 flex flex-wrap justify-start gap-1.5 md:gap-2.5 pointer-events-auto">
                                     {data.skills.map((skill) => (
                                         <Tag key={skill} text={skill} />
                                     ))}
@@ -93,7 +93,7 @@ export const WorkItem = ({
 
                                 {/* Team info if available */}
                                 {data.team && (
-                                    <div className="mb-4 w-full border-b border-current pt-4 pb-2 text-xl">
+                                    <div className="mb-4 w-full border-b border-current pt-4 pb-2 text-sm md:text-xl">
                                         {data.team.url ? (
                                             <StyledLink
                                                 href={data.team.url}
@@ -108,7 +108,7 @@ export const WorkItem = ({
                                 {/* Description paragraphs */}
                                 <div className="space-y-4">
                                     {data.description.map((desc, i) => (
-                                        <div key={i} className="text-base">
+                                        <div key={i} className="text-xs md:text-base">
                                             {parse(desc)}
                                         </div>
                                     ))}
@@ -116,14 +116,9 @@ export const WorkItem = ({
                             </div>
 
                             {/* Date timeline */}
-                            <div className="absolute right-4 top-0 bottom-0 flex flex-col items-center justify-between pb-8 md:right-6 lg:right-8">
+                            <div className="absolute pb-6 md:pb-8 right-2 md:right-6 lg:right-8 top-0 bottom-0 flex flex-col items-center justify-between">
                                 <span className="[writing-mode:vertical-rl] text-orientation-mixed text-sm  whitespace-nowrap">
-                                    {new Date(data.duration.start)
-                                        .toLocaleString("en", {
-                                            year: "numeric",
-                                            month: "short",
-                                        })
-                                        .toUpperCase()}
+                                    {formatDate(data.duration.start, "Mon YYYY").toUpperCase()}
                                 </span>
 
                                 <motion.div
@@ -139,12 +134,7 @@ export const WorkItem = ({
                                 />
 
                                 <span className="[writing-mode:vertical-rl] text-orientation-mixed text-sm whitespace-nowrap">
-                                    {new Date(data.duration.end)
-                                        .toLocaleString("en", {
-                                            year: "numeric",
-                                            month: "short",
-                                        })
-                                        .toUpperCase()}
+                                    {formatDate(data.duration.end, "Mon YYYY").toUpperCase()}
                                 </span>
                             </div>
                         </div>
@@ -167,9 +157,9 @@ export const WorkItemWithHover = (props: {
             whileHover={
                 !props.isActive
                     ? {
-                          backgroundColor: "var(--color-highlight-bg)",
-                          color: "var(--color-highlight-text)",
-                      }
+                        backgroundColor: "var(--color-highlight-bg)",
+                        color: "var(--color-highlight-text)",
+                    }
                     : {}
             }
         >

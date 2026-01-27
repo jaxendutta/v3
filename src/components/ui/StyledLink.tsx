@@ -3,19 +3,19 @@
 
 import Link, { LinkProps } from "next/link";
 import { IconType } from "react-icons";
-import { TbArrowLeftFromArc } from "react-icons/tb";
+import { TbArrowElbowRight, TbArrowLeftFromArc } from "react-icons/tb";
 
 interface StyledLinkProps extends LinkProps {
     text: string;
-    icon?: IconType; // Optional icon
-    iconPosition?: "left" | "right"; // Control icon placement
+    icon?: IconType;
+    iconPosition?: "left" | "right";
     className?: string;
 }
 
 const StyledLink = ({
     text,
     className = "",
-    icon: Icon = TbArrowLeftFromArc,
+    icon: Icon = TbArrowElbowRight,
     iconPosition = "right",
     ...props
 }: StyledLinkProps) => {
