@@ -10,7 +10,7 @@ export default function Hero() {
     return (
         <section
             id="hero-container"
-            className="w-full min-h-[500px] h-screen relative"
+            className="w-full min-h-screen"
         >
             {/* Moon + Noise */}
             <NightSky />
