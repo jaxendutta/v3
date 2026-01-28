@@ -41,7 +41,7 @@ function Noise() {
 function Moon() {
     return (
         <motion.div
-            className="absolute top-0 -translate-y-1/5 -translate-x-1/5 size-[250px] rounded-full bg-theme"
+            className="absolute top-0 -translate-y-1/5 -translate-x-1/5 size-[200px] md:size-[250px] rounded-full bg-theme"
             animate={{ 
                 x: [-15, 0, -15],
                 y: [-15, 0, -15] }}
