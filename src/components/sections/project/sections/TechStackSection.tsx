@@ -5,10 +5,11 @@ import { displayFont } from "@/lib/fonts";
 import { motion } from "framer-motion";
 import { ProjectPageSection } from "@/components/sections/project/ProjectPageSection";
 import { SkillTag } from "@/components/ui/Tag";
+import { Tech } from "@/types/project";
 
 interface TechStackSectionProps {
     id?: string;
-    techStack: Record<string, string[]>;
+    techStack: Record<string, Tech[]>;
 }
 
 export default function TechStackSection({
@@ -51,7 +52,7 @@ export default function TechStackSection({
                                     {technologies.map((tech, techIndex) => (
                                         <SkillTag
                                             key={techIndex}
-                                            skill={tech}
+                                            skill={tech.name}
                                         />
                                     ))}
                                 </div>

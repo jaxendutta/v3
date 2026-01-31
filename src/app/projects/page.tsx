@@ -263,7 +263,7 @@ export default function ProjectsPage() {
             {/* Filter section using custom FilterContainer component */}
             <FilterContainer
                 isVisible={showFilters}
-                className="container mx-auto"
+                className="container w-full flex"
             >
                 <div className="flex flex-col gap-6">
                     {/* Search Box */}
@@ -280,11 +280,12 @@ export default function ProjectsPage() {
                         </div>
                     </div>
 
-                    <div className="flex flex-col md:flex-row gap-8">
+                    <div className="w-full flex flex-col md:grid md:grid-cols-4 md:gap-4 gap-8">
                         {/* Tech Stack Filter */}
                         <FilterSection
                             title="Tech Stack Filter"
                             icon={<GiTechnoHeart />}
+                            className="md:col-span-3"
                         >
                             {allTechStacks.map((tech) => (
                                 <FilterTag
@@ -301,6 +302,7 @@ export default function ProjectsPage() {
                             <FilterSection
                                 title="Year Filter"
                                 icon={<GiCalendar />}
+                                className="md:col-span-1"
                             >
                                 {allYears.map((year) => (
                                     <FilterTag

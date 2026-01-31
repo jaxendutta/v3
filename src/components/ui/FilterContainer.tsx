@@ -111,11 +111,12 @@ interface FilterSectionProps {
     title: string;
     icon: ReactNode;
     children: ReactNode;
+    className?: string;
 }
 
-export function FilterSection({ title, icon, children }: FilterSectionProps) {
+export function FilterSection({ title, icon, children, className = ""}: FilterSectionProps) {
     return (
-        <div className="w-full">
+        <div className={`w-full ${className}`}>
             <h2 className="text-sm md:text-lg mb-2 md:mb-4 flex items-center gap-2 font-semibold">
                 {icon} {title}
             </h2>
