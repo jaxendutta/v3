@@ -2,7 +2,7 @@
 
 import { useState, useMemo } from "react";
 import { motion } from "framer-motion";
-import { headingFont } from "@/lib/fonts";
+import { googleSansFlex, headingFont } from "@/lib/fonts";
 import { fadeIn, staggerContainer, slideUp } from "@/lib/motionVariants";
 import { projectsData } from "@/data/projectData";
 import RotatingButton from "@/components/ui/RotatingButton";
@@ -35,7 +35,7 @@ export default function ProjectsPage() {
                 Object.values(project.techStack)
                     .flat()
                     .forEach((tech) => {
-                        techStacks.add(tech);
+                        techStacks.add(tech.name);
                     });
             }
         });
@@ -87,7 +87,7 @@ export default function ProjectsPage() {
                             project.techStack &&
                             Object.values(project.techStack)
                                 .flat()
-                                .includes(tech)
+                                .some((techObj) => techObj.name === tech)
                     ));
 
             const matchesYear =
@@ -165,13 +165,9 @@ export default function ProjectsPage() {
                 className="mb-6 md:mb-12 pt-8"
             >
                 <motion.div
-                    className={`text-5xl md:text-8xl text-center ${headingFont} italic clip-text mb-8`}
-                    style={{
-                        textDecoration: "none",
-                        fontStyle: "italic",
-                    }}
+                    className={`text-5xl md:text-7xl text-center ${googleSansFlex.className} italic clip-text pb-8`}
                 >
-                    PROJECTS
+                    Projects.
                 </motion.div>
 
                 {/* Results count and filter controls */}
@@ -179,7 +175,7 @@ export default function ProjectsPage() {
                     {/* Results count with detailed filter information */}
                     <div className="text-center md:text-left flex-grow">
                         <span className="font-bold">
-                            {filteredProjects.length}
+                            {filteredProjects.length} / {projectIds.length}
                         </span>{" "}
                         projects found
                         {selectedTechStack.length > 0 && (

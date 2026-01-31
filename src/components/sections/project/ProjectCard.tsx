@@ -75,7 +75,7 @@ export default function ProjectCard({
                             Object.values(project.techStack)
                                 .flat()
                                 .slice(0, skillLimit)
-                                .map((tech, i) => <Tag key={i} text={tech} />)}
+                                .map((tech, i) => <Tag key={i} text={tech.name} />)}
 
                         {/* Show more indicator if technologies are truncated */}
                         {project.techStack &&

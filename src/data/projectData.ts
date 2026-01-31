@@ -23,7 +23,7 @@ export const projectsData: ProjectsData = {
         icon: GiCat,
         type: "development",
         date: new Date("2025-05-20"),
-        screenshotDevice: "desktop",
+        screenshotDevice: "mobile",
         overview: [
             [
                 {
@@ -96,13 +96,13 @@ export const projectsData: ProjectsData = {
         ],
         techStack: {
             Frontend: [
-                "Next.js 16",
-                "React 19",
-                "TypeScript",
-                "Tailwind 4.1",
+                { name: "Next.js", version: "16.1" },
+                { name: "React", version: "19.4" },
+                { name: "Tailwind", version: "4.1" },
+                { name: "Framer Motion" },
             ],
-            Backend: ["Server Actions"],
-            Development: ["Vercel"],
+            Backend: [{ name: "Server Actions" }],
+            Development: [{ name: "Vercel" }],
         },
         footer: "Asher Kim's Research Portfolio is a Next.js 16 application showcasing plant biology and molecular research. The site features a distinctive grass-tiled background that creates an immersive natural environment. With dark and light theme support, the portfolio presents research experience, publications, presentations, and outreach activities in an organized, accessible format. The design balances academic professionalism with a warm, approachable aesthetic that reflects Asher's research in plant-microbe interactions and stress responses. Interactive elements and smooth animations enhance user engagement while maintaining focus on scientific content.",
     },
@@ -169,19 +169,19 @@ export const projectsData: ProjectsData = {
         ],
         techStack: {
             Frontend: [
-                "Next.js 16",
-                "React 19",
-                "Tailwind 4.1",
-                "Recharts",
-                "TanStack Query",
+                { name: "Next.js", version: "16.1" },
+                { name: "React", version: "19.4" },
+                { name: "Tailwind", version: "4.1" },
+                { name: "Recharts" },
+                { name: "TanStack Query" },
             ],
             Backend: [
-                "PostgreSQL 17",
-                "Iron Session",
+                { name: "PostgreSQL" },
+                { name: "Iron Session" },
             ],
-            Deployment: ["Docker", "Vercel", "Supabase"],
+            Deployment: [{ name: "Docker" }, { name: "Vercel" }, { name: "Supabase" }],
         },
-        footer: "RGAP represents a complete modernization of legacy research tools. The architecture leverages Next.js 16's App Router and Server Components for optimal performance. I implemented a custom PostgreSQL schema with GIN indexes and fuzzy matching (pg_trgm) to enable instant search capabilities across hundreds of thousands of records. The frontend utilizes React 19 features and a custom-built component library styled with Tailwind v4, ensuring a consistent and accessible experience. Security is handled via stateless Iron Sessions and bcrypt hashing, providing a secure environment for researchers to manage their grants and bookmarks.",
+        footer: "RGAP represents a complete modernization of legacy research tools. The architecture leverages Next.js 16's App Router and Server Components for optimal performance. I implemented a custom PostgreSQL schema with GIN indexes and fuzzy matching (pg_trgm) to enable instant search capabilities across hundreds of thousands of records. The frontend utilizes React 19 features and a custom-built component library styled with Tailwind 4.1, ensuring a consistent and accessible experience. Security is handled via stateless Iron Sessions and bcrypt hashing, providing a secure environment for researchers to manage their grants and bookmarks.",
     },
     "portfolio-v2": {
         name: "Portfolio v2",
@@ -251,14 +251,13 @@ export const projectsData: ProjectsData = {
         ],
         techStack: {
             Frontend: [
-                "Next.js 15",
-                "React 19",
-                "TypeScript",
-                "Tailwind 4.1",
-                "Framer Motion",
+                { name: "Next.js", version: "16.1" },
+                { name: "React", version: "19.4" },
+                { name: "Tailwind", version: "4.1" },
+                { name: "Framer Motion" },
             ],
-            Backend: ["Server Actions", "Resend API"],
-            Development: ["Vercel"],
+            Backend: [{ name: "Server Actions" }],
+            Development: [{ name: "Vercel" }],
         },
         footer: "This portfolio revamp is built with Next.js 15 and React 19, preserving the visual identity of v1 while adding significant technical improvements. The implementation uses a hybrid rendering strategy with Server Components for static content and Client Components for interactive elements. For styling, I leveraged Tailwind 4.1 with custom design tokens that maintain the original color scheme while enabling the theme switching with zero flicker. The contact form uses React Server Actions with zod validation and the Resend API for email delivery. All animations were recreated using Framer Motion, reducing animation code by 70% while maintaining the same visual effects. Image loading is optimized through Next.js Image component with proper sizing, formats, and lazy loading. The site is fully accessible with perfect Lighthouse scores and 100% keyboard navigability. Analytics and performance monitoring are implemented using Vercel's built-in tools.",
     },
@@ -308,15 +307,12 @@ export const projectsData: ProjectsData = {
         ],
         techStack: {
             "Data Engineering": [
-                "Python",
-                "GeoPandas",
-                "GIS",
-                "SciPy",
-                "NumPy",
-                "Pandas",
+                { name: "Python" },
+                { name: "GeoPandas" },
+                { name: "GIS" },
             ],
-            "Data Visualization": ["Folium", "Matplotlib", "Seaborn"],
-            Optimization: ["Gurobi", "MILP"],
+            "Visualization": [{ name: "Folium" }],
+            Optimization: [{ name: "Gurobi" }, { name: "MILP" }],
         },
         footer: "The EVSE Network Optimization System represents a significant contribution to sustainable urban planning. The model integrates constraints including population density, traffic patterns, existing infrastructure, and power grid limitations. By applying operations research principles to environmental challenges, the project demonstrates a practical application of mathematical modeling to real-world sustainability issues.",
     },
@@ -391,10 +387,21 @@ export const projectsData: ProjectsData = {
             },
         ],
         techStack: {
-            Frontend: ["Kotlin", "Jetpack Compose", "Android SDK"],
-            Backend: ["Python", "Ren'Py", "FastAPI"],
-            AI: ["OpenAI", "Stable Diffusion"],
-            Design: ["Figma", "Material Design", "Miro"],
+            Frontend: [
+                { name: "Kotlin" },
+                { name: "Jetpack Compose" },
+                { name: "Android SDK" }],
+            Backend: [
+                { name: "Python" },
+                { name: "Ren'Py" },
+                { name: "FastAPI" }],
+            AI: [
+                { name: "OpenAI" },
+                { name: "Stable Diffusion" }],
+            Design: [
+                { name: "Figma" },
+                { name: "Material Design" },
+                { name: "Miro" }],
         },
         footer: "In a large-scale Android visual novel app project, I led development using Jetpack Compose (Kotlin) for the frontend and a Python backend. I spearheaded design and prototyping through Figma and user interviews, ensuring a user-friendly experience. The app features a responsive UI with custom components adhering to Material Design and leverages the OpenAI API to generate storylines and character profiles directly within the visual novels.",
     },
@@ -461,8 +468,11 @@ export const projectsData: ProjectsData = {
             },
         ],
         techStack: {
-            Frontend: ["HTML5", "CSS3", "JavaScript"],
-            Deployment: ["Netlify"],
+            Frontend: [
+                { name: "HTML" },
+                { name: "CSS" },
+                { name: "JavaScript" }],
+            Deployment: [{ name: "Netlify" }],
         },
         footer: "My original portfolio was crafted with vanilla JavaScript, HTML5, and CSS3 to demonstrate core web development fundamentals without relying on frameworks. I implemented custom scroll-triggered animations, a dynamic theme switcher using CSS variables, and interactive project cards with pure CSS transitions. The site features a custom-built content loader that dynamically fetches project data without any libraries. For animations, I created a custom timeline system in just 30 lines of JavaScript that handles scroll-based triggers and easing functions. The entire site loads in under 500ms, achieving perfect 100 scores across all Lighthouse metrics. This project showcases the power of mastering fundamentals and proves that impressive interactions don't always require heavy frameworks.",
     },
@@ -530,11 +540,13 @@ export const projectsData: ProjectsData = {
             },
         ],
         techStack: {
-            Design: ["Figma", "Miro"],
+            Design: [
+                { name: "Figma" },
+                { name: "Miro" }],
             "UX Research": [
-                "User Interviews",
-                "User Testing",
-                "Persona Creation",
+                { name: "User Interviews" },
+                { name: "User Testing" },
+                { name: "User Personas" },
             ],
         },
         footer: "As the lead of Hivemind, a collaborative study app project, I directed the design and iOS prototype development efforts. Working with a diverse team, I facilitated Figma prototyping and conducted user interviews, refining the user experience. The app promotes seamless online connections for students worldwide, fostering collaborative study groups.",
@@ -600,8 +612,11 @@ export const projectsData: ProjectsData = {
             },
         ],
         techStack: {
-            Frontend: ["Kotlin", "JavaFX"],
-            "Build Tools": ["Gradle"],
+            Frontend: [
+                { name: "Kotlin" },
+                { name: "JavaFX" }],
+            "Build Tools": [
+                { name: "Gradle" }],
         },
         footer: "Created with Kotlin and JavaFX, this game features a visually engaging interface with a title screen, player-controlled ship, and dynamically moving alien fleet. Multiple levels were implemented, each intensifying the challenge as the player progresses. The use of smooth animations and audio feedback enhances the overall gaming atmosphere, showcasing elements of game development and animation techniques.",
     },
@@ -665,9 +680,11 @@ export const projectsData: ProjectsData = {
             },
         ],
         techStack: {
-            Frontend: ["Kotlin", "JavaFX"],
-            "Build Tools": ["Gradle"],
-            "File System": ["Java NIO"],
+            Frontend: [
+                { name: "Kotlin" },
+                { name: "JavaFX" }],
+            "Build Tools": [{ name: "Gradle" }],
+            "File System": [{ name: "Java NIO" }],
         },
         footer: "File Explorer features a comprehensive Menu Bar with options for creating folders, opening directories, and exiting the program. The Actions menu empowers users to rename, move, and delete selected files effortlessly. A versatile Tool Bar provides quick access to navigation and file manipulation options. The main File View displays a clear hierarchy of files and directories, complemented by a preview panel for supported file types.",
     },
@@ -731,9 +748,10 @@ export const projectsData: ProjectsData = {
             },
         ],
         techStack: {
-            Frontend: ["Kotlin", "JavaFX"],
-            "Build Tools": ["Gradle"],
-            "Image Processing": ["JavaFX Image API"],
+            Frontend: [
+                { name: "Kotlin" }, { name: "JavaFX" }],
+            "Build Tools": [{ name: "Gradle" }],
+            "Image Processing": [{ name: "JavaFX Image API" }],
         },
         footer: "Lightbox showcases a feature-rich Tool Bar equipped with various buttons for comprehensive image manipulation. Users can effortlessly add, delete, rotate, and zoom images, among other operations. The heart of the application, the Preview Pane, offers intuitive image selection, dragging, and stacking capabilities, providing a seamless workflow for managing multiple images.",
     },
@@ -791,8 +809,14 @@ export const projectsData: ProjectsData = {
             },
         ],
         techStack: {
-            Backend: ["C++", "WebAssembly", "Emscripten"],
-            Frontend: ["HTML5", "CSS3", "JavaScript"],
+            Backend: [
+                { name: "C++" },
+                { name: "WebAssembly" },
+                { name: "Emscripten" }],
+            Frontend: [
+                { name: "HTML" },
+                { name: "CSS" },
+                { name: "JavaScript" }],
         },
         footer: "Straights showcases the seamless integration of C++ and web technologies. The core game logic, originally written in C++, has been recompiled to WebAssembly using Emscripten. This WebAssembly module is then integrated into a modern web application, with HTML, CSS, and JavaScript working in harmony to render the game state and provide an interactive user interface.",
     },

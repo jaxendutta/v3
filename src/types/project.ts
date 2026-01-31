@@ -24,6 +24,11 @@ export interface ColorSet {
     description: string;
 }
 
+export interface Tech {
+    name: string;
+    version?: string;
+}
+
 export interface ProjectData {
     name: string;
     subtitle?: string;
@@ -34,7 +39,7 @@ export interface ProjectData {
     links: ProjectLink[];
     typography?: FontInfo[];
     colors?: ColorSet[];
-    techStack?: Record<string, string[]>;
+    techStack?: Record<string, Tech[]>;
     footer?: string;
     screenshotDevice?: "desktop" | "mobile" | "tablet";
 }
