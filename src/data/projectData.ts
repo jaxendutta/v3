@@ -9,6 +9,7 @@ import {
     GiOrbital,
     GiNestedEclipses,
     GiCat,
+    GiAbstract014,
 } from "react-icons/gi";
 import { AiOutlineFolderView } from "react-icons/ai";
 import { PiCodesandboxLogoLight } from "react-icons/pi";
@@ -18,30 +19,30 @@ const calloutStyle =
 
 export const projectsData: ProjectsData = {
     asher: {
-        name: "Asher Kim's Portfolio",
+        name: "Asher's Garden",
         icon: GiCat,
         type: "development",
-        date: new Date("2025-12-15"),
-        screenshotDevice: "mobile",
+        date: new Date("2025-05-20"),
+        screenshotDevice: "desktop",
         overview: [
             [
                 {
                     className: calloutStyle,
-                    content: "A Portfolio that Stands Out",
+                    content: "A Garden of Scientific Discovery",
                 },
                 {
                     content:
-                        "Developed a visually striking portfolio for Asher Kim, a budding software developer. The site showcases his projects and skills with a modern design and smooth animations.",
+                        'Developed a nature-inspired research portfolio for Asher Kim, MSc Biology Candidate at the University of Ottawa. Titled "Asher\'s Garden," the site showcases their research with unique interactive animals.',
                 },
             ],
             [
                 {
                     className: calloutStyle,
-                    content: "Tech Stack & Features",
+                    content: "Where Science Meets Nature",
                 },
                 {
                     content:
-                        "Built with Next.js 15, React 19, and Tailwind 4.1, the portfolio features responsive design, interactive elements, and optimized performance for an engaging user experience.",
+                        "Built with Next.js 16 and React 19, the portfolio features a distinctive grass tile background, interactive research sections, and a playful duck mascot. The design bridges academic rigor with a warm, approachable visual identity.",
                 },
             ],
         ],
@@ -57,28 +58,40 @@ export const projectsData: ProjectsData = {
         ],
         typography: [
             {
-                name: "Major Mono Display",
-                fontFamily: '"Major Mono Display", monospace',
-                url: "https://fonts.googleapis.com/css2?family=Major+Mono+Display&display=swap",
-                description: "Major Mono Display serves as the primary heading font, providing a distinctive, technical aesthetic that reflects my background in software development. Its monospaced, geometric design evokes a sense of precision and digital craftsmanship.",
+                name: "Press Start 2P",
+                fontFamily: '"Press Start 2P", cursive',
+                url: "https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap",
+                description: "This definitive 8-bit font anchors the site's hero section. It establishes the retro-gaming aesthetic immediately, turning the portfolio header into a title screen for Asher's world.",
             },
             {
-                name: "Fira Code",
-                fontFamily: '"Fira Code", monospace',
-                url: "https://fonts.googleapis.com/css2?family=Fira+Code:wght@300..700&display=swap",
-                description: "Fira Code, with its developer-friendly ligatures and clean appearance, is used for code snippets and technical content. This font enhances readability while maintaining the site's modern, technical aesthetic.",
+                name: "Jacquard 24",
+                fontFamily: '"Jacquard 24", sans-serif',
+                url: "https://fonts.googleapis.com/css2?family=Jacquard+24&display=swap",
+                description: "With its intricate pixel definition, Jacquard 24 provides a decorative flourish for special accents and emphasis within the garden landscape, adding texture to the typographic hierarchy.",
+            },
+            {
+                name: "Tiny5",
+                fontFamily: '"Tiny5", sans-serif',
+                url: "https://fonts.googleapis.com/css2?family=Tiny5&display=swap",
+                description: "This compact 5px font is used for the 'Cat Chat' interactive bubbles and small UI details. It perfectly mimics the limited-resolution text found on vintage handheld gaming consoles.",
+            },
+            {
+                name: "Jersey 25",
+                fontFamily: '"Jersey 25", sans-serif',
+                url: "https://fonts.googleapis.com/css2?family=Jersey+25&display=swap",
+                description: "A softer, more legible pixel font used for the primary navigation and section headings. It bridges the gap between the blocky arcade aesthetic and the need for clear readability in menus.",
             },
         ],
         colors: [
             {
-                palette: ["#17181C", "#F4F1EA", "#D7482F", "#DEEFB7"],
+                palette: ["#18181b", "#fff7ed", "#1d4ed8", "#f43f5e", "#bef264"],
                 description:
-                    "The dark theme features a deep charcoal background (#17181C) with warm off-white text (#F4F1EA), creating strong contrast for readability. Vibrant red (#D7482F) accents add energy while soft lime (#DEEFB7) highlights create visual interest.",
+                    "This high-contrast content palette balances readability with vibrant energy. Deep zinc (#18181b) text rests comfortably on warm cream (#fff7ed) card backgrounds, mimicking organic paper. High-saturation accents—electric blue (#1d4ed8), rose (#f43f5e), and bright lime (#bef264)—are used for links, blooming interactions, and key highlights, popping sharply against the natural tones.",
             },
             {
-                palette: ["#F4F1EA", "#001ECB", "#28B7D0", "#001ECB"],
+                palette: ["#7ac755"],
                 description:
-                    "The light theme employs a warm off-white background (#F4F1EA) with deep blue text (#001ECB) for comfortable reading. Bright teal accents (#28B7D0) provide visual interest without sacrificing accessibility.",
+                    "The signature grass green (#7ac755) serves as the page background and theme color, creating a natural, organic foundation that reinforces the 'garden' metaphor throughout the site.",
             },
         ],
         techStack: {
@@ -87,12 +100,88 @@ export const projectsData: ProjectsData = {
                 "React 19",
                 "TypeScript",
                 "Tailwind 4.1",
-                "Framer Motion",
             ],
             Backend: ["Server Actions"],
             Development: ["Vercel"],
         },
-        footer: "Asher Kim's Portfolio is built with Next.js 15 and React 19, featuring a modern design that highlights his skills and projects. The site utilizes Tailwind 4.1 for styling, ensuring a responsive and visually appealing layout. Interactive elements and smooth animations are powered by Framer Motion, enhancing user engagement. The portfolio is optimized for performance and accessibility, providing an excellent browsing experience across devices.", 
+        footer: "Asher Kim's Research Portfolio is a Next.js 16 application showcasing plant biology and molecular research. The site features a distinctive grass-tiled background that creates an immersive natural environment. With dark and light theme support, the portfolio presents research experience, publications, presentations, and outreach activities in an organized, accessible format. The design balances academic professionalism with a warm, approachable aesthetic that reflects Asher's research in plant-microbe interactions and stress responses. Interactive elements and smooth animations enhance user engagement while maintaining focus on scientific content.",
+    },
+    rgap: {
+        name: "RGAP",
+        icon: GiAbstract014,
+        type: "development",
+        date: new Date("2026-01-24"),
+        screenshotDevice: "mobile",
+        overview: [
+            [
+                {
+                    className: calloutStyle,
+                    content: "Democratizing Research Funding Data",
+                },
+                {
+                    content:
+                        "A powerful analytics platform that aggregates over 193,000 research grants from Canada's major funding agencies (NSERC, CIHR, SSHRC). It transforms raw data into actionable insights, helping researchers and institutions track funding trends and discover opportunities. 🇨🇦📊",
+                },
+            ],
+            [
+                {
+                    className: calloutStyle,
+                    content: "Modern Engineering",
+                },
+                {
+                    content:
+                        "Rebuilt from the ground up using Next.js 16 and PostgreSQL 17 to deliver sub-second search speeds across millions of records. Features a robust user system with bookmarking, search history, and personalized analytics. ⚡🔍",
+                },
+            ],
+        ],
+        links: [
+            {
+                name: "GitHub",
+                url: "https://github.com/jaxendutta/rgap-v2",
+            },
+            {
+                name: "Live Site",
+                url: "https://rgap.anirban.ca",
+            },
+        ],
+        typography: [
+            {
+                name: "Inter",
+                fontFamily: '"Inter", sans-serif',
+                url: "https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap",
+                description:
+                    "Inter is the industry standard for modern user interfaces. Its high x-height and careful kerning ensure that complex data tables and analytics dashboards remain legible at any size, reducing cognitive load for researchers analyzing dense information.",
+            },
+            {
+                name: "JetBrains Mono",
+                fontFamily: '"JetBrains Mono", monospace',
+                url: "https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@100..800&display=swap",
+                description:
+                    "JetBrains Mono is utilized for data visualization tooltips, code snippets, and grant reference numbers. Its increased character height and distinctive shapes improve readability for numerical data and technical identifiers.",
+            },
+        ],
+        colors: [
+            {
+                palette: ["#0a0a0a", "#ededed", "#3b82f6", "#10b981"],
+                description:
+                    "The platform employs a strictly neutral monochrome foundation (#0a0a0a, #ededed) to let the data take center stage. Semantic colors are reserved strictly for data visualization: Blue (#3b82f6) for quantitative metrics and Emerald (#10b981) for financial indicators.",
+            },
+        ],
+        techStack: {
+            Frontend: [
+                "Next.js 16",
+                "React 19",
+                "Tailwind 4.1",
+                "Recharts",
+                "TanStack Query",
+            ],
+            Backend: [
+                "PostgreSQL 17",
+                "Iron Session",
+            ],
+            Deployment: ["Docker", "Vercel", "Supabase"],
+        },
+        footer: "RGAP represents a complete modernization of legacy research tools. The architecture leverages Next.js 16's App Router and Server Components for optimal performance. I implemented a custom PostgreSQL schema with GIN indexes and fuzzy matching (pg_trgm) to enable instant search capabilities across hundreds of thousands of records. The frontend utilizes React 19 features and a custom-built component library styled with Tailwind v4, ensuring a consistent and accessible experience. Security is handled via stateless Iron Sessions and bcrypt hashing, providing a secure environment for researchers to manage their grants and bookmarks.",
     },
     "portfolio-v2": {
         name: "Portfolio v2",
