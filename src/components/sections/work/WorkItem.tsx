@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { WorkExperience } from "@/types/work";
 import parse from "html-react-parser";
 import { RxPlus } from "react-icons/rx";
-import { workData } from "@/data/workData";
+import { workData } from "@/data/work";
 import StyledLink from "@/components/ui/StyledLink";
 import Tag from "@/components/ui/Tag";
 import { formatDate } from "@/lib/format";

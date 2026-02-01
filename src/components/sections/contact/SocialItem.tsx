@@ -6,7 +6,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { BsArrowUpRight, BsCopy } from "react-icons/bs";
 import { IoCheckboxOutline } from "react-icons/io5";
-import { Social } from "@/data/contactData";
+import { Social } from "@/data/contact";
 
 export const SocialItem = ({
     item,

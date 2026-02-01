@@ -4,7 +4,7 @@ import { useState, useMemo } from "react";
 import { motion } from "framer-motion";
 import { googleSansFlex, headingFont } from "@/lib/fonts";
 import { fadeIn, staggerContainer, slideUp } from "@/lib/motionVariants";
-import { projectsData } from "@/data/projectData";
+import { projectsData } from "@/data/projects";
 import RotatingButton from "@/components/ui/RotatingButton";
 import { CiSearch } from "react-icons/ci";
 import { GiTechnoHeart, GiCalendar } from "react-icons/gi";
@@ -131,8 +131,7 @@ export default function ProjectsPage() {
         selectedYears.length > 0;
 
     return (
-        <div className="min-h-screen p-4 md:p-6 lg:p-8 xl:p-12 2xl:p-16 text-xs md:text-sm lg:text-base">
-            {/* Header with navigation buttons */}
+        <div className="min-h-screen flex flex-col gap-4 p-4 md:p-6 lg:p-8 xl:p-12 2xl:p-16 text-xs md:text-sm lg:text-base">
             <motion.header
                 className="sticky top-4 z-50 flex justify-between items-center"
                 initial={{ y: -100 }}
@@ -162,7 +161,6 @@ export default function ProjectsPage() {
                 variants={fadeIn}
                 initial="hidden"
                 animate="visible"
-                className="mb-6 md:mb-12 pt-8"
             >
                 <motion.div
                     className={`text-5xl md:text-7xl text-center ${googleSansFlex.className} italic clip-text pb-8`}
@@ -173,39 +171,37 @@ export default function ProjectsPage() {
                 {/* Results count and filter controls */}
                 <div className="flex justify-between items-center gap-4 border-b border-current pb-4 ">
                     {/* Results count with detailed filter information */}
-                    <div className="text-center md:text-left flex-grow">
-                        <span className="font-bold">
-                            {filteredProjects.length} / {projectIds.length}
-                        </span>{" "}
-                        projects found
+                    <div className="w-full text-center items-center justify-center flex flex-wrap gap-1">
+                        <span className="whitespace-nowrap">
+                            <span className="font-bold">
+                                {filteredProjects.length} / {projectIds.length}
+                            </span>{" projects found"}
+                        </span>
                         {selectedTechStack.length > 0 && (
-                            <>
-                                {" "}
-                                filtered by{" "}
+                            <span className="whitespace-nowrap">
+                                {" filtered by "}
                                 <span className="text-accent">
                                     {selectedTechStack.length}{" "}
                                     {selectedTechStack.length === 1
-                                        ? "technology"
-                                        : "technologies"}
+                                        ? "tool"
+                                        : "tools"}
                                 </span>
-                            </>
+                            </span>
                         )}
                         {selectedYears.length > 0 && (
-                            <>
-                                {" "}
-                                from{" "}
+                            <span className="whitespace-nowrap">
+                                {" from "}
                                 <span className="text-accent">
                                     {selectedYears.length === 1
                                         ? "year"
                                         : "years"}{" "}
                                     {selectedYears.join(", ")}
                                 </span>
-                            </>
+                            </span>
                         )}
                         {searchQuery && (
                             <>
-                                {" "}
-                                matching{" "}
+                                {" matching "}
                                 <span className="text-accent italic">
                                     &quot;{searchQuery}&quot;
                                 </span>
@@ -242,7 +238,7 @@ export default function ProjectsPage() {
                                 showFilters ? "Hide filters" : "Show filters"
                             }
                             onClick={() => setShowFilters(!showFilters)}
-                            className="px-2 py-1.5 border border-current hover:bg-[var(--color-text)] hover:text-[var(--color-background)] transition-colors flex items-center gap-2"
+                            className="px-2 py-1.5 border border-current hover:bg-[var(--color-text)] hover:text-[var(--color-background)] transition-colors flex items-center gap-2 whitespace-nowrap"
                             aria-label={
                                 showFilters ? "Hide filters" : "Show filters"
                             }

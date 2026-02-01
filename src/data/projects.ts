@@ -130,7 +130,7 @@ export const projectsData: ProjectsData = {
                 },
                 {
                     content:
-                        "Rebuilt from the ground up using Next.js 16 and PostgreSQL 17 to deliver sub-second search speeds across millions of records. Features a robust user system with bookmarking, search history, and personalized analytics. ⚡🔍",
+                        "Rebuilt from the ground up using Next.js 16 and PostgreSQL 17 (initially MySQL) to deliver sub-second search speeds across millions of records. Features a robust user system with bookmarking, search history, and personalized analytics. ⚡🔍",
                 },
             ],
         ],
@@ -176,7 +176,8 @@ export const projectsData: ProjectsData = {
                 { name: "TanStack Query" },
             ],
             Backend: [
-                { name: "PostgreSQL" },
+                { name: "PostgreSQL", version: "17" },
+                { name: "MySQL", version: "8.0.44" },
                 { name: "Iron Session" },
             ],
             Deployment: [{ name: "Docker" }, { name: "Vercel" }, { name: "Supabase" }],
@@ -312,7 +313,7 @@ export const projectsData: ProjectsData = {
                 { name: "GIS" },
             ],
             "Visualization": [{ name: "Folium" }],
-            Optimization: [{ name: "Gurobi" }, { name: "MILP" }],
+            Optimization: [{ name: "Gurobi" }],
         },
         footer: "The EVSE Network Optimization System represents a significant contribution to sustainable urban planning. The model integrates constraints including population density, traffic patterns, existing infrastructure, and power grid limitations. By applying operations research principles to environmental challenges, the project demonstrates a practical application of mathematical modeling to real-world sustainability issues.",
     },
@@ -543,11 +544,6 @@ export const projectsData: ProjectsData = {
             Design: [
                 { name: "Figma" },
                 { name: "Miro" }],
-            "UX Research": [
-                { name: "User Interviews" },
-                { name: "User Testing" },
-                { name: "User Personas" },
-            ],
         },
         footer: "As the lead of Hivemind, a collaborative study app project, I directed the design and iOS prototype development efforts. Working with a diverse team, I facilitated Figma prototyping and conducted user interviews, refining the user experience. The app promotes seamless online connections for students worldwide, fostering collaborative study groups.",
     },

@@ -6,7 +6,7 @@ import { HiArrowLeft, HiArrowRight, HiArrowUp } from "react-icons/hi";
 import { GrChapterNext, GrChapterPrevious } from "react-icons/gr";
 import { headingFont } from "@/lib/fonts";
 import { useParams } from "next/navigation";
-import { projectsData } from "@/data/projectData";
+import { projectsData } from "@/data/projects";
 
 function getAdjacentProjects(currentId: string): {
     prev: string | null;

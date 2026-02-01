@@ -4,7 +4,7 @@
 import { useParams } from "next/navigation";
 import { useEffect, useState, useRef } from "react";
 import dynamic from "next/dynamic";
-import { projectsData } from "@/data/projectData";
+import { projectsData } from "@/data/projects";
 import NameSection from "@/components/sections/project/sections/NameSection";
 import ProjectsPageHeader from "@/components/sections/project/ProjectsPageHeader";
 import Skeleton from "@/components/ui/Skeleton";

@@ -3,7 +3,7 @@
 import Section from "@/components/ui/Section";
 import SocialItems from "@/components/sections/contact/SocialItem";
 import ContactForm from "@/components/sections/contact/ContactForm";
-import { socials } from "@/data/contactData";
+import { socials } from "@/data/contact";
 import CaseGlitch from "@/components/ui/CaseGlitch";
 import { displayFont } from "@/lib/fonts";
 

@@ -97,7 +97,7 @@ export default function ProjectCard({
                         alt={project.name}
                         width={isMobileProject ? 280 : 800}
                         height={isMobileProject ? 600 : 450}
-                        className={`relative mx-auto w-full h-auto ${isMobileProject ? "max-w-[200px] md:max-w-[280px]" : "max-w-[800px] rounded-lg border border-[var(--color-text)]"}`}
+                        className={`relative mx-auto w-full h-auto ${isMobileProject ? "max-w-[200px] md:max-w-[280px]" : "max-w-[800px] border border-[var(--color-text)]"}`}
                         style={{
                             objectFit: "contain",
                         }}

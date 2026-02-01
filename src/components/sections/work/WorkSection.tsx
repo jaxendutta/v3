@@ -4,7 +4,7 @@ import { useState } from "react";
 import { GiLockedChest, GiOpenTreasureChest } from "react-icons/gi";
 import Section from "@/components/ui/Section";
 import { WorkItems } from "@/components/sections/work/WorkItem";
-import { workData } from "@/data/workData";
+import { workData } from "@/data/work";
 
 export default function WorkSection() {
     const [expandedItems, setExpandedItems] = useState<Record<string, boolean>>(

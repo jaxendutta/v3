@@ -8,7 +8,7 @@ import { FloatingLabelInput } from "@/components/ui/FloatingLabelInput";
 import { GiFloorHatch, GiHandTruck } from "react-icons/gi";
 import { sendEmail } from "@/app/actions";
 import { BsX } from "react-icons/bs";
-import { formFields } from "@/data/contactData";
+import { formFields } from "@/data/contact";
 
 export const ContactForm: React.FC = () => {
     const formRef = useRef<HTMLFormElement>(null);

@@ -18,21 +18,11 @@ export default function FilterContainer({
     // Animation variants for the filter container
     const containerVariants: Variants = {
         hidden: {
-            height: 0,
             opacity: 0,
-            marginTop: 0,
-            marginBottom: 0,
-            paddingTop: 0,
-            paddingBottom: 0,
             overflow: "hidden",
         },
         visible: {
-            height: "auto",
             opacity: 1,
-            marginTop: "1rem",
-            marginBottom: "2rem",
-            paddingTop: "1.5rem",
-            paddingBottom: "1.5rem",
             overflow: "visible",
             transition: {
                 height: {
@@ -53,10 +43,6 @@ export default function FilterContainer({
         exit: {
             height: 0,
             opacity: 0,
-            marginTop: 0,
-            marginBottom: 0,
-            paddingTop: 0,
-            paddingBottom: 0,
             overflow: "hidden",
             transition: {
                 height: { duration: 0.3 },
@@ -69,13 +55,13 @@ export default function FilterContainer({
         <AnimatePresence mode="wait">
             {isVisible && (
                 <motion.div
-                    className={`border border-current ${className}`}
+                    className={`border border-current p-4 ${className}`}
                     variants={containerVariants}
                     initial="hidden"
                     animate="visible"
                     exit="exit"
                 >
-                    <div className="px-4 md:px-6">{children}</div>
+                    {children}
                 </motion.div>
             )}
         </AnimatePresence>
@@ -93,11 +79,10 @@ export function FilterTag({ label, isActive, onClick }: FilterTagProps) {
     return (
         <motion.button
             onClick={onClick}
-            className={`px-3 py-1 border rounded-full text-xs md:text-sm transition-colors ${
-                isActive
+            className={`px-2 md:px-3 py-0.75 md:py-1 border rounded-full text-[11px] md:text-sm transition-colors ${isActive
                     ? "bg-[var(--color-text)] text-[var(--color-background)]"
                     : "border-current hover:bg-[var(--color-text)] hover:text-[var(--color-background)]"
-            }`}
+                }`}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
         >
@@ -114,7 +99,7 @@ interface FilterSectionProps {
     className?: string;
 }
 
-export function FilterSection({ title, icon, children, className = ""}: FilterSectionProps) {
+export function FilterSection({ title, icon, children, className = "" }: FilterSectionProps) {
     return (
         <div className={`w-full ${className}`}>
             <h2 className="text-sm md:text-lg mb-2 md:mb-4 flex items-center gap-2 font-semibold">

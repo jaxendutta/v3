@@ -1,6 +1,6 @@
 "use client";
 
-import { projectsData } from "@/data/projectData";
+import { projectsData } from "@/data/projects";
 import Section from "@/components/ui/Section";
 import ProjectCard from "@/components/sections/project/ProjectCard";
 import { GiStrongbox } from "react-icons/gi";
