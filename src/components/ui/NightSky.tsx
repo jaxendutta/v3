@@ -3,15 +3,16 @@
 
 import { motion } from "framer-motion";
 import { useTheme } from "@/components/theme/ThemeProvider";
+import { useEffect, useState } from "react";
 
 function Noise() {
     const { theme } = useTheme();
+    const [isFirefox, setIsFirefox] = useState(false);
 
-    const isClient = typeof window !== "undefined";
-    const isFirefox =
-        isClient && navigator.userAgent.toLowerCase().indexOf("firefox") > -1;
+    useEffect(() => {
+        setIsFirefox(navigator.userAgent.toLowerCase().indexOf("firefox") > -1);
+    }, []);
 
-    // Get filter value based on theme and browser
     const getFilterValue = () => {
         if (theme === "dark") {
             return isFirefox
@@ -26,29 +27,19 @@ function Noise() {
 
     return (
         <motion.div
-            className={`max-w-[1000px] h-full`}
+            className="absolute inset-0 z-[1] w-full h-full pointer-events-none bg-[size:20vh_20vh] opacity-30"
+            animate={{
+                backgroundPosition: ["0px 0px", "100vh 0px"]
+            }}
+            transition={{
+                backgroundPosition: { duration: 20, repeat: Infinity, ease: "linear" }
+            }}
             style={{
                 backgroundImage: `radial-gradient(circle at 0% 0%, 
                                 ${theme === "dark" ? "rgba(0, 0, 0, 1), rgba(0, 0, 0, 0)" : "rgb(0, 20, 90), rgba(255, 255, 0, 0)"}),
-                                url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' /%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
+                                url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
                 filter: getFilterValue(),
                 mixBlendMode: theme === "dark" ? "color-dodge" : "multiply",
-            }}
-        />
-    );
-}
-
-function Moon() {
-    return (
-        <motion.div
-            className="absolute top-0 -translate-y-1/5 -translate-x-1/5 size-[200px] md:size-[250px] rounded-full bg-theme"
-            animate={{ 
-                x: [-15, 0, -15],
-                y: [-15, 0, -15] }}
-            transition={{
-                duration: 3,
-                repeat: Infinity,
-                ease: "easeInOut",
             }}
         />
     );
@@ -60,9 +51,8 @@ interface NightSkyProps {
 
 export default function NightSky({ className = "" }: NightSkyProps) {
     return (
-        <div className={`w-full h-[100vh] overflow-visible ${className}`}>
+        <div className={`w-full h-[100vh] overflow-visible relative ${className}`}>
             <Noise />
-            <Moon />
         </div>
     );
 }
