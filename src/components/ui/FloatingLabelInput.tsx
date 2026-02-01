@@ -79,7 +79,7 @@ export const FloatingLabelInput = ({
                     <div
                         ref={prefixRef}
                         className={twMerge(
-                            "absolute left-4 z-10 pointer-events-none text-base md:text-xl lg:text-2xl transition-colors duration-200",
+                            "absolute left-4 z-10 pointer-events-none text-[30px] transition-colors duration-200",
                             isFocused
                                 ? "text-[var(--color-highlight-text)]/80"
                                 : "group-hover:text-[var(--color-highlight-text)]"
@@ -104,7 +104,7 @@ export const FloatingLabelInput = ({
                     onBlur={() => setIsFocused(false)}
                     style={prefix && isActive ? { paddingLeft: `${prefixWidth + 16}px` } : undefined}
                     className={twMerge(
-                        "w-full bg-transparent text-2xl px-4 py-4 focus:outline-none transition-colors",
+                        "w-full bg-transparent text-[30px] px-4 py-4 focus:outline-none transition-colors",
                         "hover:bg-[var(--color-highlight-bg)] hover:text-[var(--color-highlight-text)]",
                         "focus:bg-[var(--color-highlight-bg)] focus:text-[var(--color-highlight-text)]",
                         "placeholder-highlight-text hover:placeholder-[var(--color-highlight-text)]",

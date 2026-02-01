@@ -4,18 +4,34 @@
 import { useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { BsArrowUpRight, BsCopy } from "react-icons/bs";
-import { IoCheckboxOutline } from "react-icons/io5";
+import { BsArrowUpRight } from "react-icons/bs";
 import { Social } from "@/data/contact";
+import { PiCheckSquare, PiCopySimple } from "react-icons/pi";
 
-export const SocialItem = ({
-    item,
-    index,
-}: {
+export interface SocialItemProps {
     item: Social;
     index: number;
-}) => {
+}
+
+export const SocialItem = ({ item, index, }: SocialItemProps) => {
     const [copied, setCopied] = useState(false);
+
+    const copyToClipboardFallback = (text: string) => {
+        const textArea = document.createElement("textarea");
+        textArea.value = text;
+        textArea.style.position = "fixed"; // Prevents scrolling to bottom
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+        try {
+            document.execCommand("copy");
+            setCopied(true);
+            setTimeout(() => setCopied(false), 1000);
+        } catch (err) {
+            console.error("Fallback: Unable to copy", err);
+        }
+        document.body.removeChild(textArea);
+    };
 
     return (
         <motion.div
@@ -29,7 +45,7 @@ export const SocialItem = ({
                 href={item.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-4 w-full flex flex-row justify-between group"
+                className="py-4 pl-4 pr-2 w-full flex flex-row justify-between group"
                 style={{
                     color: "inherit",
                     textDecoration: "none",
@@ -49,9 +65,18 @@ export const SocialItem = ({
                 className="cursor-pointer py-4 pr-4 text-2xl opacity-60 dark:opacity-60"
                 onClick={async (e) => {
                     e.preventDefault();
-                    navigator.clipboard.writeText(item.url);
-                    setCopied(true);
-                    setTimeout(() => setCopied(false), 1000);
+                    if (navigator.clipboard) {
+                        try {
+                            await navigator.clipboard.writeText(item.url);
+                            setCopied(true);
+                            setTimeout(() => setCopied(false), 1000);
+                        } catch (err) {
+                            console.error('Failed to copy: ', err);
+                            copyToClipboardFallback(item.url);
+                        }
+                    } else {
+                        copyToClipboardFallback(item.url);
+                    }
                 }}
                 whileTap={{ scale: 0.9 }}
                 animate={{
@@ -64,7 +89,7 @@ export const SocialItem = ({
                 }}
                 aria-label={copied ? `${item.platform} URL copied to clipboard` : `Copy ${item.platform} URL to clipboard`}
             >
-                {copied ? <IoCheckboxOutline /> : <BsCopy />}
+                {copied ? <PiCheckSquare className="size-8" /> : <PiCopySimple className="size-8" />}
             </motion.button>
         </motion.div>
     );
