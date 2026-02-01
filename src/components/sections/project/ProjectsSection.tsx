@@ -34,6 +34,7 @@ export default function ProjectsSection() {
                                 id={id}
                                 project={projectsData[id]}
                                 reversed={index % 2 !== 0}
+                                chain
                             />
                         </div>
                     ))}
