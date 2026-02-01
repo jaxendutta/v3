@@ -163,7 +163,7 @@ export default function ProjectsPage() {
                 animate="visible"
             >
                 <motion.div
-                    className={`text-5xl md:text-7xl text-center ${googleSansFlex.className} italic clip-text pb-8`}
+                    className={`text-5xl md:text-7xl text-center ${googleSansFlex.className} pb-8`}
                 >
                     Projects.
                 </motion.div>

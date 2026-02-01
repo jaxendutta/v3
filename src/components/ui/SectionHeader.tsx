@@ -46,7 +46,7 @@ export default function SectionHeader({
             >
                 <div className={`absolute inset-0 ${headingFont}`}>
                     {/* Top marquee with walking icons */}
-                    <Marquee direction="right" className="opacity-15 text-3xl md:text-5xl lg:text-8xl">
+                    <Marquee direction="right" className="opacity-15 text-3xl md:text-4xl lg:text-6xl">
                         {iconContent}
                     </Marquee>
 
