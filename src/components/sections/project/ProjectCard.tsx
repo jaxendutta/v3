@@ -16,6 +16,7 @@ interface ProjectCardProps {
 
     skillLimit?: number;
     reversed?: boolean;
+    chain?: boolean;
 }
 
 export default function ProjectCard({
@@ -23,6 +24,7 @@ export default function ProjectCard({
     project,
     skillLimit = 8,
     reversed = false,
+    chain = false,
 }: ProjectCardProps) {
     // Use mobile screenshot vs desktop logic based on the ID
     const isMobileProject = project.screenshotDevice === "mobile";
@@ -50,11 +52,11 @@ export default function ProjectCard({
         >
             <div className={`flex flex-col ${reversed ? "md:flex-row-reverse" : "md:flex-row"} gap-6 md:gap-10 items-center`}>
                 {/* Project Info */}
-                <div className={`w-full md:w-1/2 flex flex-col gap-1 md:gap-4 items-center ${reversed ? "md:items-start md:text-left pl-4" : "md:items-end md:text-right pr-4"}`}>
+                <div className={`w-full md:w-1/2 flex flex-col gap-1 md:gap-4 items-center ${reversed ? `md:items-start md:text-left ${chain && "pl-4"}` : `md:items-end md:text-right ${chain && "pr-4"}`}`}>
                     <div className={`w-full flex ${reversed ? "flex-row text-left" : "flex-row-reverse text-right"} gap-4 items-center justify-between`}>
                         <Link
                             href={projectLink}
-                            className={`text-xl md:text-5xl lg:text-6xl ${displayFont} italic hover:text-accent transition-colors`}
+                            className={`${chain? "text-4xl" : "text-[32px]"} md:text-5xl lg:text-6xl ${displayFont} italic hover:text-accent transition-colors leading-4 md:leading-8`}
                             style={{
                                 textDecoration: "none",
                                 fontStyle: "italic",
