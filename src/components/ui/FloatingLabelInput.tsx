@@ -1,4 +1,3 @@
-// components/ui/FloatingLabelInput.tsx
 "use client";
 
 import { useState, useEffect, useRef } from "react";
@@ -38,6 +37,7 @@ export const FloatingLabelInput = ({
 
     const isActive = isFocused || value.length > 0;
     const isTextarea = type === "textarea";
+    // [CLEANUP] Use polymorphic component to avoid code duplication
     const Component = isTextarea ? "textarea" : "input";
 
     const indexStr = (index + 1).toString().padStart(2, "0");
@@ -57,13 +57,13 @@ export const FloatingLabelInput = ({
                 htmlFor={name}
                 initial={false}
                 animate={{
-                    y: isActive ? -4 : 0,
-                    scale: isActive ? 0.6 : 1,
+                    y: isActive ? -4 : 2,
+                    scale: isActive ? 0.4 : 1,
                 }}
                 transition={{ type: "tween", duration: 0.2, ease: "easeInOut" }}
                 className={twMerge(
-                    "absolute px-4 z-10 origin-left pointer-events-none text-lg md:text-2xl lg:text-3xl transition-colors duration-200",
-                    isActive ? "top-0" : isTextarea ? "top-3 md:top-4 lg:top-5" : "top-1/2 -translate-y-1/2 flex items-center",
+                    "absolute px-4 z-10 origin-left pointer-events-none text-[30px] transition-colors duration-200",
+                    isActive ? "-top-1" : isTextarea ? "top-4" : "top-1/2 -translate-y-1/2 flex items-center",
                     isFocused
                         ? "text-[var(--color-highlight-text)]/80"
                         : "text-current/70 group-hover:text-[var(--color-highlight-text)]"
@@ -74,7 +74,7 @@ export const FloatingLabelInput = ({
 
             {/* Input Container */}
             <div className="flex w-full items-center relative border-t border-current">
-                {/* Prefix Measurement & Display */}
+                {/* Prefix Display */}
                 {prefix && isActive && (
                     <div
                         ref={prefixRef}
@@ -104,7 +104,7 @@ export const FloatingLabelInput = ({
                     onBlur={() => setIsFocused(false)}
                     style={prefix && isActive ? { paddingLeft: `${prefixWidth + 16}px` } : undefined}
                     className={twMerge(
-                        "w-full bg-transparent text-base md:text-xl lg:text-2xl px-4 py-3.5 md:py-4 lg:py-6 focus:outline-none transition-colors",
+                        "w-full bg-transparent text-2xl px-4 py-4 focus:outline-none transition-colors",
                         "hover:bg-[var(--color-highlight-bg)] hover:text-[var(--color-highlight-text)]",
                         "focus:bg-[var(--color-highlight-bg)] focus:text-[var(--color-highlight-text)]",
                         "placeholder-highlight-text hover:placeholder-[var(--color-highlight-text)]",

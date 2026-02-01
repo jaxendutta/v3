@@ -8,11 +8,10 @@ import {
     GiCardJoker,
     GiOrbital,
     GiNestedEclipses,
-    GiCat,
     GiAbstract014,
 } from "react-icons/gi";
 import { AiOutlineFolderView } from "react-icons/ai";
-import { PiCodesandboxLogoLight } from "react-icons/pi";
+import { PiCat, PiCodesandboxLogoLight } from "react-icons/pi";
 
 const calloutStyle =
     "border border-2 border-dashed py-2 px-2 md:px-4 rounded-2xl mt-8";
@@ -20,7 +19,7 @@ const calloutStyle =
 export const projectsData: ProjectsData = {
     asher: {
         name: "Asher's Garden",
-        icon: GiCat,
+        icon: PiCat,
         type: "development",
         date: new Date("2025-05-20"),
         screenshotDevice: "mobile",
