@@ -99,6 +99,7 @@ export const projectsData: ProjectsData = {
                 { name: "React", version: "19.4" },
                 { name: "Tailwind", version: "4.1" },
                 { name: "Framer Motion" },
+                { name: "MDX" },
             ],
             Backend: [{ name: "Server Actions" }],
             Development: [{ name: "Vercel" }],
