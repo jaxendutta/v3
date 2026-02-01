@@ -29,7 +29,6 @@ export default function NameSection({ name, className }: NameSectionProps) {
     return (
         <motion.div
             className={`flex items-center justify-center px-6 md:px-8 whitespace-nowrap snap-start 
-                bg-center bg-cover bg-(image:--font-background) bg-clip-text text-transparent
                 [writing-mode:${isPortrait ? "vertical-rl" : "horizontal-tb"}]
                 ${displayFont} ${className}`}
             id="project-name"

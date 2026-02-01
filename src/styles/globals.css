@@ -99,16 +99,6 @@ a:hover {
   @apply [scrollbar-width:none] [&::-webkit-scrollbar]:hidden;
 }
 
-/* For clip-text effect */
-.clip-text {
-    background-image: var(--font-background);
-    background-size: cover;
-    background-position: top left;
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-}
-
 /* Marquee styling */
 .marquee-container {
     display: flex;
