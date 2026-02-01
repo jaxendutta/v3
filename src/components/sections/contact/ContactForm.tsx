@@ -150,6 +150,7 @@ export const ContactForm: React.FC = () => {
                         centerIcon={GiFloorHatch}
                         texts={["CLEAR", "RESET", "RESTART"]}
                         type="button"
+                        fontSize={14}
                         onClick={handleReset}
                     />
                     <RotatingButton
@@ -163,6 +164,7 @@ export const ContactForm: React.FC = () => {
                         }
                         type="submit"
                         disabled={isSubmitting}
+                        fontSize={14}
                     />
                 </div>
             </form>

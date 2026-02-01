@@ -3,7 +3,7 @@
 
 import Link, { LinkProps } from "next/link";
 import { IconType } from "react-icons";
-import { TbArrowElbowRight, TbArrowLeftFromArc } from "react-icons/tb";
+import { LuArrowRightFromLine } from "react-icons/lu";
 
 interface StyledLinkProps extends LinkProps {
     text: string;
@@ -15,7 +15,7 @@ interface StyledLinkProps extends LinkProps {
 const StyledLink = ({
     text,
     className = "",
-    icon: Icon = TbArrowElbowRight,
+    icon: Icon = LuArrowRightFromLine,
     iconPosition = "right",
     ...props
 }: StyledLinkProps) => {
