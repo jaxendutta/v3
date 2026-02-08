@@ -1,5 +1,24 @@
 @import "tailwindcss";
 
+/* 1. DEFINE THEME MAPPINGS */
+/* This tells Tailwind v4: "When I type bg-background, use the variable --background" */
+@theme {
+    --color-background: var(--background);
+    --color-foreground: var(--foreground);
+    
+    --color-primary: var(--primary);
+    --color-primary-foreground: var(--primary-foreground);
+    
+    --color-secondary: var(--secondary);
+    --color-secondary-foreground: var(--secondary-foreground);
+    
+    --color-muted: var(--muted);
+    --color-muted-foreground: var(--muted-foreground);
+    
+    --color-border: var(--border);
+}
+
+/* 2. ROOT VARIABLES (Dark Mode Default) */
 :root {
     /* Dark theme colors (default) */
     --color-background: #18181b;
@@ -7,21 +26,60 @@
     --color-accent: #e11d48;
     --color-highlight-bg: #1e3a8a;
     --color-highlight-text: #bef264;
-    --font-background: url("https://i.gifer.com/ByRk.gif");
-    --noise-filter: contrast(145%) brightness(650%) invert(100%);
+
+    /* --- NEW STANDARD VARIABLES (Mapped to your colors) --- */
+    /* Background: Zinc-950 (#18181b) */
+    --background: #18181b;
+    /* Foreground: Orange-50 (#fff7ed) */
+    --foreground: #fff7ed;
+
+    /* Primary: Your Accent (#e11d48) */
+    --primary: #e11d48;
+    --primary-foreground: #fff7ed;
+
+    /* Secondary: Slightly lighter background for cards/blocks */
+    --secondary: #27272a; 
+    --secondary-foreground: #fff7ed;
+
+    /* Muted: For subtitles and borders */
+    --muted: #3f3f46;
+    --muted-foreground: #a1a1aa;
+
+    /* Border: Same as muted for subtle lines */
+    --border: #3f3f46;
 }
 
-/* Light theme colors */
+/* 3. LIGHT MODE OVERRIDES */
 .light {
     --color-background: #fff7ed;
     --color-text: #1d4ed8;
     --color-accent: #f43f5e;
     --color-highlight-bg: #1d4ed8;
     --color-highlight-text: #bef264;
-    --font-background: url("https://media.giphy.com/media/YAxpwobytgjWgmIbP9/giphy.gif");
-    --noise-filter: contrast(125%) brightness(400%) invert(0%);
+
+    /* --- NEW STANDARD VARIABLES --- */
+    /* Background: Orange-50 */
+    --background: #fff7ed;
+    /* Foreground: Blue-700 */
+    --foreground: #1d4ed8;
+
+    /* Primary: Rose-500 */
+    --primary: #f43f5e;
+    --primary-foreground: #fff7ed;
+
+    /* Secondary: White for cards */
+    --secondary: #ffffff;
+    --secondary-foreground: #1d4ed8;
+
+    /* Muted: Orange-200/Orange-600 */
+    --muted: #fed7aa; 
+    --muted-foreground: #ea580c;
+
+    /* Border: Orange-300 */
+    --border: #fdba74;
 }
 
+/* 4. BASE STYLES */
 html {
     scroll-behavior: smooth;
 }
@@ -36,11 +94,11 @@ body {
     width: 100vw;
     min-height: 100vh;
     color-scheme: dark light;
-    background-color: var(--color-background);
-    color: var(--color-text);
+    background-color: var(--background);
+    color: var(--foreground);
 }
 
-/* Apply transitions to all elements */
+/* Transitions */
 *,
 *::before,
 *::after {
@@ -64,29 +122,15 @@ a {
 }
 
 a:hover {
-    color: var(--color-accent);
+    color: var(--primary);
 }
 
-/* Tailwind utility classes for theme variables */
-.bg-theme {
-    background-color: var(--color-background);
-}
-
-.text-theme {
-    color: var(--color-text);
-}
-
-.text-accent {
-    color: var(--color-accent);
-}
-
-.bg-highlight {
-    background-color: var(--color-highlight-bg);
-}
-
-.text-highlight {
-    color: var(--color-highlight-text);
-}
+/* 5. UTILITY CLASSES */
+.bg-theme { background-color: var(--background); }
+.text-theme { color: var(--foreground); }
+.text-accent { color: var(--primary); }
+.bg-highlight { background-color: var(--color-highlight-bg-legacy); }
+.text-highlight { color: var(--color-highlight-text-legacy); }
 
 @layer base {
     button:not(:disabled),
@@ -99,7 +143,7 @@ a:hover {
   @apply [scrollbar-width:none] [&::-webkit-scrollbar]:hidden;
 }
 
-/* Marquee styling */
+/* 6. MARQUEE ANIMATIONS */
 .marquee-container {
     display: flex;
     overflow: hidden;
@@ -150,6 +194,7 @@ a:hover {
     }
 }
 
+/* 7. ARTICLE NUMBERING & FIGURES */
 @layer components {
     .article-content {
         /* Initialize the top-level counter */
