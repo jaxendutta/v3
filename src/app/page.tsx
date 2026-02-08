@@ -2,7 +2,7 @@
 
 import { Suspense } from "react";
 import ContactSection from "@/components/sections/contact/ContactSection";
-import Hero from "@/components/layout/Hero";
+import Hero from "@/components/sections/hero/Hero";
 import ProjectsSection from "@/components/sections/project/ProjectsSection";
 import WorkSection from "@/components/sections/work/WorkSection";
 import Footer from "@/components/layout/Footer";

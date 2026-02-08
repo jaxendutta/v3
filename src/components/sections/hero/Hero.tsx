@@ -2,7 +2,7 @@
 "use client";
 
 import RotatingButton from "@/components/ui/RotatingButton";
-import NightSky from "@/components/ui/NightSky";
+import HeroArt from "@/components/sections/hero/HeroArt";
 import { googleSansFlex } from "@/lib/fonts";
 import { GiMaterialsScience } from "react-icons/gi";
 
@@ -12,8 +12,8 @@ export default function Hero() {
             id="hero-container"
             className="w-full min-h-screen"
         >
-            {/* Moon + Noise */}
-            <NightSky />
+            {/* Hero Art */}
+            <HeroArt />
 
             {/* Main intro content */}
             <div className="absolute text-center top-[10vh] w-screen h-screen flex flex-col justify-center items-center gap-[5vh]">
