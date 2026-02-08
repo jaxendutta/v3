@@ -34,8 +34,9 @@ export interface ProjectData {
     subtitle?: string;
     icon: IconType;
     type?: "design" | "development" | "ai" | "research";
+    layoutType: "showcase" | "article";
     date: Date;
-    overview: OverviewItem[][];
+    overview?: OverviewItem[][];
     links: ProjectLink[];
     typography?: FontInfo[];
     colors?: ColorSet[];

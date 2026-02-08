@@ -149,3 +149,64 @@ a:hover {
         transform: translateY(calc(-100% - var(--gap)));
     }
 }
+
+@layer components {
+    .article-content {
+        /* Initialize the top-level counter */
+        counter-reset: h1counter;
+    }
+
+    /* --- H1: Level 1 (1.) --- */
+    .article-content h1 {
+        counter-reset: h2counter;
+        counter-increment: h1counter;
+    }
+    .article-content h1 .number-prefix::before {
+        content: counter(h1counter) ". ";
+    }
+
+    /* --- H2: Level 2 (1.1) --- */
+    .article-content h2 {
+        counter-reset: h3counter;
+        counter-increment: h2counter;
+    }
+    .article-content h2 .number-prefix::before {
+        content: counter(h1counter) "." counter(h2counter) ". ";
+    }
+
+    /* --- H3: Level 3 (1.1.1) --- */
+    .article-content h3 {
+        counter-reset: h4counter;
+        counter-increment: h3counter;
+    }
+    .article-content h3 .number-prefix::before {
+        content: counter(h1counter) "." counter(h2counter) "." counter(h3counter) ". ";
+    }
+
+    /* --- H4: Level 4 (1.1.1.1) --- */
+    .article-content h4 {
+        counter-reset: h5counter;
+        counter-increment: h4counter;
+    }
+    .article-content h4 .number-prefix::before {
+        content: counter(h1counter) "." counter(h2counter) "." counter(h3counter) "." counter(h4counter) ". ";
+    }
+
+    /* --- H5: Level 5 (1.1.1.1.1) --- */
+    .article-content h5 {
+        counter-increment: h5counter;
+    }
+    .article-content h5 .number-prefix::before {
+        content: counter(h1counter) "." counter(h2counter) "." counter(h3counter) "." counter(h4counter) "." counter(h5counter) ". ";
+    }
+
+    /* --- Figures --- */
+    .article-content figure {
+        counter-increment: figureCounter;
+    }
+    
+    .article-content .figure-prefix::before {
+        content: "Figure " counter(figureCounter) ": ";
+        font-weight: 600;
+    }
+}

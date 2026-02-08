@@ -21,6 +21,7 @@ export const projectsData: ProjectsData = {
         name: "Asher's Garden",
         icon: PiCat,
         type: "development",
+        layoutType: "showcase",
         date: new Date("2025-05-20"),
         screenshotDevice: "mobile",
         overview: [
@@ -110,6 +111,7 @@ export const projectsData: ProjectsData = {
         name: "RGAP",
         icon: GiAbstract014,
         type: "development",
+        layoutType: "showcase",
         date: new Date("2026-01-24"),
         screenshotDevice: "mobile",
         overview: [
@@ -188,6 +190,7 @@ export const projectsData: ProjectsData = {
         name: "Portfolio v2",
         icon: GiOrbital,
         type: "development",
+        layoutType: "showcase",
         date: new Date("2025-04-10"),
         screenshotDevice: "mobile",
         overview: [
@@ -268,6 +271,7 @@ export const projectsData: ProjectsData = {
         subtitle: "Optimizer",
         icon: GiBoltEye,
         type: "development",
+        layoutType: "article",
         date: new Date("2024-12-18"),
         screenshotDevice: "mobile",
         overview: [
@@ -322,6 +326,7 @@ export const projectsData: ProjectsData = {
         name: "Fabler",
         icon: GiArtificialIntelligence,
         type: "design",
+        layoutType: "showcase",
         date: new Date("2024-08-18"),
         screenshotDevice: "mobile",
         overview: [
@@ -411,6 +416,7 @@ export const projectsData: ProjectsData = {
         name: "Portfolio v1",
         icon: GiNestedEclipses,
         type: "development",
+        layoutType: "showcase",
         date: new Date("2023-12-22"),
         screenshotDevice: "mobile",
         overview: [
@@ -483,6 +489,7 @@ export const projectsData: ProjectsData = {
         icon: GiBee,
         date: new Date("2023-08-18"),
         screenshotDevice: "mobile",
+        layoutType: "showcase",
         overview: [
             [
                 {
@@ -551,6 +558,8 @@ export const projectsData: ProjectsData = {
     "space-invaders": {
         name: "Space Invaders",
         icon: FaSpaceAwesome,
+        type: "development",
+        layoutType: "showcase",
         date: new Date("2023-08-18"),
         overview: [
             [
@@ -620,6 +629,8 @@ export const projectsData: ProjectsData = {
     "file-explorer": {
         name: "File Explorer",
         icon: AiOutlineFolderView,
+        type: "development",
+        layoutType: "showcase",
         date: new Date("2023-08-18"),
         overview: [
             [
@@ -688,6 +699,8 @@ export const projectsData: ProjectsData = {
     lightbox: {
         name: "Lightbox",
         icon: PiCodesandboxLogoLight,
+        type: "development",
+        layoutType: "showcase",
         date: new Date("2023-08-18"),
         overview: [
             [
@@ -755,6 +768,8 @@ export const projectsData: ProjectsData = {
     straights: {
         name: "Straights",
         icon: GiCardJoker,
+        type: "development",
+        layoutType: "showcase",
         date: new Date("2022-08-18"),
         overview: [
             [
