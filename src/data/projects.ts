@@ -18,7 +18,7 @@ const calloutStyle =
 
 export const projectsData: ProjectsData = {
     asher: {
-        name: "Asher's Garden",
+        name: "AsHeR's GARden",
         icon: PiCat,
         type: "development",
         layoutType: "showcase",
@@ -108,7 +108,7 @@ export const projectsData: ProjectsData = {
         footer: "Asher Kim's Research Portfolio is a Next.js 16 application showcasing plant biology and molecular research. The site features a distinctive grass-tiled background that creates an immersive natural environment. With dark and light theme support, the portfolio presents research experience, publications, presentations, and outreach activities in an organized, accessible format. The design balances academic professionalism with a warm, approachable aesthetic that reflects Asher's research in plant-microbe interactions and stress responses. Interactive elements and smooth animations enhance user engagement while maintaining focus on scientific content.",
     },
     rgap: {
-        name: "RGAP",
+        name: "RGAp",
         icon: GiAbstract014,
         type: "development",
         layoutType: "showcase",
@@ -187,7 +187,7 @@ export const projectsData: ProjectsData = {
         footer: "RGAP represents a complete modernization of legacy research tools. The architecture leverages Next.js 16's App Router and Server Components for optimal performance. I implemented a custom PostgreSQL schema with GIN indexes and fuzzy matching (pg_trgm) to enable instant search capabilities across hundreds of thousands of records. The frontend utilizes React 19 features and a custom-built component library styled with Tailwind 4.1, ensuring a consistent and accessible experience. Security is handled via stateless Iron Sessions and bcrypt hashing, providing a secure environment for researchers to manage their grants and bookmarks.",
     },
     "portfolio-v2": {
-        name: "Portfolio v2",
+        name: "poRtfolio v2",
         icon: GiOrbital,
         type: "development",
         layoutType: "showcase",
@@ -267,8 +267,8 @@ export const projectsData: ProjectsData = {
     },
 
     "evse-opt": {
-        name: "Evse Network",
-        subtitle: "Optimizer",
+        name: "eVse",
+        subtitle: "netWoRk optiMiZeR",
         icon: GiBoltEye,
         type: "development",
         layoutType: "article",
@@ -323,7 +323,7 @@ export const projectsData: ProjectsData = {
     },
 
     fabler: {
-        name: "Fabler",
+        name: "fAbleR",
         icon: GiArtificialIntelligence,
         type: "design",
         layoutType: "showcase",
@@ -413,7 +413,7 @@ export const projectsData: ProjectsData = {
     },
 
     "portfolio-v1": {
-        name: "Portfolio v1",
+        name: "poRtfolio v1",
         icon: GiNestedEclipses,
         type: "development",
         layoutType: "showcase",
@@ -485,7 +485,7 @@ export const projectsData: ProjectsData = {
     },
 
     hivemind: {
-        name: "Hivemind",
+        name: "HiVeMind",
         icon: GiBee,
         date: new Date("2023-08-18"),
         screenshotDevice: "mobile",
@@ -556,7 +556,7 @@ export const projectsData: ProjectsData = {
     },
 
     "space-invaders": {
-        name: "Space Invaders",
+        name: "spAce inVAdeRs",
         icon: FaSpaceAwesome,
         type: "development",
         layoutType: "showcase",
@@ -627,7 +627,7 @@ export const projectsData: ProjectsData = {
     },
 
     "file-explorer": {
-        name: "File Explorer",
+        name: "file eXploReR",
         icon: AiOutlineFolderView,
         type: "development",
         layoutType: "showcase",
@@ -697,7 +697,7 @@ export const projectsData: ProjectsData = {
     },
 
     lightbox: {
-        name: "Lightbox",
+        name: "liGHtboX",
         icon: PiCodesandboxLogoLight,
         type: "development",
         layoutType: "showcase",
@@ -766,7 +766,7 @@ export const projectsData: ProjectsData = {
     },
 
     straights: {
-        name: "Straights",
+        name: "stRAiGHts",
         icon: GiCardJoker,
         type: "development",
         layoutType: "showcase",
