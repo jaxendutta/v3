@@ -27,14 +27,6 @@ export const googleSansCode = Google_Sans_Code({
     weight: ['300', '400', '500', '600', '700'],
 });
 
-export const notoEmoji = Noto_Emoji({
-    style: ['normal'],
-    display: "swap",
-    weight: ['300', '400', '500', '600', '700'],
-});
-
-
 export const headingFont = majorMono.className;
 export const displayFont = majorMono.className;
 export const codeFont = googleSansCode.className;
-export const emojiFont = notoEmoji.className;

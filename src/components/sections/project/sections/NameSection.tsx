@@ -34,7 +34,7 @@ export default function NameSection({ name, className }: NameSectionProps) {
 
     const renderIcons = (icons: IconType[], reverse: boolean = false) => {
         return (
-            <div className={`flex text-6xl gap-4 ${isPortrait ? "flex-col" : "flex-row"}${reverse ? "-reverse" : ""}`}
+            <div className={`flex text-6xl gap-4 opacity-40 ${isPortrait ? "flex-col" : "flex-row"}${reverse ? "-reverse" : ""}`}
                 style={{
                         fontStyle: "italic",
                         fontSize: isPortrait
