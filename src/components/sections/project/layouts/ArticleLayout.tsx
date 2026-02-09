@@ -193,7 +193,7 @@ export default function ArticleLayout({ projectId, markdownContent }: ArticleLay
                         {project.links.map((link) => (
                             <Link
                                 key={link.name} href={link.url} target="_blank"
-                                className="group flex items-center justify-between p-3 border border-border/50 hover:border-primary transition-all duration-300 shadow-sm !no-underline"
+                                className="group flex items-center justify-between p-3 border border-border/50 hover:border-primary transition-all duration-300 !no-underline"
                             >
                                 <span className="font-medium flex items-center gap-2 text-sm">{link.name}</span>
                                 {link.name.toLowerCase().includes("git") ? <FiGithub className="text-lg transition-transform" /> : <FiExternalLink className="text-lg transition-transform" />}
@@ -206,7 +206,7 @@ export default function ArticleLayout({ projectId, markdownContent }: ArticleLay
                 <article className="article-content prose prose-lg dark:prose-invert max-w-none 
                     prose-headings:scroll-mt-28 
                     prose-a:text-blue-600 prose-a:no-underline hover:prose-a:underline
-                    prose-img:shadow-lg prose-img:border prose-img:border-border/50
+                    prose-img:border prose-img:border-border/50
                 ">
                     <ReactMarkdown
                         // Added remarkAlerts here to process the tags
@@ -223,7 +223,7 @@ export default function ArticleLayout({ projectId, markdownContent }: ArticleLay
                                     const Icon = style.icon;
 
                                     return (
-                                        <div className={`my-8 p-2 md:p-4 border-l-4 ${style.classes} flex flex-col gap-2 md:gap-4 items-start shadow-sm`}>
+                                        <div className={`my-8 p-2 md:p-4 border-l-4 ${style.classes} flex flex-col gap-2 md:gap-4 items-start`}>
                                             <div className="w-full flex items-center gap-2 text-sm">
                                                 <Icon className="flex-shrink-0" />
                                                 <p className="font-bold opacity-90 uppercase tracking-wide">{style.title}</p>
@@ -329,7 +329,7 @@ export default function ArticleLayout({ projectId, markdownContent }: ArticleLay
                                 const id = props.id || "fig-unknown";
                                 return (
                                     <figure id={id} className="my-12 w-full group">
-                                        <img {...props} src={src} className="w-full h-auto rounded-none border border-border/40 shadow-xl" alt={alt} />
+                                        <img {...props} src={src} className="w-full h-auto rounded-none border border-border/40" alt={alt} />
                                         <figcaption className="text-center text-xs md:text-sm text-muted-foreground mt-3 italic flex justify-center">
                                             <a href={`#${id}`} className="!no-underline hover:text-primary transition-colors flex inline-flex items-center gap-1.5">
                                                 <span className="figure-prefix not-italic font-semibold text-foreground/80 inline-flex"></span>
