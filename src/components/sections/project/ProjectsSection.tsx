@@ -12,8 +12,9 @@ export default function ProjectsSection() {
 
     return (
         <Section
+            id="projects"
             headerProps={{
-                title: "PROJECTS",
+                title: "pRojects",
                 buttonProps: {
                     href: "/projects",
                     texts: ["Access the vault", "See them all"],

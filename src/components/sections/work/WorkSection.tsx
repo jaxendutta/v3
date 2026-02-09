@@ -37,8 +37,9 @@ export default function WorkSection() {
 
     return (
         <Section
+            id="work"
             headerProps={{
-                title: "WORK",
+                title: "WoRk",
                 buttonProps: {
                     onClick: toggleAll,
                     texts: allExpanded

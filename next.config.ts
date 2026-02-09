@@ -4,16 +4,6 @@ const nextConfig: NextConfig = {
     reactStrictMode: true,
     images: {
         formats: ["image/avif", "image/webp"],
-        remotePatterns: [
-            {
-                protocol: "https",
-                hostname: "i.gifer.com",
-            },
-            {
-                protocol: "https",
-                hostname: "media.giphy.com",
-            },
-        ],
     },
     experimental: {
         serverActions: {

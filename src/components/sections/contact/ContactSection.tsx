@@ -10,7 +10,8 @@ import { displayFont } from "@/lib/fonts";
 export default function ContactSection() {
     return (
         <Section
-            headerProps={{ title: "CONTACT" }}
+            id="contact"
+            headerProps={{ title: "contAct" }}
             className="text-3xl md:text-4xl lg:text-4xl theme-bg theme-text"
         >
             <SocialItems socials={socials} className="text-3xl md:text-4xl lg:text-4xl"/>

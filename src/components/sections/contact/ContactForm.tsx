@@ -143,7 +143,7 @@ export const ContactForm: React.FC = () => {
                     ))}
                 </div>
 
-                <div className="flex justify-between gap-4 px-8 py-8 md:px-16">
+                <div className="flex justify-between gap-4 px-2 py-8 md:px-16">
                     <RotatingButton
                         size={100}
                         rotationDuration={10}

@@ -9,17 +9,18 @@ interface SectionProps {
     headerProps: SectionHeaderProps;
     children: React.ReactNode;
     className?: string;
-    id?: string;
+    id: string;
 }
 
 export default function Section({
-    headerProps: headerProps,
+    headerProps,
+    id,
     children,
     className = "",
 }: SectionProps) {
     return (
         <section
-            id={headerProps.title.toLowerCase()}
+            id={id.toLowerCase()}
             className={`relative w-full ${className}`}
         >
             <SectionHeader {...headerProps} />
