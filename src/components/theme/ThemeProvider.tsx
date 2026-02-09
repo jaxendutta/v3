@@ -1,7 +1,7 @@
 // src/components/theme/ThemeProvider.tsx
 "use client";
 
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState, Fragment } from "react";
 import { ThemeOption } from "@/lib/theme";
 
 interface ThemeContextType {
@@ -11,7 +11,6 @@ interface ThemeContextType {
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
-// This wrapper component forces a re-render when the key changes
 function ThemeWrapper({
     children,
     theme,
@@ -19,7 +18,7 @@ function ThemeWrapper({
     children: React.ReactNode;
     theme: ThemeOption;
 }) {
-    return <div key={theme}>{children}</div>;
+    return <Fragment key={theme}>{children}</Fragment>;
 }
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {

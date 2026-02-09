@@ -353,11 +353,9 @@ export default function ArticleLayout({ projectId, markdownContent }: ArticleLay
                     >
                         {markdownContent || "*No content available.*"}
                     </ReactMarkdown>
-
-
-                    <Footer className="border-t border-border mx-3 mt-10" />
                 </article>
             </main>
+            <Footer className="w-full border-t border-border mt-20 relative z-10" />
         </div>
     );
 }
