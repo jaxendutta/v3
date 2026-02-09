@@ -166,7 +166,7 @@ export default function ArticleLayout({ projectId, markdownContent }: ArticleLay
                         {project.name}
                     </h1>
                     {project.subtitle && (
-                        <p className="text-xl md:text-3xl text-muted-foreground font-light leading-snug">
+                        <p className={`${displayFont} text-xl md:text-3xl text-muted-foreground font-light leading-snug`}>
                             {project.subtitle}
                         </p>
                     )}
