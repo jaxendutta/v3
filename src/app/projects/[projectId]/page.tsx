@@ -3,7 +3,6 @@ import { getProjectMarkdown } from "@/lib/project-content";
 import ArticleLayout from "@/components/sections/project/layouts/ArticleLayout";
 import ShowcaseLayout from "@/components/sections/project/layouts/ShowcaseLayout";
 import { notFound } from "next/navigation";
-import Footer from "@/components/layout/Footer";
 
 // Next.js 15+ syntax for dynamic params
 type Props = {
@@ -26,20 +25,12 @@ export default async function ProjectPage({ params }: Props) {
         markdownContent = await getProjectMarkdown(projectId);
     }
 
-    return (
-        <>
-            {/* REMOVED: The global fixed back button. 
-               The layouts now handle their own headers!
-            */}
-
-            {project.layoutType === "article" ? (
-                <ArticleLayout 
-                    projectId={projectId} 
-                    markdownContent={markdownContent || ""} 
-                />
-            ) : (
-                <ShowcaseLayout projectId={projectId} />
-            )}
-        </>
-    );
+    return project.layoutType === "article" ? (
+        <ArticleLayout
+            projectId={projectId}
+            markdownContent={markdownContent || ""}
+        />
+    ) : (
+        <ShowcaseLayout projectId={projectId} />
+    )
 }

@@ -254,4 +254,40 @@ a:hover {
         content: "Figure " counter(figureCounter) ": ";
         font-weight: 600;
     }
+
+    /* --- MATH / LATEX STYLING --- */
+    
+    /* 1. Inline Math ($...$) */
+    .article-content .katex {
+        font-size: 1em !important; /* Default (Mobile): Slightly larger than text */
+        line-height: 1.2 !important;
+    }
+
+    /* 2. Block Math ($$...$$) */
+    .article-content .katex-display {
+        margin: 2em 0 !important;
+        overflow-x: auto;
+        overflow-y: hidden;
+        padding-top: 0.5em;
+        padding-bottom: 0.5em;
+    }
+    
+    /* 3. Block Math Font Size - Mobile Default */
+    .article-content .katex-display > .katex {
+        font-size: 1.2em !important; 
+        margin-right: 1em !important;
+    }
+
+    /* 4. Desktop Breakpoint (md: equivalent) */
+    @media (min-width: 768px) {
+        /* Increase inline math size on desktop */
+        .article-content .katex {
+            font-size: 1.2em !important;
+        }
+
+        /* Increase block math size on desktop */
+        .article-content .katex-display > .katex {
+            font-size: 1.4em !important;
+        }
+    }
 }

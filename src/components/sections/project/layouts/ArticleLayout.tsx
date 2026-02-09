@@ -158,26 +158,24 @@ export default function ArticleLayout({ projectId, markdownContent }: ArticleLay
 
                 {/* 1. Header Section */}
                 <div id="article-title" className="mb-8">
-                    <div className="flex items-center gap-3 text-primary mb-6">
-                        <project.icon className="w-8 h-8" />
-                        <span className="font-mono text-sm tracking-widest uppercase">{project.type} Project</span>
-                    </div>
-                    <h1 className={`${displayFont} text-4xl md:text-7xl font-normal mb-6 leading-[0.9]`}>
+                    <div className="font-mono text-sm tracking-widest uppercase text-primary mb-6">{project.type} Project</div>
+                    <h1 className={`${displayFont} text-4xl md:text-7xl font-normal mb-2 md:mb-6 leading-[0.9] italic! flex gap-2`}>
+                        <project.icon />
                         {project.name}
                     </h1>
                     {project.subtitle && (
-                        <p className={`${displayFont} text-xl md:text-3xl text-muted-foreground font-light leading-snug`}>
+                        <p className={`${displayFont} text-xl md:text-3xl text-muted-foreground font-light italic!`}>
                             {project.subtitle}
                         </p>
                     )}
                 </div>
 
                 {/* 2. Metadata Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-12 gap-8 py-8 border-y border-border/30 mb-16">
+                <div className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-8 py-4 md:py-8 border-y border-border/30 mb-16">
                     <div className="md:col-span-8 space-y-6">
                         <div>
                             <h3 className="text-xs font-mono uppercase text-muted-foreground mb-3 flex items-center gap-2">
-                                <FiCpu /> Technologies Used
+                                <FiCpu /> Tech Stack
                             </h3>
                             <div className="flex flex-wrap gap-2">
                                 {project.techStack && Object.values(project.techStack).flat().map((tech) => (
@@ -191,14 +189,14 @@ export default function ArticleLayout({ projectId, markdownContent }: ArticleLay
                         </div>
                     </div>
                     <div className="md:col-span-4 flex flex-col gap-3">
-                        <h3 className="text-xs font-mono uppercase text-muted-foreground mb-1">Resources</h3>
+                        <h3 className="text-xs font-mono uppercase text-muted-foreground mb-1">LINKS</h3>
                         {project.links.map((link) => (
                             <Link
                                 key={link.name} href={link.url} target="_blank"
-                                className="group flex items-center justify-between p-3 bg-secondary/20 border border-border/50 hover:border-primary transition-all duration-300 rounded shadow-sm !no-underline"
+                                className="group flex items-center justify-between p-3 border border-border/50 hover:border-primary transition-all duration-300 shadow-sm !no-underline"
                             >
                                 <span className="font-medium flex items-center gap-2 text-sm">{link.name}</span>
-                                {link.name.toLowerCase().includes("git") ? <FiGithub className="text-lg group-hover:scale-110 transition-transform" /> : <FiExternalLink className="text-lg group-hover:scale-110 transition-transform" />}
+                                {link.name.toLowerCase().includes("git") ? <FiGithub className="text-lg transition-transform" /> : <FiExternalLink className="text-lg transition-transform" />}
                             </Link>
                         ))}
                     </div>

@@ -270,7 +270,7 @@ export const projectsData: ProjectsData = {
         name: "eVse",
         subtitle: "netWoRk optiMiZeR",
         icon: GiBoltEye,
-        type: "development",
+        type: "research",
         layoutType: "article",
         date: new Date("2024-12-18"),
         screenshotDevice: "mobile",
