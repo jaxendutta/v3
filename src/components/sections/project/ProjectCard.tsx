@@ -7,7 +7,7 @@ import { motion } from "framer-motion";
 import { ProjectData } from "@/types/project";
 import { displayFont } from "@/lib/fonts";
 import { fadeIn } from "@/lib/motionVariants";
-import Tag from "@/components/ui/Tag";
+import Tag, { SkillTag } from "@/components/ui/Tag";
 import RotatingButton from "@/components/ui/RotatingButton";
 
 interface ProjectCardProps {
@@ -77,7 +77,7 @@ export default function ProjectCard({
                             Object.values(project.techStack)
                                 .flat()
                                 .slice(0, skillLimit)
-                                .map((tech, i) => <Tag key={i} text={tech.name} />)}
+                                .map((tech, i) => <SkillTag key={i} skill={tech.name} />)}
 
                         {/* Show more indicator if technologies are truncated */}
                         {project.techStack &&

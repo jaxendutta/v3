@@ -52,7 +52,7 @@ export const SkillTag = ({ skill }: { skill: string }) => {
         <Tag
             text={skill}
             glowOnHover={true}
-            href={`/projects?tech=${encodeURIComponent(skill)}`}
+            href={`/projects?tech=${encodeURIComponent(skill.toLowerCase())}`}
         />
     );
 };

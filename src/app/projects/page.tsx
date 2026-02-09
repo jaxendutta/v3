@@ -1,8 +1,9 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useEffect, useState, useMemo } from "react";
+import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import { motion } from "framer-motion";
-import { googleSansFlex, headingFont } from "@/lib/fonts";
+import { googleSansFlex } from "@/lib/fonts";
 import { fadeIn, staggerContainer, slideUp } from "@/lib/motionVariants";
 import { projectsData } from "@/data/projects";
 import RotatingButton from "@/components/ui/RotatingButton";
@@ -18,12 +19,58 @@ import FilterContainer, {
 import { TbFilterX, TbFilterDown, TbFilterUp } from "react-icons/tb";
 
 export default function ProjectsPage() {
+    const router = useRouter();
+    const pathname = usePathname();
+    const searchParams = useSearchParams();
+
     const projects = projectsData;
     const projectIds = Object.keys(projects);
-    const [searchQuery, setSearchQuery] = useState("");
-    const [selectedTechStack, setSelectedTechStack] = useState<string[]>([]);
-    const [selectedYears, setSelectedYears] = useState<number[]>([]);
     const [showFilters, setShowFilters] = useState(false);
+    const [searchQuery, setSearchQuery] = useState(searchParams.get("search") || "");
+    const [selectedTechStack, setSelectedTechStack] = useState<string[]>(
+        searchParams.get("tech")?.split(",").filter(Boolean) || []
+    );
+    const [selectedYears, setSelectedYears] = useState<number[]>(
+        searchParams.get("year")?.split(",").map(Number).filter(n => !isNaN(n)) || []
+    );
+
+    useEffect(() => {
+        const params = new URLSearchParams(searchParams.toString());
+
+        // Create the "desired" query string based on current state
+        const currentTech = selectedTechStack.join(",");
+        const currentYear = selectedYears.join(",");
+
+        // Only update params if they differ from what is currently in the URL
+        let needsUpdate = false;
+
+        if (searchQuery !== (searchParams.get("search") || "")) {
+            searchQuery ? params.set("search", searchQuery) : params.delete("search");
+            needsUpdate = true;
+        }
+
+        if (currentTech !== (searchParams.get("tech") || "")) {
+            currentTech ? params.set("tech", currentTech) : params.delete("tech");
+            needsUpdate = true;
+        }
+
+        if (currentYear !== (searchParams.get("year") || "")) {
+            currentYear ? params.set("year", currentYear) : params.delete("year");
+            needsUpdate = true;
+        }
+
+        if (needsUpdate) {
+            const newQuery = params.toString();
+            const url = newQuery ? `${pathname}?${newQuery}` : pathname;
+            router.replace(url, { scroll: false });
+        }
+    }, [searchQuery, selectedTechStack, selectedYears, pathname, router, searchParams]);
+
+    useEffect(() => {
+        setSearchQuery(searchParams.get("search") || "");
+        setSelectedTechStack(searchParams.get("tech")?.split(",").filter(Boolean) || []);
+        setSelectedYears(searchParams.get("year")?.split(",").map(Number).filter(n => !isNaN(n)) || []);
+    }, [searchParams]);
 
     // Extract all unique tech stacks from all projects
     const allTechStacks = useMemo(() => {
@@ -87,7 +134,7 @@ export default function ProjectsPage() {
                             project.techStack &&
                             Object.values(project.techStack)
                                 .flat()
-                                .some((techObj) => techObj.name === tech)
+                                .some((techObj) => techObj.name.toLowerCase() === tech.toLowerCase())
                     ));
 
             const matchesYear =
@@ -171,42 +218,44 @@ export default function ProjectsPage() {
                 {/* Results count and filter controls */}
                 <div className="flex justify-between items-center gap-4 border-b border-current pb-4 ">
                     {/* Results count with detailed filter information */}
-                    <div className="w-full text-center items-center justify-center flex flex-wrap gap-1">
+                    <div className="w-full text-center items-center justify-center flex flex-wrap">
                         <span className="whitespace-nowrap">
                             <span className="font-bold">
                                 {filteredProjects.length} / {projectIds.length}
-                            </span>{" projects found"}
+                            </span>
+                            <span>{" projects found "}</span>
+
+                            {selectedTechStack.length > 0 && (
+                                <>
+                                    <span>{" filtered by "}</span>
+                                    <span className="text-accent">
+                                        {selectedTechStack.length}{" "}
+                                        {selectedTechStack.length === 1
+                                            ? "tool"
+                                            : "tools"}
+                                    </span>
+                                </>
+                            )}
+                            {selectedYears.length > 0 && (
+                                <>
+                                    {" from "}
+                                    <span className="text-accent">
+                                        {selectedYears.length === 1
+                                            ? "year"
+                                            : "years"}{" "}
+                                        {selectedYears.join(", ")}
+                                    </span>
+                                </>
+                            )}
+                            {searchQuery && (
+                                <>
+                                    {" matching "}
+                                    <span className="text-accent italic">
+                                        &quot;{searchQuery}&quot;
+                                    </span>
+                                </>
+                            )}
                         </span>
-                        {selectedTechStack.length > 0 && (
-                            <span className="whitespace-nowrap">
-                                {" filtered by "}
-                                <span className="text-accent">
-                                    {selectedTechStack.length}{" "}
-                                    {selectedTechStack.length === 1
-                                        ? "tool"
-                                        : "tools"}
-                                </span>
-                            </span>
-                        )}
-                        {selectedYears.length > 0 && (
-                            <span className="whitespace-nowrap">
-                                {" from "}
-                                <span className="text-accent">
-                                    {selectedYears.length === 1
-                                        ? "year"
-                                        : "years"}{" "}
-                                    {selectedYears.join(", ")}
-                                </span>
-                            </span>
-                        )}
-                        {searchQuery && (
-                            <>
-                                {" matching "}
-                                <span className="text-accent italic">
-                                    &quot;{searchQuery}&quot;
-                                </span>
-                            </>
-                        )}
                     </div>
 
                     {/* Filter controls */}
@@ -215,7 +264,7 @@ export default function ProjectsPage() {
                             <motion.button
                                 title="Clear filters"
                                 onClick={clearFilters}
-                                className="px-2 py-1.5 border border-current text-red-500 hover:bg-red-500 hover:text-white transition-colors flex items-center gap-2"
+                                className="px-2 py-1.5 border border-current text-red-500 hover:bg-red-500 hover:text-white transition-colors flex items-center gap-2 whitespace-nowrap"
                                 whileHover={{
                                     backgroundColor: "red",
                                     color: "white",
