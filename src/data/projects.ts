@@ -122,7 +122,7 @@ export const projectsData: ProjectsData = {
                 },
                 {
                     content:
-                        "A powerful analytics platform that aggregates over 193,000 research grants from Canada's major funding agencies (NSERC, CIHR, SSHRC). It transforms raw data into actionable insights, helping researchers and institutions track funding trends and discover opportunities. 🇨🇦📊",
+                        "A powerful analytics platform that aggregates over 193,000 research grants from Canada's major funding agencies (NSERC, CIHR, SSHRC). It transforms raw data into actionable insights, helping researchers and institutions track funding trends and discover opportunities.",
                 },
             ],
             [
@@ -132,7 +132,7 @@ export const projectsData: ProjectsData = {
                 },
                 {
                     content:
-                        "Rebuilt from the ground up using Next.js 16 and PostgreSQL 17 (initially MySQL) to deliver sub-second search speeds across millions of records. Features a robust user system with bookmarking, search history, and personalized analytics. ⚡🔍",
+                        "Rebuilt from the ground up using Next.js 16 and PostgreSQL 17 (initially MySQL) to deliver sub-second search speeds across millions of records. Features a robust user system with bookmarking, search history, and personalized analytics.",
                 },
             ],
         ],
@@ -306,14 +306,14 @@ export const projectsData: ProjectsData = {
                 },
                 {
                     content:
-                        "Imagine crafting your own story, a world where every narrative unfolds based on your desires. Fabler empowers you to be the author. ✍️",
+                        "Imagine crafting your own story, a world where every narrative unfolds based on your desires. Fabler empowers you to be the author.",
                 },
             ],
             [
                 { className: calloutStyle, content: "But how does it work?" },
                 {
                     content:
-                        "Fabler leverages the magic of AI! Simply provide a prompt - a spark of inspiration - and our intelligent system weaves a captivating visual novel tailored to your vision. ✨",
+                        "Fabler leverages the magic of AI! Simply provide a prompt - a spark of inspiration - and our intelligent system weaves a captivating visual novel tailored to your vision.",
                 },
             ],
         ],
@@ -467,14 +467,14 @@ export const projectsData: ProjectsData = {
                 },
                 {
                     content:
-                        "Hivemind connects students worldwide, fostering a vibrant ecosystem of shared knowledge and collaborative study groups. Break free from isolation and tap into the power of collective intelligence! 🌐🧠",
+                        "Hivemind connects students worldwide, fostering a vibrant ecosystem of shared knowledge and collaborative study groups. Break free from isolation and tap into the power of collective intelligence.",
                 },
             ],
             [
                 { className: calloutStyle, content: "How does it work?" },
                 {
                     content:
-                        "Our innovative platform uses smart matching algorithms to connect you with like-minded learners, creating the perfect study environment tailored to your needs and learning style. From instant study sessions to long-term project collaborations, Hivemind adapts to your academic journey. 📚🤝",
+                        "Our innovative platform uses smart matching algorithms to connect you with like-minded learners, creating the perfect study environment tailored to your needs and learning style. From instant study sessions to long-term project collaborations, Hivemind adapts to your academic journey.",
                 },
             ],
         ],
@@ -538,7 +538,7 @@ export const projectsData: ProjectsData = {
                 },
                 {
                     content:
-                        "Dive into nostalgia with a modern twist! This Space Invaders remake brings the classic arcade experience to your desktop, powered by cutting-edge Kotlin and JavaFX technologies. 🚀👾",
+                        "Dive into nostalgia with a modern twist! This Space Invaders remake brings the classic arcade experience to your desktop, powered by cutting-edge Kotlin and JavaFX technologies.",
                 },
             ],
             [
@@ -548,7 +548,7 @@ export const projectsData: ProjectsData = {
                 },
                 {
                     content:
-                        "Test your reflexes and strategy as you defend Earth from waves of descending aliens. With each level, the challenge intensifies, keeping you on the edge of your seat! 🎮🛸",
+                        "Test your reflexes and strategy as you defend Earth from waves of descending aliens. With each level, the challenge intensifies, keeping you on the edge of your seat!",
                 },
             ],
         ],
@@ -609,7 +609,7 @@ export const projectsData: ProjectsData = {
                 },
                 {
                     content:
-                        "Experience a modern, intuitive file management solution built with Kotlin and JavaFX. Navigate your digital world with ease and efficiency. 📁🔍",
+                        "Experience a modern, intuitive file management solution built with Kotlin and JavaFX. Navigate your digital world with ease and efficiency.",
                 },
             ],
             [
@@ -619,7 +619,7 @@ export const projectsData: ProjectsData = {
                 },
                 {
                     content:
-                        "From creating folders to previewing files, our File Explorer puts powerful tools at your fingertips. Enjoy a seamless, user-friendly experience for all your file organization needs. 🖥️📊",
+                        "From creating folders to previewing files, our File Explorer puts powerful tools at your fingertips. Enjoy a seamless, user-friendly experience for all your file organization needs.",
                 },
             ],
         ],
@@ -679,7 +679,7 @@ export const projectsData: ProjectsData = {
                 },
                 {
                     content:
-                        "Discover Lightbox, a powerful image manipulation tool crafted with Kotlin and JavaFX. Transform your visual content with ease and precision. 🖼️✨",
+                        "Discover Lightbox, a powerful image manipulation tool crafted with Kotlin and JavaFX. Transform your visual content with ease and precision.",
                 },
             ],
             [
@@ -689,7 +689,7 @@ export const projectsData: ProjectsData = {
                 },
                 {
                     content:
-                        "From basic edits to advanced manipulations, Lightbox puts a suite of tools at your fingertips. Experience smooth, responsive image handling in a user-friendly interface. 🖱️🎨",
+                        "From basic edits to advanced manipulations, Lightbox puts a suite of tools at your fingertips. Experience smooth, responsive image handling in a user-friendly interface.",
                 },
             ],
         ],
@@ -748,7 +748,7 @@ export const projectsData: ProjectsData = {
                 },
                 {
                     content:
-                        "Experience Straights, a classic card game reimagined for the modern web. Originally a C++ terminal game, now playable in your browser thanks to the power of WebAssembly. 🃏💻",
+                        "Experience Straights, a classic card game reimagined for the modern web. Originally a C++ terminal game, now playable in your browser thanks to the power of WebAssembly.",
                 },
             ],
             [
@@ -758,7 +758,7 @@ export const projectsData: ProjectsData = {
                 },
                 {
                     content:
-                        "Dive into this engaging 4-player card game where strategy is key. Aim for the lowest score as you navigate through each round, making calculated moves to outplay your opponents. 🏆♠️♥️♣️♦️",
+                        "Dive into this engaging 4-player card game where strategy is key. Aim for the lowest score as you navigate through each round, making calculated moves to outplay your opponents.",
                 },
             ],
         ],

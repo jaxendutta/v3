@@ -19,6 +19,7 @@ const Tag = ({ text, glowOnHover = false, href, action }: TagProps) => {
             backgroundColor: "var(--color-text)",
             color: "var(--color-background)",
             boxShadow: glowOnHover ? "0 0 6px var(--color-text)" : "",
+            border: glowOnHover ? "1px solid var(--color-text)" : "1px solid currentColor",
         },
         transition: { duration: 0.2 },
     };

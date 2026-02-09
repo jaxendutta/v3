@@ -370,7 +370,7 @@ export default function ProjectsPage() {
                         variants={staggerContainer}
                         initial="hidden"
                         animate="visible"
-                        className="space-y-8"
+                        className="space-y-5 md:space-y-8"
                     >
                         {filteredProjects.map((id, index) => (
                             <motion.div

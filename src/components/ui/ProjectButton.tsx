@@ -4,10 +4,10 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { HiArrowUpRight } from "react-icons/hi2";
-import { ProjectLink } from "@/types/project";
+import { Social } from "@/types/contact";
 
 interface ProjectButtonProps {
-    link: ProjectLink;
+    link: Social;
     index: number;
 }
 
@@ -55,7 +55,7 @@ export default function ProjectButton({ link, index }: ProjectButtonProps) {
                 />
 
                 {/* Button text */}
-                <span>{link.name.toUpperCase()}</span>
+                <span>{link.platform.toUpperCase()}</span>
             </div>
         </motion.a>
     );
