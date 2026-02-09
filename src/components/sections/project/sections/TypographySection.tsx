@@ -35,7 +35,7 @@ const FontCard = ({ font }: { font: FontInfo }) => {
 
             {/* Weights Container */}
             <div className="flex gap-8">
-                <div className="flex-1 flex flex-col gap-4 border border-dashed border-current rounded-lg p-4">
+                <div className="flex-1 flex flex-col gap-4 border border-dashed border-current p-4">
                     {[100, 400, 700].map((weight) => (
                         <motion.p
                             key={weight}

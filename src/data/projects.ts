@@ -14,7 +14,7 @@ import { AiOutlineFolderView } from "react-icons/ai";
 import { PiCat, PiCodesandboxLogoLight } from "react-icons/pi";
 
 const calloutStyle =
-    "border border-2 border-dashed py-2 px-2 md:px-4 rounded-2xl mt-8";
+    "border border-2 border-dashed py-2 px-2 md:px-4 mt-8";
 
 export const projectsData: ProjectsData = {
     asher: {
@@ -370,7 +370,7 @@ export const projectsData: ProjectsData = {
                 { name: "Python" },
                 { name: "Ren'Py" },
                 { name: "FastAPI" }],
-            AI: [
+            "AI/ML": [
                 { name: "OpenAI" },
                 { name: "Stable Diffusion" }],
             Design: [

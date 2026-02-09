@@ -193,7 +193,7 @@ export default function ArticleLayout({ projectId, markdownContent }: ArticleLay
                 </div>
 
                 {/* 2a. Links Grid */}
-                <SocialItems socials={project.links} className="text-base md:text-2xl uppercase" />
+                <SocialItems socials={project.links} className="text-base md:text-2xl uppercase border-border" />
 
                 {/* 3. Article Content */}
                 <article className="article-content prose prose-lg dark:prose-invert max-w-none 
