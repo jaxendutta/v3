@@ -1,18 +1,16 @@
 // src/components/sections/project/sections/OverviewSection.tsx
 "use client";
 
-import {
-    OverviewItem as OverviewSectionType,
-    ProjectLink,
-} from "@/types/project";
+import { OverviewItem } from "@/types/project";
+import { Social } from "@/types/contact";
 import { motion } from "framer-motion";
 import { codeFont } from "@/lib/fonts";
 import ProjectButton from "@/components/ui/ProjectButton";
-import { ProjectPageSection } from "../ProjectPageSection";
+import { ProjectPageSection } from "@/components/sections/project/ProjectPageSection";
 
 interface OverviewSectionProps {
-    overview: OverviewSectionType[][];
-    links: ProjectLink[];
+    overview: OverviewItem[][];
+    links: Social[];
 }
 
 export default function OverviewSection({
@@ -27,7 +25,7 @@ export default function OverviewSection({
                     className="w-screen h-screen flex flex-col items-center justify-center snap-start"
                 >
                     {section.map(
-                        (subsection: OverviewSectionType, index: number) => (
+                        (subsection: OverviewItem, index: number) => (
                             <motion.div
                                 key={index}
                                 className={`mb-8 max-w-[70%] flex flex-col items-center ${codeFont}`}
