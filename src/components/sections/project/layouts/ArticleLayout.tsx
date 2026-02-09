@@ -249,10 +249,10 @@ export default function ArticleLayout({ projectId, markdownContent }: ArticleLay
                             ),
                             td: ({ node, ...props }) => (
                                 /* whitespace-nowrap keeps the text from squishing, forcing the scrollbar to appear */
-                                <td className="p-4 border-b border-r border-border/50 whitespace-nowrap md:whitespace-normal" {...props} />
+                                <td className="p-2 md:p-4 border-b border-r border-border/50 text-center whitespace-nowrap md:whitespace-normal" {...props} />
                             ),
                             thead: ({ node, ...props }) => <thead className="bg-secondary uppercase font-mono tracking-wider" {...props} />,
-                            th: ({ node, ...props }) => <th className="p-4 border-b border-r border-border/50 font-semibold" {...props} />,
+                            th: ({ node, ...props }) => <th className="p-2 md:p-4 border-b border-r border-border/50 font-semibold" {...props} />,
 
                             // --- LISTS ---
                             ul: ({ node, ...props }) => <ul className={`list-disc pl-4 md:pl-6 space-y-2 my-4 md:my-6 marker:text-primary ${base_font_size}`} {...props} />,
@@ -301,13 +301,14 @@ export default function ArticleLayout({ projectId, markdownContent }: ArticleLay
                                 // Standard Code Blocks
                                 if (!inline && match) {
                                     return (
+                                        /* min-w-0 is critical for flexbox children to allow them to shrink below content size */
                                         <div className="my-4 md:my-10 w-full max-w-full min-w-0 group relative">
-                                            <pre className="bg-gray-800 text-white p-2 md:p-6 overflow-x-auto max-w-full">
-                                                <div className="absolute top-0 right-0 px-1 md:px-3 md:py-1 bg-primary text-primary-foreground text-[8px] md:text-xs font-mono md:opacity-0 group-hover:opacity-100 transition-opacity items-center justify-center flex">
+                                            <pre className="block bg-gray-800 text-white p-4 md:p-6 overflow-x-auto max-w-full no-scrollbar md:scrollbar">
+                                                <div className="absolute top-0 right-0 px-2 py-1 bg-primary text-primary-foreground text-[10px] font-mono opacity-0 group-hover:opacity-100 transition-opacity">
                                                     {match[1]}
                                                 </div>
-                                                {/* Add whitespace-pre-wrap to force wrapping if it still overflows */}
-                                                <code className={`${className} block font-mono ${base_font_size} whitespace-pre-wrap break-all md:whitespace-pre`} {...props}>
+                                                {/* whitespace-pre forces the internal content to stay on one line, triggering the scroll */}
+                                                <code className={`${className} block font-mono ${base_font_size} whitespace-pre break-none`} {...props}>
                                                     {children}
                                                 </code>
                                             </pre>
@@ -317,7 +318,7 @@ export default function ArticleLayout({ projectId, markdownContent }: ArticleLay
 
                                 // Inline Code
                                 return (
-                                    <code className="bg-foreground text-background px-1.5 py-0.5 font-mono text-[0.95em] font-medium text-wrap" {...props}>
+                                    <code className="bg-foreground text-background px-1.5 py-0.5 font-mono text-[0.95em] font-medium" {...props}>
                                         {children}
                                     </code>
                                 );

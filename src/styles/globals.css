@@ -5,16 +5,16 @@
 @theme {
     --color-background: var(--background);
     --color-foreground: var(--foreground);
-    
+
     --color-primary: var(--primary);
     --color-primary-foreground: var(--primary-foreground);
-    
+
     --color-secondary: var(--secondary);
     --color-secondary-foreground: var(--secondary-foreground);
-    
+
     --color-muted: var(--muted);
     --color-muted-foreground: var(--muted-foreground);
-    
+
     --color-border: var(--border);
 }
 
@@ -38,7 +38,7 @@
     --primary-foreground: #fff7ed;
 
     /* Secondary: Slightly lighter background for cards/blocks */
-    --secondary: #27272a; 
+    --secondary: #27272a;
     --secondary-foreground: #fff7ed;
 
     /* Muted: For subtitles and borders */
@@ -72,7 +72,7 @@
     --secondary-foreground: #1d4ed8;
 
     /* Muted: Orange-200/Orange-600 */
-    --muted: #fed7aa; 
+    --muted: #fed7aa;
     --muted-foreground: #ea580c;
 
     /* Border: Orange-300 */
@@ -126,13 +126,28 @@ a:hover {
 }
 
 /* 5. UTILITY CLASSES */
-.bg-theme { background-color: var(--background); }
-.text-theme { color: var(--foreground); }
-.text-accent { color: var(--primary); }
-.bg-highlight { background-color: var(--color-highlight-bg-legacy); }
-.text-highlight { color: var(--color-highlight-text-legacy); }
+.bg-theme {
+    background-color: var(--background);
+}
+
+.text-theme {
+    color: var(--foreground);
+}
+
+.text-accent {
+    color: var(--primary);
+}
+
+.bg-highlight {
+    background-color: var(--color-highlight-bg-legacy);
+}
+
+.text-highlight {
+    color: var(--color-highlight-text-legacy);
+}
 
 @layer base {
+
     button:not(:disabled),
     [role="button"]:not(:disabled) {
         cursor: pointer;
@@ -140,7 +155,7 @@ a:hover {
 }
 
 @utility no-scrollbar {
-  @apply [scrollbar-width:none] [&::-webkit-scrollbar]:hidden;
+    @apply [scrollbar-width:none] [&::-webkit-scrollbar]:hidden;
 }
 
 /* 6. MARQUEE ANIMATIONS */
@@ -180,6 +195,7 @@ a:hover {
     from {
         transform: translateX(0);
     }
+
     to {
         transform: translateX(calc(-100% - var(--gap)));
     }
@@ -189,6 +205,7 @@ a:hover {
     from {
         transform: translateY(0);
     }
+
     to {
         transform: translateY(calc(-100% - var(--gap)));
     }
@@ -199,6 +216,17 @@ a:hover {
     .article-content {
         /* Initialize the top-level counter */
         counter-reset: h1counter;
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        overflow-x: hidden;
+    }
+
+    /* Ensure code elements inside pre don't try to wrap */
+    .article-content pre code {
+        white-space: pre !important;
+        word-break: normal !important;
+        overflow-wrap: normal !important;
     }
 
     /* --- H1: Level 1 (1.) --- */
@@ -206,6 +234,7 @@ a:hover {
         counter-reset: h2counter;
         counter-increment: h1counter;
     }
+
     .article-content h1 .number-prefix::before {
         content: counter(h1counter) ". ";
     }
@@ -215,6 +244,7 @@ a:hover {
         counter-reset: h3counter;
         counter-increment: h2counter;
     }
+
     .article-content h2 .number-prefix::before {
         content: counter(h1counter) "." counter(h2counter) ". ";
     }
@@ -224,6 +254,7 @@ a:hover {
         counter-reset: h4counter;
         counter-increment: h3counter;
     }
+
     .article-content h3 .number-prefix::before {
         content: counter(h1counter) "." counter(h2counter) "." counter(h3counter) ". ";
     }
@@ -233,6 +264,7 @@ a:hover {
         counter-reset: h5counter;
         counter-increment: h4counter;
     }
+
     .article-content h4 .number-prefix::before {
         content: counter(h1counter) "." counter(h2counter) "." counter(h3counter) "." counter(h4counter) ". ";
     }
@@ -241,6 +273,7 @@ a:hover {
     .article-content h5 {
         counter-increment: h5counter;
     }
+
     .article-content h5 .number-prefix::before {
         content: counter(h1counter) "." counter(h2counter) "." counter(h3counter) "." counter(h4counter) "." counter(h5counter) ". ";
     }
@@ -249,17 +282,18 @@ a:hover {
     .article-content figure {
         counter-increment: figureCounter;
     }
-    
+
     .article-content .figure-prefix::before {
         content: "Figure " counter(figureCounter) ": ";
         font-weight: 600;
     }
 
     /* --- MATH / LATEX STYLING --- */
-    
+
     /* 1. Inline Math ($...$) */
     .article-content .katex {
-        font-size: 1em !important; /* Default (Mobile): Slightly larger than text */
+        font-size: 1em !important;
+        /* Default (Mobile): Slightly larger than text */
         line-height: 1.2 !important;
     }
 
@@ -271,22 +305,23 @@ a:hover {
         padding-top: 0.5em;
         padding-bottom: 0.5em;
     }
-    
+
     /* 3. Block Math Font Size - Mobile Default */
-    .article-content .katex-display > .katex {
-        font-size: 0.9em !important; 
+    .article-content .katex-display>.katex {
+        font-size: 0.9em !important;
         margin-right: 1em !important;
     }
 
     /* 4. Desktop Breakpoint (md: equivalent) */
     @media (min-width: 768px) {
+
         /* Increase inline math size on desktop */
         .article-content .katex {
             font-size: 1.2em !important;
         }
 
         /* Increase block math size on desktop */
-        .article-content .katex-display > .katex {
+        .article-content .katex-display>.katex {
             font-size: 1.4em !important;
         }
     }
