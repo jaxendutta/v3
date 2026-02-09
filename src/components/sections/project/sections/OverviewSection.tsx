@@ -11,18 +11,20 @@ import { ProjectPageSection } from "@/components/sections/project/ProjectPageSec
 interface OverviewSectionProps {
     overview: OverviewItem[][];
     links: Social[];
+    isLandscape: boolean;
 }
 
 export default function OverviewSection({
     overview,
     links,
+    isLandscape
 }: OverviewSectionProps) {
     return (
         <ProjectPageSection title={[]} className="flex-none" id="overview">
             {overview.map((section, sectionIndex) => (
                 <div
                     key={sectionIndex}
-                    className="w-screen h-screen flex flex-col items-center justify-center snap-start"
+                    className={`h-full flex flex-col items-center justify-center snap-start ${isLandscape ? "w-screen" : ""}`}
                 >
                     {section.map(
                         (subsection: OverviewItem, index: number) => (
@@ -42,7 +44,7 @@ export default function OverviewSection({
                         )
                     )}
                     {/* Project Links */}
-                    {links.length > 0 && (
+                    {links.length > 0 && ((sectionIndex === overview.length - 1) || isLandscape) && (
                         <div className="mt-4 w-full flex justify-evenly flex-wrap">
                             {links.map((link, linkIndex) => (
                                 <ProjectButton

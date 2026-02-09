@@ -7,7 +7,7 @@ import NameSection from "@/components/sections/project/sections/NameSection";
 import ProjectsPageHeader from "@/components/sections/project/ProjectsPageHeader";
 import Skeleton from "@/components/ui/Skeleton";
 
-// Dynamic imports (kept from your original file)
+// Dynamic imports
 const OverviewSection = dynamic(() => import("@/components/sections/project/sections/OverviewSection"), { loading: () => <Skeleton className="h-[80vh] w-full" /> });
 const TypographySection = dynamic(() => import("@/components/sections/project/sections/TypographySection"), { loading: () => <Skeleton className="h-[80vh] w-full" /> });
 const ColorSection = dynamic(() => import("@/components/sections/project/sections/ColorSection"), { loading: () => <Skeleton className="h-[80vh] w-full" /> });
@@ -34,12 +34,13 @@ export default function ShowcaseLayout({ projectId }: { projectId: string }) {
     useEffect(() => {
         if (!isLandscape || !mainRef.current) return;
         const mainElement = mainRef.current;
+        
         const handleWheel = (e: WheelEvent) => {
-            if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
-                e.preventDefault();
-                mainElement.scrollBy({ left: e.deltaY * 2, behavior: "smooth" });
-            }
+            if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) return;
+            e.preventDefault();
+            mainElement.scrollLeft += e.deltaY; 
         };
+        
         mainElement.addEventListener("wheel", handleWheel, { passive: false });
         return () => mainElement.removeEventListener("wheel", handleWheel);
     }, [isLandscape]);
@@ -66,13 +67,28 @@ export default function ShowcaseLayout({ projectId }: { projectId: string }) {
             <main
                 ref={mainRef}
                 className={`
-                    h-screen w-screen scroll-smooth snap-mandatory no-scrollbar flex gap-20 scroll-pt-[100px] pt-[100px]
-                    ${isLandscape ? "flex-row overflow-x-auto overflow-y-hidden snap-x" : "flex-col overflow-y-auto overflow-x-hidden snap-y"}
+                    h-screen w-screen no-scrollbar flex scroll-pt-[100px] pt-[100px]
+                    ${isLandscape 
+                        ? "flex-row gap-20 overflow-x-auto overflow-y-hidden snap-x snap-mandatory" 
+                        : "flex-col overflow-y-auto overflow-x-hidden pb-40"
+                    }
                 `}
             >
-                <NameSection name={project.name} className={isLandscape ? "mb-[10vh]" : ""} />
+                <NameSection 
+                    name={project.name} 
+                    className={
+                        isLandscape 
+                        // FIX: 
+                        // 1. '!w-fit' forces it to grow with content (overriding w-full).
+                        // 2. 'snap-start' ensures the START is visible if it overflows. 
+                        //    (snap-center pushes the start off-screen for huge elements).
+                        // 3. 'min-w-full' ensures it centers nicely if the text is short.
+                        ? "min-w-full !w-fit snap-start shrink-0 px-10" 
+                        : "min-h-full !h-fit w-full shrink-0"
+                    } 
+                />
 
-                {project.overview && <OverviewSection overview={project.overview} links={project.links} />}
+                {project.overview && <OverviewSection overview={project.overview} links={project.links} isLandscape={isLandscape} />}
                 {project.typography && <TypographySection typography={project.typography} />}
                 {project.colors && <ColorSection colors={project.colors} />}
                 {project.techStack && <TechStackSection techStack={project.techStack} />}

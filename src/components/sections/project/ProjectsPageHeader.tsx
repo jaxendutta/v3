@@ -161,7 +161,7 @@ export default function ProjectsPageHeader({
                         {titleVisible && isLandscape && (
                             <motion.div
                                 key="project-title"
-                                className={`flex-1 flex justify-center text-3xl lowercase tracking-wider ${headingFont}`}
+                                className={`flex-1 flex justify-center text-3xl tracking-wider ${headingFont}`}
                                 style={{ fontStyle: "italic" }}
                                 {...getMotionProps("fadeUp")}
                             >
