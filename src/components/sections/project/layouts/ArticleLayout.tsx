@@ -243,13 +243,16 @@ export default function ArticleLayout({ projectId, markdownContent }: ArticleLay
 
                             // --- TABLES ---
                             table: ({ node, ...props }) => (
-                                <div className="overflow-x-auto my-4 md:my-12 border-t border-l border-border/50">
-                                    <table className={`w-full text-left ${base_font_size}`} {...props} />
+                                <div className="relative w-full overflow-x-auto my-4 md:my-12 border-t border-l border-border/50 no-scrollbar md:scrollbar">
+                                    <table className={`min-w-full w-full text-left ${base_font_size} border-collapse table-auto`} {...props} />
                                 </div>
+                            ),
+                            td: ({ node, ...props }) => (
+                                /* whitespace-nowrap keeps the text from squishing, forcing the scrollbar to appear */
+                                <td className="p-4 border-b border-r border-border/50 whitespace-nowrap md:whitespace-normal" {...props} />
                             ),
                             thead: ({ node, ...props }) => <thead className="bg-secondary uppercase font-mono tracking-wider" {...props} />,
                             th: ({ node, ...props }) => <th className="p-4 border-b border-r border-border/50 font-semibold" {...props} />,
-                            td: ({ node, ...props }) => <td className="p-4 border-b border-r border-border/50" {...props} />,
 
                             // --- LISTS ---
                             ul: ({ node, ...props }) => <ul className={`list-disc pl-4 md:pl-6 space-y-2 my-4 md:my-6 marker:text-primary ${base_font_size}`} {...props} />,
@@ -298,13 +301,13 @@ export default function ArticleLayout({ projectId, markdownContent }: ArticleLay
                                 // Standard Code Blocks
                                 if (!inline && match) {
                                     return (
-                                        <div className="my-4 md:my-10 w-full group relative">
-                                            <pre className="bg-gray-800 text-white p-2 md:p-6 overflow-x-auto">
-                                                {/* Language Label */}
+                                        <div className="my-4 md:my-10 w-full max-w-full min-w-0 group relative">
+                                            <pre className="bg-gray-800 text-white p-2 md:p-6 overflow-x-auto max-w-full">
                                                 <div className="absolute top-0 right-0 px-1 md:px-3 md:py-1 bg-primary text-primary-foreground text-[8px] md:text-xs font-mono md:opacity-0 group-hover:opacity-100 transition-opacity items-center justify-center flex">
                                                     {match[1]}
                                                 </div>
-                                                <code className={`${className} leading-[0]! font-mono ${base_font_size}`} {...props}>
+                                                {/* Add whitespace-pre-wrap to force wrapping if it still overflows */}
+                                                <code className={`${className} block font-mono ${base_font_size} whitespace-pre-wrap break-all md:whitespace-pre`} {...props}>
                                                     {children}
                                                 </code>
                                             </pre>
@@ -348,7 +351,7 @@ export default function ArticleLayout({ projectId, markdownContent }: ArticleLay
                             h4: ({ node, ...props }) => <h4 id={props.id} className="group font-normal mt-4 md:mt-6 mb-4 border-b border-border pb-2"><HeaderRenderer id={props.id} levelClassName="text-sm md:text-xl lg:text-xl">{props.children}</HeaderRenderer></h4>,
                             h5: ({ node, ...props }) => <h5 id={props.id} className="group font-normal mt-4 mb-3 border-b border-border pb-2"><HeaderRenderer id={props.id} levelClassName="text-xs md:text-md lg:text-lg">{props.children}</HeaderRenderer></h5>,
 
-                            p: ({ node, ...props }) => <p className="text-xs md:text-sm my-1 md:my-6 tracking-wide leading-normal text-justify" {...props} />,
+                            p: ({ node, ...props }) => <p className="text-xs md:text-sm my-1 md:my-6 tracking-wide leading-normal text-justify break-words" {...props} />,
                         }}
                     >
                         {markdownContent || "*No content available.*"}
