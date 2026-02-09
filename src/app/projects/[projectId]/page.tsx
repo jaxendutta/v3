@@ -3,6 +3,7 @@ import { getProjectMarkdown } from "@/lib/project-content";
 import ArticleLayout from "@/components/sections/project/layouts/ArticleLayout";
 import ShowcaseLayout from "@/components/sections/project/layouts/ShowcaseLayout";
 import { notFound } from "next/navigation";
+import Footer from "@/components/layout/Footer";
 
 // Next.js 15+ syntax for dynamic params
 type Props = {

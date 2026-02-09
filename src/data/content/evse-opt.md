@@ -2,7 +2,7 @@
 
 # Project Overview
 
-This project develops an optimization model for enhancing the Kitchener-Waterloo-Cambridge Census Metropolitan Area's (KWC-CMA) EV charging infrastructure through comprehensive data analysis and mathematical optimization. The model addresses current infrastructure gaps while planning for future EV adoption trends. A comprehensive mixed-integer linear programming (MILP) optimization model for strategic enhancement of the Kitchener-Waterloo Census Metropolitan Area (KWC-CMA) electric vehicle charging network. This project combines real-world data sources, advanced spatial analysis, and multi-objective optimization to recommend optimal charging infrastructure placement and upgrades.
+A comprehensive mixed-integer linear programming (MILP) optimization model for strategic enhancement of the Kitchener-Waterloo Census Metropolitan Area (KWC-CMA) electric vehicle charging network. This project combines real-world data sources, advanced spatial analysis, and multi-objective optimization to recommend optimal charging infrastructure placement and upgrades.
 
 ## Geographic Scope
 The project covers the entire KWC-CMA region including:
@@ -78,6 +78,9 @@ The project covers the entire KWC-CMA region including:
 # Methodology and Data Pipeline
 
 ```mermaid
+---
+title: Data Pipeline
+---
 graph TD
     A[Data Collection] --> |data_manager.py| B[Raw Data Storage]
     B --> C[Data Processing]
@@ -162,20 +165,23 @@ The project follows a systematic data collection approach implemented in `data_m
 ## Analysis Pipeline
 Our analysis workflow, implemented across multiple notebooks, processes raw data into optimization inputs:
 
-### Location Analysis (`02_location_analysis.ipynb`)
+### Location Analysis
+Notebook: `02_location_analysis.ipynb`
   - Population distribution analysis
   - Transit accessibility scoring
   - Demographic pattern identification
   - Service area calculations
 
-### Enhancement Analysis (`03_enhancement_analysis.ipynb`)
+### Enhancement Analysis
+Notebook: `03_enhancement_analysis.ipynb`
   - Identification of upgrade candidates
   - Port retention calculations
   - Cost-benefit analysis with retained ports
   - Grid capacity verification
   - Implementation feasibility assessment
 
-### Data Preparation (`04_data_preparation.ipynb`)
+### Data Preparation
+Notebook: `04_data_preparation.ipynb`
   - Demand point generation
   - Constraint parameter calculation
   - Distance matrix computation
@@ -185,6 +191,9 @@ Our analysis workflow, implemented across multiple notebooks, processes raw data
 The project creates sophisticated demand points to represent charging needs through a multi-factor analysis.
 
 ```mermaid
+---
+title: Demand Point Generation Workflow
+---
 graph LR
     A[Census Tracts] --> |Population Weighting| B[Base Points]
     C[Transit Data] --> |Accessibility Score| D[Transit Factor]
@@ -211,7 +220,7 @@ graph LR
   - BEV/PHEV ratio consideration
   - Growth trend incorporation
 
-### Scoring Components: 
+### Scoring Components
   - EV Ownership Data (35%)
   - Infrastructure quality (25%)
   - Base population density (20%)
@@ -261,39 +270,41 @@ graph LR
 ## Data Processing Pipeline
 
 ### Raw Data Processing
-- **Data Manager (`data_manager.py`)**:
+- **Data Manager**
+    
+    Script: `data_manager.py`
   - API integrations (OpenChargeMap, Census)
   - Spatial data processing
   - Caching mechanisms
   - Error handling
 
-- **Preprocessing Steps**:
+- **Preprocessing Steps**
   - Coordinate validation
   - Missing data handling
   - Projection standardization
   - Spatial indexing
 
 ### Analysis Workflow
-- **Location Analysis**:
+- **Location Analysis**
   - Population density mapping
   - Transit accessibility scoring
   - Land use compatibility
   - Grid capacity assessment
 
-- **Enhancement Analysis**:
+- **Enhancement Analysis**
   - Current coverage evaluation
   - Upgrade opportunity identification
   - Cost-benefit calculations
   - Implementation feasibility
 
 ### Optimization Preparation
-- **Input Generation**:
+- **Input Generation**
   - Demand point creation
   - Distance matrix computation
   - Constraint parameter calculation
   - Cost modeling
 
-- **Solution Analysis**:
+- **Solution Analysis**
   - Coverage metrics
   - Financial impact
   - Implementation phasing
@@ -302,6 +313,9 @@ graph LR
 ## Optimization Implementation
 
 ```mermaid
+---
+title: Optimization Workflow
+---
 graph TD
     A[Input Data] --> B[Problem Setup]
     B --> C[Initial Solution]
@@ -319,27 +333,28 @@ graph TD
     H --> J[Sensitivity Analysis]
 ```
 
-### Model Configuration (`network_optimizer.py`)
-- **Decision Variables**:
+### Model Configuration
+Script: `network_optimizer.py`
+- **Decision Variables**
   - Binary variables for station decisions
   - Integer variables for port allocation
   - Coverage tracking variables
   - Cost accounting variables
 
-- **Model Parameters**:
+- **Model Parameters**
   - Grid capacity thresholds
   - Coverage radius requirements
   - Budget constraints
   - Minimum port requirements
 
 ### Solution Process
-- **Setup Phase**:
+- **Setup Phase**
   - Data structure preparation
   - Variable initialization
   - Constraint generation
   - Objective function formulation
 
-- **Solution Strategy**:
+- **Solution Strategy**
   - Multi-phase optimization
   - Iterative refinement
   - Feasibility checking
@@ -347,27 +362,28 @@ graph TD
 
 ## Results Processing and Analysis
 
-### Coverage Analysis (`05_optimization_model.ipynb`)
-- **Geographic Coverage**:
+### Coverage Analysis 
+Notebook: `05_optimization_model.ipynb`
+- **Geographic Coverage**
   - Population accessibility metrics
   - EV owner coverage calculations
   - Transit integration assessment
   - Service gap identification
 
-- **Infrastructure Distribution**:
+- **Infrastructure Distribution**
   - Charger type analysis
   - Port allocation efficiency
   - Grid capacity utilization
   - Service redundancy evaluation
 
 ### Financial Analysis
-- **Cost Breakdown**:
+- **Cost Breakdown**
   - Installation expenses
   - Infrastructure upgrades
   - Grid capacity enhancements
   - Operating cost projections
 
-- **ROI Calculations**:
+- **ROI Calculations**
   - Coverage improvement metrics
   - Cost per capita served
   - Efficiency improvements
@@ -376,6 +392,9 @@ graph TD
 ## Implementation Planning
 
 ```mermaid
+---
+title: Implementation Planning Workflow
+---
 graph LR
     A[Phase 1: L2 to L3 Upgrades] --> B[Phase 2: New L3 Stations]
     B --> C[Phase 3: L2 Network]
@@ -439,27 +458,28 @@ graph LR
 
 ## Visualization and Reporting
 
-### Interactive Maps (`map_viz.py`)
-- **Coverage Visualization**:
+### Interactive Maps 
+Script: `map_viz.py`
+- **Coverage Visualization**
   - Population density heatmaps
   - Service area overlays
   - Station status indicators
   - Implementation phase mapping
 
-- **Analysis Layers**:
+- **Analysis Layers**
   - EV ownership density
   - Transit accessibility
   - Grid capacity zones
   - Upgrade priorities
 
 ### Results Dashboard
-- **Performance Metrics**:
+- **Performance Metrics**
   - Coverage improvements
   - Cost efficiency
   - Implementation progress
   - Service level achievements
 
-- **Analysis Views**:
+- **Analysis Views**
   - Geographic distribution
   - Financial analysis
   - Timeline tracking
@@ -497,7 +517,7 @@ The model employs a sophisticated port retention strategy during L2 to L3 upgrad
 ## Environment Setup
 
 ### Prerequisites
-- Python 3.12.7 or higher
+- Python>=3.12.7
 - Gurobi Optimizer License
 - OpenChargeMap API key
 
@@ -565,7 +585,7 @@ The model employs a sophisticated port retention strategy during L2 to L3 upgrad
     The `verify_setup.py` script automates the setup process by:
     - Checking and enforcing project-specific virtual environment setup at `PROJECT_ROOT/venv`
     - Verifying Python version compatibility (requires Python 3.12.7+)
-    - Installing the project package in editable mode (`pip install -e .`)
+    - Installing the project package in editable mode using `pip install -e .`
     - Installing all dependencies from `requirements.txt` with proper categorization
     - Verifying Gurobi license status
     - Checking API key configurations
@@ -592,7 +612,7 @@ The model employs a sophisticated port retention strategy during L2 to L3 upgrad
   - `balanced.json`
   - `conservative.json`
 
-## Quick Run on the Command Line Interface
+## Quick Run on the CLI
 
 > [!NOTE]
 > This section is to run the optimization directly on the command line interface. If you would like to visualize and observe the data pipeline working its way through, you can skip to section [4.5.](#45-data-pipeline-execution). The following content is just for a quick run.

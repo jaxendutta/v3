@@ -3,52 +3,126 @@
 import { projectsData } from "@/data/projects";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-import remarkMath from "remark-math"; // FIXED: Re-added Math
-import rehypeKatex from "rehype-katex"; // FIXED: Re-added Math
+import remarkMath from "remark-math";
+import rehypeKatex from "rehype-katex";
 import remarkUnwrapImages from "remark-unwrap-images";
 import rehypeSlug from "rehype-slug";
 import { displayFont } from "@/lib/fonts";
 import Link from "next/link";
-import { FiGithub, FiExternalLink, FiCalendar, FiCpu, FiLink, FiInfo, FiAlertCircle, FiCheckCircle } from "react-icons/fi";
+import {
+    FiGithub, FiExternalLink, FiCalendar, FiCpu, FiLink,
+    FiInfo, FiAlertCircle, FiCheckCircle, FiAlertTriangle, FiBookmark
+} from "react-icons/fi";
 import ProjectsPageHeader from "@/components/sections/project/ProjectsPageHeader";
 import Tag from "@/components/ui/Tag";
 import { useEffect, useState } from "react";
 import { visit } from "unist-util-visit";
 import Mermaid from "@/components/ui/Mermaid";
-import "katex/dist/katex.min.css"; // FIXED: Import Math CSS
+import "katex/dist/katex.min.css";
+import Footer from "@/components/layout/Footer";
 
-// --- UTILS ---
+// --- PLUGINS ---
+
+// 1. Remark Plugin: Detect GitHub Alerts (Note, Tip, etc.)
+// This runs on the Markdown AST *before* it becomes HTML.
+function remarkAlerts() {
+    return (tree: any) => {
+        visit(tree, 'blockquote', (node: any) => {
+            const firstChild = node.children?.[0];
+            if (!firstChild || firstChild.type !== 'paragraph') return;
+
+            const firstTextNode = firstChild.children?.[0];
+            if (!firstTextNode || firstTextNode.type !== 'text') return;
+
+            const content = firstTextNode.value;
+            // Regex to find [!NOTE], [!TIP], etc.
+            const match = content.match(/^\[!(NOTE|TIP|IMPORTANT|WARNING|CAUTION)\]/i);
+
+            if (match) {
+                const type = match[1].toLowerCase();
+
+                // Inject a data attribute we can read in React
+                node.data = node.data || {};
+                node.data.hProperties = node.data.hProperties || {};
+                node.data.hProperties['data-alert-type'] = type;
+
+                // Strip the "[!NOTE]" text from the content so it doesn't render
+                // We assume there might be a newline or space after it
+                const cleanContent = content.replace(/^\[!(NOTE|TIP|IMPORTANT|WARNING|CAUTION)\]\s?/, "");
+                firstTextNode.value = cleanContent;
+            }
+        });
+    };
+}
+
+// 2. Rehype Plugin: Auto-number Images and Mermaid charts (Figure 1, Figure 2...)
+function rehypeFigureIds() {
+    return (tree: any) => {
+        let count = 0;
+        visit(tree, 'element', (node: any) => {
+            // 1. Check for standard Images
+            if (node.tagName === 'img') {
+                count++;
+                node.properties.id = `fig-${count}`;
+                return;
+            }
+
+            // 2. Check for Mermaid Code Blocks
+            // Markdown code blocks become <code class="language-mermaid"> in rehype
+            if (node.tagName === 'code' && node.properties?.className) {
+                const classes = Array.isArray(node.properties.className)
+                    ? node.properties.className
+                    : [node.properties.className];
+
+                if (classes.includes('language-mermaid')) {
+                    count++;
+                    // Inject the ID into the node properties so React props receive it
+                    node.properties.id = `fig-${count}`;
+                }
+            }
+        });
+    };
+}
+
+// --- CONFIG ---
+
+const ALERT_STYLES: Record<string, { icon: any, classes: string, title: string }> = {
+    note: {
+        icon: FiInfo,
+        classes: "bg-blue-500/10 border-blue-500 text-blue-900 dark:text-blue-300",
+        title: "Note"
+    },
+    tip: {
+        icon: FiCheckCircle,
+        classes: "bg-green-500/10 border-green-500 text-green-900 dark:text-green-300",
+        title: "Tip"
+    },
+    important: {
+        icon: FiBookmark,
+        classes: "bg-purple-500/10 border-purple-500 text-purple-700 dark:text-purple-300",
+        title: "Important"
+    },
+    warning: {
+        icon: FiAlertTriangle,
+        classes: "bg-amber-500/10 border-amber-500 text-amber-700 dark:text-amber-300",
+        title: "Warning"
+    },
+    caution: {
+        icon: FiAlertCircle,
+        classes: "bg-red-500/10 border-red-500 text-red-700 dark:text-red-300",
+        title: "Caution"
+    }
+};
 
 interface ArticleLayoutProps {
     projectId: string;
     markdownContent: string;
 }
 
-// Custom Plugin to Number Images
-function rehypeFigureIds() {
-    return (tree: any) => {
-        let count = 0;
-        visit(tree, 'element', (node: any) => {
-            if (node.tagName === 'img') {
-                count++;
-                node.properties.id = `fig-${count}`;
-            }
-        });
-    };
-}
-
-// Helper to determine GitHub Alert type
-const getAlertType = (text: string) => {
-    if (text.includes("[!NOTE]")) return "note";
-    if (text.includes("[!TIP]")) return "tip";
-    if (text.includes("[!IMPORTANT]")) return "important";
-    if (text.includes("[!WARNING]")) return "warning";
-    return null;
-};
-
 export default function ArticleLayout({ projectId, markdownContent }: ArticleLayoutProps) {
     const project = projectsData[projectId];
     const [titleVisible, setTitleVisible] = useState(false);
+    const base_font_size = "text-xs md:text-sm";
 
     useEffect(() => {
         const handleScroll = () => {
@@ -64,7 +138,7 @@ export default function ArticleLayout({ projectId, markdownContent }: ArticleLay
 
     if (!project) return null;
 
-    // Header Link Renderer
+    // Helper for Headers with Links
     const HeaderRenderer = ({ id, children, levelClassName }: { id?: string, children: React.ReactNode, levelClassName: string }) => (
         <a
             href={`#${id}`}
@@ -72,17 +146,17 @@ export default function ArticleLayout({ projectId, markdownContent }: ArticleLay
         >
             <span className="number-prefix font-mono text-primary/70 mr-1 select-none flex-shrink-0"></span>
             <span>{children}</span>
-            <FiLink className="opacity-0 group-hover:opacity-50 transition-opacity text-[0.8em] text-muted-foreground self-center flex-shrink-0" />
+            <FiLink className="opacity-0 group-hover:opacity-50 transition-opacity text-[0.5em] text-muted-foreground self-center flex-shrink-0" />
         </a>
     );
 
     return (
-        <div className="min-h-screen w-full bg-background text-foreground pb-20">
+        <div className={`min-h-screen w-full bg-background text-foreground`}>
             <ProjectsPageHeader titleVisible={titleVisible} isLandscape={false} />
 
-            <main className="max-w-6xl mx-auto px-6 pt-28 md:pt-32">
+            <main className="md:max-w-3xl lg:max-w-5xl mx-auto px-6 pt-28 md:pt-32">
 
-                {/* 1. Title Section */}
+                {/* 1. Header Section */}
                 <div id="article-title" className="mb-8">
                     <div className="flex items-center gap-3 text-primary mb-6">
                         <project.icon className="w-8 h-8" />
@@ -98,7 +172,7 @@ export default function ArticleLayout({ projectId, markdownContent }: ArticleLay
                     )}
                 </div>
 
-                {/* 2. Metadata */}
+                {/* 2. Metadata Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-12 gap-8 py-8 border-y border-border/30 mb-16">
                     <div className="md:col-span-8 space-y-6">
                         <div>
@@ -130,56 +204,92 @@ export default function ArticleLayout({ projectId, markdownContent }: ArticleLay
                     </div>
                 </div>
 
-                {/* 3. Content */}
-                <article className="article-content prose prose-lg dark:prose-invert max-w-none prose-headings:scroll-mt-28 prose-a:text-blue-600 prose-a:no-underline hover:prose-a:underline prose-img:shadow-lg prose-img:border prose-img:border-border/50">
+                {/* 3. Article Content */}
+                <article className="article-content prose prose-lg dark:prose-invert max-w-none 
+                    prose-headings:scroll-mt-28 
+                    prose-a:text-blue-600 prose-a:no-underline hover:prose-a:underline
+                    prose-img:shadow-lg prose-img:border prose-img:border-border/50
+                ">
                     <ReactMarkdown
-                        remarkPlugins={[remarkGfm, remarkUnwrapImages, remarkMath]}
+                        // Added remarkAlerts here to process the tags
+                        remarkPlugins={[remarkGfm, remarkUnwrapImages, remarkMath, remarkAlerts]}
                         rehypePlugins={[rehypeSlug, rehypeFigureIds, rehypeKatex]}
                         components={{
-                            // --- TABLES (Fix: Added specific styling) ---
-                            table: ({ node, ...props }) => (
-                                <div className="overflow-x-auto my-8 border border-border/50">
-                                    <table className="w-full text-left text-sm border-collapse" {...props} />
-                                </div>
-                            ),
-                            thead: ({ node, ...props }) => <thead className="bg-secondary/30 text-primary uppercase font-mono tracking-wider" {...props} />,
-                            th: ({ node, ...props }) => <th className="p-4 border-b border-border/50 font-semibold" {...props} />,
-                            td: ({ node, ...props }) => <td className="p-4 border-b border-border/10" {...props} />,
+                            // --- ALERTS & BLOCKQUOTES ---
+                            blockquote: ({ node, children, ...props }: any) => {
+                                // Retrieve the data attribute injected by our remark plugin
+                                const alertType = props['data-alert-type'] as string;
 
-                            // --- LISTS (Fix: Added list styling) ---
-                            ul: ({ node, ...props }) => <ul className="list-disc pl-6 space-y-2 my-6" {...props} />,
-                            ol: ({ node, ...props }) => <ol className="list-decimal pl-6 space-y-2 my-6" {...props} />,
-                            li: ({ node, ...props }) => <li className="pl-2" {...props} />,
+                                if (alertType && ALERT_STYLES[alertType]) {
+                                    const style = ALERT_STYLES[alertType];
+                                    const Icon = style.icon;
 
-                            // --- BLOCKQUOTES & ALERTS (Fix: Added GitHub Alert Logic) ---
-                            blockquote: ({ node, children, ...props }) => {
-                                // Convert children to string to check for alert patterns
-                                const content = String(children); // Simplified check
-                                // In ReactMarkdown, children is often an array. We need to peek at the first child.
-                                // However, simpler way is to just render standard blockquote if complex
-                                // For now, let's use a standard style that handles both
+                                    return (
+                                        <div className={`my-8 p-2 md:p-4 border-l-4 ${style.classes} flex flex-col gap-2 md:gap-4 items-start shadow-sm`}>
+                                            <div className="w-full flex items-center gap-2 text-sm">
+                                                <Icon className="flex-shrink-0" />
+                                                <p className="font-bold opacity-90 uppercase tracking-wide">{style.title}</p>
+                                            </div>
+                                            <div className="opacity-90 [&>p]:my-0">{children}</div>
+                                        </div>
+                                    );
+                                }
+
+                                // Standard Quote
                                 return (
-                                    <blockquote className="border-l-4 border-primary pl-4 py-1 my-6 bg-secondary/10 italic" {...props}>
+                                    <blockquote className="border-l-4 border-primary pl-4 py-2 my-8 bg-secondary/10 italic text-muted-foreground" {...props}>
                                         {children}
                                     </blockquote>
                                 );
                             },
 
-                            // --- CODE BLOCKS (Fix: Inverted colors, No Rounded Corners) ---
+                            // --- TABLES ---
+                            table: ({ node, ...props }) => (
+                                <div className="overflow-x-auto my-4 md:my-12 border-t border-l border-border/50">
+                                    <table className={`w-full text-left ${base_font_size}`} {...props} />
+                                </div>
+                            ),
+                            thead: ({ node, ...props }) => <thead className="bg-secondary uppercase font-mono tracking-wider" {...props} />,
+                            th: ({ node, ...props }) => <th className="p-4 border-b border-r border-border/50 font-semibold" {...props} />,
+                            td: ({ node, ...props }) => <td className="p-4 border-b border-r border-border/50" {...props} />,
+
+                            // --- LISTS ---
+                            ul: ({ node, ...props }) => <ul className={`list-disc pl-4 md:pl-6 space-y-2 my-4 md:my-6 marker:text-primary ${base_font_size}`} {...props} />,
+                            ol: ({ node, ...props }) => <ol className={`list-decimal pl-6 space-y-2 my-4 md:my-6 marker:text-primary ${base_font_size}`} {...props} />,
+                            li: ({ node, ...props }) => <li className="md:pl-2" {...props} />,
+
+                            // --- CODE BLOCKS ---
                             code({ node, inline, className, children, ...props }: any) {
                                 const match = /language-(\w+)/.exec(className || '');
+                                const codeString = String(children).replace(/\n$/, '');
 
-                                // 1. Mermaid Handling
+                                // --- MERMAID HANDLING ---
                                 if (!inline && match && match[1] === 'mermaid') {
-                                    // Generate an ID for the figure
-                                    const figId = `fig-mermaid-${Math.random().toString(36).substr(2, 5)}`;
+                                    const figId = props.id || `fig-mermaid-${Math.random().toString(36).substring(2, 9)}`;
+
+                                    // 1. Extract Title: Look for YAML-style title block at start
+                                    let title = "Diagram";
+                                    let cleanCode = codeString;
+
+                                    // Regex for:
+                                    // ---
+                                    // title: My Title
+                                    // ---
+                                    const titleMatch = codeString.match(/^---\s*[\r\n]+title:\s*(.+)[\r\n]+---\s*[\r\n]+([\s\S]*)/);
+
+                                    if (titleMatch) {
+                                        title = titleMatch[1].trim();
+                                        cleanCode = titleMatch[2]; // Code without title block
+                                    }
+
                                     return (
                                         <figure id={figId} className="my-12 w-full group">
-                                            <Mermaid chart={String(children).replace(/\n$/, '')} />
-                                            <figcaption className="text-center text-sm text-muted-foreground mt-3 italic flex justify-center">
+                                            {/* Pass clean code to Mermaid so it doesn't double-render title */}
+                                            <Mermaid chart={cleanCode} />
+                                            <figcaption className="text-center text-xs md:text-sm text-muted-foreground mt-3 italic flex justify-center">
                                                 <a href={`#${figId}`} className="!no-underline hover:text-primary transition-colors flex items-center gap-1.5">
                                                     <span className="figure-prefix not-italic font-semibold text-foreground/80"></span>
-                                                    <span>Diagram</span>
+                                                    <span>{title}</span>
                                                     <FiLink className="opacity-0 group-hover:opacity-100 transition-opacity text-xs" />
                                                 </a>
                                             </figcaption>
@@ -187,13 +297,16 @@ export default function ArticleLayout({ projectId, markdownContent }: ArticleLay
                                     );
                                 }
 
-                                // 2. Block Code (Inverted, No Rounded, Margins)
+                                // Standard Code Blocks
                                 if (!inline && match) {
                                     return (
-                                        <div className="my-8 w-full">
-                                            {/* Inverted Colors: bg-foreground (usually white/black) text-background */}
-                                            <pre className="bg-foreground text-background p-6 overflow-x-auto rounded-none border-l-4 border-primary shadow-2xl">
-                                                <code className={`${className} font-mono text-sm`} {...props}>
+                                        <div className="my-4 md:my-10 w-full group relative">
+                                            <pre className="bg-gray-800 text-white p-2 md:p-6 overflow-x-auto">
+                                                {/* Language Label */}
+                                                <div className="absolute top-0 right-0 px-1 md:px-3 md:py-1 bg-primary text-primary-foreground text-[8px] md:text-xs font-mono md:opacity-0 group-hover:opacity-100 transition-opacity items-center justify-center flex">
+                                                    {match[1]}
+                                                </div>
+                                                <code className={`${className} leading-[0]! font-mono ${base_font_size}`} {...props}>
                                                     {children}
                                                 </code>
                                             </pre>
@@ -201,9 +314,9 @@ export default function ArticleLayout({ projectId, markdownContent }: ArticleLay
                                     );
                                 }
 
-                                // 3. Inline Code (Inverted, Inherit size)
+                                // Inline Code
                                 return (
-                                    <code className="bg-foreground text-background px-1.5 py-0.5 font-mono text-[0.9em] font-medium" {...props}>
+                                    <code className="bg-foreground text-background px-1.5 py-0.5 font-mono text-[0.95em] font-medium text-wrap" {...props}>
                                         {children}
                                     </code>
                                 );
@@ -218,28 +331,33 @@ export default function ArticleLayout({ projectId, markdownContent }: ArticleLay
                                 const id = props.id || "fig-unknown";
                                 return (
                                     <figure id={id} className="my-12 w-full group">
-                                        <img {...props} src={src} className="w-full h-auto rounded-none border border-border/40" alt={alt} />
-                                        <figcaption className="text-center text-sm text-muted-foreground mt-3 italic flex justify-center">
-                                            <a href={`#${id}`} className="!no-underline hover:text-primary transition-colors flex items-center gap-1.5">
-                                                <span className="figure-prefix not-italic font-semibold text-foreground/80"></span>
+                                        <img {...props} src={src} className="w-full h-auto rounded-none border border-border/40 shadow-xl" alt={alt} />
+                                        <figcaption className="text-center text-xs md:text-sm text-muted-foreground mt-3 italic flex justify-center">
+                                            <a href={`#${id}`} className="!no-underline hover:text-primary transition-colors flex inline-flex items-center gap-1.5">
+                                                <span className="figure-prefix not-italic font-semibold text-foreground/80 inline-flex"></span>
                                                 <span>{alt}</span>
-                                                <FiLink className="opacity-0 group-hover:opacity-100 transition-opacity text-xs" />
+                                                <FiLink className="opacity-0 group-hover:opacity-100 transition-opacity" />
                                             </a>
                                         </figcaption>
                                     </figure>
                                 );
                             },
 
-                            // --- HEADERS (H1-H5) ---
-                            h1: ({ node, ...props }) => <h1 id={props.id} className="group text-4xl font-normal mt-20 mb-8 border-b border-border/30 pb-4"><HeaderRenderer id={props.id} levelClassName="text-4xl">{props.children}</HeaderRenderer></h1>,
-                            h2: ({ node, ...props }) => <h2 id={props.id} className="group text-3xl font-normal mt-16 mb-6 border-b border-border/30 pb-3"><HeaderRenderer id={props.id} levelClassName="text-3xl">{props.children}</HeaderRenderer></h2>,
-                            h3: ({ node, ...props }) => <h3 id={props.id} className="group text-2xl font-normal mt-12 mb-4 border-b border-border/30 pb-2"><HeaderRenderer id={props.id} levelClassName="text-2xl">{props.children}</HeaderRenderer></h3>,
-                            h4: ({ node, ...props }) => <h4 id={props.id} className="group text-xl font-normal mt-10 mb-4 border-b border-border/30 pb-2"><HeaderRenderer id={props.id} levelClassName="text-xl">{props.children}</HeaderRenderer></h4>,
-                            h5: ({ node, ...props }) => <h5 id={props.id} className="group text-lg font-normal mt-8 mb-3 border-b border-border/30 pb-2"><HeaderRenderer id={props.id} levelClassName="text-lg">{props.children}</HeaderRenderer></h5>,
+                            // --- HEADERS ---
+                            h1: ({ node, ...props }) => <h1 id={props.id} className="group font-normal mt-8 md:mt-16 mb-4 md:mb-8 border-b border-border pb-2 md:pb-4"><HeaderRenderer id={props.id} levelClassName="text-xl md:text-3xl lg:text-4xl">{props.children}</HeaderRenderer></h1>,
+                            h2: ({ node, ...props }) => <h2 id={props.id} className="group font-normal mt-4 md:mt-12 mb-4 md:mb-6 border-b border-border pb-3"><HeaderRenderer id={props.id} levelClassName="text-lg md:text-2xl lg:text-3xl">{props.children}</HeaderRenderer></h2>,
+                            h3: ({ node, ...props }) => <h3 id={props.id} className="group font-normal mt-5 md:mt-8 mb-2 md:mb-4 border-b border-border pb-2"><HeaderRenderer id={props.id} levelClassName="text-base md:text-xl lg:text-2xl">{props.children}</HeaderRenderer></h3>,
+                            h4: ({ node, ...props }) => <h4 id={props.id} className="group font-normal mt-4 md:mt-6 mb-4 border-b border-border pb-2"><HeaderRenderer id={props.id} levelClassName="text-sm md:text-xl lg:text-xl">{props.children}</HeaderRenderer></h4>,
+                            h5: ({ node, ...props }) => <h5 id={props.id} className="group font-normal mt-4 mb-3 border-b border-border pb-2"><HeaderRenderer id={props.id} levelClassName="text-xs md:text-md lg:text-lg">{props.children}</HeaderRenderer></h5>,
+
+                            p: ({ node, ...props }) => <p className="text-xs md:text-sm my-1 md:my-6 tracking-wide leading-normal text-justify" {...props} />,
                         }}
                     >
                         {markdownContent || "*No content available.*"}
                     </ReactMarkdown>
+
+
+                    <Footer className="border-t border-border mx-3 mt-10" />
                 </article>
             </main>
         </div>
