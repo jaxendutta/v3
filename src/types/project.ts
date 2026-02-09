@@ -1,15 +1,10 @@
 // src/types/project.ts
 import { IconType } from "react-icons";
+import { Social } from "./contact";
 
 export interface OverviewItem {
     className?: string;
     content: string;
-}
-
-// src/types/project.ts
-export interface ProjectLink {
-    name: string;
-    url: string;
 }
 
 export interface FontInfo {
@@ -37,7 +32,7 @@ export interface ProjectData {
     layoutType: "showcase" | "article";
     date: Date;
     overview?: OverviewItem[][];
-    links: ProjectLink[];
+    links: Social[];
     typography?: FontInfo[];
     colors?: ColorSet[];
     techStack?: Record<string, Tech[]>;

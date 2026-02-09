@@ -20,10 +20,12 @@ import { visit } from "unist-util-visit";
 import Mermaid from "@/components/ui/Mermaid";
 import "katex/dist/katex.min.css";
 import Footer from "@/components/layout/Footer";
+import { HiArrowRight } from "react-icons/hi2";
+import SocialItems, { SocialItem } from "../../contact/SocialItem";
 
 // --- PLUGINS ---
 
-// 1. Remark Plugin: Detect GitHub Alerts (Note, Tip, etc.)
+// 1. Remark Plugin: Detect Alerts (Note, Tip, etc.)
 // This runs on the Markdown AST *before* it becomes HTML.
 function remarkAlerts() {
     return (tree: any) => {
@@ -157,8 +159,13 @@ export default function ArticleLayout({ projectId, markdownContent }: ArticleLay
             <main className="md:max-w-3xl lg:max-w-5xl mx-auto px-6 pt-28 md:pt-32">
 
                 {/* 1. Header Section */}
-                <div id="article-title" className="mb-8">
-                    <div className="font-mono text-sm tracking-widest uppercase text-primary mb-6">{project.type} Project</div>
+                <div id="article-title" className="mb-6 md:mb-8">
+                    <div className="font-mono text-xs md:text-sm tracking-widest uppercase text-primary mb-8 flex items-center gap-2 md:gap-4">
+                        {project.type}
+                        <span className="hidden md:flex">Project</span>
+                        <div className="flex-1 h-0.5 bg-primary" />
+                        <span className="text-muted-foreground block">{project.date.toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}</span>
+                    </div>
                     <h1 className={`${displayFont} text-4xl md:text-7xl font-normal mb-2 md:mb-6 leading-[0.9] italic! flex gap-2`}>
                         <project.icon />
                         {project.name}
@@ -171,36 +178,22 @@ export default function ArticleLayout({ projectId, markdownContent }: ArticleLay
                 </div>
 
                 {/* 2. Metadata Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-8 py-4 md:py-8 border-y border-border/30 mb-16">
-                    <div className="md:col-span-8 space-y-6">
-                        <div>
-                            <h3 className="text-xs font-mono uppercase text-muted-foreground mb-3 flex items-center gap-2">
-                                <FiCpu /> Tech Stack
-                            </h3>
-                            <div className="flex flex-wrap gap-2">
-                                {project.techStack && Object.values(project.techStack).flat().map((tech) => (
-                                    <SkillTag key={tech.name} skill={tech.name} />
-                                ))}
-                            </div>
-                        </div>
-                        <div className="flex items-center gap-2 text-muted-foreground text-sm font-mono">
-                            <FiCalendar />
-                            <span>Published: {project.date.toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}</span>
-                        </div>
-                    </div>
-                    <div className="md:col-span-4 flex flex-col gap-3">
-                        <h3 className="text-xs font-mono uppercase text-muted-foreground mb-1">LINKS</h3>
-                        {project.links.map((link) => (
-                            <Link
-                                key={link.name} href={link.url} target="_blank"
-                                className="group flex items-center justify-between p-3 border border-border/50 hover:border-primary transition-all duration-300 !no-underline"
-                            >
-                                <span className="font-medium flex items-center gap-2 text-sm">{link.name}</span>
-                                {link.name.toLowerCase().includes("git") ? <FiGithub className="text-lg transition-transform" /> : <FiExternalLink className="text-lg transition-transform" />}
-                            </Link>
+                {/* 2a. Tech Stack */}
+                <div className="pb-5 border-b border-border">
+                    <h3 className="text-xs font-mono uppercase text-muted-foreground mb-4 flex items-center gap-1.5">
+                        <FiCpu /> 
+                        Tech Stack
+                        <div className="flex-1 h-px bg-muted-foreground/50" />
+                    </h3>
+                    <div className="flex flex-wrap gap-2">
+                        {project.techStack && Object.values(project.techStack).flat().map((tech) => (
+                            <SkillTag key={tech.name} skill={tech.name} />
                         ))}
                     </div>
                 </div>
+
+                {/* 2a. Links Grid */}
+                <SocialItems socials={project.links} className="text-base md:text-2xl uppercase" />
 
                 {/* 3. Article Content */}
                 <article className="article-content prose prose-lg dark:prose-invert max-w-none 
@@ -284,7 +277,7 @@ export default function ArticleLayout({ projectId, markdownContent }: ArticleLay
                                     }
 
                                     return (
-                                        <figure id={figId} className="my-12 w-full group">
+                                        <figure id={figId} className="my-6 md:my-12 w-full group">
                                             {/* Pass clean code to Mermaid so it doesn't double-render title */}
                                             <Mermaid chart={cleanCode} />
                                             <figcaption className="text-center text-xs md:text-sm text-muted-foreground mt-3 italic flex justify-center">
@@ -332,7 +325,7 @@ export default function ArticleLayout({ projectId, markdownContent }: ArticleLay
                                 const alt = props.alt || "Figure";
                                 const id = props.id || "fig-unknown";
                                 return (
-                                    <figure id={id} className="my-12 w-full group">
+                                    <figure id={id} className="my-6 md:my-12 w-full group">
                                         <img {...props} src={src} className="w-full h-auto rounded-none border border-border/40" alt={alt} />
                                         <figcaption className="text-center text-xs md:text-sm text-muted-foreground mt-3 italic flex justify-center">
                                             <a href={`#${id}`} className="!no-underline hover:text-primary transition-colors flex inline-flex items-center gap-1.5">

@@ -1,10 +1,5 @@
 // src/data/contactData.ts
-
-export type Social = {
-    platform: string;
-    handle: string;
-    url: string;
-};
+import { Social } from "@/types/contact";
 
 export const socials: Social[] = [
     {
@@ -24,7 +19,6 @@ export const socials: Social[] = [
     },
     {
         platform: "RÉSUMÉ",
-        handle: "",
         url: "https://docs.google.com/gview?url=https://docs.google.com/document/d/11mhUfmYKXO7jPN1rP6znr2B5zCl0hlrE0pKqAU2lKtU/export?format=pdf",
     },
 ];

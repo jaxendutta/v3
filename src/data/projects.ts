@@ -48,11 +48,11 @@ export const projectsData: ProjectsData = {
         ],
         links: [
             {
-                name: "GitHub",
+                platform: "GitHub",
                 url: "https://github.com/jaxendutta/asher",
             },
             {
-                name: "Live Site",
+                platform: "Live Site",
                 url: "https://asher.anirban.ca",
             },
         ],
@@ -138,11 +138,11 @@ export const projectsData: ProjectsData = {
         ],
         links: [
             {
-                name: "GitHub",
+                platform: "GitHub",
                 url: "https://github.com/jaxendutta/rgap-v2",
             },
             {
-                name: "Live Site",
+                platform: "Live Site",
                 url: "https://rgap.anirban.ca",
             },
         ],
@@ -217,11 +217,11 @@ export const projectsData: ProjectsData = {
         ],
         links: [
             {
-                name: "GitHub",
+                platform: "GitHub",
                 url: "https://github.com/jaxendutta/portfolio-v2",
             },
             {
-                name: "Live Site",
+                platform: "Live Site",
                 url: "https://v2.anirban.ca",
             },
         ],
@@ -274,40 +274,10 @@ export const projectsData: ProjectsData = {
         layoutType: "article",
         date: new Date("2024-12-18"),
         screenshotDevice: "mobile",
-        overview: [
-            [
-                {
-                    className: calloutStyle,
-                    content: "Tackling EV Infrastructure Challenges",
-                },
-                {
-                    content:
-                        "Developed a Mixed Integer Linear Programming (MILP) model to optimize the expansion of electric vehicle charging infrastructure across the Kitchener-Waterloo-Cambridge Census Metropolitan Area (KWC-CMA). The model processed over 7,750 potential locations to identify optimal placement strategies. 🔌🗺️",
-                },
-            ],
-            [
-                {
-                    className: calloutStyle,
-                    content: "Data-Driven Infrastructure Planning",
-                },
-                {
-                    content:
-                        "Leveraging advanced geospatial analysis and optimization techniques, the system identifies the most cost-effective deployment of charging stations while maximizing coverage and accessibility. The solution increased charging coverage by over 80% while minimizing installation costs through strategic Level 2 to Level 3 upgrades. 📊⚡",
-                },
-            ],
-        ],
         links: [
             {
-                name: "GitHub",
+                platform: "GitHub",
                 url: "https://github.com/jaxendutta/kwc-ev-charging-network-opt",
-            },
-        ],
-        typography: [],
-        colors: [
-            {
-                palette: ["#FF5733", "#C70039", "#900C3F", "#581845"],
-                description:
-                    "The color scheme is designed to evoke a sense of urgency and importance, reflecting the critical nature of EV charging network optimization. The vibrant red (#FF5733) and deep magenta (#C70039) create a striking contrast, while the darker shades (#900C3F, #581845) add depth and sophistication.",
             },
         ],
         techStack: {
@@ -319,7 +289,6 @@ export const projectsData: ProjectsData = {
             "Visualization": [{ name: "Folium" }],
             Optimization: [{ name: "Gurobi" }],
         },
-        footer: "The EVSE Network Optimization System represents a significant contribution to sustainable urban planning. The model integrates constraints including population density, traffic patterns, existing infrastructure, and power grid limitations. By applying operations research principles to environmental challenges, the project demonstrates a practical application of mathematical modeling to real-world sustainability issues.",
     },
 
     fabler: {
@@ -350,11 +319,11 @@ export const projectsData: ProjectsData = {
         ],
         links: [
             {
-                name: "GitHub",
+                platform: "GitHub",
                 url: "https://github.com/SE2-Fabler/",
             },
             {
-                name: "Figma",
+                platform: "Figma",
                 url: "https://www.figma.com/proto/kjrv7xO5wJAFPIJFyd4uy4/Fabler?scaling=scale-down",
             },
         ],
@@ -443,11 +412,11 @@ export const projectsData: ProjectsData = {
         ],
         links: [
             {
-                name: "GitHub",
+                platform: "GitHub",
                 url: "https://github.com/jaxendutta/portfolio",
             },
             {
-                name: "Live Site",
+                platform: "Live Site",
                 url: "https://v1.anirban.ca",
             },
         ],
@@ -511,11 +480,11 @@ export const projectsData: ProjectsData = {
         ],
         links: [
             {
-                name: "Figma",
+                platform: "Figma",
                 url: "https://www.figma.com/proto/OgAWcQHH2BAl2djJTCnHII/Hivemind?scaling=scale-down",
             },
             {
-                name: "Case Study",
+                platform: "Case Study",
                 url: "https://docs.google.com/document/d/1mqnpwIP3gOAwz9jm2UrgXZnNPSO40aCmM-wA7pEuu2Q/view",
             },
         ],
@@ -585,11 +554,11 @@ export const projectsData: ProjectsData = {
         ],
         links: [
             {
-                name: "GitHub",
+                platform: "GitHub",
                 url: "https://github.com/jaxendutta/space-invaders/",
             },
             {
-                name: "Download",
+                platform: "Download",
                 url: "https://github.com/jaxendutta/space-invaders/releases",
             },
         ],
@@ -656,11 +625,11 @@ export const projectsData: ProjectsData = {
         ],
         links: [
             {
-                name: "GitHub",
+                platform: "GitHub",
                 url: "https://github.com/jaxendutta/file-explorer/",
             },
             {
-                name: "Download",
+                platform: "Download",
                 url: "https://github.com/jaxendutta/file-explorer/releases",
             },
         ],
@@ -726,11 +695,11 @@ export const projectsData: ProjectsData = {
         ],
         links: [
             {
-                name: "GitHub",
+                platform: "GitHub",
                 url: "https://github.com/jaxendutta/lightbox/",
             },
             {
-                name: "Download",
+                platform: "Download",
                 url: "https://github.com/jaxendutta/lightbox/releases",
             },
         ],
@@ -795,11 +764,11 @@ export const projectsData: ProjectsData = {
         ],
         links: [
             {
-                name: "GitHub",
+                platform: "GitHub",
                 url: "https://github.com/jaxendutta/straights/",
             },
             {
-                name: "Play",
+                platform: "Play",
                 url: "https://dutta.itch.io/straights/",
             },
         ],

@@ -13,7 +13,7 @@ export default function ContactSection() {
             headerProps={{ title: "CONTACT" }}
             className="text-3xl md:text-4xl lg:text-4xl theme-bg theme-text"
         >
-            <SocialItems socials={socials} />
+            <SocialItems socials={socials} className="text-3xl md:text-4xl lg:text-4xl"/>
 
             <CaseGlitch
                 text="or buzz me right here."
