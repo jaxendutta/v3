@@ -14,7 +14,7 @@ import {
     FiInfo, FiAlertCircle, FiCheckCircle, FiAlertTriangle, FiBookmark
 } from "react-icons/fi";
 import ProjectsPageHeader from "@/components/sections/project/ProjectsPageHeader";
-import Tag from "@/components/ui/Tag";
+import { SkillTag } from "@/components/ui/Tag";
 import { useEffect, useState } from "react";
 import { visit } from "unist-util-visit";
 import Mermaid from "@/components/ui/Mermaid";
@@ -179,7 +179,7 @@ export default function ArticleLayout({ projectId, markdownContent }: ArticleLay
                             </h3>
                             <div className="flex flex-wrap gap-2">
                                 {project.techStack && Object.values(project.techStack).flat().map((tech) => (
-                                    <Tag key={tech.name} text={tech.name} />
+                                    <SkillTag key={tech.name} skill={tech.name} />
                                 ))}
                             </div>
                         </div>

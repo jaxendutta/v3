@@ -3,6 +3,7 @@
 import { AnimatePresence, motion, LayoutGroup, type Transition } from "framer-motion";
 import RotatingButton from "@/components/ui/RotatingButton";
 import { HiArrowLeft, HiArrowRight, HiArrowUp } from "react-icons/hi";
+import { HiArrowUpLeft } from "react-icons/hi2";
 import { GrChapterNext, GrChapterPrevious } from "react-icons/gr";
 import { headingFont } from "@/lib/fonts";
 import { useParams } from "next/navigation";
@@ -41,7 +42,13 @@ export default function ProjectsPageHeader({
         document.querySelector("main") || document.documentElement;
 
     const scrollToStart = () => {
-        mainElement.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+        if (isLandscape && mainElement) {
+            // For landscape showcase, scroll the internal container to the far left
+            mainElement.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+        } else {
+            // For vertical articles, scroll the window to the top
+            window.scrollTo({ top: 0, behavior: "smooth" });
+        }
     };
 
     const scrollNext = () => {
@@ -49,11 +56,22 @@ export default function ProjectsPageHeader({
             const scrollAmount = isLandscape
                 ? window.innerWidth
                 : window.innerHeight;
-            mainElement.scrollBy({
-                left: isLandscape ? scrollAmount : 0,
-                top: isLandscape ? 0 : scrollAmount,
-                behavior: "smooth",
-            });
+
+            // Use mainElement.scrollBy for landscape containers
+            // Use window.scrollBy for standard vertical articles
+            if (isLandscape) {
+                mainElement.scrollBy({
+                    left: scrollAmount,
+                    top: 0,
+                    behavior: "smooth",
+                });
+            } else {
+                window.scrollBy({
+                    left: 0,
+                    top: scrollAmount,
+                    behavior: "smooth",
+                });
+            }
         }
     };
 
@@ -115,7 +133,7 @@ export default function ProjectsPageHeader({
                     <motion.div {...getMotionProps("fadeLeft")}>
                         <RotatingButton
                             texts={["BACK TO", "PROJECTS PAGE"]}
-                            centerIcon={HiArrowLeft}
+                            centerIcon={HiArrowUpLeft}
                             {...buttonProps}
                             href="/projects"
                         />
@@ -193,7 +211,7 @@ export default function ProjectsPageHeader({
                                 "BACK TO START",
                                 isLandscape ? "LEFT OF PAGE" : "TOP OF PAGE",
                             ]}
-                            centerIcon={HiArrowUp}
+                            centerIcon={isLandscape ? HiArrowLeft : HiArrowUp}
                             {...buttonProps}
                             onClick={scrollToStart}
                         />

@@ -42,7 +42,7 @@ export default function NameSection({ name, className }: NameSectionProps) {
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8 }}
         >
-            {name.toUpperCase()}
+            {name}
         </motion.div>
     );
 }
