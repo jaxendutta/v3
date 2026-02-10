@@ -99,7 +99,7 @@ export default function NameSection({ name, className }: NameSectionProps) {
             className={twMerge(
                 "flex items-center justify-between p-4 bg-background text-foreground",
                 isPortrait
-                    ? "flex-row gap-4 w-full h-fit pb-8"
+                    ? "flex-row gap-4 w-full h-fit"
                     : "flex-col gap-8 w-fit h-full",
                 className
             )}
@@ -112,6 +112,7 @@ export default function NameSection({ name, className }: NameSectionProps) {
             <motion.div
                 className={`flex-1 flex items-center justify-center whitespace-nowrap leading-none z-10
                     [writing-mode:${isPortrait ? "vertical-rl" : "horizontal-tb"}]
+                    ${isPortrait ? "pb-8" : ""}
                     ${displayFont}`}
                 style={{
                     fontStyle: "italic",
