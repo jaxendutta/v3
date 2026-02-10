@@ -89,7 +89,7 @@ export default function ProjectCard({
                     className={`w-full md:w-2/5 relative ${isMobileProject ? (reversed ? "-rotate-5" : "rotate-5") : ""}`}
                 >
                     <Image
-                        src={`/assets/${id}.png`}
+                        src={`/${id}.png`}
                         alt={project.name}
                         width={isMobileProject ? 280 : 800}
                         height={isMobileProject ? 600 : 450}

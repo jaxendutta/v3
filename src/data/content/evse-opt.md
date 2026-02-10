@@ -1,4 +1,4 @@
-![Network Optimization Visualization](/assets/evse-opt-pc.png)
+![Network Optimization Visualization](/evse-opt-pc.png)
 
 # Project Overview
 

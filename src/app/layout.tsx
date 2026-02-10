@@ -43,9 +43,7 @@ export const metadata: Metadata = {
     twitter: {
         card: "summary_large_image",
         title: "Jaxen Dutta | Portfolio",
-        description:
-            "UX/UI Engineer, HCI Researcher, Web Designer, and App Developer portfolio",
-        images: ["/og-image.png"],
+        description: "UX/UI Engineer, HCI Researcher, Web Designer, and App Developer portfolio",
     },
 };
 
