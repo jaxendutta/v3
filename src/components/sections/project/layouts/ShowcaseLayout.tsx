@@ -14,6 +14,9 @@ const ColorSection = dynamic(() => import("@/components/sections/project/section
 const TechStackSection = dynamic(() => import("@/components/sections/project/sections/TechStackSection"), { loading: () => <Skeleton className="h-[80vh] w-full" /> });
 const FooterSection = dynamic(() => import("@/components/sections/project/sections/FooterSection"), { loading: () => <Skeleton className="h-[80vh] w-full" /> });
 
+// Utility for smooth animation
+const lerp = (start: number, end: number, factor: number) => start + (end - start) * factor;
+
 export default function ShowcaseLayout({ projectId }: { projectId: string }) {
     const project = projectsData[projectId];
     if (!project) return null;
@@ -30,19 +33,76 @@ export default function ShowcaseLayout({ projectId }: { projectId: string }) {
         return () => window.removeEventListener("resize", handleResize);
     }, []);
 
-    // Horizontal scroll logic
+    // --- MODERN SMOOTH HORIZONTAL SCROLL LOGIC ---
     useEffect(() => {
         if (!isLandscape || !mainRef.current) return;
         const mainElement = mainRef.current;
 
-        const handleWheel = (e: WheelEvent) => {
-            if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) return;
-            e.preventDefault();
-            mainElement.scrollLeft += e.deltaY;
+        // Physics State
+        let targetScroll = mainElement.scrollLeft;
+        let currentScroll = mainElement.scrollLeft;
+        let isAnimating = false;
+        let animationFrameId: number;
+
+        const updateScroll = () => {
+            if (!mainElement) return;
+
+            // 1. Lerp: Move current towards target by a percentage (0.08 = 8% per frame)
+            // Adjust 0.08 for "weight". Lower = heavier/smoother, Higher = snappier.
+            currentScroll = lerp(currentScroll, targetScroll, 0.08);
+
+            // 2. Apply scroll
+            mainElement.scrollLeft = currentScroll;
+
+            // 3. Stop if we are close enough (sub-pixel precision)
+            if (Math.abs(targetScroll - currentScroll) > 0.5) {
+                animationFrameId = requestAnimationFrame(updateScroll);
+            } else {
+                isAnimating = false;
+                // Snap to exact target to ensure clean rendering
+                mainElement.scrollLeft = targetScroll;
+            }
         };
 
+        const handleWheel = (e: WheelEvent) => {
+            // A. Detect Horizontal Trackpad Swipes
+            // If deltaX is dominant, the user is likely swiping sideways on a trackpad.
+            // Let the browser handle this natively for the best feel.
+            if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) {
+                // Update our trackers so they don't lag behind the native scroll
+                targetScroll = mainElement.scrollLeft;
+                currentScroll = mainElement.scrollLeft;
+                return;
+            }
+
+            // B. Handle Vertical Wheel (Mouse / Trackpad Vertical)
+            e.preventDefault();
+
+            // Accumulate the delta into our target
+            // Multiplier (e.g. 1.2) can be added here if you want faster scrolling
+            targetScroll += e.deltaY;
+
+            // Clamp the target so we don't scroll past the content
+            const maxScroll = mainElement.scrollWidth - mainElement.clientWidth;
+            targetScroll = Math.max(0, Math.min(targetScroll, maxScroll));
+
+            // Start the animation loop if it's not running
+            if (!isAnimating) {
+                isAnimating = true;
+                // Sync currentScroll in case the user dragged the scrollbar manually
+                currentScroll = mainElement.scrollLeft;
+                cancelAnimationFrame(animationFrameId);
+                animationFrameId = requestAnimationFrame(updateScroll);
+            }
+        };
+
+        // { passive: false } is required to use e.preventDefault()
         mainElement.addEventListener("wheel", handleWheel, { passive: false });
-        return () => mainElement.removeEventListener("wheel", handleWheel);
+
+        return () => {
+            mainElement.removeEventListener("wheel", handleWheel);
+            cancelAnimationFrame(animationFrameId);
+        };
     }, [isLandscape]);
 
     // Header visibility logic
@@ -54,6 +114,7 @@ export default function ShowcaseLayout({ projectId }: { projectId: string }) {
                 setTitleVisible(isLandscape && rect.right <= 10);
             }
         };
+        // Use standard scroll event listener since we are updating scrollLeft property
         const handleScroll = () => requestAnimationFrame(updateHeaderVisibility);
 
         mainRef.current?.addEventListener("scroll", handleScroll);
@@ -78,10 +139,7 @@ export default function ShowcaseLayout({ projectId }: { projectId: string }) {
                     name={project.name}
                     className={
                         isLandscape
-                            // Landscape: Grow WIDTH to fit name (w-fit), Full height (h-full)
                             ? "min-w-full w-fit snap-start shrink-0 h-full"
-                            // Portrait: Grow HEIGHT to fit name (h-fit), Full width (w-full)
-                            // Removed constraints so long names scroll naturally
                             : "w-full h-fit min-h-[calc(100vh-100px)] snap-start shrink-0"
                     }
                 />
