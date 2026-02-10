@@ -1,51 +1,76 @@
-// src/components/sections/project/sections/OverviewSection.tsx
 "use client";
 
 import { OverviewItem } from "@/types/project";
 import { Social } from "@/types/contact";
 import { motion } from "framer-motion";
-import { codeFont } from "@/lib/fonts";
+import TextBorderAnimation from "@/components/ui/TextBorder";
 import ProjectButton from "@/components/ui/ProjectButton";
-import { ProjectPageSection } from "@/components/sections/project/ProjectPageSection";
+import { useMemo } from "react";
 
 interface OverviewSectionProps {
     overview: OverviewItem[][];
-    links: Social[];
-    isLandscape: boolean;
+    links?: Social[];
+    isLandscape?: boolean;
 }
 
-export default function OverviewSection({
-    overview,
-    links,
-    isLandscape
-}: OverviewSectionProps) {
+export default function OverviewSection({ overview, links, isLandscape = true }: OverviewSectionProps) {
     return (
-        <ProjectPageSection title={[]} className="flex-none" id="overview">
-            {overview.map((section, sectionIndex) => (
-                <div
-                    key={sectionIndex}
-                    className={`h-full flex flex-col items-center justify-center snap-start ${isLandscape ? "w-screen" : ""}`}
+        <>
+            {overview.map((column, index) => (
+                <OverviewSlide
+                    key={index}
+                    items={column}
+                    links={links}
+                    isLandscape={isLandscape}
+                />
+            ))}
+        </>
+    );
+}
+
+function OverviewSlide({ items, links, isLandscape }: { items: OverviewItem[], links?: Social[], isLandscape: boolean }) {
+
+    const { calloutText, bodyContent, titleContent } = useMemo(() => {
+        const calloutItem = items.find(item => item.className);
+        const bodyItem = items.find(item => !item.className);
+
+        const rawCallout = calloutItem ? calloutItem.content : "PROJECT OVERVIEW";
+
+        return {
+            calloutText: rawCallout,
+            titleContent: rawCallout,
+            bodyContent: bodyItem ? bodyItem.content : "",
+        };
+    }, [items]);
+
+    return (
+        <section
+            className={`
+                relative bg-background text-foreground
+                snap-center shrink-0 overflow-hidden 
+                w-screen flex items-center justify-center
+                ${isLandscape ? "h-full" : "h-[calc(100vh-120px)]"}
+            `}
+        >
+            <TextBorderAnimation
+                text={calloutText}
+                fontSize={20}
+                speed={60}
+                className="w-full h-full p-6 md:p-12"
+            >
+                <motion.div
+                    className="flex flex-col items-center text-center gap-6 md:gap-10 p-4 md:p-12 max-w-4xl"
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6 }}
                 >
-                    {section.map(
-                        (subsection: OverviewItem, index: number) => (
-                            <motion.div
-                                key={index}
-                                className={`mb-8 max-w-[70%] flex flex-col items-center ${codeFont}`}
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: index * 0.1 }}
-                            >
-                                <div
-                                    className={`leading-relaxed text-center ${subsection.className}`}
-                                >
-                                    {subsection.content}
-                                </div>
-                            </motion.div>
-                        )
-                    )}
-                    {/* Project Links */}
-                    {links.length > 0 && ((sectionIndex === overview.length - 1) || isLandscape) && (
-                        <div className="mt-4 w-full flex justify-evenly flex-wrap">
+                    <p className="text-base md:text-xl leading-relaxed text-muted-foreground max-w-2xl">
+                        {bodyContent}
+                    </p>
+
+                    {links && links.length > 0 && (
+                        <div className="flex flex-wrap justify-evenly gap-4 mt-4 pt-8 border-t border-border w-full">
                             {links.map((link, linkIndex) => (
                                 <ProjectButton
                                     key={linkIndex}
@@ -55,8 +80,8 @@ export default function OverviewSection({
                             ))}
                         </div>
                     )}
-                </div>
-            ))}
-        </ProjectPageSection>
+                </motion.div>
+            </TextBorderAnimation>
+        </section>
     );
 }

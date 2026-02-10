@@ -50,7 +50,7 @@ export default function ProjectButton({ link, index }: ProjectButtonProps) {
             <div className="flex items-center justify-center gap-2 z-10 relative">
                 {/* Arrow icon */}
                 <HiArrowUpRight
-                    className={isHovered ? "opacity-100" : "opacity-0"}
+                    className={isHovered ? "opacity-100" : "md:opacity-0"}
                     aria-hidden="true"
                 />
 
