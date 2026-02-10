@@ -32,7 +32,7 @@ export const projectsData: ProjectsData = {
                 },
                 {
                     content:
-                        'Developed a nature-inspired research portfolio for Asher Kim, MSc Biology Candidate at the University of Ottawa. Titled "Asher\'s Garden," the site showcases their research with unique interactive animals.',
+                        'A nature-inspired research portfolio for Asher Kim, MSc Biology Candidate at the University of Ottawa. Titled "Asher\'s Garden," the site showcases their research with unique interactive animals.',
                 },
             ],
             [
