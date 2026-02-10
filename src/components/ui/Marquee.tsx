@@ -1,4 +1,3 @@
-// src/components/ui/Marquee.tsx
 "use client";
 
 import { useRef, useEffect, useState, ReactNode } from "react";
@@ -24,11 +23,10 @@ export default function Marquee({
 }: MarqueeProps) {
     const containerRef = useRef<HTMLDivElement>(null);
     const contentRef = useRef<HTMLDivElement>(null);
-    const [copies, setCopies] = useState(4); // Default, will be recalculated
+    const [copies, setCopies] = useState(4);
     const [initialized, setInitialized] = useState(false);
     const [duration, setDuration] = useState(40);
 
-    // Calculate the optimal number of copies based on content width
     useEffect(() => {
         if (!containerRef.current || !contentRef.current) return;
 
@@ -43,15 +41,13 @@ export default function Marquee({
                 ? contentRef.current.clientHeight
                 : contentRef.current.clientWidth;
 
-            // Calculate how many copies we need to fill the container at least twice
-            // (for seamless looping) plus one more for safety
+            if (contentSize === 0) return;
+
             const neededCopies = Math.max(
                 4,
                 Math.ceil((containerSize * 2) / contentSize)
             );
 
-            // Calculate duration based on content size and desired speed
-            // Lower duration = faster animation
             const calculatedDuration = contentSize / speed;
 
             setCopies(neededCopies);
@@ -65,73 +61,78 @@ export default function Marquee({
         return () => observer.disconnect();
     }, [speed, vertical]);
 
-    // Direction is applied through transform direction
     const isReverse = direction === "right";
 
     return (
-        <motion.div
-            ref={containerRef}
-            className={twMerge(
-                "group flex overflow-hidden",
-                vertical ? "flex-col" : "flex-row",
-                !initialized && "opacity-0", // Hide until measurements are done
-                initialized && "opacity-100 transition-opacity duration-500",
-                className
-            )}
-            style={
-                {
-                    // CSS custom properties for animation
-                    "--duration": `${duration}s`,
-                    "--gap": "0rem",
-                } as React.CSSProperties
-            }
-        >
-            {/* First element to measure content size */}
+        <>
+            {/* Inject Animation Keyframes Locally */}
+            <style jsx global>{`
+                @keyframes marquee {
+                    0% { transform: translateX(0%); }
+                    100% { transform: translateX(-100%); }
+                }
+                @keyframes marquee-vertical {
+                    0% { transform: translateY(0%); }
+                    100% { transform: translateY(-100%); }
+                }
+                .animate-marquee {
+                    animation: marquee var(--duration) linear infinite;
+                }
+                .animate-marquee-vertical {
+                    animation: marquee-vertical var(--duration) linear infinite;
+                }
+            `}</style>
+
             <motion.div
-                ref={contentRef}
+                ref={containerRef}
                 className={twMerge(
-                    "flex shrink-0 justify-around gap-[var(--gap)]",
-                    vertical ? "flex-col" : "flex-row",
-                    !vertical && "animate-marquee",
-                    vertical && "animate-marquee-vertical",
-                    pauseOnHover && "group-hover:[animation-play-state:paused]"
+                    "group flex overflow-hidden z-0", // Added z-0 to keep behind text if needed
+                    vertical ? "flex-col h-full" : "flex-row w-full",
+                    !initialized && "opacity-0",
+                    initialized && "opacity-100 transition-opacity duration-500",
+                    className
                 )}
                 style={{
-                    animation: `${
-                        vertical ? "marquee-vertical" : "marquee"
-                    } var(--duration) linear infinite ${
-                        isReverse ? "reverse" : ""
-                    }`,
-                }}
+                    "--duration": `${duration}s`,
+                    "--gap": "1rem", // Added a default gap
+                } as React.CSSProperties}
             >
-                {children}
-            </motion.div>
+                <motion.div
+                    ref={contentRef}
+                    className={twMerge(
+                        "flex shrink-0 justify-around gap-[var(--gap)] items-center",
+                        vertical ? "flex-col" : "flex-row",
+                        !vertical && "animate-marquee",
+                        vertical && "animate-marquee-vertical",
+                        pauseOnHover && "group-hover:[animation-play-state:paused]"
+                    )}
+                    style={{
+                        animationDirection: isReverse ? "reverse" : "normal",
+                    }}
+                >
+                    {children}
+                </motion.div>
 
-            {/* Additional copies for seamless looping */}
-            {Array(copies - 1)
-                .fill(0)
-                .map((_, i) => (
-                    <motion.div
-                        key={i}
-                        className={twMerge(
-                            "flex shrink-0 justify-around gap-[var(--gap)]",
-                            vertical ? "flex-col" : "flex-row",
-                            !vertical && "animate-marquee",
-                            vertical && "animate-marquee-vertical",
-                            pauseOnHover &&
-                                "group-hover:[animation-play-state:paused]"
-                        )}
-                        style={{
-                            animation: `${
-                                vertical ? "marquee-vertical" : "marquee"
-                            } var(--duration) linear infinite ${
-                                isReverse ? "reverse" : ""
-                            }`,
-                        }}
-                    >
-                        {children}
-                    </motion.div>
-                ))}
-        </motion.div>
+                {Array(copies - 1)
+                    .fill(0)
+                    .map((_, i) => (
+                        <motion.div
+                            key={i}
+                            className={twMerge(
+                                "flex shrink-0 justify-around gap-[var(--gap)] items-center",
+                                vertical ? "flex-col" : "flex-row",
+                                !vertical && "animate-marquee",
+                                vertical && "animate-marquee-vertical",
+                                pauseOnHover && "group-hover:[animation-play-state:paused]"
+                            )}
+                            style={{
+                                animationDirection: isReverse ? "reverse" : "normal",
+                            }}
+                        >
+                            {children}
+                        </motion.div>
+                    ))}
+            </motion.div>
+        </>
     );
 }
