@@ -26,7 +26,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const description = project.subtitle || project.footer?.slice(0, 160) || `Case study for ${project.name}`;
 
     return {
-        title: project.name,
+        title: project.name.toUpperCase() + " ✦ Jaxen Dutta",
         description: description,
         openGraph: {
             title: `${project.name.toUpperCase()} ✦ Jaxen Dutta`,
