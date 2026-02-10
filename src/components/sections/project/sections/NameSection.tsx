@@ -6,6 +6,7 @@ import { useState, useEffect } from "react";
 import { IconType } from "react-icons";
 import { getRandomIcons } from "@/components/ui/RandomIcons";
 import { HiArrowRight } from "react-icons/hi2";
+import Marquee from "@/components/ui/Marquee";
 
 interface NameSectionProps {
     name: string;
@@ -28,51 +29,82 @@ export default function NameSection({ name, className }: NameSectionProps) {
     }, []);
 
     useEffect(() => {
-        setIconsPrefix(getRandomIcons(Math.ceil(name.length / 2)));
-        setIconsSuffix(getRandomIcons(Math.ceil(name.length / 2)));
+        // Keep your original logic for count
+        const count = Math.ceil(name.length / 2);
+        setIconsPrefix(getRandomIcons(count));
+        setIconsSuffix(getRandomIcons(count));
     }, [name]);
 
-    const renderIcons = (icons: IconType[], reverse: boolean = false) => {
+    const renderMarqueeIcons = (icons: IconType[], reverse: boolean = true) => {
+        const IconGroup = () => (
+            <div className={`
+                flex gap-4 items-center justify-center opacity-40
+                ${isPortrait ? "flex-col" : "flex-row"}
+            `}>
+                {icons.flatMap((Icon, index) => [
+                    <Icon
+                        key={`icon-${index}`}
+                        style={{
+                            fontSize: isPortrait
+                                ? "clamp(2rem, 14vh, 5rem)"
+                                : "clamp(4rem, 24vw, 12rem)",
+                        }}
+                    />,
+                    // Always show arrow in marquee since it loops
+                    <HiArrowRight
+                        key={`arrow-${index}`}
+                        className={isPortrait ? "rotate-90" : ""}
+                        style={{
+                            fontSize: isPortrait
+                                ? "clamp(1.5rem, 10vh, 4rem)"
+                                : "clamp(3rem, 18vw, 8rem)",
+                        }}
+                    />
+                ])}
+            </div>
+        );
+
         return (
-            <div className={`flex text-6xl gap-4 opacity-40 ${isPortrait ? "flex-col" : "flex-row"}${reverse ? "-reverse" : ""}`}
-                style={{
-                        fontStyle: "italic",
-                        fontSize: isPortrait
-                            ? "clamp(2rem, 14vh, 5rem)"
-                            : "clamp(4rem, 24vw, 12rem)",
-                    }}>
-                    {icons.flatMap((Icon, index) => [
-                        <Icon key={`icon-${index}`} />,
-                        index < icons.length && (
-                            <HiArrowRight 
-                                key={`arrow-${index}`} 
-                                className={` ${isPortrait ? "rotate-90" : ""}`} 
-                            />
-                        )
-                    ])}
-                </div>
+            <div className={`
+                relative flex items-center justify-center
+                ${isPortrait
+                    ? "h-full"
+                    : "w-screen"
+                }
+            `}>
+                <Marquee
+                    vertical={isPortrait}
+                    direction={reverse ? "right" : "left"} // Right maps to Reverse/Up depending on vertical
+                    speed={50}
+                    className="w-full h-full"
+                >
+                    <IconGroup />
+                </Marquee>
+            </div>
         );
     }
 
     return (
         <section
-            className={`flex items-center justify-center h-full w-full gap-8
-                ${isPortrait ? "flex-row" : "flex-col"} 
+            className={`flex items-center justify-between py-4 md:p-8 overflow-hidden
+                ${isPortrait ? "flex-row gap-4 w-full !h-fit" : "flex-col gap-8 !w-fit h-full"} 
                 ${className}`}
             id="project-name"
         >
-            {/* Start Padding Icons */}
-            {renderIcons(iconsPrefix)}
+            {/* Start Decoration */}
+            <div className="w-full max-h-[100vh] overflow-visible">
+                {renderMarqueeIcons(iconsPrefix)}
+            </div>
 
             {/* Name */}
             <motion.div
-                className={`flex items-center justify-center whitespace-nowrap leading-none
+                className={`flex-1 flex items-center justify-center whitespace-nowrap leading-none z-10
                     [writing-mode:${isPortrait ? "vertical-rl" : "horizontal-tb"}]
                     ${displayFont}`}
                 style={{
                     fontStyle: "italic",
                     fontSize: isPortrait
-                        ? "clamp(4rem, 14vh, 10rem)" // Slightly smaller for vertical flow
+                        ? "clamp(4rem, 14vh, 10rem)"
                         : "clamp(6rem, 18vw, 30rem)",
                 }}
                 initial={{ opacity: 0, scale: 0.95 }}
@@ -82,8 +114,10 @@ export default function NameSection({ name, className }: NameSectionProps) {
                 {name}
             </motion.div>
 
-            {/* End Padding Icons */}
-            {renderIcons(iconsSuffix, true)}
+            {/* End Decoration */}
+            <div className="w-full max-h-[100vh] overflow-visible">
+                {renderMarqueeIcons(iconsSuffix)}
+            </div>
         </section>
     );
 }

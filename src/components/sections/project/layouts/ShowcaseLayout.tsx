@@ -83,7 +83,7 @@ export default function ShowcaseLayout({ projectId }: { projectId: string }) {
                         // 2. 'snap-start' ensures the START is visible if it overflows. 
                         //    (snap-center pushes the start off-screen for huge elements).
                         // 3. 'min-w-full' ensures it centers nicely if the text is short.
-                        ? "min-w-full !w-fit snap-start shrink-0 px-10" 
+                        ? "min-w-full !w-fit snap-start shrink-0" 
                         : "!min-h-[calc(100vh-100px)] !h-fit snap-start py-10 w-full shrink-0"
                     } 
                 />
