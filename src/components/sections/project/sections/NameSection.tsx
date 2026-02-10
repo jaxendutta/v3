@@ -97,9 +97,9 @@ export default function NameSection({ name, className }: NameSectionProps) {
     return (
         <section
             className={twMerge(
-                "flex items-center justify-between p-4 overflow-hidden bg-background text-foreground",
+                "flex items-center justify-between p-4 bg-background text-foreground",
                 isPortrait
-                    ? "flex-row gap-4 w-full h-fit"
+                    ? "flex-row gap-4 w-full h-fit pb-8"
                     : "flex-col gap-8 w-fit h-full",
                 className
             )}
