@@ -71,7 +71,6 @@ export default function NameSection({ name, className }: NameSectionProps) {
                             {icons.flatMap((Icon, index) => [
                                 <Icon
                                     key={`icon-${index}`}
-                                    // RESTORED: Original sizing logic
                                     style={{
                                         fontSize: isPortrait
                                             ? "clamp(2rem, 14vh, 5rem)"
@@ -81,7 +80,6 @@ export default function NameSection({ name, className }: NameSectionProps) {
                                 <HiArrowRight
                                     key={`arrow-${index}`}
                                     className={isPortrait ? "rotate-90" : ""}
-                                    // RESTORED: Original sizing logic
                                     style={{
                                         fontSize: isPortrait
                                             ? "clamp(1.5rem, 10vh, 4rem)"

@@ -82,7 +82,7 @@ export default function ShowcaseLayout({ projectId }: { projectId: string }) {
                             ? "min-w-full w-fit snap-start shrink-0 h-full"
                             // Portrait: Grow HEIGHT to fit name (h-fit), Full width (w-full)
                             // Removed constraints so long names scroll naturally
-                            : "w-full h-fit min-h-[50vh] snap-start shrink-0"
+                            : "w-full h-fit min-h-[calc(100vh-100px)] snap-start shrink-0"
                     }
                 />
 
