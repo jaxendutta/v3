@@ -33,96 +33,102 @@ export default function ShowcaseLayout({ projectId }: { projectId: string }) {
         return () => window.removeEventListener("resize", handleResize);
     }, []);
 
-    // --- SMOOTH SCROLL & SNAP LOGIC ---
+    // --- UNIFIED SMOOTH SCROLL & SNAP LOGIC ---
     useEffect(() => {
-        if (!isLandscape || !mainRef.current) return;
+        if (!mainRef.current) return;
         const mainElement = mainRef.current;
 
+        // 1. Helpers
+        const getScroll = () => isLandscape ? mainElement.scrollLeft : mainElement.scrollTop;
+        const setScroll = (val: number) => isLandscape ? (mainElement.scrollLeft = val) : (mainElement.scrollTop = val);
+        const getSectionPos = (el: HTMLElement) => isLandscape ? el.offsetLeft : el.offsetTop;
+        const getMaxScroll = () => isLandscape
+            ? mainElement.scrollWidth - mainElement.clientWidth
+            : mainElement.scrollHeight - mainElement.clientHeight;
+
         // Physics State
-        let targetScroll = mainElement.scrollLeft;
-        let currentScroll = mainElement.scrollLeft;
+        let targetScroll = getScroll();
+        let currentScroll = getScroll();
         let isAnimating = false;
         let animationFrameId: number;
         let snapTimeout: NodeJS.Timeout;
 
-        // 1. The Animation Loop
         const updateScroll = () => {
             if (!mainElement) return;
 
-            // Lerp current towards target (Smooth dampening)
+            // Lerp current towards target
             currentScroll = lerp(currentScroll, targetScroll, 0.08);
-            mainElement.scrollLeft = currentScroll;
+            setScroll(currentScroll);
 
-            // Continue loop if we haven't reached the target
             if (Math.abs(targetScroll - currentScroll) > 0.5) {
                 animationFrameId = requestAnimationFrame(updateScroll);
             } else {
                 isAnimating = false;
-                mainElement.scrollLeft = targetScroll; // Snap to exact pixel at end
+                setScroll(targetScroll);
             }
         };
 
         const startAnimation = () => {
             if (!isAnimating) {
                 isAnimating = true;
-                // Resync current in case native scroll happened (e.g. browser resize)
-                currentScroll = mainElement.scrollLeft;
+                currentScroll = getScroll();
                 cancelAnimationFrame(animationFrameId);
                 animationFrameId = requestAnimationFrame(updateScroll);
             }
         };
 
-        // 2. Soft Snap Logic
         const snapToNearestSection = () => {
             if (!mainElement) return;
 
-            // Find the child section closest to where the user "threw" the scroll (targetScroll)
             const sections = Array.from(mainElement.children) as HTMLElement[];
             let closestSection = sections[0];
             let minDistance = Infinity;
 
+            // Define offset: In portrait, we want to snap BELOW the 100px header.
+            // In landscape, we snap to 0 (left edge).
+            const snapOffset = isLandscape ? 0 : 100;
+
             sections.forEach((section) => {
-                // Calculate distance from the section's start to the current target
-                const distance = Math.abs(section.offsetLeft - targetScroll);
+                // Calculate ideal scroll position: Section Start - Header Height
+                const idealScroll = getSectionPos(section) - snapOffset;
+
+                // Compare distance to our CURRENT target
+                const distance = Math.abs(idealScroll - targetScroll);
+
                 if (distance < minDistance) {
                     minDistance = distance;
                     closestSection = section;
                 }
             });
 
-            // Update target to the section's exact start position
             if (closestSection) {
-                targetScroll = closestSection.offsetLeft;
-                startAnimation(); // Restart loop to glide to the snap point
+                // Update target to the ideal position
+                targetScroll = getSectionPos(closestSection) - snapOffset;
+
+                // Clamp (e.g. don't scroll above 0)
+                targetScroll = Math.max(0, Math.min(targetScroll, getMaxScroll()));
+
+                startAnimation();
             }
         };
 
-        // 3. Wheel Handler
         const handleWheel = (e: WheelEvent) => {
-            // Check for horizontal touchpad swipe (Let native browser handle it)
-            if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) {
-                targetScroll = mainElement.scrollLeft;
-                currentScroll = mainElement.scrollLeft;
+            // Check for cross-axis swipe (Back/Forward gestures)
+            if (!isLandscape && Math.abs(e.deltaX) > Math.abs(e.deltaY)) {
                 return;
             }
 
             e.preventDefault();
-
-            // Clear pending snap while user is actively scrolling
             clearTimeout(snapTimeout);
 
-            // Update target
             targetScroll += e.deltaY;
-            const maxScroll = mainElement.scrollWidth - mainElement.clientWidth;
-            targetScroll = Math.max(0, Math.min(targetScroll, maxScroll));
+            targetScroll = Math.max(0, Math.min(targetScroll, getMaxScroll()));
 
             startAnimation();
 
-            // Schedule snap for when scrolling stops (150ms pause)
             snapTimeout = setTimeout(snapToNearestSection, 150);
         };
 
-        // Add Listeners
         mainElement.addEventListener("wheel", handleWheel, { passive: false });
 
         return () => {
@@ -132,7 +138,7 @@ export default function ShowcaseLayout({ projectId }: { projectId: string }) {
         };
     }, [isLandscape]);
 
-    // Header visibility
+    // Header visibility logic
     useEffect(() => {
         const updateHeaderVisibility = () => {
             const section = document.getElementById("project-name");
@@ -142,6 +148,7 @@ export default function ShowcaseLayout({ projectId }: { projectId: string }) {
             }
         };
         const handleScroll = () => requestAnimationFrame(updateHeaderVisibility);
+
         mainRef.current?.addEventListener("scroll", handleScroll);
         return () => mainRef.current?.removeEventListener("scroll", handleScroll);
     }, [isLandscape]);
@@ -155,8 +162,6 @@ export default function ShowcaseLayout({ projectId }: { projectId: string }) {
                 className={`
                     h-screen w-screen no-scrollbar flex scroll-pt-[100px] pt-[100px]
                     ${isLandscape
-                        // Landscape: NO snap-x and snap-mandatory.
-                        // We keep overflow-x-auto so native touchpad swipes still work.
                         ? "flex-row gap-20 overflow-x-auto overflow-y-hidden"
                         : "flex-col overflow-y-auto overflow-x-hidden pb-40"
                     }
@@ -166,10 +171,8 @@ export default function ShowcaseLayout({ projectId }: { projectId: string }) {
                     name={project.name}
                     className={
                         isLandscape
-                            // Landscape: NO snap-start
                             ? "min-w-full w-fit shrink-0 h-full"
-                            // Portrait: Native scrolling, so we keep snap-start
-                            : "w-full h-fit min-h-[calc(100vh-100px)] snap-start shrink-0"
+                            : "w-full h-fit min-h-[calc(100vh-100px)] shrink-0"
                     }
                 />
 
