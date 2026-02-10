@@ -33,7 +33,7 @@ export default function ShowcaseLayout({ projectId }: { projectId: string }) {
         return () => window.removeEventListener("resize", handleResize);
     }, []);
 
-    // --- MODERN SMOOTH HORIZONTAL SCROLL LOGIC ---
+    // --- SMOOTH SCROLL & SNAP LOGIC ---
     useEffect(() => {
         if (!isLandscape || !mainRef.current) return;
         const mainElement = mainRef.current;
@@ -43,69 +43,96 @@ export default function ShowcaseLayout({ projectId }: { projectId: string }) {
         let currentScroll = mainElement.scrollLeft;
         let isAnimating = false;
         let animationFrameId: number;
+        let snapTimeout: NodeJS.Timeout;
 
+        // 1. The Animation Loop
         const updateScroll = () => {
             if (!mainElement) return;
 
-            // 1. Lerp: Move current towards target by a percentage (0.08 = 8% per frame)
-            // Adjust 0.08 for "weight". Lower = heavier/smoother, Higher = snappier.
+            // Lerp current towards target (Smooth dampening)
             currentScroll = lerp(currentScroll, targetScroll, 0.08);
-
-            // 2. Apply scroll
             mainElement.scrollLeft = currentScroll;
 
-            // 3. Stop if we are close enough (sub-pixel precision)
+            // Continue loop if we haven't reached the target
             if (Math.abs(targetScroll - currentScroll) > 0.5) {
                 animationFrameId = requestAnimationFrame(updateScroll);
             } else {
                 isAnimating = false;
-                // Snap to exact target to ensure clean rendering
-                mainElement.scrollLeft = targetScroll;
+                mainElement.scrollLeft = targetScroll; // Snap to exact pixel at end
             }
         };
 
-        const handleWheel = (e: WheelEvent) => {
-            // A. Detect Horizontal Trackpad Swipes
-            // If deltaX is dominant, the user is likely swiping sideways on a trackpad.
-            // Let the browser handle this natively for the best feel.
-            if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) {
-                // Update our trackers so they don't lag behind the native scroll
-                targetScroll = mainElement.scrollLeft;
-                currentScroll = mainElement.scrollLeft;
-                return;
-            }
-
-            // B. Handle Vertical Wheel (Mouse / Trackpad Vertical)
-            e.preventDefault();
-
-            // Accumulate the delta into our target
-            // Multiplier (e.g. 1.2) can be added here if you want faster scrolling
-            targetScroll += e.deltaY;
-
-            // Clamp the target so we don't scroll past the content
-            const maxScroll = mainElement.scrollWidth - mainElement.clientWidth;
-            targetScroll = Math.max(0, Math.min(targetScroll, maxScroll));
-
-            // Start the animation loop if it's not running
+        const startAnimation = () => {
             if (!isAnimating) {
                 isAnimating = true;
-                // Sync currentScroll in case the user dragged the scrollbar manually
+                // Resync current in case native scroll happened (e.g. browser resize)
                 currentScroll = mainElement.scrollLeft;
                 cancelAnimationFrame(animationFrameId);
                 animationFrameId = requestAnimationFrame(updateScroll);
             }
         };
 
-        // { passive: false } is required to use e.preventDefault()
+        // 2. Soft Snap Logic
+        const snapToNearestSection = () => {
+            if (!mainElement) return;
+
+            // Find the child section closest to where the user "threw" the scroll (targetScroll)
+            const sections = Array.from(mainElement.children) as HTMLElement[];
+            let closestSection = sections[0];
+            let minDistance = Infinity;
+
+            sections.forEach((section) => {
+                // Calculate distance from the section's start to the current target
+                const distance = Math.abs(section.offsetLeft - targetScroll);
+                if (distance < minDistance) {
+                    minDistance = distance;
+                    closestSection = section;
+                }
+            });
+
+            // Update target to the section's exact start position
+            if (closestSection) {
+                targetScroll = closestSection.offsetLeft;
+                startAnimation(); // Restart loop to glide to the snap point
+            }
+        };
+
+        // 3. Wheel Handler
+        const handleWheel = (e: WheelEvent) => {
+            // Check for horizontal touchpad swipe (Let native browser handle it)
+            if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) {
+                targetScroll = mainElement.scrollLeft;
+                currentScroll = mainElement.scrollLeft;
+                return;
+            }
+
+            e.preventDefault();
+
+            // Clear pending snap while user is actively scrolling
+            clearTimeout(snapTimeout);
+
+            // Update target
+            targetScroll += e.deltaY;
+            const maxScroll = mainElement.scrollWidth - mainElement.clientWidth;
+            targetScroll = Math.max(0, Math.min(targetScroll, maxScroll));
+
+            startAnimation();
+
+            // Schedule snap for when scrolling stops (150ms pause)
+            snapTimeout = setTimeout(snapToNearestSection, 150);
+        };
+
+        // Add Listeners
         mainElement.addEventListener("wheel", handleWheel, { passive: false });
 
         return () => {
             mainElement.removeEventListener("wheel", handleWheel);
             cancelAnimationFrame(animationFrameId);
+            clearTimeout(snapTimeout);
         };
     }, [isLandscape]);
 
-    // Header visibility logic
+    // Header visibility
     useEffect(() => {
         const updateHeaderVisibility = () => {
             const section = document.getElementById("project-name");
@@ -114,9 +141,7 @@ export default function ShowcaseLayout({ projectId }: { projectId: string }) {
                 setTitleVisible(isLandscape && rect.right <= 10);
             }
         };
-        // Use standard scroll event listener since we are updating scrollLeft property
         const handleScroll = () => requestAnimationFrame(updateHeaderVisibility);
-
         mainRef.current?.addEventListener("scroll", handleScroll);
         return () => mainRef.current?.removeEventListener("scroll", handleScroll);
     }, [isLandscape]);
@@ -130,7 +155,9 @@ export default function ShowcaseLayout({ projectId }: { projectId: string }) {
                 className={`
                     h-screen w-screen no-scrollbar flex scroll-pt-[100px] pt-[100px]
                     ${isLandscape
-                        ? "flex-row gap-20 overflow-x-auto overflow-y-hidden snap-x snap-mandatory"
+                        // Landscape: NO snap-x and snap-mandatory.
+                        // We keep overflow-x-auto so native touchpad swipes still work.
+                        ? "flex-row gap-20 overflow-x-auto overflow-y-hidden"
                         : "flex-col overflow-y-auto overflow-x-hidden pb-40"
                     }
                 `}
@@ -139,7 +166,9 @@ export default function ShowcaseLayout({ projectId }: { projectId: string }) {
                     name={project.name}
                     className={
                         isLandscape
-                            ? "min-w-full w-fit snap-start shrink-0 h-full"
+                            // Landscape: NO snap-start
+                            ? "min-w-full w-fit shrink-0 h-full"
+                            // Portrait: Native scrolling, so we keep snap-start
                             : "w-full h-fit min-h-[calc(100vh-100px)] snap-start shrink-0"
                     }
                 />
