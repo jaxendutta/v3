@@ -42,7 +42,7 @@ export default function ProjectsPageHeader({
         document.querySelector("main") || document.documentElement;
 
     const scrollToStart = () => {
-        if (isLandscape && mainElement) {
+        if (mainElement) {
             // For landscape showcase, scroll the internal container to the far left
             mainElement.scrollTo({ top: 0, left: 0, behavior: "smooth" });
         } else {
