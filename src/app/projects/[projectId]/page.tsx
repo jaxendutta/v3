@@ -29,7 +29,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         title: project.name,
         description: description,
         openGraph: {
-            title: `${project.name.toUpperCase()} | Jaxen Dutta`,
+            title: `${project.name.toUpperCase()} ✦ Jaxen Dutta`,
             description: description,
             type: "article",
             // If you have project images in your data, you can add them here:
