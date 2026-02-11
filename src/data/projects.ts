@@ -108,7 +108,7 @@ export const projectsData: ProjectsData = {
         },
         footer: "Asher Kim's Research Portfolio is a Next.js 16 application showcasing plant biology and molecular research. The site features a distinctive grass-tiled background that creates an immersive natural environment. With dark and light theme support, the portfolio presents research experience, publications, presentations, and outreach activities in an organized, accessible format. The design balances academic professionalism with a warm, approachable aesthetic that reflects Asher's research in plant-microbe interactions and stress responses. Interactive elements and smooth animations enhance user engagement while maintaining focus on scientific content.",
     },
-    rgap: {
+    rgapca: {
         name: "RGAp",
         icon: GiAbstract014,
         type: "development",
