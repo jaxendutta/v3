@@ -9,6 +9,7 @@ import {
     GiOrbital,
     GiNestedEclipses,
     GiAbstract014,
+    GiPlagueDoctorProfile,
 } from "react-icons/gi";
 import { AiOutlineFolderView } from "react-icons/ai";
 import { PiCat, PiCodesandboxLogoLight } from "react-icons/pi";
@@ -185,6 +186,69 @@ export const projectsData: ProjectsData = {
             Deployment: [{ name: "Docker" }, { name: "Vercel" }, { name: "Supabase" }],
         },
         footer: "RGAP represents a complete modernization of legacy research tools. The architecture leverages Next.js 16's App Router and Server Components for optimal performance. I implemented a custom PostgreSQL schema with GIN indexes and fuzzy matching (pg_trgm) to enable instant search capabilities across hundreds of thousands of records. The frontend utilizes React 19 features and a custom-built component library styled with Tailwind 4.1, ensuring a consistent and accessible experience. Security is handled via stateless Iron Sessions and bcrypt hashing, providing a secure environment for researchers to manage their grants and bookmarks.",
+    },
+    pvc: {
+        name: "pARk VieW centRe",
+        icon: GiPlagueDoctorProfile,
+        type: "development",
+        layoutType: "showcase",
+        date: new Date("2025-11-10"),
+        screenshotDevice: "mobile",
+        overview: [
+            [
+                {
+                    className: calloutStyle,
+                    content: "Healthcare, Modernized",
+                },
+                {
+                    content:
+                        "A comprehensive digital platform for Park View Centre, a premier polyclinic in Kolkata. The site serves as a bridge between patients and specialized care, featuring Dr. Chanda Chowdhury and Dr. Sumon Dutta.",
+                },
+            ],
+            [
+                {
+                    className: calloutStyle,
+                    content: "Trust by Design",
+                },
+                {
+                    content:
+                        "Built with the bleeding-edge Next.js 16 and Tailwind 4, the platform prioritizes accessibility and trust. It features seamless appointment booking, multi-location management, and a soothing, professional interface that puts patient needs first.",
+                },
+            ],
+        ],
+        links: [
+            {
+                platform: "Live Site",
+                url: "https://parkviewcentre.in",
+            },
+        ],
+        typography: [
+            {
+                name: "Montserrat",
+                fontFamily: '"Montserrat", sans-serif',
+                url: "https://fonts.googleapis.com/css2?family=Montserrat:wght@400..700&display=swap",
+                description:
+                    "Montserrat is a geometric sans-serif typeface that balances modern professionalism with approachability. Its clean lines and high legibility make it ideal for medical information, instilling a sense of clarity and clinical precision.",
+            },
+        ],
+        colors: [
+            {
+                palette: ["#FFFFFF", "#0066CC", "#00A86B", "#F5F5F5"],
+                description:
+                    "The palette is strictly clinical yet welcoming. Clinical White (#FFFFFF) and Soft Gray (#F5F5F5) provide a sterile, clean background. Primary Blue (#0066CC) anchors the brand with a sense of trust and stability, while the Vitality Green (#00A86B) accent emphasizes healing and well-being.",
+            },
+        ],
+        techStack: {
+            Frontend: [
+                { name: "Next.js", version: "16.1" },
+                { name: "React", version: "19.2" },
+                { name: "Tailwind", version: "4.0" },
+                { name: "Radix UI" },
+            ],
+            Analytics: [{ name: "Vercel Analytics" }],
+            Deployment: [{ name: "Vercel" }],
+        },
+        footer: "Park View Centre is a production-grade healthcare platform built on the latest Next.js 16 architecture. I utilized Tailwind CSS v4 for a highly optimized, zero-runtime styling engine that ensures instant page loads. The UI is constructed with accessible Radix primitives, ensuring that appointment booking and doctor information are available to all users. The site uses a custom 'medical gradient' animation system to add subtle life to the interface without distracting from critical information. It is fully integrated with Vercel Analytics to track patient engagement and optimize the user journey across both clinic locations.",
     },
     "portfolio-v2": {
         name: "poRtfolio v2",
