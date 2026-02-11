@@ -188,7 +188,7 @@ export const projectsData: ProjectsData = {
         footer: "RGAP represents a complete modernization of legacy research tools. The architecture leverages Next.js 16's App Router and Server Components for optimal performance. I implemented a custom PostgreSQL schema with GIN indexes and fuzzy matching (pg_trgm) to enable instant search capabilities across hundreds of thousands of records. The frontend utilizes React 19 features and a custom-built component library styled with Tailwind 4.1, ensuring a consistent and accessible experience. Security is handled via stateless Iron Sessions and bcrypt hashing, providing a secure environment for researchers to manage their grants and bookmarks.",
     },
     pvc: {
-        name: "pARk VieW centRe",
+        name: "pARkVieW centRe",
         icon: GiPlagueDoctorProfile,
         type: "development",
         layoutType: "showcase",
