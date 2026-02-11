@@ -218,6 +218,10 @@ export const projectsData: ProjectsData = {
         ],
         links: [
             {
+                platform: "GitHub",
+                url: "https://github.com/jaxendutta/pvc",
+            },
+            {
                 platform: "Live Site",
                 url: "https://parkviewcentre.in",
             },
