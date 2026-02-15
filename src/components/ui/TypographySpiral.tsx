@@ -112,7 +112,6 @@ export default function TypographySpiral({ font }: TypographySpiralProps) {
                                 attributeName="startOffset"
                                 from="0%"
                                 to="-100%"
-                                // Slower duration to match the reduced text length
                                 dur="140s"
                                 repeatCount="indefinite"
                             />
