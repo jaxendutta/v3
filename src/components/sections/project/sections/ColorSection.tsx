@@ -51,8 +51,8 @@ export default function ColorSection({ id, colors }: ColorSectionProps) {
                         {/* THE EXPLANATION: Fades in and slides up ONLY when the slice is expanded */}
                         <div
                             className={`absolute bottom-full mb-6 md:mb-10 max-w-sm lg:max-w-xl transition-all duration-700 ease-out text-xs md:text-sm leading-relaxed ${activeIndex === index
-                                    ? "opacity-80 translate-y-0"
-                                    : "opacity-0 translate-y-6 pointer-events-none"
+                                ? "opacity-80 translate-y-0"
+                                : "opacity-0 translate-y-6 pointer-events-none"
                                 }`}
                         >
                             <p>{item.description}</p>
