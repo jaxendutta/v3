@@ -153,7 +153,7 @@ export default function ArticleLayout({ projectId, markdownContent }: ArticleLay
     );
 
     return (
-        <div className={`min-h-screen w-full bg-background text-foreground`}>
+        <div className={`min-h-full w-full bg-background text-foreground`}>
             <ProjectsPageHeader titleVisible={titleVisible} isLandscape={false} />
 
             <main className="md:max-w-3xl lg:max-w-5xl mx-auto px-6 pt-28 md:pt-32">

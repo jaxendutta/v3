@@ -84,7 +84,7 @@ export default function RootLayout({
                     fetchPriority="high"
                 />
             </head>
-            <body className="min-h-screen">
+            <body className="min-h-[100dvh]">
                 <Analytics />
                 <ThemeProvider>
                     <BottomBar />
