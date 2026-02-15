@@ -12,7 +12,7 @@ export default function TechStackSection({ id, techStack }: TechStackSectionProp
     return (
         <section
             id={id}
-            className="relative snap-start shrink-0 w-screen min-h-[calc(100vh-120px)] flex flex-col justify-center gap-8 md:gap-12 px-6 md:px-12 py-12 md:py-24 bg-background text-foreground overflow-hidden"
+            className="relative snap-start shrink-0 w-screen min-h-full flex flex-col justify-center gap-8 md:gap-12 px-6 md:px-12 py-12 md:py-24 bg-background text-foreground overflow-hidden"
         >
             {Object.entries(techStack).map(([category, techs], index) => (
                 <motion.div

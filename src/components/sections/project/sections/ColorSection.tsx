@@ -24,7 +24,7 @@ export default function ColorSection({ id, colors }: ColorSectionProps) {
     return (
         <section
             id={id}
-            className="relative snap-center shrink-0 w-screen h-[calc(100vh-100px)] flex flex-col md:flex-row overflow-hidden bg-background"
+            className="relative snap-center shrink-0 w-screen h-full flex flex-col md:flex-row overflow-hidden bg-background"
         >
             {flattenedColors.map((item, index) => (
                 <motion.div

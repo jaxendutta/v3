@@ -11,10 +11,9 @@ import { twMerge } from "tailwind-merge";
 
 interface NameSectionProps {
     name: string;
-    className?: string;
 }
 
-export default function NameSection({ name, className }: NameSectionProps) {
+export default function NameSection({ name }: NameSectionProps) {
     const [isPortrait, setIsPortrait] = useState(false);
     const [iconsPrefix, setIconsPrefix] = useState<IconType[]>([]);
     const [iconsSuffix, setIconsSuffix] = useState<IconType[]>([]);
@@ -99,10 +98,8 @@ export default function NameSection({ name, className }: NameSectionProps) {
             className={twMerge(
                 "flex items-center justify-between p-4 bg-background text-foreground",
                 isPortrait
-                    ? "flex-row gap-4 w-full h-fit"
-                    : "flex-col gap-8 w-fit h-full",
-                className
-            )}
+                    ? "flex-row gap-4 w-full h-fit min-h-full shrink-0"
+                    : "flex-col gap-8 w-fit h-full min-w-full w-fit shrink-0",)}
             id="project-name"
         >
             {/* Start Decoration */}

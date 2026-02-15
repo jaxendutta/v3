@@ -160,28 +160,20 @@ export default function ShowcaseLayout({ projectId }: { projectId: string }) {
     }, [isLandscape]);
 
     return (
-        <div className="h-screen w-screen overflow-hidden relative bg-background text-foreground">
+        <div className="h-screen w-screen overflow-hidden relative bg-background text-foreground flex flex-col">
             <ProjectsPageHeader titleVisible={titleVisible} isLandscape={isLandscape} />
 
             <main
                 ref={mainRef}
                 className={`
-                    h-screen w-screen no-scrollbar flex scroll-pt-[100px] pt-[100px]
+                    h-full w-screen no-scrollbar flex scroll-pt-[100px] pt-[100px]
                     ${isLandscape
                         ? "flex-row gap-20 overflow-x-auto overflow-y-hidden"
                         : "flex-col overflow-y-auto overflow-x-hidden"
                     }
                 `}
             >
-                <NameSection
-                    name={project.name}
-                    className={
-                        isLandscape
-                            ? "min-w-full w-fit shrink-0 h-full"
-                            : "w-full h-fit min-h-[calc(100vh-100px)] shrink-0"
-                    }
-                />
-
+                <NameSection name={project.name} />
                 {project.overview && <OverviewSection overview={project.overview} links={project.links} isLandscape={isLandscape} />}
                 {project.typography && <TypographySection typography={project.typography} />}
                 {project.colors && <ColorSection colors={project.colors} />}
