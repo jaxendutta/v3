@@ -78,6 +78,7 @@ export default function NameSection({ project }: NameSectionProps) {
                         {!hasMouse && (
                             <div className="absolute top-2 left-2 flex flex-row gap-2 px-6 py-4 max-h-[40vh]">
                                 <RandomIcons count={3} />
+                                <project.icon />
                             </div>
                         )}
                         {project.name}
