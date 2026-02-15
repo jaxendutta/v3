@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { FontInfo } from "@/types/project";
 import Link from "next/link";
 
@@ -12,7 +12,6 @@ export default function TypographySpiral({ font }: TypographySpiralProps) {
     const containerRef = useRef<HTMLDivElement>(null);
     const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
 
-    // Track full screen dimensions
     useEffect(() => {
         const element = containerRef.current;
         if (!element) return;
@@ -27,7 +26,6 @@ export default function TypographySpiral({ font }: TypographySpiralProps) {
         return () => observer.disconnect();
     }, []);
 
-    // Dynamically calculate the perfect rectangular spiral
     const { spiralPath, gap, isMobile } = useMemo(() => {
         const { width: w, height: h } = dimensions;
         if (w === 0 || h === 0) return { spiralPath: "", gap: 0, isMobile: false };
@@ -41,7 +39,9 @@ export default function TypographySpiral({ font }: TypographySpiralProps) {
                 ? Math.max(40, Math.min(60, Math.min(w, h) * 0.08))
                 : Math.max(50, Math.min(80, Math.min(w, h) * 0.1));
 
-        const laps = mobileCheck ? 8 : isTablet ? 6 : 4;
+        // OPTIMIZATION 2: Stop drawing laps that are hidden by the fade mask anyway.
+        // Dropped from 8 to 5 on mobile, 6 to 4 on tablet, 4 to 3 on desktop.
+        const laps = mobileCheck ? 5 : isTablet ? 4 : 3;
         const r = calculatedGap * 0.4;
 
         let d = "";
@@ -54,9 +54,7 @@ export default function TypographySpiral({ font }: TypographySpiralProps) {
 
             if (cx1 + r >= cx2 || cy1 + r >= cy2) break;
 
-            if (i === 0) {
-                d += `M ${cx1 + r} ${cy1} `;
-            }
+            if (i === 0) d += `M ${cx1 + r} ${cy1} `;
 
             d += `L ${cx2 - r} ${cy1} `;
             d += `Q ${cx2} ${cy1}, ${cx2} ${cy1 + r} `;
@@ -82,48 +80,43 @@ export default function TypographySpiral({ font }: TypographySpiralProps) {
         return { spiralPath: d, gap: calculatedGap, isMobile: mobileCheck };
     }, [dimensions]);
 
-    // OPTIMIZATION 1: Drastically reduce string length on mobile to save memory & layout calculations
-    const repeats = isMobile ? 12 : 30;
+    // OPTIMIZATION 3: Because we have fewer laps, we need WAY less text. 
+    // This removes hundreds of characters from the DOM on mobile.
+    const repeats = isMobile ? 6 : 12;
     const letters = "Aa Bb Cc Dd Ee Ff Gg Hh Ii Jj Kk Ll Mm Nn Oo Pp Qq Rr Ss Tt Uu Vv Ww Xx Yy Zz   ".repeat(repeats);
     const safeId = font.name.replace(/\s+/g, '-');
 
     return (
         <div ref={containerRef} className="relative w-full h-full bg-background">
-            {/* SVG Background Layer */}
             {dimensions.width > 0 && (
-                <svg className="absolute inset-0 w-full h-full pointer-events-none">
+                <svg
+                    className="absolute inset-0 w-full h-full pointer-events-none"
+                    // OPTIMIZATION 1: Hardware-accelerated CSS Mask instead of SVG Mask.
+                    // This forces the GPU to render the fade out, instantly speeding up scroll performance.
+                    style={{
+                        WebkitMaskImage: "radial-gradient(circle at center, transparent 35%, black 75%)",
+                        maskImage: "radial-gradient(circle at center, transparent 35%, black 75%)"
+                    }}
+                >
                     <defs>
                         <path id={`spiral-${safeId}`} d={spiralPath} fill="transparent" />
-
-                        <radialGradient id={`fadeMask-${safeId}`} cx="50%" cy="50%" r="50%">
-                            <stop offset="0%" stopColor="transparent" />
-                            <stop offset="45%" stopColor="transparent" />
-                            <stop offset="75%" stopColor="white" stopOpacity="0.15" />
-                            <stop offset="100%" stopColor="white" stopOpacity="1" />
-                        </radialGradient>
-
-                        <mask id={`spiralMask-${safeId}`}>
-                            <rect x="0" y="0" width="100%" height="100%" fill={`url(#fadeMask-${safeId})`} />
-                        </mask>
                     </defs>
 
-                    {/* OPTIMIZATION 2: textRendering="optimizeSpeed" drops expensive sub-pixel math */}
                     <text
                         fontSize={Math.max(14, gap * 0.45)}
                         fontWeight="bold"
                         fill="currentColor"
                         className="text-foreground/40 tracking-widest"
-                        mask={`url(#spiralMask-${safeId})`}
                         style={{ fontFamily: font.fontFamily }}
                         textRendering="optimizeSpeed"
                     >
-                        {/* OPTIMIZATION 3: Native SVG <animate> tag completely bypasses the JS main thread! */}
                         <textPath href={`#spiral-${safeId}`}>
                             <animate
                                 attributeName="startOffset"
                                 from="0%"
                                 to="-100%"
-                                dur="120s"
+                                // Slower duration to match the reduced text length
+                                dur="140s"
                                 repeatCount="indefinite"
                             />
                             {letters}
