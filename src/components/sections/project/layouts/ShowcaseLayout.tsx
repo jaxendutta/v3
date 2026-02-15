@@ -166,7 +166,7 @@ export default function ShowcaseLayout({ projectId }: { projectId: string }) {
             <main
                 ref={mainRef}
                 className={`
-                    h-full w-screen no-scrollbar flex scroll-pt-[100px] pt-[100px]
+                    h-[100vh] w-screen no-scrollbar flex scroll-pt-[100px] pt-[100px]
                     ${isLandscape
                         ? "flex-row gap-20 overflow-x-auto overflow-y-hidden"
                         : "flex-col overflow-y-auto overflow-x-hidden"
