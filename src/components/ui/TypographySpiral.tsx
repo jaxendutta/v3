@@ -80,7 +80,7 @@ export default function TypographySpiral({ font }: TypographySpiralProps) {
         return { spiralPath: d, gap: calculatedGap, isMobile: mobileCheck };
     }, [dimensions]);
 
-    const letters = "Aa Bb Cc Dd Ee Ff Gg Hh Ii Jj Kk Ll Mm Nn Oo Pp Qq Rr Ss Tt Uu Vv Ww Xx Yy Zz   ".repeat(12);
+    const letters = "Aa Bb Cc Dd Ee Ff Gg Hh Ii Jj Kk Ll Mm Nn Oo Pp Qq Rr Ss Tt Uu Vv Ww Xx Yy Zz   ".repeat(20);
     const safeId = font.name.replace(/\s+/g, '-');
 
     return (
@@ -88,8 +88,6 @@ export default function TypographySpiral({ font }: TypographySpiralProps) {
             {dimensions.width > 0 && (
                 <svg
                     className="absolute inset-0 w-full h-full pointer-events-none"
-                    // OPTIMIZATION 1: Hardware-accelerated CSS Mask instead of SVG Mask.
-                    // This forces the GPU to render the fade out, instantly speeding up scroll performance.
                     style={{
                         WebkitMaskImage: "radial-gradient(circle at center, transparent 35%, black 75%)",
                         maskImage: "radial-gradient(circle at center, transparent 35%, black 75%)"
@@ -110,10 +108,10 @@ export default function TypographySpiral({ font }: TypographySpiralProps) {
                         <textPath href={`#spiral-${safeId}`}>
                             <animate
                                 attributeName="startOffset"
-                                from="0%"
-                                to="-100%"
-                                dur="140s"
+                                values="0%; -100%; 0%"
+                                dur="240s"
                                 repeatCount="indefinite"
+                                calcMode="linear"
                             />
                             {letters}
                         </textPath>

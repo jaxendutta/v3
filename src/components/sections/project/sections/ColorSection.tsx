@@ -1,76 +1,8 @@
-// src/components/sections/project/sections/ColorSection.tsx
 "use client";
 
-import { ColorSet } from "@/types/project";
+import { useState } from "react";
 import { motion } from "framer-motion";
-import { ProjectPageSection } from "../ProjectPageSection";
-import { useState, useEffect } from "react";
-
-export interface ColorCardProps {
-    colorSet: ColorSet;
-}
-
-const ColorCard = ({ colorSet }: ColorCardProps) => {
-    const [isLandscape, setIsLandscape] = useState(true);
-
-    useEffect(() => {
-        const checkOrientation = () => {
-            setIsLandscape(window.innerWidth > window.innerHeight);
-        };
-
-        checkOrientation();
-        window.addEventListener("resize", checkOrientation);
-        return () => window.removeEventListener("resize", checkOrientation);
-    }, []);
-
-    return (
-        <div className="w-full min-w-[min(60vw,_700px)] max-w-[1200px] flex flex-col text-xs md:text-sm">
-            <div className="flex md:gap-4 h-[200px] mb-6">
-                {colorSet.palette.map((color, colorIndex) => {
-                    return (
-                        <motion.div
-                            key={colorIndex}
-                            className={`flex-grow rounded-none md:rounded-lg relative overflow-hidden cursor-pointer
-                            `}
-                            style={{ backgroundColor: color }}
-                            whileHover={{
-                                borderRadius: "50%",
-                                scale: 1.03,
-                            }}
-                            onClick={() =>
-                                window.open(
-                                    `https://www.google.com/search?q=${encodeURIComponent(color)}`,
-                                    "_blank"
-                                )
-                            }
-                        >
-                            <motion.div
-                                className="absolute inset-0 flex items-center justify-center"
-                                initial={{ opacity: 0.25 }}
-                                whileHover={{ opacity: 1 }}
-                                style={{
-                                    writingMode: !isLandscape
-                                        ? "vertical-lr"
-                                        : "horizontal-tb",
-                                }}
-                            >
-                                <span
-                                    className={`px-3 py-1 rounded-full bg-black/70 text-white shadow-md`}
-                                >
-                                    {color}
-                                </span>
-                            </motion.div>
-                        </motion.div>
-                    );
-                })}
-            </div>
-
-            <div className="p-3 md:p-6 border border-dashed">
-                {colorSet.description}
-            </div>
-        </div>
-    );
-};
+import { ColorSet } from "@/types/project";
 
 interface ColorSectionProps {
     id?: string;
@@ -78,14 +10,73 @@ interface ColorSectionProps {
 }
 
 export default function ColorSection({ id, colors }: ColorSectionProps) {
+    const [activeIndex, setActiveIndex] = useState<number | null>(null);
+
+    // Flatten the colors but KEEP the parent description attached to each hex code
+    const flattenedColors = colors.flatMap((colorSet, setIndex) =>
+        colorSet.palette.map((hex) => ({
+            hex,
+            description: colorSet.description,
+            setName: `Palette 0${setIndex + 1}`
+        }))
+    );
+
     return (
-        <ProjectPageSection id={id} title={["COLOURS", "c0Lours", "Col0URS"]}>
-            {colors.map((colorSet, setIndex) => (
-                <ColorCard
-                    key={setIndex}
-                    colorSet={colorSet}
-                />
+        <section
+            id={id}
+            className="relative snap-center shrink-0 w-screen h-[calc(100vh-100px)] flex flex-col md:flex-row overflow-hidden bg-background"
+        >
+            {flattenedColors.map((item, index) => (
+                <motion.div
+                    key={index}
+                    className="group relative flex flex-col justify-end md:justify-between p-6 md:p-12 cursor-crosshair overflow-hidden"
+                    style={{ backgroundColor: item.hex }}
+                    animate={{
+                        flex: activeIndex === index ? 4 : activeIndex === null ? 1 : 0.5,
+                    }}
+                    transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+                    onMouseEnter={() => setActiveIndex(index)}
+                    onMouseLeave={() => setActiveIndex(null)}
+                    onClick={() => setActiveIndex(activeIndex === index ? null : index)}
+                >
+                    {/* Top Label */}
+                    <div className="hidden md:flex flex-col mix-blend-difference text-white opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100 font-mono text-sm tracking-widest whitespace-nowrap">
+                        <span>[ 0{index + 1} ]</span>
+                        <span className="mt-2 text-xs opacity-50 uppercase">{item.setName}</span>
+                    </div>
+
+                    {/* Bottom Content Area */}
+                    <div className="relative flex flex-col justify-end w-full mix-blend-difference text-white">
+
+                        {/* THE EXPLANATION: Fades in and slides up ONLY when the slice is expanded */}
+                        <div
+                            className={`absolute bottom-full mb-6 md:mb-10 max-w-sm lg:max-w-xl transition-all duration-700 ease-out text-xs md:text-sm leading-relaxed ${activeIndex === index
+                                    ? "opacity-80 translate-y-0"
+                                    : "opacity-0 translate-y-6 pointer-events-none"
+                                }`}
+                        >
+                            <p>{item.description}</p>
+                        </div>
+
+                        {/* Hex Code & Labels */}
+                        <div className="flex flex-col md:flex-row md:items-end justify-between w-full">
+                            <div className="flex flex-col whitespace-nowrap">
+                                <span className="text-xs font-mono uppercase tracking-[0.3em] mb-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">
+                                    HEX VALUE
+                                </span>
+                                <h3 className="text-5xl md:text-6xl lg:text-8xl font-bold uppercase tracking-tighter leading-none origin-bottom-left transition-transform duration-500 md:group-hover:scale-105">
+                                    {item.hex}
+                                </h3>
+                            </div>
+
+                            <div className="hidden lg:flex flex-col items-end opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-200 font-mono text-xs tracking-widest text-right">
+                                <span>COLORSPACE // HEX</span>
+                                <span className="opacity-50 mt-1">RAW RENDER</span>
+                            </div>
+                        </div>
+                    </div>
+                </motion.div>
             ))}
-        </ProjectPageSection>
+        </section>
     );
 }
