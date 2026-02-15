@@ -13,7 +13,7 @@ export default function ThemeSwitch() {
             type="button"
             onClick={() => toggleTheme()}
             aria-label={`Switch to ${theme} mode`}
-            className={`text-3xl md:text-5xl mix-blend-difference text-theme`}
+            className={`text-3xl md:text-5xl`}
             animate={{ rotate: 360 }}
             transition={{
                 duration: 10,

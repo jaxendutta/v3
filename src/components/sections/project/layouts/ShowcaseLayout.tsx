@@ -173,7 +173,7 @@ export default function ShowcaseLayout({ projectId }: { projectId: string }) {
                     }
                 `}
             >
-                <NameSection name={project.name} />
+                <NameSection project={project} />
                 {project.overview && <OverviewSection overview={project.overview} links={project.links} isLandscape={isLandscape} />}
                 {project.typography && <TypographySection typography={project.typography} />}
                 {project.colors && <ColorSection colors={project.colors} />}
