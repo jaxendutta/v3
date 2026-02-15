@@ -80,10 +80,7 @@ export default function TypographySpiral({ font }: TypographySpiralProps) {
         return { spiralPath: d, gap: calculatedGap, isMobile: mobileCheck };
     }, [dimensions]);
 
-    // OPTIMIZATION 3: Because we have fewer laps, we need WAY less text. 
-    // This removes hundreds of characters from the DOM on mobile.
-    const repeats = isMobile ? 6 : 12;
-    const letters = "Aa Bb Cc Dd Ee Ff Gg Hh Ii Jj Kk Ll Mm Nn Oo Pp Qq Rr Ss Tt Uu Vv Ww Xx Yy Zz   ".repeat(repeats);
+    const letters = "Aa Bb Cc Dd Ee Ff Gg Hh Ii Jj Kk Ll Mm Nn Oo Pp Qq Rr Ss Tt Uu Vv Ww Xx Yy Zz   ".repeat(12);
     const safeId = font.name.replace(/\s+/g, '-');
 
     return (
