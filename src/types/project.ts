@@ -28,7 +28,7 @@ export interface Project {
     name: string;
     subtitle?: string;
     icon: IconType;
-    type?: "design" | "development" | "ai" | "research";
+    type: "design" | "development" | "ai" | "research";
     layoutType: "showcase" | "article";
     date: Date;
     overview?: OverviewItem[][];

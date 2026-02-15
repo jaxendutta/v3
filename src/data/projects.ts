@@ -3,16 +3,17 @@ import { ProjectsData } from "@/types/project";
 import { FaSpaceAwesome } from "react-icons/fa6";
 import {
     GiBoltEye,
-    GiArtificialIntelligence,
+    GiBrainTentacle,
     GiBee,
     GiCardJoker,
     GiOrbital,
     GiNestedEclipses,
     GiAbstract014,
     GiPlagueDoctorProfile,
+    GiJumpingDog,
 } from "react-icons/gi";
 import { AiOutlineFolderView } from "react-icons/ai";
-import { PiCat, PiCodesandboxLogoLight } from "react-icons/pi";
+import { PiCodesandboxLogoLight } from "react-icons/pi";
 
 const calloutStyle =
     "border border-2 border-dashed py-2 px-2 md:px-4 mt-8";
@@ -20,7 +21,7 @@ const calloutStyle =
 export const projectsData: ProjectsData = {
     asher: {
         name: "AsHeR's GARden",
-        icon: PiCat,
+        icon: GiJumpingDog,
         type: "development",
         layoutType: "showcase",
         date: new Date("2025-05-20"),
@@ -361,7 +362,7 @@ export const projectsData: ProjectsData = {
 
     fabler: {
         name: "fAbleR",
-        icon: GiArtificialIntelligence,
+        icon: GiBrainTentacle,
         type: "design",
         layoutType: "showcase",
         date: new Date("2024-08-18"),
@@ -526,6 +527,7 @@ export const projectsData: ProjectsData = {
         icon: GiBee,
         date: new Date("2023-08-18"),
         screenshotDevice: "mobile",
+        type: "design",
         layoutType: "showcase",
         overview: [
             [
