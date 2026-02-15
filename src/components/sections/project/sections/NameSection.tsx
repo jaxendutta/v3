@@ -4,7 +4,7 @@ import React, { useRef, useEffect, useState } from "react";
 import { motion, useMotionValue, useSpring, useMotionTemplate } from "framer-motion";
 import Link from "next/link";
 import { Project } from "@/types/project";
-import RandomIcons from "@/components/ui/RandomIcons";
+import { RandomIconsLoader } from "@/components/ui/RandomIcons";
 
 interface NameSectionProps {
     project: Project;
@@ -77,7 +77,7 @@ export default function NameSection({ project }: NameSectionProps) {
 
                         {!hasMouse && (
                             <div className="absolute top-2 left-2 flex flex-row gap-2 px-6 py-2 md:py-4 max-h-[40vh]">
-                                <RandomIcons count={3} />
+                                <RandomIconsLoader count={3} />
                                 <project.icon />
                             </div>
                         )}

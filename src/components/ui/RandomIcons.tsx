@@ -18,6 +18,7 @@ import {
     GiTrojanHorse,
 } from "react-icons/gi";
 import { IconType } from "react-icons";
+import { useEffect, useState } from "react";
 
 const GAME_ICONS = [
     GiEclipseFlare,
@@ -51,6 +52,16 @@ export const getRandomIcons = (count: number = 4): IconType[] => {
     }
     return Array.from(uniqueIcons);
 };
+
+export function RandomIconsLoader({ count = 3, shuffleCount = 16, interval = 100 }) {
+    const [shuffle, setShuffle] = useState(0);
+    useEffect(() => {
+        if (shuffle >= shuffleCount) return;
+        const timer = setTimeout(() => setShuffle(s => s + 1), interval);
+        return () => clearTimeout(timer);
+    }, [shuffle, shuffleCount, interval]);
+    return <RandomIcons count={count} key={shuffle} />;
+}
 
 export interface RandomIconsProps {
     count?: number;
