@@ -70,8 +70,8 @@ export default function NameSection({ project }: NameSectionProps) {
 
             <div className={`inset-0 flex flex-col justify-between z-0 flex-1 ${hasMouse ? "absolute p-12 pb-8" : "relative p-6 pb-12"}`}>
                 <div className={`flex-1 flex flex-col items-end justify-start w-full h-fit! ${hasMouse ? "my-0" : "my-4"}`}>
-                    <h1 className={`leading-[0.85] hyphens-auto h-fit! max-h-[calc(100%-400px)] max-w-[95vw] uppercase ${hasMouse
-                        ? "text-[clamp(4rem,20vw,7rem)] tracking-tighter break-words [writing-mode:horizontal-tb] text-center text-transparent font-mono [-webkit-text-stroke:2px_currentColor]"
+                    <h1 className={`leading-[0.85] h-fit! max-h-[calc(100%-400px)] max-w-[95vw] uppercase ${hasMouse
+                        ? "text-[clamp(4rem,20vw,7rem)] tracking-tighter [writing-mode:horizontal-tb] text-center text-transparent font-mono [-webkit-text-stroke:2px_currentColor]"
                         : "text-[clamp(3.5rem,24vw,5rem)] [writing-mode:vertical-rl] text-foreground font-bold text-left"
                         }`}>
 
