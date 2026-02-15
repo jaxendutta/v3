@@ -6,11 +6,11 @@ interface FooterSectionProps {
     footer: string;
 }
 
-export default function FooterSection({ id, footer }: FooterSectionProps) {
+export default function FooterSection({ id = "footer", footer }: FooterSectionProps) {
     return (
         <section
             id={id}
-            className="flex-none w-screen h-screen flex items-center justify-center text-center text-xs md:text-sm font-sans snap-start"
+            className="flex-none w-screen h-[calc(100vh-100px)] flex items-center justify-center text-center text-xs md:text-sm font-sans snap-start"
         >
             <div className="max-w-[60vw] flex flex-col gap-8">
                 {footer}

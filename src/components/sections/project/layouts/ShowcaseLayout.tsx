@@ -101,6 +101,12 @@ export default function ShowcaseLayout({ projectId }: { projectId: string }) {
                 }
             });
 
+            // If the closest section is the NameSection, abort the snap!
+            // This turns the entire NameSection into a "free-scroll" zone.
+            if (closestSection && closestSection.id === "project-name") {
+                return;
+            }
+
             if (closestSection) {
                 // Update target to the ideal position
                 targetScroll = getSectionPos(closestSection) - snapOffset;
@@ -163,7 +169,7 @@ export default function ShowcaseLayout({ projectId }: { projectId: string }) {
                     h-screen w-screen no-scrollbar flex scroll-pt-[100px] pt-[100px]
                     ${isLandscape
                         ? "flex-row gap-20 overflow-x-auto overflow-y-hidden"
-                        : "flex-col overflow-y-auto overflow-x-hidden pb-40"
+                        : "flex-col overflow-y-auto overflow-x-hidden"
                     }
                 `}
             >

@@ -45,7 +45,7 @@ export default function TypographySection({
                     // Apply the ID only to the first slide for hash navigation
                     id={index === 0 ? id : undefined}
                     // h-[calc(100vh-120px)] mimics the OverviewSection non-landscape height
-                    className="relative snap-center shrink-0 w-screen h-[calc(100vh-120px)] md:h-screen flex items-center justify-center overflow-hidden"
+                    className="relative snap-center shrink-0 w-screen h-[calc(100vh-100px)] flex items-center justify-center overflow-hidden"
                 >
                     <TypographySpiral font={font} />
                 </section>
