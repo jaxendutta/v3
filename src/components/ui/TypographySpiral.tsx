@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useEffect, useMemo, useRef, useState } from "react";
-import { motion } from "framer-motion";
 import { FontInfo } from "@/types/project";
 import Link from "next/link";
 
@@ -28,25 +27,22 @@ export default function TypographySpiral({ font }: TypographySpiralProps) {
         return () => observer.disconnect();
     }, []);
 
-    // Dynamically calculate the perfect spiral WITH ROUNDED CORNERS
-    const { spiralPath, gap } = useMemo(() => {
+    // Dynamically calculate the perfect rectangular spiral
+    const { spiralPath, gap, isMobile } = useMemo(() => {
         const { width: w, height: h } = dimensions;
-        if (w === 0 || h === 0) return { spiralPath: "", gap: 0 };
+        if (w === 0 || h === 0) return { spiralPath: "", gap: 0, isMobile: false };
 
-        const isMobile = w < 768;
+        const mobileCheck = w < 768;
         const isTablet = w >= 768 && w < 1024;
 
-        // Tighter gap for smaller screens
-        const calculatedGap = isMobile
+        const calculatedGap = mobileCheck
             ? Math.max(28, Math.min(45, w * 0.08))
             : isTablet
                 ? Math.max(40, Math.min(60, Math.min(w, h) * 0.08))
                 : Math.max(50, Math.min(80, Math.min(w, h) * 0.1));
 
-        const laps = isMobile ? 8 : isTablet ? 6 : 4;
-        
-        // This acts as the border-radius for our corners to make the text rotate smoothly
-        const r = calculatedGap * 0.4; 
+        const laps = mobileCheck ? 8 : isTablet ? 6 : 4;
+        const r = calculatedGap * 0.4;
 
         let d = "";
 
@@ -56,49 +52,39 @@ export default function TypographySpiral({ font }: TypographySpiralProps) {
             let cx2 = w - calculatedGap / 2 - i * calculatedGap;
             let cy2 = h - calculatedGap / 2 - i * calculatedGap;
 
-            // Stop if we run out of space in the center
-            if (cx1 + r >= cx2 || cy1 + r >= cy2) break; 
+            if (cx1 + r >= cx2 || cy1 + r >= cy2) break;
 
             if (i === 0) {
-                d += `M ${cx1 + r} ${cy1} `; // Start top-left
+                d += `M ${cx1 + r} ${cy1} `;
             }
 
-            // Top Edge
             d += `L ${cx2 - r} ${cy1} `;
-            // Top-Right Curve
             d += `Q ${cx2} ${cy1}, ${cx2} ${cy1 + r} `;
 
-            // Right Edge
             d += `L ${cx2} ${cy2 - r} `;
-            // Bottom-Right Curve
             d += `Q ${cx2} ${cy2}, ${cx2 - r} ${cy2} `;
 
-            // Bottom Edge
             d += `L ${cx1 + r} ${cy2} `;
-            // Bottom-Left Curve
             d += `Q ${cx1} ${cy2}, ${cx1} ${cy2 - r} `;
 
-            // Move up the left edge and prepare to step inward for the next lap
-            let ny1 = cy1 + calculatedGap; // The Y-level of the next inner lap
-            
-            // If it's the last lap, just close it up nicely. Otherwise, step inwards.
+            let ny1 = cy1 + calculatedGap;
+
             if (i === laps - 1 || cx1 + calculatedGap + r >= cx2 - calculatedGap || ny1 + r >= cy2 - calculatedGap) {
                 d += `L ${cx1} ${cy1 + r} `;
                 d += `Q ${cx1} ${cy1}, ${cx1 + r} ${cy1} `;
                 break;
             } else {
-                // Move up left edge, stop early to curve inward
                 d += `L ${cx1} ${ny1 + r} `;
-                // Inward Curve (turning right to start the next lap)
                 d += `Q ${cx1} ${ny1}, ${cx1 + r} ${ny1} `;
             }
         }
 
-        return { spiralPath: d, gap: calculatedGap };
+        return { spiralPath: d, gap: calculatedGap, isMobile: mobileCheck };
     }, [dimensions]);
 
-    // Extra long string so it never runs out during the infinite crawl
-    const letters = "Aa Bb Cc Dd Ee Ff Gg Hh Ii Jj Kk Ll Mm Nn Oo Pp Qq Rr Ss Tt Uu Vv Ww Xx Yy Zz   ".repeat(30);
+    // OPTIMIZATION 1: Drastically reduce string length on mobile to save memory & layout calculations
+    const repeats = isMobile ? 12 : 30;
+    const letters = "Aa Bb Cc Dd Ee Ff Gg Hh Ii Jj Kk Ll Mm Nn Oo Pp Qq Rr Ss Tt Uu Vv Ww Xx Yy Zz   ".repeat(repeats);
     const safeId = font.name.replace(/\s+/g, '-');
 
     return (
@@ -121,6 +107,7 @@ export default function TypographySpiral({ font }: TypographySpiralProps) {
                         </mask>
                     </defs>
 
+                    {/* OPTIMIZATION 2: textRendering="optimizeSpeed" drops expensive sub-pixel math */}
                     <text
                         fontSize={Math.max(14, gap * 0.45)}
                         fontWeight="bold"
@@ -128,15 +115,19 @@ export default function TypographySpiral({ font }: TypographySpiralProps) {
                         className="text-foreground/40 tracking-widest"
                         mask={`url(#spiralMask-${safeId})`}
                         style={{ fontFamily: font.fontFamily }}
+                        textRendering="optimizeSpeed"
                     >
-                        <motion.textPath
-                            href={`#spiral-${safeId}`}
-                            initial={{ startOffset: "0%" }}
-                            animate={{ startOffset: "-100%" }}
-                            transition={{ ease: "linear", duration: 120, repeat: Infinity }}
-                        >
+                        {/* OPTIMIZATION 3: Native SVG <animate> tag completely bypasses the JS main thread! */}
+                        <textPath href={`#spiral-${safeId}`}>
+                            <animate
+                                attributeName="startOffset"
+                                from="0%"
+                                to="-100%"
+                                dur="120s"
+                                repeatCount="indefinite"
+                            />
                             {letters}
-                        </motion.textPath>
+                        </textPath>
                     </text>
                 </svg>
             )}

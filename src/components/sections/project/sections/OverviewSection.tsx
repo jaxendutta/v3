@@ -65,7 +65,7 @@ function OverviewSlide({ items, links, isLandscape }: { items: OverviewItem[], l
                     viewport={{ once: true }}
                     transition={{ duration: 0.6 }}
                 >
-                    <p className="text-base md:text-xl leading-relaxed text-muted-foreground max-w-2xl">
+                    <p className="text-xs md:text-base leading-relaxed text-muted-foreground max-w-[60vw] md:max-w-2xl">
                         {bodyContent}
                     </p>
 
