@@ -153,7 +153,7 @@ export const projectsData: ProjectsData = {
                 fontFamily: '"Inter", sans-serif',
                 url: "https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap",
                 description:
-                    "Inter is the industry standard for modern user interfaces. Its high x-height and careful kerning ensure that complex data tables and analytics dashboards remain legible at any size, reducing cognitive load for researchers analyzing dense information.",
+                    "The industry standard for modern user interfaces, its high x-height and careful kerning ensure that complex data tables and analytics dashboards remain legible at any size, reducing cognitive load for researchers analyzing dense information.",
             },
             {
                 name: "JetBrains Mono",
