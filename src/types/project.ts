@@ -24,7 +24,7 @@ export interface Tech {
     version?: string;
 }
 
-export interface ProjectData {
+export interface Project {
     name: string;
     subtitle?: string;
     icon: IconType;
@@ -40,4 +40,4 @@ export interface ProjectData {
     screenshotDevice?: "desktop" | "mobile" | "tablet";
 }
 
-export type ProjectsData = Record<string, ProjectData>;
+export type ProjectsData = Record<string, Project>;

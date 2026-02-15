@@ -4,7 +4,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { ProjectData } from "@/types/project";
+import { Project } from "@/types/project";
 import { displayFont } from "@/lib/fonts";
 import { fadeIn } from "@/lib/motionVariants";
 import Tag, { SkillTag } from "@/components/ui/Tag";
@@ -12,7 +12,7 @@ import RotatingButton from "@/components/ui/RotatingButton";
 
 interface ProjectCardProps {
     id: string;
-    project: ProjectData;
+    project: Project;
 
     skillLimit?: number;
     reversed?: boolean;
