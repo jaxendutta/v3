@@ -84,11 +84,13 @@ export default function RootLayout({
                     fetchPriority="high"
                 />
             </head>
-            <body className="min-h-[100dvh]">
+            <body className="min-h-[100dvh] w-full">
                 <Analytics />
                 <ThemeProvider>
                     <BottomBar />
-                    {children}
+                    <div className="max-w-[2048px] mx-auto w-full">
+                        {children}
+                    </div>
                 </ThemeProvider>
             </body>
         </html>

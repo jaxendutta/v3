@@ -209,10 +209,8 @@ export default function ProjectsPage() {
                 initial="hidden"
                 animate="visible"
             >
-                <motion.div
-                    className={`text-5xl md:text-7xl text-center ${googleSansFlex.className} pb-8`}
-                >
-                    Projects.
+                <motion.div className={`text-5xl md:text-7xl text-center ${googleSansFlex.className} pb-8 md:pb-10 lg:pb-12`}>
+                    Projects
                 </motion.div>
 
                 {/* Results count and filter controls */}
@@ -308,7 +306,7 @@ export default function ProjectsPage() {
             {/* Filter section using custom FilterContainer component */}
             <FilterContainer
                 isVisible={showFilters}
-                className="container w-full flex"
+                className="container w-full flex self-center"
             >
                 <div className="flex flex-col gap-6">
                     {/* Search Box */}

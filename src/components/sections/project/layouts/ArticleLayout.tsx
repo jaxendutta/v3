@@ -5,13 +5,12 @@ import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
-import remarkUnwrapImages from "remark-unwrap-images";
+import remarkUnwrapImages from "rehype-unwrap-images";
 import rehypeSlug from "rehype-slug";
 import { displayFont } from "@/lib/fonts";
-import Link from "next/link";
 import {
-    FiGithub, FiExternalLink, FiCalendar, FiCpu, FiLink,
-    FiInfo, FiAlertCircle, FiCheckCircle, FiAlertTriangle, FiBookmark
+    FiCpu, FiLink, FiInfo, FiAlertCircle, 
+    FiCheckCircle, FiAlertTriangle, FiBookmark
 } from "react-icons/fi";
 import ProjectsPageHeader from "@/components/sections/project/ProjectsPageHeader";
 import { SkillTag } from "@/components/ui/Tag";
@@ -20,8 +19,7 @@ import { visit } from "unist-util-visit";
 import Mermaid from "@/components/ui/Mermaid";
 import "katex/dist/katex.min.css";
 import Footer from "@/components/layout/Footer";
-import { HiArrowRight } from "react-icons/hi2";
-import SocialItems, { SocialItem } from "../../contact/SocialItem";
+import SocialItems from "../../contact/SocialItem";
 
 // --- PLUGINS ---
 

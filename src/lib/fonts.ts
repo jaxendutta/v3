@@ -2,8 +2,7 @@
 import {
     Major_Mono_Display,
     Google_Sans_Flex,
-    Google_Sans_Code,
-    Noto_Emoji,
+    Google_Sans_Code
 } from "next/font/google";
 
 export const majorMono = Major_Mono_Display({
