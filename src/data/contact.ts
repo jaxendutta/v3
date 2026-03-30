@@ -19,7 +19,7 @@ export const socials: Social[] = [
     },
     {
         platform: "RÉSUMÉ",
-        url: "https://docs.google.com/gview?url=https://docs.google.com/document/d/1m90P1ZKYrwkFkxYF9wJbwAPl6EZVXiXQ-6adsP4lW4w/export?format=pdf",
+        url: "https://docs.google.com/gview?url=https://docs.google.com/document/d/1_ZjIqmoNykdPFLcNhsDdrqrbcV0VCuKltRMDqBuH9Ik/export?format=pdf",
     },
 ];
 
