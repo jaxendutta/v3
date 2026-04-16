@@ -21,6 +21,7 @@ const calloutStyle =
 export const projectsData: ProjectsData = {
     asher: {
         name: "AsHeR's GARden",
+        label: "Asher's Garden",
         icon: GiJumpingDog,
         type: "development",
         layoutType: "showcase",
@@ -111,6 +112,7 @@ export const projectsData: ProjectsData = {
     },
     rgap: {
         name: "RGAp",
+        label: "RGAP",
         icon: GiAbstract014,
         type: "development",
         layoutType: "showcase",
@@ -190,6 +192,7 @@ export const projectsData: ProjectsData = {
     },
     pvc: {
         name: "pARkVieW centRe",
+        label: "Park View Centre",
         icon: GiPlagueDoctorProfile,
         type: "development",
         layoutType: "showcase",
@@ -257,6 +260,7 @@ export const projectsData: ProjectsData = {
     },
     "portfolio-v2": {
         name: "poRtfolio v2",
+        label: "Portfolio v2",
         icon: GiOrbital,
         type: "development",
         layoutType: "showcase",
@@ -338,6 +342,7 @@ export const projectsData: ProjectsData = {
     "evse-opt": {
         name: "eVse",
         subtitle: "netWoRk optiMiZeR",
+        label: "EVSE Network Optimizer",
         icon: GiBoltEye,
         type: "research",
         layoutType: "article",
@@ -362,6 +367,7 @@ export const projectsData: ProjectsData = {
 
     fabler: {
         name: "fAbleR",
+        label: "Fabler",
         icon: GiBrainTentacle,
         type: "design",
         layoutType: "showcase",
@@ -452,6 +458,7 @@ export const projectsData: ProjectsData = {
 
     "portfolio-v1": {
         name: "poRtfolio v1",
+        label: "Portfolio v1",
         icon: GiNestedEclipses,
         type: "development",
         layoutType: "showcase",
@@ -524,6 +531,7 @@ export const projectsData: ProjectsData = {
 
     hivemind: {
         name: "HiVeMind",
+        label: "HiveMind",
         icon: GiBee,
         date: new Date("2023-08-18"),
         screenshotDevice: "mobile",
@@ -596,6 +604,7 @@ export const projectsData: ProjectsData = {
 
     "space-invaders": {
         name: "spAce inVAdeRs",
+        label: "Space Invaders",
         icon: FaSpaceAwesome,
         type: "development",
         layoutType: "showcase",
@@ -667,6 +676,7 @@ export const projectsData: ProjectsData = {
 
     "file-explorer": {
         name: "file eXploReR",
+        label: "File Explorer",
         icon: AiOutlineFolderView,
         type: "development",
         layoutType: "showcase",
@@ -737,6 +747,7 @@ export const projectsData: ProjectsData = {
 
     lightbox: {
         name: "liGHtboX",
+        label: "Lightbox",
         icon: PiCodesandboxLogoLight,
         type: "development",
         layoutType: "showcase",
@@ -806,6 +817,7 @@ export const projectsData: ProjectsData = {
 
     straights: {
         name: "stRAiGHts",
+        label: "Straights",
         icon: GiCardJoker,
         type: "development",
         layoutType: "showcase",

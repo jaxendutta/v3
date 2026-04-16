@@ -26,6 +26,7 @@ export interface Tech {
 
 export interface Project {
     name: string;
+    label: string;
     subtitle?: string;
     icon: IconType;
     type: "design" | "development" | "ai" | "research";
