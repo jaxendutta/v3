@@ -30,21 +30,13 @@ export const metadata: Metadata = {
         title: "Jaxen Dutta",
         description:
             "UX/UI Engineer, HCI Researcher, Web Designer, and App Developer portfolio showcasing innovative digital creations and technical expertise.",
-        siteName: "Jaxen Dutta | Portfolio",
-        images: [
-            {
-                url: "/og-image.png",
-                width: 1200,
-                height: 630,
-                alt: "Jaxen Dutta Portfolio Preview",
-            },
-        ],
+        siteName: "Jaxen Dutta ✧ Portfolio"
     },
     twitter: {
         card: "summary_large_image",
         title: "Jaxen Dutta ✧ Portfolio",
-        description: "UX/UI Engineer, HCI Researcher, Web Designer, and App Developer portfolio",
-    },
+        description: "UX/UI Engineer, HCI Researcher, Web Designer, and App Developer",
+    }
 };
 
 export default function RootLayout({
