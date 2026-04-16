@@ -33,7 +33,7 @@ export const metadata: Metadata = {
         siteName: "Jaxen Dutta ✧ Portfolio"
     },
     twitter: {
-        card: "summary_large_image",
+        card: "summary",
         title: "Jaxen Dutta ✧ Portfolio",
         description: "UX/UI Engineer, HCI Researcher, Web Designer, and App Developer",
     }
