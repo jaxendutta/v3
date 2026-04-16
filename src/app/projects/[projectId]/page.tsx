@@ -33,7 +33,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
             description: description,
             type: "article",
             // If you have project images in your data, you can add them here:
-            // images: [`/assets/${projectId}.png`], 
+            images: [`/assets/${projectId}.png`], 
         },
     };
 }

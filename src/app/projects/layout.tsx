@@ -2,7 +2,7 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-    title: "Projects",
+    title: "Projects ✧ Jaxen Dutta",
     description: "Explore the design, development, and research projects of Jaxen Dutta.",
 };
 

@@ -9,7 +9,7 @@ export const metadata: Metadata = {
     metadataBase: new URL('https://anirban.ca'),
     title: {
         default: "Jaxen Dutta",
-        template: "%s | Jaxen Dutta",
+        template: "%s ✧ Jaxen Dutta",
     },
     description:
         "Personal portfolio website for Anirban (Jaxen) Dutta - UX/UI Engineer, HCI Researcher, Web Designer, App Developer",
@@ -42,7 +42,7 @@ export const metadata: Metadata = {
     },
     twitter: {
         card: "summary_large_image",
-        title: "Jaxen Dutta | Portfolio",
+        title: "Jaxen Dutta ✧ Portfolio",
         description: "UX/UI Engineer, HCI Researcher, Web Designer, and App Developer portfolio",
     },
 };
