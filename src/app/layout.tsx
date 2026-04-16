@@ -30,7 +30,15 @@ export const metadata: Metadata = {
         title: "Jaxen Dutta",
         description:
             "UX/UI Engineer, HCI Researcher, Web Designer, and App Developer portfolio showcasing innovative digital creations and technical expertise.",
-        siteName: "Jaxen Dutta ✧ Portfolio"
+        siteName: "Jaxen Dutta ✧ Portfolio",
+        // Adding a transparent pixel prevents the crawler from scraping your project images
+        images: [
+            {
+                url: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=",
+                width: 1,
+                height: 1,
+            },
+        ],
     },
     twitter: {
         card: "summary",
