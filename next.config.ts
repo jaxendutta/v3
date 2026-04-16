@@ -2,13 +2,13 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
     reactStrictMode: true,
+    reactCompiler: true,
     images: {
         formats: ["image/avif", "image/webp"],
     },
     experimental: {
         serverActions: {
-            bodySizeLimit: "2mb",
-            allowedOrigins: ["*"],
+            bodySizeLimit: "2mb", // Keep this if you need larger uploads
         },
     },
     async headers() {
