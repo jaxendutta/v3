@@ -11,6 +11,7 @@ import {
     GiAbstract014,
     GiPlagueDoctorProfile,
     GiJumpingDog,
+    GiLifeInTheBalance,
 } from "react-icons/gi";
 import { AiOutlineFolderView } from "react-icons/ai";
 import { PiCodesandboxLogoLight } from "react-icons/pi";
@@ -19,6 +20,47 @@ const calloutStyle =
     "border border-2 border-dashed py-2 px-2 md:px-4 mt-8";
 
 export const projectsData: ProjectsData = {
+    emma: {
+        name: "eMMA",
+        label: "EMMA",
+        icon: GiLifeInTheBalance,
+        type: "research",
+        layoutType: "article",
+        date: new Date("2026-04-18"),
+        screenshotDevice: "mobile",
+        links: [
+            {
+                platform: "GitHub",
+                url: "https://github.com/jaxendutta/emma",
+            },
+            {
+                platform: "Live Site",
+                url: "https://emma.anirban.ca",
+            },
+        ],
+        techStack: {
+            "NLP / ML": [
+                { name: "SpaCy" },
+                { name: "FAISS" },
+                { name: "scikit-learn" },
+                { name: "scikit-surprise" },
+            ],
+            "LLM / RAG": [
+                { name: "Ollama" },
+                { name: "HuggingFace" },
+                { name: "LangChain" },
+            ],
+            Backend: [
+                { name: "FastAPI" },
+                { name: "Dialogflow ES" },
+            ],
+            Deployment: [
+                { name: "Vercel" },
+                { name: "ngrok" },
+            ],
+        },
+    },
+
     asher: {
         name: "AsHeR's GARden",
         label: "Asher's Garden",

@@ -139,16 +139,20 @@ export default function ArticleLayout({ projectId, markdownContent }: ArticleLay
     if (!project) return null;
 
     // Helper for Headers with Links
-    const HeaderRenderer = ({ id, children, levelClassName }: { id?: string, children: React.ReactNode, levelClassName: string }) => (
+    const HeaderRenderer = ({ id, children, levelClassName }: { id?: string, children: React.ReactNode, levelClassName: string }) => {
+        const isReferences = typeof children === 'string' && children.toLowerCase() === 'references';
+        
+        return (
         <a
             href={`#${id}`}
             className={`flex-1 !no-underline hover:text-primary transition-colors flex items-baseline gap-3 w-full text-foreground ${levelClassName}`}
         >
-            <span className="number-prefix font-mono text-primary/70 mr-1 select-none flex-shrink-0"></span>
+            {!isReferences && <span className="number-prefix font-mono text-primary/70 mr-1 select-none flex-shrink-0"></span>}
             <span>{children}</span>
             <FiLink className="opacity-0 group-hover:opacity-50 transition-opacity text-[0.5em] text-muted-foreground self-center flex-shrink-0" />
         </a>
-    );
+        );
+    };
 
     return (
         <div className={`min-h-full w-full bg-background text-foreground`}>
@@ -240,10 +244,10 @@ export default function ArticleLayout({ projectId, markdownContent }: ArticleLay
                             ),
                             td: ({ node, ...props }) => (
                                 /* whitespace-nowrap keeps the text from squishing, forcing the scrollbar to appear */
-                                <td className="p-2 md:p-4 border-b border-r border-border/50 text-center whitespace-nowrap md:whitespace-normal" {...props} />
+                                <td className="p-2 md:p-4 border-b border-r border-border/50 whitespace-nowrap md:whitespace-normal" {...props} />
                             ),
                             thead: ({ node, ...props }) => <thead className="bg-secondary uppercase font-mono tracking-wider" {...props} />,
-                            th: ({ node, ...props }) => <th className="p-2 md:p-4 border-b border-r border-border/50 font-semibold" {...props} />,
+                            th: ({ node, ...props }) => <th className="p-2 md:p-4 border-b border-r border-border/50 font-semibold text-left" {...props} />,
 
                             // --- LISTS ---
                             ul: ({ node, ...props }) => <ul className={`list-disc pl-4 md:pl-6 space-y-2 my-4 md:my-6 marker:text-primary ${base_font_size}`} {...props} />,

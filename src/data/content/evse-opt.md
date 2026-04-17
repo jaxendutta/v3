@@ -5,7 +5,9 @@
 A comprehensive mixed-integer linear programming (MILP) optimization model for strategic enhancement of the Kitchener-Waterloo Census Metropolitan Area (KWC-CMA) electric vehicle charging network. This project combines real-world data sources, advanced spatial analysis, and multi-objective optimization to recommend optimal charging infrastructure placement and upgrades.
 
 ## Geographic Scope
+
 The project covers the entire KWC-CMA region including:
+
 - Major Cities: Kitchener, Waterloo, Cambridge
 - Townships: Woolwich, Wilmot, North Dumfries, Wellesley
 - Total Area: 1,092.33 km²
@@ -117,9 +119,11 @@ graph TD
 ```
 
 ## Data Collection and Integration
+
 The project follows a systematic data collection approach implemented in `data_manager.py`:
 
 ### Geographic & Infrastructure Data
+
 - **Boundary Data**: 
   - Source: [Region of Waterloo Open Data](https://rowopendata-rmw.opendata.arcgis.com)
   - Process: UTM Zone 17N projection for accurate measurements
@@ -138,6 +142,7 @@ The project follows a systematic data collection approach implemented in `data_m
   - Scoring: Multi-factor location scoring implemented in `02_location_analysis.ipynb`
 
 ### Population and EV Data
+
 - **Census Data (2021)**:
   - Sources: [Statistics Canada](https://www12.statcan.gc.ca/census-recensement/2021/dp-pd/prof/details/page.cfm?DGUIDlist=2021S0503541), [Region of Waterloo Open Data](https://rowopendata-rmw.opendata.arcgis.com)
   - Level: Census tract granularity
@@ -154,6 +159,7 @@ The project follows a systematic data collection approach implemented in `data_m
     - Growth trend projections
 
 ### Transit Network Data
+
 - **Source**: [Grand River Transit Open Data](https://www.grt.ca/en/about-grt/open-data.aspx)
 - **Components**:
   - GRT Bus routes and stops
@@ -163,17 +169,22 @@ The project follows a systematic data collection approach implemented in `data_m
 - **Integration**: Multi-modal accessibility scoring
 
 ## Analysis Pipeline
+
 Our analysis workflow, implemented across multiple notebooks, processes raw data into optimization inputs:
 
 ### Location Analysis
+
 Notebook: `02_location_analysis.ipynb`
+
   - Population distribution analysis
   - Transit accessibility scoring
   - Demographic pattern identification
   - Service area calculations
 
 ### Enhancement Analysis
+
 Notebook: `03_enhancement_analysis.ipynb`
+
   - Identification of upgrade candidates
   - Port retention calculations
   - Cost-benefit analysis with retained ports
@@ -181,13 +192,16 @@ Notebook: `03_enhancement_analysis.ipynb`
   - Implementation feasibility assessment
 
 ### Data Preparation
+
 Notebook: `04_data_preparation.ipynb`
+
   - Demand point generation
   - Constraint parameter calculation
   - Distance matrix computation
   - Site suitability scoring
 
 ## Demand Point Generation
+
 The project creates sophisticated demand points to represent charging needs through a multi-factor analysis.
 
 ```mermaid
@@ -209,18 +223,21 @@ graph LR
   ```
 
 ### Population-Based Points: Base Generation
+
   - Census tract centroids as initial points
   - Population-weighted adjustments
   - Density-based clustering
   - Service area calculations
 
 ### EV Integration: FSA Data Processing
+
   - Data from 14 FSA regions in KWC-CMA
   - Downscaling to census tract level
   - BEV/PHEV ratio consideration
   - Growth trend incorporation
 
 ### Scoring Components
+
   - EV Ownership Data (35%)
   - Infrastructure quality (25%)
   - Base population density (20%)
@@ -232,6 +249,7 @@ graph LR
 ## Optimization Model Architecture
 
 ### Core Components
+
 - **Model Type**: Multi-Objective Mixed-Integer Linear Programming (MILP)
 - **Solver**: Gurobi Optimizer (Academic WLS License)
 - **Implementation**: `network_optimizer.py`
@@ -242,6 +260,7 @@ graph LR
    - Coverage requirements with dual charging types
 
 ### Decision Framework
+
 - **Station Decisions**:
   - New L2/L3 station placement
   - L2 to L3 conversions with port retention
@@ -255,6 +274,7 @@ graph LR
   - Future growth accommodation
 
 ### Constraint Structure
+
 - **Infrastructure Limits**:
   - Grid capacity per location
   - Maximum stations per area
@@ -270,8 +290,9 @@ graph LR
 ## Data Processing Pipeline
 
 ### Raw Data Processing
+
 - **Data Manager**
-    
+
     Script: `data_manager.py`
   - API integrations (OpenChargeMap, Census)
   - Spatial data processing
@@ -285,6 +306,7 @@ graph LR
   - Spatial indexing
 
 ### Analysis Workflow
+
 - **Location Analysis**
   - Population density mapping
   - Transit accessibility scoring
@@ -298,6 +320,7 @@ graph LR
   - Implementation feasibility
 
 ### Optimization Preparation
+
 - **Input Generation**
   - Demand point creation
   - Distance matrix computation
@@ -334,7 +357,9 @@ graph TD
 ```
 
 ### Model Configuration
+
 Script: `network_optimizer.py`
+
 - **Decision Variables**
   - Binary variables for station decisions
   - Integer variables for port allocation
@@ -348,6 +373,7 @@ Script: `network_optimizer.py`
   - Minimum port requirements
 
 ### Solution Process
+
 - **Setup Phase**
   - Data structure preparation
   - Variable initialization
@@ -363,7 +389,9 @@ Script: `network_optimizer.py`
 ## Results Processing and Analysis
 
 ### Coverage Analysis 
+
 Notebook: `05_optimization_model.ipynb`
+
 - **Geographic Coverage**
   - Population accessibility metrics
   - EV owner coverage calculations
@@ -377,6 +405,7 @@ Notebook: `05_optimization_model.ipynb`
   - Service redundancy evaluation
 
 ### Financial Analysis
+
 - **Cost Breakdown**
   - Installation expenses
   - Infrastructure upgrades
@@ -444,6 +473,7 @@ graph LR
     - Network optimization
 
 ### Technical Requirements
+
 - **Grid Infrastructure**:
   - Power capacity analysis
   - Transformer requirements
@@ -458,8 +488,10 @@ graph LR
 
 ## Visualization and Reporting
 
-### Interactive Maps 
+### Interactive Maps
+
 Script: `map_viz.py`
+
 - **Coverage Visualization**
   - Population density heatmaps
   - Service area overlays
@@ -473,6 +505,7 @@ Script: `map_viz.py`
   - Upgrade priorities
 
 ### Results Dashboard
+
 - **Performance Metrics**
   - Coverage improvements
   - Cost efficiency
@@ -517,6 +550,7 @@ The model employs a sophisticated port retention strategy during L2 to L3 upgrad
 ## Environment Setup
 
 ### Prerequisites
+
 - Python>=3.12.7
 - Gurobi Optimizer License
 - OpenChargeMap API key
@@ -562,22 +596,25 @@ The model employs a sophisticated port retention strategy during L2 to L3 upgrad
 ## Installation
 
 1. **Clone repository**
+
     ```bash
     git clone https://github.com/username/kw-ev-charging-optimization.git
     cd kw-ev-charging-optimization
     ```
 
-1. **Configure API Access**
+2. **Configure API Access**
    - Obtain an OpenChargeMap API key [here](https://openchargemap.org/site/developerinfo)
    - Acquire Ontario Data Portal access (if necessary)
    - Create a file named `.env` in your project root
    - Set up your API keys as environment variables by placing the following in the `.env` file:
-     ```
+
+     ```plaintext
      OCMAP_API_KEY=<your_api_key_here>
      # Any other necessary keys in format: <KEY_NAME>=<key>
      ```
 
-1. **Run setup verification**
+3. **Run setup verification**
+
     ```bash
     python src/verify_setup.py
     ```
@@ -598,6 +635,7 @@ The model employs a sophisticated port retention strategy during L2 to L3 upgrad
 ## Model Configuration
 
 ### Basic Configuration
+
 - Located in `configs/base.json`
 - Key parameters:
   - Cost factors
@@ -606,6 +644,7 @@ The model employs a sophisticated port retention strategy during L2 to L3 upgrad
   - Implementation phases
 
 ### Scenario Configuration
+
 - Located in `configs/scenarios/`
 - Available scenarios:
   - `aggressive.json`
@@ -664,11 +703,13 @@ If the run fails, the error message would be logged in the `optimization.log` fi
 > If you want to run the optimization directly, you can check out section [4.4.](#44-quick-run-on-the-command-line-interface). The following content is just for visualizing the optimization steps and is not necessary to run the optimization script.
 
 ### Data Collection
+
 ```bash
 jupyter notebook notebooks/01_data_collection.ipynb
 ```
 
 ### Analysis Pipeline
+
 ```bash
 # Execute notebooks in order:
 jupyter notebook notebooks/02_location_analysis.ipynb
@@ -690,6 +731,7 @@ jupyter notebook notebooks/05_optimization_model.ipynb
 ## Results Analysis
 
 ### Solution Visualization
+
 - Interactive maps showing:
   - Current coverage
   - Proposed changes
@@ -697,6 +739,7 @@ jupyter notebook notebooks/05_optimization_model.ipynb
   - Service areas
 
 ### Performance Metrics
+
 - Coverage improvement
 - Cost efficiency
 - Implementation timeline
@@ -705,6 +748,7 @@ jupyter notebook notebooks/05_optimization_model.ipynb
 # Project Structure & Standards
 
 ## Directory Structure
+
 ```plaintext
 ROOT/
 ├── data/                             # Data storage
@@ -758,6 +802,7 @@ ROOT/
 ## Code Standards
 
 ### Style Guidelines
+
 - PEP 8 compliance
 - Type hints for all functions
 - Comprehensive docstrings
@@ -765,6 +810,7 @@ ROOT/
 - Exception handling patterns
 
 ### Documentation Standards
+
 - Function documentation:
   - Purpose and description
   - Parameter types
@@ -779,6 +825,7 @@ ROOT/
 ## Troubleshooting Guide
 
 ### Common Issues
+
 - **Data Loading Errors**:
   - Check API key configuration
   - Verify file paths in constants.py
@@ -798,6 +845,7 @@ ROOT/
   - Monitor memory constraints
 
 ### Performance Optimization
+
 - **Data Processing**:
   - Use spatial indexing
   - Implement caching
@@ -813,18 +861,21 @@ ROOT/
 ## Maintenance & Updates
 
 ### Data Updates
+
 - Regular data refresh schedule
 - Validation procedures
 - Version control
 - Backup protocols
 
 ### Model Updates
+
 - Parameter calibration
 - Constraint updates
 - Objective function tuning
 - Solution validation
 
 ### Documentation Updates
+
 - Code changes
 - Configuration updates
 - New features
@@ -833,6 +884,7 @@ ROOT/
 # Sources and Citations
 
 ## Data Collection
+
 1. [Region of Waterloo Open Data](https://rowopendata-rmw.opendata.arcgis.com)
 2. [OpenChargeMap API](https://openchargemap.org)
 3. [OpenStreetMap](https://www.openstreetmap.org) via [OSMnx](https://osmnx.readthedocs.com)
@@ -841,12 +893,14 @@ ROOT/
 6. [Grand River Transit Open Data](https://www.grt.ca/en/about-grt/open-data.aspx)
 
 ## Cost Parameter Estimation
+
 1. [HoneyBadger Charging Inc. (January 2024): Cost to Install an EV Charger at Home](https://web.archive.org/web/20240117122145/https://www.badgercharging.ca/resources/cost-to-install-ev-charger-at-home)
 1. [TCA ELectric (July 25, 2023): Level 2 vs Level 3 EV Charging](https://web.archive.org/web/20240623140939/https://tcaelectric.ca/level-2-vs-level-3-ev-charging/)
 1. [SparkCharge (May 2023): EV Charging Station Infrastructure Costs and Breakdown](https://web.archive.org/web/20240718171319/https://www.sparkcharge.io/blogs/leadthecharge/ev-charging-station-infrastructure-costs)
 1. [Future Energy (August 11, 2022): What Does a Level 3 Charger Cost?](https://web.archive.org/web/20240518205803/https://futureenergy.com/ev-charging/what-does-a-level-3-charger-cost/)
 
 ## Grid Capacity
+
 1. [HydroOne (December 10, 2021): Kitchener-Waterloo-Cambridge-Guelph Regional Infrastructure Plan](https://www.hydroone.com/abouthydroone/CorporateInformation/regionalplans/kitchenerwaterloocambridgeguelph/Documents/RIP_Report_KWCG.pdf)
 1. [HydroOne (May 2024): Kitchener-Waterloo-Cambridge-Guelph Regional Planning](https://web.archive.org/web/20241209022829/https://www.hydroone.com/about/corporate-information/regional-plans/kitchener-waterloo-cambridge-guelph)
 1. [IESO (May 6, 2021): Kitchener-Waterloo-Cambridge-Guelph Region Integrated Regional Resource Plan](https://www.ieso.ca/-/media/Files/IESO/Document-Library/regional-planning/KWCG/KWCG-IRRP-May-2021.pdf)
@@ -860,12 +914,12 @@ The optimization model is formulated as a mixed-integer linear program:
 
 We have the following data sets from our data collection .
 
-| Set     | Description                                                   |
-|---------|---------------------------------------------------------------|
-| $P$     | Set of potential locations, $i \in P$                         |
-| $D$     | Set of demand points, $j \in D$                               |
-| $S^2$   | Set of existing Level 2 stations (upgrade candidates)         |
-| $S^3$   | Set of existing Level 3 stations                              |
+| Set     | Description                                                                             |
+| ------- | --------------------------------------------------------------------------------------- |
+| $P$     | Set of potential locations, $i \in P$                                                   |
+| $D$     | Set of demand points, $j \in D$                                                         |
+| $S^2$   | Set of existing Level 2 stations (upgrade candidates)                                   |
+| $S^3$   | Set of existing Level 3 stations                                                        |
 | $P^2_j$ | Set of potential locations within the Level 2 coverage radius of demand point $j \in D$ |
 | $P^3_j$ | Set of potential locations within the Level 3 coverage radius of demand point $j \in D$ |
 
@@ -873,29 +927,29 @@ We have the following data sets from our data collection .
 
 ### Coverage
 
-| Symbol     | Meaning                                             |
-|------------|-----------------------------------------------------|
-| $w_j$      | Normalized population weight at demand point $j$    |
-| $r_2$      | Coverage radius for Level 2 stations                |
-| $r_3$      | Coverage radius for Level 3 stations                |
-| $\alpha_2$ | Minimum required Level 2 coverage                   |
-| $\alpha_3$ | Minimum required Level 3 coverage                   |
+| Symbol     | Meaning                                          |
+| ---------- | ------------------------------------------------ |
+| $w_j$      | Normalized population weight at demand point $j$ |
+| $r_2$      | Coverage radius for Level 2 stations             |
+| $r_3$      | Coverage radius for Level 3 stations             |
+| $\alpha_2$ | Minimum required Level 2 coverage                |
+| $\alpha_3$ | Minimum required Level 3 coverage                |
 
 ### Costs
 
-| Symbol  | Meaning                          |
-|---------|----------------------------------|
-| $c_2^s$ | Cost of new Level 2 station      |
-| $c_3^s$ | Cost of new Level 3 station      |
-| $c_2^p$ | Cost per Level 2 port            |
-| $c_3^p$ | Cost per Level 3 port            |
-| $\beta$ | Resale value factor              |
-| $B$     | Total available budget           |
+| Symbol  | Meaning                     |
+| ------- | --------------------------- |
+| $c_2^s$ | Cost of new Level 2 station |
+| $c_3^s$ | Cost of new Level 3 station |
+| $c_2^p$ | Cost per Level 2 port       |
+| $c_3^p$ | Cost per Level 3 port       |
+| $\beta$ | Resale value factor         |
+| $B$     | Total available budget      |
 
 ### Infrastructure
 
 | Symbol | Meaning                            |
-|--------|------------------------------------|
+| ------ | ---------------------------------- |
 | $p_2$  | Minimum ports per Level 2 station  |
 | $p_3$  | Minimum ports per Level 3 station  |
 | $g_2$  | Power requirement per Level 2 port |
@@ -905,13 +959,13 @@ We have the following data sets from our data collection .
 
 ## Decision Variables
 
-| Variable | Indices | Type | Bounds | Meaning |
-|----------|---------|------|--------|---------|
-| $x^2_i$  | $i \in P$ | Binary | $\{0,1\}$ | Install new Level 2 station at site $i$ |
-| $x^3_i$  | $i \in P$ | Binary | $\{0,1\}$ | Install new Level 3 station at site $i$ |
+| Variable | Indices     | Type   | Bounds    | Meaning                                         |
+| -------- | ----------- | ------ | --------- | ----------------------------------------------- |
+| $x^2_i$  | $i \in P$   | Binary | $\{0,1\}$ | Install new Level 2 station at site $i$         |
+| $x^3_i$  | $i \in P$   | Binary | $\{0,1\}$ | Install new Level 3 station at site $i$         |
 | $u_i$    | $i \in S^2$ | Binary | $\{0,1\}$ | Upgrade existing Level 2 station $i$ to Level 3 |
-| $y^2_j$ | $j \in D$ | Binary | $\{0,1\}$ | Demand point $j$ is covered by Level 2 charging |
-| $y^3_j$ | $j \in D$ | Binary | $\{0,1\}$ | Demand point $j$ is covered by Level 3 charging |
+| $y^2_j$  | $j \in D$   | Binary | $\{0,1\}$ | Demand point $j$ is covered by Level 2 charging |
+| $y^3_j$  | $j \in D$   | Binary | $\{0,1\}$ | Demand point $j$ is covered by Level 3 charging |
 
 ## Constraints
 
@@ -926,6 +980,7 @@ x^2_i + x^3_i \leq 1, \quad \forall i \in P
 $$
 
 ### Budget Constraints
+
 Our budget needs to be able to accommodate new Level 2 stations, new Level 3 stations, as well as Level 2 stations being upgraded to Level 3. This would also account for their individual charging port installations.
 
 $$
@@ -939,6 +994,7 @@ $$
 ### Coverage Constraints
 
 #### Level 2 Coverage, $y^2_j$
+
 All demand points being covered by stations offering Level 2 charging ports. This would include Level 2 stations upgraded to Level 3 standards, since they would retain at least one Level 2 charging port.
 
 $$
@@ -948,6 +1004,7 @@ y^2_j \leq \sum_{i \in P^2_j}x^2_i + \sum_{i \in S^2}(1-u_i), \quad \forall j \i
 $$
 
 #### Level 3 Coverage, $y^3_j$
+
 All demand points being covered by stations offering Level 3 charging ports. This would include Level 2 stations upgraded to Level 3 standards.
 
 $$
@@ -957,6 +1014,7 @@ y^3_j \leq \sum_{i \in P^3_j}x^3_i + \sum_{i \in S^2}u_i, \quad \forall j \in D
 $$
 
 #### Minimum Coverage Requirements
+
 The individual coverages calculated according to the wights assigned to the deman points should meet the minimum coverage requirements outlined in our parameters.
 
 $$
@@ -967,6 +1025,7 @@ $$
 $$
 
 ### Grid Capacity Constraints
+
 The power needs of station placements (calculated depending on the quantity of charging ports it offers) should not exceed the grid capacity offered by the region.
 
 $$
