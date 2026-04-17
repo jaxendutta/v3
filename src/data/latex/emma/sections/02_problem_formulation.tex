@@ -1,0 +1,38 @@
+\section{PROBLEM FORMULATION}
+Medical exam preparation is a laborious task requiring extensive rote practice to internalise clinical vocabulary, symptom presentations, conditions, risk thresholds, and pharmacological details. Independent study is difficult without feedback, peer interaction, or access to professional tutoring. These are resources that are unevenly distributed across the candidate population. EMMA addresses this by providing an accessible, textbook-grounded conversational study agent capable of both answering clinical questions and administering adaptive quiz sessions.
+
+This project builds directly on the AMG-RAG methodology introduced by \cite{rezaei2025}, using the same MedQA-USMLE and MedMCQA datasets. The choice to frame EMMA as a study agent rather than a triaging system reflects the nature of these datasets: their multiple-choice structure, specialty labels, and associated textbook corpus are ideally suited to exam preparation rather than clinical decision support.
+
+\subsection{Vocabulary and Term Definitions}
+Before any ML component is applied, the input space must be anchored to clinically valid terminology. Patient and student queries may use lay language (``chest hurts'', ``can't breathe'') that must be mapped to accepted medical terms (e.g., chest pain, dyspnea). We define the accepted vocabulary $\Sigma$ as the set of clinical entity spans recognisable by the en\_ner\_bc5cdr\_md biomedical NER model \cite{neumann2019}, specifically, spans labelled as `DISEASE' or `CHEMICAL' under the BC5CDR annotation schema. This model was trained on 1,500 PubMed articles and recognises 5,818 disease and 4,409 chemical entity types. en\_core\_sci\_md was replaced and not used for entity extraction since it outputs a single generic `ENTITY' label unsuitable for typed retrieval rewriting.
+
+Vocabulary coverage is extended by a PMI-derived thesaurus mapping lay terms to clinical co-occurrents, constructed from collocation analysis of the MedQA training corpus (Section 4). Only tokens belonging to $\Sigma$ are extracted and used for FAISS query rewriting. Input text is otherwise passed to the LLM in full. This design separates the retrieval query (entity-focused, precise) from the generation prompt (full context, natural language).
+
+\subsection{Research Question}
+The central research question is: does textbook-grounded RAG improve small, locally-run LLM accuracy on MedQA compared to a no-retrieval baseline, and under what conditions? This question is addressed by a six-run ablation grid varying embedding model (Qwen3-Embedding-0.6B, Octen-Embedding-0.6B), LLM (Qwen3-4B, Qwen3-4B-Thinking-2507), and RAG condition (on/off), evaluated on 100 MedQA questions per run. Results are compared against the AMG-RAG reference of 74.1\% F1 on MedQA using GPT-4o-mini and a dynamic PubMed knowledge graph \cite{rezaei2025}.
+
+\subsection{Architecture}
+EMMA processes each user query through a five-stage pipeline before returning a response. First, en\_ner\_bc5cdr\_md extracts DISEASE and CHEMICAL entities from the raw query. These entities replace the full vignette text as the FAISS retrieval query, preventing incidental clinical language from diluting the embedding. If no entities are found (5.8\% of MedQA questions), the raw query is used unchanged.
+
+Second, the rewritten query is embedded and searched against a FAISS IndexFlatIP of 36,723 textbook chunks. Three embedding models were evaluated; Octen-Embedding-0.6B produced the best ablation results and is used in production. Retrieved chunks are assigned confidence bands across three tiers: high ($\ge 0.70$), medium (0.55-0.70, flagged in the prompt with a hedging instruction), and low (0.40-0.55, included but marked uncertain). Chunks scoring below 0.40 are dropped entirely.
+
+Third, the raw query is independently passed to the TF-IDF + LinearSVC classifier, which assigns one of 19 specialty labels. This label is included in the LLM prompt as a routing context. The BERTopic clustering model provides finer-grained topic context within specialties.
+
+Fourth, all retrieved passages, entity spans, specialty labels, and confidence flags are assembled into a structured prompt with hedging instructions for low-confidence sources.
+
+Fifth, inference is attempted via Ollama (fast local path, no GPU required). If Ollama is unavailable or the model is not pulled, the system falls back to HuggingFace transformers with 4-bit nf4 quantization on a Colab T4 GPU. The production LLM is Qwen3-4B-Thinking-2507, selected by ablation.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.9\textwidth]{pipeline.png}
+    \caption{EMMA Architecture Pipeline}
+    \label{fig:pipeline}
+\end{figure}
+
+\subsection{Model Selection Rationale}
+
+\subsubsection{Embedding Models}
+Model selection followed the MTEB Leaderboard, specifically the RTEB Healthcare benchmark. Qwen3-Embedding-0.6B was selected since its 8B variant ranks \#6 overall. The 0.6B variant was chosen as the VRAM-feasible member of that family given the Colab T4 budget. Octen-Embedding-0.6B was selected because the Octen-8B variant ranks \#7 on the same leaderboard across all model sizes, outperforming Qwen3-Embedding-8B. Importantly, Octen-8B is derived from Qwen3-Embedding, making the two a natural ablation pair: same architecture family, different training regimen.
+
+\subsubsection{LLM Models}
+Model selection followed the Medmarks.ai benchmark. Qwen3-4B-Thinking-2507 ranked \#33 with a weighted mean of 0.4883, substantially above all other sub-5B models evaluated. The standard Qwen3-4B was included as a controlled baseline to isolate the effect of chain-of-thought reasoning.

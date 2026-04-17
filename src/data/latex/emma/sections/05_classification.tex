@@ -1,0 +1,20 @@
+\section{CLASSIFICATION}
+
+\subsection{Problem Definition}
+The classification component in EMMA is a supervised multi-class text classification problem used to assign each medical question to a clinically meaningful specialty category for downstream routing. The classifier learns a function mapping input vectors to one of 19 specialty labels based on MedMCQA subject data.
+
+\subsection{Feature Engineering}
+The feature spaces explored include bag-of-words, TF-IDF bigrams, and dense sentence embeddings produced by MiniLM-L12-v2. TF-IDF with bigrams proved to be the strongest feature space.
+
+\subsection{Model Selection}
+The best-performing model was TF-IDF Bigrams combined with LinearSVC \cite{fan2008}, achieving a cross-validated weighted F1-score of 0.5424 $\pm$ 0.0086 and a Cohen's $\kappa$ of 0.5089 $\pm$ 0.0096 on a stratified 20,000-question sample.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=\textwidth]{f1_kappa.png}
+    \caption{F1 and Kappa scores for classification models.}
+    \label{fig:f1_kappa}
+\end{figure}
+
+\subsection{Training and Validation}
+Once the optimal configuration is identified, the classifier is retrained on the full corpus of 179,777 questions. The final model achieves a weighted F1-score of 0.69 and a Cohen's $\kappa$ of 0.66 on a held-out test set.

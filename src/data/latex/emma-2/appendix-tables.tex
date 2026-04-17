@@ -1,0 +1,97 @@
+\begin{table}[!htb]
+    \caption{Sets and Indices}
+    \label{tab:sets-and-indices}
+    \centering
+    \begin{tabularx}{\textwidth}{l c X}
+        \toprule
+        Set & Indices & Description \\
+        \midrule
+        $S^2$ & $k$ & Set of existing Level 2 stations (upgrade candidates) \\
+        $S^3$ & $l$ & Set of existing Level 3 stations \\
+        $P$ & $i$ & Set of potential locations \\
+        $D$ & $j$ & Set of demand points \\
+        $W$ & $w_j$ & Normalized population weight at demand point $j, \forall j \in D$ \\
+        $P^2_j$ & & Set of potential locations within the Level 2 coverage radius of demand point $j, \forall j \in D$ \\
+        $P^3_j$ & & Set of potential locations within the Level 3 coverage radius of demand point $j, \forall j \in D$ \\
+        \bottomrule
+    \end{tabularx}
+\end{table}
+
+\begin{table}[!htb]
+    \caption{Coverage Parameters}
+    \label{tab:coverage-parameters}
+    \centering
+    \begin{tabularx}{\textwidth}{l c X} 
+        \toprule Parameter & Base Model Value & Description \\
+        \midrule 
+        $r_2$ & 0.50 km & Coverage radius for Level 2 stations \\ 
+        $r_3$ & 0.75 km & Coverage radius for Level 3 stations \\ 
+        $\alpha_2$ & 95\% & Minimum required Level 2 coverage \\ 
+        $\alpha_3$ & 85\% & Minimum required Level 3 coverage \\ 
+        \bottomrule
+    \end{tabularx}
+\end{table}
+
+\begin{table}[!htb]
+    \caption{Cost Parameters}
+    \label{tab:cost-parameters}
+    \centering
+    \begin{tabularx}{\textwidth}{l c X}
+        \toprule Parameter & Base Model Value & Description \\
+        \midrule 
+        $c_2^s$ & \$20,000 & Cost of new Level 2 station \\
+        $c_3^s$ & \$100,000 & Cost of new Level 3 station \\
+        $c_2^p$ & \$5,000 & Cost per Level 2 charging port \\
+        $c_3^p$ & \$50,000 & Cost per Level 3 charging port \\
+        $\beta$ & 1.0 & Resale value factor \\
+        $B$ & \$4,000,000 & Total available budget \\
+        \bottomrule
+    \end{tabularx}
+\end{table}
+
+\begin{table}[!htb]
+    \caption{Infrastructure Parameters}
+    \label{tab:infrastructure-parameters}
+    \centering
+    \begin{tabularx}{\textwidth}{l c X}
+        \toprule Parameter & Base Model Value & Description \\
+        \midrule
+        $p_2$ & 1 & Minimum Level 2 charging ports per station \\
+        $p_3$ & 2 & Minimum Level 3 charging ports per station \\
+        $g_2$ & 7.2 kW & Power requirement per Level 2 port \\
+        $g_3$ & 150 kw & Power requirement per Level 3 port \\
+        $G_i$ & 500 kw & Grid capacity at site $i, \forall i \in P$ \\
+        \bottomrule
+    \end{tabularx}
+\end{table}
+
+\begin{table}[!htb]
+    \caption{Decision Variables}
+    \label{tab:decision-variables}
+    \centering
+    \begin{tabularx}{\textwidth}{l l c c X}
+        \toprule
+        Variable & Indices & Type & Bounds & Description \\
+        \midrule
+        $x^2_i$ & $i \in P$ & Binary & $\{0,1\}$ & Install new Level 2 station at site $i$ \\
+        $x^3_i$ & $i \in P$ & Binary & $\{0,1\}$ & Install new Level 3 station at site $i$ \\
+        $u_k$ & $k \in S^2$ & Binary & $\{0,1\}$ & Upgrade existing Level 2 station $k$ to Level 3 \\
+        $y^2_j$ & $j \in D$ & Binary & $\{0,1\}$ & Demand point $j$ is covered by Level 2 charging \\
+        $y^3_j$ & $j \in D$ & Binary & $\{0,1\}$ & Demand point $j$ is covered by Level 3 charging \\
+        \bottomrule
+    \end{tabularx}
+\end{table}
+
+\begin{table}[!htb]
+    \caption{Base Model \eqref{WT-LP} Weight Allocation}
+    \label{tab:obj-wt}
+    \centering  
+    \begin{tabularx}{\textwidth}{r X} 
+        \toprule Weight & Objective Function Component \\
+        \midrule
+        66.6666666\% & Level 3 Coverage Maximization \\
+        33.3333333\% & Level 2 Coverage Maximization \\
+        0.0000001\% & Cost Minimization \\
+        \bottomrule
+    \end{tabularx}
+\end{table}

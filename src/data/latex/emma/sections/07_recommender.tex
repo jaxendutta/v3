@@ -1,0 +1,51 @@
+\section{RECOMMENDER SYSTEM}
+The recommender component personalises EMMA's quiz mode by directing students toward their weakest specialties based on accumulated session performance. Collaborative filtering is used because it identifies latent co-weakness patterns across students.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.5\textwidth]{synthetic_students.png}
+    \caption{Synthetic Student Scores showing priority topics/specialties.}
+    \label{fig:synthetic}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=\textwidth]{student_scores.png}
+    \caption{Score distributions for students and speciality.}
+    \label{fig:scores}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.6\textwidth]{crs_algorithms.png}
+    \caption{Algorithm comparison results (KNNBasic vs NormalPredictor).}
+    \label{fig:algorithms}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.8\textwidth]{crs_algorithmic_comparison.png}
+    \caption{Algorithm comparison visualization.}
+    \label{fig:algo_viz}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.6\textwidth]{crs_k5_k10.png}
+    \caption{Algorithm comparison at K=5 and K=10.}
+    \label{fig:k5_k10}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=\textwidth]{crs_k5_k10_plot.png}
+    \caption{Algorithm comparison at K=5 and K=10 visualization.}
+    \label{fig:k5_k10_viz}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=\textwidth]{crs_svd_pca.png}
+    \caption{PCA projection of SVD latent item factors across 19 medical specialties.}
+    \label{fig:pca}
+\end{figure}

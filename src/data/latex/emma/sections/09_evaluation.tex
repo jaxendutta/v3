@@ -1,0 +1,17 @@
+\section{EVALUATION OF RESULTS}
+
+\subsection{Classification Performance and Interpretation}
+The final classification model achieves a weighted F1-score of 0.69 and a Cohen's $\kappa$ of 0.66. The dataset's inter-category mean similarity of 0.7101 indicates moderately distinct categories.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.8\textwidth]{cosine_similarity.png}
+    \caption{Inter-category TF-IDF cosine similarity.}
+    \label{fig:confusion}
+\end{figure}
+
+\subsection{Clustering Performance and Interpretation}
+Clustering reveals that topic-level structure in medical questions is more granular than specialty-level categorization.
+
+\subsection{NER as a Retrieval Quality Gate}
+NER rewriting improves Octen-Embedding scores by +0.006 but negatively affects general-purpose models like MiniLM by -0.022.

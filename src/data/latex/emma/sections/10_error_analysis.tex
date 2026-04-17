@@ -1,0 +1,28 @@
+\section{ERROR ANALYSIS}
+
+\subsection{Classification Error Analysis}
+Dermatology (F1 = 0.30) is the most poorly classified specialty, reflecting its small training support and high lexical overlap with Pathology.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.6\textwidth]{classification_error_analysis.png}
+    \caption{Classification champion configuration error analysis.}
+    \label{fig:class_error}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=\textwidth]{classification_confusion_matrix.png}
+    \caption{Champion Configuration Confusion Matrix.}
+    \label{fig:confusion_matrix}
+\end{figure}
+
+\subsection{RAG Pipeline Error Analysis}
+RAG initially hurt performance in specialties such as Surgery and Pathology. However, when the Thinking variant is paired with Octen-Embedding-0.6B, specialties relying on protocol thresholds like Pharmacology show positive RAG deltas.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.6\textwidth]{rag_by_specialty.png}
+    \caption{RAG Accuracy by Specialty.}
+    \label{fig:rag_acc}
+\end{figure}

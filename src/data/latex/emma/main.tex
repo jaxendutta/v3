@@ -1,0 +1,49 @@
+\documentclass[11pt]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\graphicspath{{figures/}}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{cite}
+
+\title{EMERGENCY MEDICINE MENTORING AGENT\\
+\large FINAL PROJECT REPORT}
+\author{
+    Jaxen Anirban Dutta \\ \texttt{adutt042@uottawa.ca}
+}
+\date{April 9, 2026}
+
+\begin{document}
+
+\maketitle
+
+\begin{center}
+    Faculty of Engineering, University of Ottawa \\
+    DTI 5125: Data Science \\
+    Dr. Arya Rahgozar \\
+    Group 23
+\end{center}
+
+\vspace{2em}
+
+% Include all section files
+\input{sections/01_introduction}
+\input{sections/02_problem_formulation}
+\input{sections/03_data_preparation}
+\input{sections/04_ner_collocation}
+\input{sections/05_classification}
+\input{sections/06_clustering}
+\input{sections/07_recommender}
+\input{sections/08_rag_pipeline}
+\input{sections/09_evaluation}
+\input{sections/10_error_analysis}
+\input{sections/11_conclusion}
+
+% Bibliography
+\bibliographystyle{unsrt}
+\bibliography{references}
+
+\end{document}
