@@ -1,0 +1,36 @@
+\chapter{Classification}
+
+\section{Problem Definition}
+The classification component in \gls{emma} is formulated as a supervised multi-class text classification problem whose purpose is not to make the final answer directly, but to assign each medical question to a clinically meaningful specialty category that can be used for downstream routing. In the implemented system, the classifier is trained on MedMCQA, where each question is associated with a \texttt{subject\_name} label, and is then applied to MedQA so that each question can be tagged with a specialty prior to retrieval and generation. This design reflects the architecture of \gls{emma}, in which the classifier acts as a deterministic routing module between retrieval and explanation generation rather than as a standalone answer generator. 
+
+Formally, given an input question represented as a feature vector $x \in \mathbb{R}^d$, the classifier learns a function $F: x \rightarrow y$, where $y$ is one of 19 specialty labels. These specialty labels constitute the routing space used later in the \gls{rag} pipeline. The task is therefore a 19-class subject prediction problem, and its output narrows the search space for textbook retrieval by directing each query toward the most relevant medical domain. As documented in the implementation, MedMCQA is used for classifier training because it provides explicit specialty labels, whereas MedQA does not; MedQA is therefore the target corpus to which the trained classifier is applied. 
+
+\section{Feature Engineering}
+
+The implemented classification pipeline evaluates a feature-classifier grid rather than assuming a single representation in advance. The feature spaces explored include \gls{bow}, \gls{tfidf} bigrams, and dense sentence embeddings produced by MiniLM-L12-v2. Before model selection, the corpus was characterized using inter-category \gls{tfidf} cosine similarity. On MedMCQA, the mean inter-category similarity was 0.72. This confirms that the present task is not dominated by extreme semantic overlap and is therefore tractable for supervised classification. Among the representations tested, \gls{tfidf} with bigrams proved to be the strongest feature space. This indicates that local lexical patterns and short phrase combinations remain highly informative for specialty prediction in medical exam questions.
+
+The implemented classification pipeline evaluates a feature-classifier grid rather than assuming a single representation in advance. The feature spaces explored include \gls{bow}, \gls{tfidf} bigrams, and dense sentence embeddings produced by MiniLM-L12-v2. This comparison is important because one of the central empirical questions of the project is whether semantic embeddings become more competitive when the corpus is less semantically overlapping than the initial exploratory analysis of the PubMed \gls{ai} benchmark corpus. 
+
+Before model selection, the corpus was characterized using inter-category \gls{tfidf} cosine similarity. On MedMCQA, the mean inter-category similarity was 0.72, substantially below the approximately 0.95 observed in the initial exploratory analysis of PubMed \gls{ai} corpus. This confirms that the present task is less dominated by extreme semantic overlap and is therefore more tractable for supervised classification. At the same time, because the task contains 19 classes rather than 5, it remains a non-trivial multi-class routing problem. This corpus characterization is important because it grounds later performance claims in a measurable dataset structure rather than anecdotal interpretation. 
+
+Among the representations tested, \gls{tfidf} with bigrams proved to be the strongest feature space. This indicates that local lexical patterns and short phrase combinations remain highly informative for specialty prediction in medical exam questions. In practical terms, specialty labels in MedMCQA appear to be strongly signalled by domain-specific wording, making sparse frequency-based features more effective than generic dense semantic encodings for this particular task. 
+
+\section{Model Selection and Results}
+\label{sec:classification_model_selection}
+Following initial exploratory analysis, multiple classifier configurations were compared under a consistent evaluation framework:
+
+\begin{enumerate}
+    \item \gls{bow} with \gls{lsvc}
+    \item \gls{tfidf} Bigrams with \gls{lsvc}
+    \item MiniLM-L12-v2 embeddings with \gls{lsvc}
+    \item \gls{bow} with \gls{mnb}
+    \item \gls{tfidf} Bigrams with \gls{mnb}
+    \item Word2Vec embeddings with \gls{lsvc}
+\end{enumerate}
+
+The best-performing model was \gls{tfidf} Bigrams combined with \gls{lsvc}, which achieved a cross-validated weighted F1-score of 0.5424 $\pm$ 0.0086 and a cross-validated Cohen's $\kappa$ of 0.5089 $\pm$ 0.0096 on a stratified 20,000-question sample. Competing baselines performed worse: \gls{bow} with \gls{lsvc} obtained a weighted F1 of 0.5042, MiniLM-L12-v2 embeddings with \gls{lsvc} achieved 0.4635, and \gls{bow} with \gls{mnb} obtained 0.4590. (See Figure \ref{fig:f1_kappa} in Appendix for full results).
+
+The selection of \gls{lsvc} \cite{fan2008} as the champion classifier is consistent with the exploratory findings with the PubMed \gls{ai} corpus, where linear support vector machines also proved robust under medical text classification conditions. The full pipeline was implemented using \texttt{scikit-learn} \cite{pedregosa2011}. In the present project, this consistency is meaningful because it suggests the superiority of linear margin-based models over probabilistic baselines is not corpus-specific. For \gls{emma}, this is desirable because the routing module must remain computationally efficient, deterministic, and easy to retrain when label normalisation rules change. 
+
+\section{Training and Validation}
+Model selection is performed using stratified 10-fold cross-validation on a 20k sample of the MedMCQA dataset. This subsampling strategy ensures computational efficiency while preserving class balance. Once the optimal configuration is identified, the classifier is retrained on the full corpus of 179,777 questions. The final model achieves a weighted F1-score of 0.69 and a Cohen's $\kappa$ of 0.66 on a held-out test set. A detailed evaluation and interpretation of model performance are presented in Chapter \ref{ch:evaluation}.

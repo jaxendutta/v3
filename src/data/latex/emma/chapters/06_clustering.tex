@@ -1,0 +1,25 @@
+\chapter{Clustering}
+
+The clustering component in \gls{emma} is formulated as an unsupervised topic discovery problem whose objective is to uncover latent structure in medical exam questions and provide fine-grained routing signals for retrieval. Unlike the classification module, which assigns each question to one of a fixed set of specialty labels, clustering operates without supervision and attempts to partition the corpus into semantically coherent groups based on the underlying content of the questions. 
+
+Formally, given a set of documents $D = \{d_1,\ldots,d_n\}$, the clustering model learns a mapping: $G:d \rightarrow C_k$, where $C_k$ denotes one of $K$ discovered clusters. In the \gls{emma} system, these clusters are not treated as final outputs, but rather as intermediate structures that refine retrieval by grouping together questions with similar clinical themes. This enables more precise retrieval than relying on specialty labels alone, particularly for questions that fall within broad domains such as Internal Medicine. 
+
+\section{Methodology and Implementation}
+The clustering implementation is carried out in \texttt{03\_clustering.ipynb} using BERTopic \cite{grootendorst2022}, which combines transformer-based embeddings with density-based clustering and topic representation. Each MedQA question is first embedded using MiniLM-L12-v2, producing a dense semantic representation of the question text. These embeddings are then reduced in dimensionality using \gls{umap} \cite{mcinnes2018} and clustered using \gls{hdbscan} \cite{campello2013}, with \texttt{min\_cluster\_size=50} (approximately 0.4\% of the corpus) to keep topics clinically meaningful without over-splitting. 
+
+This pipeline allows the model to automatically determine the number of clusters $K$ rather than requiring it to be specified a priori. BERTopic discovers 55 clusters, along with outlier points assigned to a noise cluster (topic = $-1$), which correspond to questions that do not form sufficiently dense groups under the \gls{hdbscan} density criterion. For evaluation purposes, the specialty labels predicted by the classification module are used as proxy ground truth, enabling the use of Cohen's $\kappa$ even though clustering itself is unsupervised, which is consistent with the exploratory evaluation methodology. 
+
+\section{Evaluation Results}
+Clustering performance is evaluated using the three-metric framework established in our initial brainstorming session: Cohen's $\kappa$, Silhouette score, and Topic Coherence $C_v$. The BERTopic model is compared against two baseline configurations derived from our exploratory analysis: \gls{tfidf} + \gls{lsa} + \gls{gmm} and embedding-based spectral clustering. The results are summarized as follows:
+
+\begin{itemize}
+    \item \gls{tfidf} + \gls{lsa} + \gls{gmm} achieves Cohen's $\kappa$ = 0.0193
+    \item Embeddings + Spectral Clustering achieves Cohen's $\kappa$ = 0.0192 and Silhouette = 0.0605
+    \item BERTopic achieves Cohen's $\kappa$ = $-0.0117$, Silhouette = 0.069, and Topic Coherence $C_v$ = 0.5088
+\end{itemize}
+
+Additionally, BERTopic produces 55 clusters with an outlier rate of 34.7\%. Traditional clustering methods like \gls{gmm} or KMeans assume a fixed number of clusters and rely on global structure, while BERTopic leverages transformer embeddings and density-based clustering to capture fine-grained semantic topics. This is particularly important for short medical questions, where topic granularity matters more than global clustering alignment. See Figures \ref{fig:clustering_performance} and \ref{fig:purity} in Appendix.
+
+At first glance, the near-zero or negative $\kappa$ values may suggest poor clustering performance. However, this interpretation would be incorrect. Cohen's $\kappa$ measures agreement between cluster assignments and specialty labels, but the clusters discovered by BERTopic are more fine-grained than the 19 specialty categories used as ground truth. As a result, low $\kappa$ values indicate a mismatch in granularity rather than a failure of clustering. 
+
+This interpretation is supported by the topic coherence score, $C_v = 0.5088$, which indicates that the words within each cluster are semantically consistent. Furthermore, manual inspection shows that individual topics correspond to clinically meaningful concepts. For example, a cluster dominated by chest-related terminology aligns strongly with cardiology-related questions, while another cluster centered on pregnancy-related terms aligns with obstetrics. These clusters are therefore clinically interpretable, even if they do not align one-to-one with specialty labels. See Figure \ref{fig:keywords} and \ref{fig:umap} in Appendix for keyword and \gls{umap} plots.

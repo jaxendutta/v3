@@ -1,0 +1,19 @@
+\chapter{Error Analysis}
+
+\section{Classification Error Analysis}
+
+After selecting the champion classification model of \gls{tfidf} Bigrams + \gls{lsvc}, it was tested with a 90/10 holdout split to generate a confusion matrix and per-specialty/topic table that indicated metrics like precision, recall, and f1-score. The specialty breakdown table indicated that the overall accuracy for our champion classification configuration has a weighted F1 of about 69\% and a Cohen's $\kappa$ score of about 66\%. These are moderate scores for a 19-class routing problem with mean inter-category similarity of 0.71. Dermatology (F1 = 0.30) is the most poorly classified specialty, consistent with its small training support (177 examples) and high lexical overlap with Pathology. Obstetrics \& Gynaecology (F1 = 0.81) and Ophthalmology (F1 = 0.80) are the most accurately classified, reflecting their distinctive specialized vocabularies. See Figures \ref{fig:classification_error_analysis} and \ref{fig:classification_confusion_matrix} in Appendix.
+
+\section{RAG Pipeline Error Analysis}
+
+To evaluate how accurate the \gls{rag} pipeline is at answering questions with retrieval, an accuracy test was completed to compare \gls{rag} accuracy across topics. As seen in Figure \ref{fig:rag_by_specialty} in the Appendix, RAG hurts performance in specialties such as Surgery, Dental, Public Health, and Pathology under the pilot configuration. This indicates that retrieval is making the answers worse in comparison to the no-retrieval baseline. This directly affects the answer to our research question. These by-specialty results reflect the pilot run using standard Qwen3-4B (runs 1-2 in the ablation grid). When the Thinking variant is paired with Octen-Embedding, the picture changes: \gls{rag} achieves 44\% accuracy (+11\gls{pp} delta), helping in specialties with specific vocabulary such as Pharmacology and Obstetrics while still hurting in Surgery and Pathology where textbook retrieval is less precise. 
+
+Pathology and Surgery show the largest \gls{rag} penalties ($-14.2$\gls{pp} and $-40.0$\gls{pp} respectively), consistent with the hypothesis that textbook retrieval is imprecise for procedurally-oriented questions where the correct answer depends on clinical judgment rather than factual recall. The pilot run's aggregate $-4$\gls{pp} result led directly to the hypothesis tested in the full ablation (Chapter \ref{ch:ablation}): that the standard Qwen3-4B model cannot exploit retrieved context regardless of retrieval quality. When the Thinking variant is paired with Octen-Embedding-0.6B, Pharmacology and Obstetrics \& Gynaecology show positive \gls{rag} deltas, consistent with those specialties' reliance on specific drug names and protocol thresholds. This is an instance of precise factual content that the \gls{ner}-guided retrieval pipeline is designed to surface. 
+
+\section{NER Error Analysis}
+
+Of 10,178 MedQA training questions, 593 (5.8\%) contain zero \texttt{DISEASE} or \texttt{CHEMICAL} entities and cannot benefit from \gls{ner} rewriting. These questions typically involve mechanism-of-action or statistical reasoning (``What is the positive predictive value of...'') rather than named conditions or drugs. They fall back to raw query retrieval without penalty. 
+
+\section{Recommender Limitations}
+
+The \gls{cf} recommender is trained on a synthetic 200-student dataset. The \gls{p@k} ceiling effect (Chapter \ref{ch:crs}) and the small dataset size are the two primary limitations. Real deployment would accumulate genuine session data, which would both improve \gls{cf} performance and eliminate the need for synthetic rating generation.

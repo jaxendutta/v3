@@ -1,0 +1,17 @@
+\begin{table}[htbp]
+\centering
+\caption{Full Ablation Grid Results}
+\label{tab:ablation}
+\begin{tabular}{c l l c c c}
+\toprule
+\# & Embedding Model & LLM & RAG & Accuracy & Delta \\
+\midrule
+1 & Qwen3-Embedding-0.6B & Qwen3-4B & No & 42\% & - \\
+2 & Qwen3-Embedding-0.6B & Qwen3-4B & Yes & 38\% & -4pp \\
+3 & Qwen3-Embedding-0.6B & Qwen3-4B-Thinking-2507 & No & 31\% & - \\
+4 & Qwen3-Embedding-0.6B & Qwen3-4B-Thinking-2507 & Yes & 32\% & +1pp \\
+5 & Octen-Embedding-0.6B & Qwen3-4B-Thinking-2507 & No & 33\% & - \\
+6 & Octen-Embedding-0.6B & Qwen3-4B-Thinking-2507 & Yes & 44\% & +11pp \\
+\bottomrule
+\end{tabular}
+\end{table}

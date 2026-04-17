@@ -1,0 +1,28 @@
+\chapter{Named Entity Recognition \& Collocation Analysis}
+\label{ch:ner_collocation}
+
+\section{Problem Definition}
+Before retrieved textbook passages can improve \gls{llm} accuracy, the \gls{faiss} retrieval query must be precise. Raw clinical vignettes dilute the embedding with incidental language: patient age, presentation verbs, conjunctions. A query like ``A 45-year-old man presents with chest pain, diaphoresis, and ST elevation in leads II, III, aVF'' embeds very differently from ``chest pain diaphoresis ST elevation myocardial infarction.'' \gls{ner}-based query rewriting isolates only the clinically meaningful tokens before querying \gls{faiss}.
+
+\section{Model Choice}
+
+The \texttt{en\_ner\_bc5cdr\_md} model \cite{neumann2019} is trained on the BC5CDR corpus \cite{li2016}, a collection of 1,500 PubMed articles annotated for 5,818 disease and 4,409 chemical entity types. It produces two typed entity labels: \texttt{DISEASE} and \texttt{CHEMICAL}, that map directly to what \gls{usmle} questions test. \texttt{en\_core\_sci\_md} was evaluated and rejected: it outputs a single generic \texttt{ENTITY} label that cannot distinguish between a drug and a condition, making it unsuitable for typed retrieval.
+
+\section{Corpus Analysis}
+Running \texttt{en\_ner\_bc5cdr\_md} over all 10,178 MedQA training questions produced:
+\begin{itemize}
+    \item 54,256 total entities (\texttt{DISEASE}: 39,575 / \texttt{CHEMICAL}: 14,681)
+    \item Mean 5.33 entities per question
+    \item 593 questions (5.8\%) with zero entities, which fall back to raw query retrieval
+\end{itemize}
+
+Refer to Figures \ref{fig:entity_dist} and \ref{fig:entities} in the Appendix. The 2.7:1 ratio of \texttt{DISEASE} to \texttt{CHEMICAL} entities is expected, since \gls{usmle} questions test clinical reasoning, where conditions dominate over pharmacology.
+
+\section{Retrieval Score Impact}
+To validate the rewriting strategy, \gls{faiss} top-1 retrieval scores were compared for raw vignettes versus \gls{ner}-rewritten entity strings across all three embedding models on a 50-question sample of clinical vignettes (questions with more than 120 characters). See Figure \ref{fig:ner_impact} in the Appendix.
+
+\gls{ner} rewriting hurts the general-purpose MiniLM model because removing context reduces signal for a non-biomedical embedding. It helps both biomedical-scale models. This finding directly informed the model selection for the ablation grid: MiniLM was excluded from \gls{rag} combinations.
+
+\section{Collocation Analysis}
+
+\gls{pmi} and chi-square bigram analysis was applied to all MedQA training question text (minimum frequency threshold: 10). Two hundred top bigrams were extracted by each measure. A \gls{pmi}-derived lay-to-clinical thesaurus was constructed by filtering bigrams where one word appears in a curated lay-term seed list. This thesaurus maps patient vocabulary to clinical equivalents for query expansion (See Figure \ref{fig:bigrams} in Appendix).
