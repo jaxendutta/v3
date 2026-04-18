@@ -38,7 +38,7 @@ export default function PapersSection() {
         <Section
             id="papers"
             headerProps={{
-                title: "PaPeRs",
+                title: "pApeRs",
                 buttonProps: {
                     onClick: toggleAll,
                     texts: allExpanded

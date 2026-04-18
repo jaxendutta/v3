@@ -10,21 +10,21 @@ import Tag from "@/components/ui/Tag";
 import CollapsibleItem from "@/components/ui/CollapsibleItem";
 import {
     HiOutlineDocumentText,
-    HiOutlineDocument,
 } from "react-icons/hi";
 import {
     HiOutlinePhoto,
     HiOutlinePresentationChartBar,
-    HiArrowTopRightOnSquare,
 } from "react-icons/hi2";
+import { RiFile3Line } from "react-icons/ri";
+import { TbGridDots } from "react-icons/tb";
 
 // ── Document type → icon ──────────────────────────────────────────────────────
 
 const DOC_ICONS: Record<DocumentType, React.ElementType> = {
-    paper:   HiOutlineDocumentText,
+    paper:   RiFile3Line,
     poster:  HiOutlinePhoto,
     slides:  HiOutlinePresentationChartBar,
-    project: HiArrowTopRightOnSquare,
+    project: TbGridDots,
 };
 
 // ── Status badge ──────────────────────────────────────────────────────────────

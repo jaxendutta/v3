@@ -36,7 +36,7 @@ export default function SectionHeader({
         <span className={`flex gap-6 md:gap-12 px-1.5 md:px-4 whitespace-nowrap items-center justify-center leading-none`}>
             <span className={`mb-2 italic`}>{title}</span>
             <span className={`text-[0.9em] flex`}>
-                {delimiter ? delimiter : <RandomIcons />}   </span>
+                {delimiter ? delimiter : <RandomIcons count={3} />}   </span>
         </span>
     );
 
