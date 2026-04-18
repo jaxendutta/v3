@@ -1,0 +1,257 @@
+// src/components/sections/papers/PaperItem.tsx
+"use client";
+
+import { useState } from "react";
+import { motion } from "framer-motion";
+import Link from "next/link";
+import { Paper, PaperDocument, DocumentType } from "@/types/paper";
+import { papersData } from "@/data/papers";
+import Tag from "@/components/ui/Tag";
+import CollapsibleItem from "@/components/ui/CollapsibleItem";
+import {
+    HiOutlineDocumentText,
+    HiOutlineDocument,
+} from "react-icons/hi";
+import {
+    HiOutlinePhoto,
+    HiOutlinePresentationChartBar,
+    HiArrowTopRightOnSquare,
+} from "react-icons/hi2";
+
+// ── Document type → icon ──────────────────────────────────────────────────────
+
+const DOC_ICONS: Record<DocumentType, React.ElementType> = {
+    paper:   HiOutlineDocumentText,
+    poster:  HiOutlinePhoto,
+    slides:  HiOutlinePresentationChartBar,
+    project: HiArrowTopRightOnSquare,
+};
+
+// ── Status badge ──────────────────────────────────────────────────────────────
+
+const STATUS_STYLES: Record<string, string> = {
+    published:  "border-green-500 text-green-500",
+    submitted:  "border-blue-500 text-blue-500",
+    "in-review":"border-yellow-500 text-yellow-500",
+    draft:      "border-current opacity-40",
+};
+
+function StatusBadge({ status }: { status: Paper["status"] }) {
+    if (!status) return null;
+    return (
+        <span
+            className={`text-[9px] md:text-xs font-mono uppercase tracking-widest border px-2 py-0.5 rounded-full ${
+                STATUS_STYLES[status] ?? "border-current opacity-50"
+            }`}
+        >
+            {status}
+        </span>
+    );
+}
+
+// ── Document link button ──────────────────────────────────────────────────────
+
+function DocLink({
+    paperId,
+    formatKey,
+    doc,
+}: {
+    paperId: string;
+    formatKey: string;
+    doc: PaperDocument;
+}) {
+    const [isHovered, setIsHovered] = useState(false);
+
+    const url =
+        doc.type === "project"
+            ? `/projects/${paperId}`
+            : `/papers/${paperId}/${paperId}-${formatKey}.pdf`;
+
+    const Icon = DOC_ICONS[doc.type] ?? HiOutlineDocumentText;
+
+    return (
+        <motion.div
+            className="relative inline-flex items-center gap-2 px-3 py-1.5 border border-current text-xs md:text-sm cursor-pointer"
+            whileHover={{
+                backgroundColor: "var(--color-text)",
+                color: "var(--color-background)",
+            }}
+            transition={{ duration: 0.2 }}
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
+        >
+            <Link
+                href={url}
+                target={doc.type === "project" ? "_self" : "_blank"}
+                rel="noopener noreferrer"
+                style={{ textDecoration: "none", color: "inherit" }}
+                className="flex items-center gap-2"
+            >
+                <Icon className="h-4 w-4 flex-shrink-0" />
+                <span>{doc.label}</span>
+            </Link>
+        </motion.div>
+    );
+}
+
+// ── PaperItem ─────────────────────────────────────────────────────────────────
+
+export const PaperItem = ({
+    data,
+    paperId,
+    index,
+    isActive,
+    onToggle,
+}: {
+    data: Paper;
+    paperId: string;
+    index: number;
+    isActive: boolean;
+    onToggle: () => void;
+}) => {
+    const docEntries = Object.entries(data.links);
+
+    const header = (
+        <div className="flex flex-col justify-center gap-0.5 pr-2 md:pr-8">
+            <div className="flex flex-wrap items-center gap-2 mb-0.5">
+                <span className="text-base md:text-2xl leading-[1.2]">
+                    {data.title}
+                </span>
+                <StatusBadge status={data.status} />
+            </div>
+            {data.venue && (
+                <span className="font-thin text-xs md:text-base opacity-70">
+                    {data.venue.join(" ✧ ")}
+                </span>
+            )}
+        </div>
+    );
+
+    return (
+        <CollapsibleItem
+            header={header}
+            index={index}
+            isActive={isActive}
+            onToggle={onToggle}
+            duration={data.duration}
+        >
+            <div className="flex flex-col gap-6 px-2 pt-4 pb-6 md:py-8 md:px-4 pr-12 md:pr-20 lg:pr-24 2xl:flex-row">
+
+                {/* ── Left: tags + abstract ─────────────────────────────── */}
+                <div className="flex-1 flex flex-col gap-4">
+
+                    {/* Tags */}
+                    <div className="flex flex-wrap gap-1.5 md:gap-2.5">
+                        {data.tags.map((tag) => (
+                            <Tag key={tag} text={tag} />
+                        ))}
+                    </div>
+
+                    {/* Abstract */}
+                    <div>
+                        <p className="text-[10px] md:text-xs font-mono uppercase tracking-widest opacity-50 mb-2">
+                            Abstract
+                        </p>
+                        <motion.div
+                            className="w-full h-0.5 origin-left bg-current mb-3"
+                            initial={{ scaleX: 0 }}
+                            animate={{ scaleX: 1 }}
+                            transition={{ duration: 0.4, ease: "easeOut", delay: 0.05 }}
+                        />
+                        <p className="text-xs md:text-sm leading-relaxed text-justify opacity-80">
+                            {data.abstract}
+                        </p>
+                    </div>
+
+                    {/* Links — inline below abstract, wraps on narrow screens */}
+                    {docEntries.length > 0 && (
+                        <div className="flex flex-col gap-2 2xl:hidden">
+                            <p className="text-[10px] md:text-xs font-mono uppercase tracking-widest opacity-50">
+                                Links
+                            </p>
+                            <div className="flex flex-wrap gap-2">
+                                {docEntries.map(([key, doc]) => (
+                                    <DocLink
+                                        key={key}
+                                        paperId={paperId}
+                                        formatKey={key}
+                                        doc={doc}
+                                    />
+                                ))}
+                            </div>
+                        </div>
+                    )}
+                </div>
+
+                {/* ── Right: links column, only on very wide screens ───── */}
+                {docEntries.length > 0 && (
+                    <div className="hidden 2xl:flex flex-col gap-2 w-52 flex-shrink-0">
+                        <p className="text-[10px] md:text-xs font-mono uppercase tracking-widest opacity-50 mb-1">
+                            Links
+                        </p>
+                        <motion.div
+                            className="w-full h-0.5 origin-left bg-current mb-1"
+                            initial={{ scaleX: 0 }}
+                            animate={{ scaleX: 1 }}
+                            transition={{ duration: 0.4, ease: "easeOut", delay: 0.08 }}
+                        />
+                        {docEntries.map(([key, doc]) => (
+                            <DocLink
+                                key={key}
+                                paperId={paperId}
+                                formatKey={key}
+                                doc={doc}
+                            />
+                        ))}
+                    </div>
+                )}
+            </div>
+        </CollapsibleItem>
+    );
+};
+
+// ── Hover wrapper ─────────────────────────────────────────────────────────────
+
+export const PaperItemWithHover = (props: {
+    data: Paper;
+    paperId: string;
+    index: number;
+    isActive: boolean;
+    onToggle: () => void;
+}) => {
+    return (
+        <motion.div
+            whileHover={
+                !props.isActive
+                    ? {
+                          backgroundColor: "var(--color-highlight-bg)",
+                          color: "var(--color-highlight-text)",
+                      }
+                    : {}
+            }
+        >
+            <PaperItem {...props} />
+        </motion.div>
+    );
+};
+
+// ── PaperItems list ───────────────────────────────────────────────────────────
+
+export const PaperItems = ({
+    expandedItems,
+    toggleItem,
+}: {
+    expandedItems: Record<string, boolean>;
+    toggleItem: (id: string) => void;
+}) => {
+    return Object.entries(papersData).map(([id, paper], index) => (
+        <PaperItemWithHover
+            key={id}
+            paperId={id}
+            data={paper}
+            index={index}
+            isActive={!!expandedItems[id]}
+            onToggle={() => toggleItem(id)}
+        />
+    ));
+};

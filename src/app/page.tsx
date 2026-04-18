@@ -5,8 +5,17 @@ import ContactSection from "@/components/sections/contact/ContactSection";
 import Hero from "@/components/sections/hero/Hero";
 import ProjectsSection from "@/components/sections/project/ProjectsSection";
 import WorkSection from "@/components/sections/work/WorkSection";
+import PapersSection from "@/components/sections/papers/PapersSection";
 import Footer from "@/components/layout/Footer";
 import Navbar from "@/components/layout/Navbar";
+
+function SectionFallback({ label }: { label: string }) {
+    return (
+        <div className="w-full h-[50vh] flex items-center justify-center opacity-40 font-mono text-sm">
+            Loading {label}…
+        </div>
+    );
+}
 
 export default function Home() {
     return (
@@ -14,24 +23,19 @@ export default function Home() {
             <Navbar />
             <main className="flex flex-col items-center justify-center">
                 <Hero />
-                <Suspense
-                    fallback={
-                        <div className="w-full h-[50vh] flex items-center justify-center">
-                            Loading projects...
-                        </div>
-                    }
-                >
+
+                <Suspense fallback={<SectionFallback label="projects" />}>
                     <ProjectsSection />
                 </Suspense>
-                <Suspense
-                    fallback={
-                        <div className="w-full h-[50vh] flex items-center justify-center">
-                            Loading work experience...
-                        </div>
-                    }
-                >
+
+                <Suspense fallback={<SectionFallback label="work experience" />}>
                     <WorkSection />
                 </Suspense>
+
+                <Suspense fallback={<SectionFallback label="papers" />}>
+                    <PapersSection />
+                </Suspense>
+
                 <ContactSection />
                 <Footer />
             </main>

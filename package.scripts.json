@@ -1,0 +1,15 @@
+{
+    "name": "portfolio-v3",
+    "version": "0.1.0",
+    "private": true,
+    "scripts": {
+        "dev": "next dev --turbopack",
+        "dev:full": "node scripts/watch-papers.mjs & next dev --turbopack",
+        "watch:papers": "node scripts/watch-papers.mjs",
+        "sync:papers": "node scripts/watch-papers.mjs --sync",
+        "build": "node scripts/watch-papers.mjs --sync && next build",
+        "start": "next start",
+        "lint": "next lint",
+        "typecheck": "tsc --noEmit"
+    }
+}

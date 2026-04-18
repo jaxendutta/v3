@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
+    "dev:full": "concurrently \"node scripts/watch-papers.mjs\" \"next dev --turbopack\"",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
@@ -45,6 +46,7 @@
     "@types/react-dom": "^19.2.3",
     "autoprefixer": "^10.5.0",
     "babel-plugin-react-compiler": "^1.0.0",
+    "concurrently": "^9.2.1",
     "eslint": "^10.2.0",
     "eslint-config-next": "16.2.4",
     "lightningcss": "^1.32.0",

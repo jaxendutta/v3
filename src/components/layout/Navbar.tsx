@@ -5,6 +5,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { useTheme } from "@/components/theme/ThemeProvider";
+import { RiHomeLine } from "react-icons/ri";
 import { googleSansCode, googleSansFlex } from "@/lib/fonts";
 
 // Define nav link type with proper typing
@@ -18,6 +19,7 @@ type NavLinkType = {
 const navLinks: NavLinkType[] = [
     { name: "HOME", href: "#main", section: "main" },
     { name: "PROJECTS", href: "#projects", section: "projects" },
+    { name: "PAPERS", href: "#papers", section: "papers" },
     { name: "WORK", href: "#work", section: "work" },
     { name: "CONTACT", href: "#contact", section: "contact" },
 ];
@@ -35,7 +37,7 @@ function NavLink({ name, href, className = "" }: NavLinkProps) {
     return (
         <Link
             href={href}
-            className={`flex items-center gap-1 relative no-underline font-medium text-md md:text-lg lg:text-xl ${className}`}
+            className={`flex items-center gap-1 relative no-underline font-medium text-md md:text-lg lg:text-xl ${name === "HOME" ? "hidden md:flex" : "flex"} ${className}`}
             style={{
                 color: "inherit",
                 textDecoration: "none",
@@ -48,7 +50,7 @@ function NavLink({ name, href, className = "" }: NavLinkProps) {
             </span>
 
             {/* Link text */}
-            {name}
+            {name === "HOME" ? <RiHomeLine className="h-5 w-5 md:h-6 md:w-6" /> : name}
 
             {/* Underline indicator that animates from left to right */}
             <motion.div
@@ -64,7 +66,7 @@ function NavLink({ name, href, className = "" }: NavLinkProps) {
 
 export default function Navbar() {
     // Split links for layout
-    const linkLength = navLinks.length / 2;
+    const linkLength = Math.ceil(navLinks.length / 2);
     const leftLinks = navLinks.slice(0, linkLength);
     const rightLinks = navLinks.slice(linkLength);
     const { theme } = useTheme();
