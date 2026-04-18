@@ -1,0 +1,34 @@
+%% sections/05_classification.tex
+\section{Classification}
+\label{sec:classification}
+
+The classification component is formulated as a supervised 19-class text classification problem. Its purpose is not to produce the final answer, but to assign each medical question to a clinically meaningful specialty category for downstream routing. The classifier is trained on MedMCQA (which provides explicit \texttt{subject\_name} labels) and applied to MedQA (which does not).
+
+Formally, given an input question as a feature vector $x \in \mathbb{R}^d$, the classifier learns a function $F: x \rightarrow y$, where $y \in \{1,\ldots,19\}$ denotes a specialty label. This routing narrows the \gls{faiss} search space to the most relevant medical domain.
+
+\subsection{Feature Engineering}
+
+The pipeline evaluates a feature-classifier grid across three representation spaces: \gls{bow}, \gls{tfidf} bigrams, and dense sentence embeddings from MiniLM-L12-v2. The mean inter-category \gls{tfidf} cosine similarity on MedMCQA is 0.72, confirming the task is tractable for supervised classification while remaining non-trivial.
+
+Among representations tested, \gls{tfidf} with bigrams proved strongest. Local lexical patterns and short phrase combinations (e.g., ``myocardial infarction'', ``gestational diabetes'') are highly discriminative for specialty prediction --- exactly the kind of signal that \gls{tfidf} captures but that dense embeddings smooth over by emphasizing global semantic similarity.
+
+\subsection{Model Selection and Results}
+
+Model selection uses stratified 10-fold cross-validation on a 20k sample of MedMCQA, then retrains the champion on the full 179,777-question corpus. The champion configuration, \gls{tfidf} Bigrams + \gls{lsvc}~\cite{fan2008}, achieves:
+
+\begin{itemize}
+  \item CV weighted F1: $0.5424 \pm 0.0086$; Cohen's $\kappa$: $0.5089 \pm 0.0096$
+  \item Full-corpus holdout weighted F1: $0.69$; Cohen's $\kappa$: $0.66$
+\end{itemize}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\columnwidth, trim={0 30mm 0 0},clip]{f1_kappa}
+  \Description{Bar chart comparing weighted F1 and Cohen's kappa across all feature-classifier combinations. \gls{tfidf} Bigrams plus \gls{lsvc} is the clear champion.}
+  \caption{Weighted F1 and Cohen's $\kappa$ across all feature-classifier combinations. \gls{tfidf} Bigrams + \gls{lsvc} is the clear champion, outperforming all embedding-based and probabilistic baselines.}
+  \label{fig:f1_kappa}
+\end{figure}
+
+Competing baselines performed substantially worse: \gls{bow} + \gls{lsvc} achieved F1 = 0.50, all-MiniLM-L12-v2 + \gls{lsvc} achieved F1 = 0.46, and \gls{bow} + \gls{mnb} achieved F1 = 0.46. The full comparison is shown in Figure~\ref{fig:f1_kappa}.
+
+The superiority of linear margin-based models over probabilistic baselines is consistent with prior findings on medical text classification~\cite{pedregosa2011}, suggesting it is not corpus-specific. For \gls{emma}, the routing module must be computationally efficient, deterministic, and easy to retrain --- \gls{lsvc} satisfies all three requirements.

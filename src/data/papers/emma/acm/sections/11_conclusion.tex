@@ -1,0 +1,9 @@
+%% sections/11_conclusion.tex
+\section{Conclusion}
+\label{sec:conclusion}
+
+This paper demonstrates that textbook-grounded \gls{rag} can improve small local \gls{llm} accuracy on MedQA, but the improvement is conditional on two factors: the embedding model must be biomedical-grade, and the \gls{llm} must be capable of reasoning over retrieved passages. The six-run ablation grid establishes this clearly. Standard Qwen3-4B cannot use retrieved context regardless of embedding, resulting in a $-4$\gls{pp} penalty. The Thinking variant paired with Octen-Embedding-0.6B achieves 44\% accuracy with \gls{rag}, a $+11$\gls{pp} gain over the 33\% no-\gls{rag} baseline.
+
+The 30\gls{pp} gap to \gls{amg-rag} (74.1\%) reflects \gls{llm} parameter scale, static vs.\ dynamic retrieval, and the absence of task-specific fine-tuning(Section~\ref{sec:ablation}). Closing it would require scaling beyond the T4 \gls{vram} budget and replacing the static textbook corpus with live PubMed querying.
+
+The five pipeline components --- \gls{ner} (F1-improving for biomedical embeddings), classification (F1 = 0.69, 19 specialties), clustering (55 coherent topics), \gls{rag} ($+11$\gls{pp} under optimal conditions), and \gls{knnb} recommender (HR@10 = 0.740) --- constitute a functional, evaluated, and reproducible medical study agent.

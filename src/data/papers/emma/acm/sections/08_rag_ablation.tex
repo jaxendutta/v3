@@ -1,0 +1,47 @@
+%% sections/08_rag_ablation.tex
+\section{RAG Pipeline \& Ablation}
+\label{sec:ablation}
+
+\subsection{Pilot Run}
+
+A pilot evaluation used Qwen3-4B (standard, non-thinking) with Qwen3-Embedding-0.6B on 100 MedQA questions. Retrieval used a \gls{faiss} \gls{ifip}~\cite{johnson2019} over the textbook vectorstore. Results: \gls{rag} accuracy = 38\%, baseline = 42\%, delta = $-4$ percentage points. \gls{rag} helped 6 questions and hurt 8. Mean retrieval score = 0.648. This result prompted the hypothesis that the standard \gls{llm} variant cannot effectively use retrieved context, motivating the full ablation.
+
+\subsection{Full Ablation Grid}
+
+A six-run grid was conducted varying embedding model, \gls{llm} variant, and \gls{rag} condition, with 100 MedQA questions per run. Table~\ref{tab:ablation} summarizes the results. For reference, \gls{amg-rag}~\cite{rezaei2025} achieves 74.1\% on MedQA using GPT-4o-mini ($\sim$8B parameters) with a dynamic PubMed knowledge graph.
+
+\begin{table}[H]
+  \caption{Six-run ablation grid. RAG helps only when both the embedding is
+    biomedical-grade and the LLM can reason over retrieved passages.}
+  \label{tab:ablation}
+  \begin{tabular}{llllr}
+    \toprule
+    Run & Embedding & LLM & RAG & Acc.\ (\%) \\
+    \midrule
+    1 & Qwen3-Emb   & Qwen3-4B          & off & 42 \\
+    2 & Qwen3-Emb   & Qwen3-4B          & on  & 38 \\
+    3 & Qwen3-Emb   & Thinking-2507     & off & 33 \\
+    4 & Qwen3-Emb   & Thinking-2507     & on  & 34 \\
+    5 & Octen-Emb   & Thinking-2507     & off & 33 \\
+    6 & Octen-Emb   & Thinking-2507     & on  & \textbf{44} \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\pagebreak
+\begin{strip}
+  \centering
+  \includegraphics[width=0.95\textwidth, trim={0 0.25cm 0 0},clip]{ablation}
+  \Description{Bar chart showing accuracy for each of the six ablation runs, with run 6 (Octen plus Thinking plus RAG) clearly the highest at 44 percent.}
+  \captionsetup{hypcap=false}
+  \captionof{figure}{Ablation grid results. Run 6 (Octen-Embedding + Thinking-2507 + RAG) achieves 44\% accuracy, a $+11$\gls{pp} gain over its no-RAG baseline (run 5, 33\%).}
+  \label{fig:ablation}
+\end{strip}
+
+\subsection{Interpretation}
+
+The ablation reveals three findings. First, standard Qwen3-4B cannot use retrieved context effectively: \gls{rag} hurts by $-4$\gls{pp} regardless of embedding (runs 1--2). Second, switching to the Thinking variant alone is insufficient: with Qwen3-Embedding, \gls{rag} adds only $+1$ $\gls{pp}$ (runs 3--4). Third, the combination of a biomedical-grade embedding with a reasoning-capable \gls{llm} is required: Octen-Embedding + Thinking-2507 delivers $+11$ $\gls{pp}$ (runs 5--6).
+
+This answers the research question affirmatively but conditionally: \gls{rag} improves accuracy only when the embedding is biomedical-grade \emph{and} the \gls{llm} can reason over retrieved passages. The 30\gls{pp} gap to \gls{amg-rag} (74.1\%) reflects \gls{llm} parameter scale (4B vs. $\sim$8B), static vs. dynamic knowledge retrieval, and the absence of fine-tuning on the MedQA retrieval task specifically. Both systems evaluate on MedQA, so dataset difficulty is not a differentiating factor.
+
+

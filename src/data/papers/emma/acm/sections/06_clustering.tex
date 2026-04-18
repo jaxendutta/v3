@@ -1,0 +1,43 @@
+%% sections/06_clustering.tex
+\section{Clustering}
+\label{sec:clustering}
+
+The clustering component is formulated as an unsupervised topic discovery problem whose objective is to uncover latent structure in medical exam questions and provide fine-grained routing signals for retrieval. Unlike the classifier, which assigns each question to one of 19 fixed specialty labels, clustering operates without supervision and partitions the corpus into semantically coherent groups based on content.
+
+Formally, given a set of documents $D = \{d_1,\ldots,d_n\}$, the clustering model learns a mapping $G: d \rightarrow C_k$, where $C_k$ denotes one of $K$ discovered clusters. In \gls{emma}, these clusters are not final outputs but intermediate structures that refine retrieval by grouping together questions with similar clinical themes.
+
+\subsection{Methodology}
+
+The implementation uses BERTopic~\cite{grootendorst2022}, which combines transformer-based embeddings with density-based clustering and topic representation. Each MedQA question is first embedded using MiniLM-L12-v2, then reduced in dimensionality using \gls{umap}~\cite{mcinnes2018} and clustered with \gls{hdbscan}~\cite{campello2013} at \texttt{min\_cluster\_size=50} (approximately 0.4\% of the corpus), keeping topics clinically meaningful without over-splitting. This allows the model to auto-determine $K$ rather than requiring it to be specified a priori.
+
+BERTopic discovers 55 clusters, plus an outlier cluster (topic $= -1$) covering 34.7\% of questions that do not form sufficiently dense groups. These outliers retain their specialty label and fall back to specialty-only routing.
+
+\subsection{Evaluation}
+
+Since clustering is unsupervised, specialty labels from the classifier serve as proxy ground truth for Cohen's $\kappa$ computation.
+
+\begin{table}[H]
+  \caption{Clustering model comparison. BERTopic's near-zero $\kappa$ reflects granularity mismatch with 19 specialty labels, not failure --- $C_v = 0.51$ confirms internal topic coherence.}
+  \label{tab:clustering}
+  \begin{tabular}{lrrr}
+    \toprule
+    Method & Cohen's $\kappa$ & Silhouette & $C_v$ \\
+    \midrule
+    TF-IDF + LSA + GMM        & 0.019  & ---   & ---   \\
+    Embeddings + Spectral     & 0.019  & 0.061 & ---   \\
+    BERTopic                  & -0.012 & 0.069 & 0.509 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+The key insight is that topic-level structure is more granular than specialty-level categorization. BERTopic discovers 55 fine-grained topics that do not align one-to-one with 19 specialty labels --- this is granularity mismatch, not failure. Topic 0 (chest/cardiac terms) is 70.6\% Internal Medicine; Topic 4 (gestation/pregnancy) is 72.4\% Obstetrics. Figure~\ref{fig:purity} shows specialty purity across all 55 topics.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\columnwidth]{purity}
+  \Description{Heat map or bar chart showing topic specialty purity across the 55 BERTopic clusters, with several topics showing high purity for a single specialty.}
+  \caption{Topic specialty purity by BERTopic cluster. Several topics show high purity (>70\%) for a single specialty, confirming clinically coherent grouping.}
+  \label{fig:purity}
+\end{figure}
+
+Together, classification provides coarse-grained specialty routing and clustering provides fine-grained topic refinement within that specialty. Questions assigned to the outlier cluster fall back gracefully to specialty-only routing.

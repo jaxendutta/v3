@@ -1,0 +1,15 @@
+%% sections/09_evaluation.tex
+\section{Evaluation}
+\label{sec:evaluation}
+
+\subsection{Classification Performance}
+
+The champion classifier achieves weighted F1 = 0.69 and Cohen's $\kappa$ = 0.66 on the held-out validation set, up from \gls{cv} scores of $0.54 \pm 0.01$ and $0.51 \pm 0.01$ respectively --- the improvement reflects retraining on the full 179,777-question corpus. The inter-category similarity of 0.71 confirms categories are moderately distinct --- tractable for a linear classifier while remaining a non-trivial 19-class problem. The dominance of \gls{tfidf} bigrams over dense embeddings follows directly: specialty labels are strongly signalled by domain-specific terminology that sparse frequency features capture more precisely than global semantic encodings.
+
+\subsection{Clustering Performance}
+
+Clustering evaluation confirms the granularity mismatch interpretation from Section~\ref{sec:clustering}: BERTopic's $C_v = 0.509$ confirms internal coherence despite near-zero $\kappa$, and the 34.7\% outlier rate reflects short question stems rather than model failure. From a systems perspective, clustering enhances retrieval precision even when assignments are imperfect --- outlier questions fall back to specialty-only routing without penalty, ensuring no queries are lost.
+
+\subsection{NER as a Retrieval Quality Gate}
+
+The \gls{ner} retrieval score results (Section~\ref{sec:ner}) directly explain the embedding sensitivity observed in the ablation: the $+0.006$ Octen improvement vs.\ $-0.022$ MiniLM penalty translates to the $+11$\gls{pp} vs.\ $-4$\gls{pp} \gls{rag} delta in runs 5--6 vs.\ 1--2. The \gls{ner} component is therefore necessary but not sufficient: its benefit is only realized when the downstream embedding can interpret biomedical entity strings. Embedding and \gls{ner} strategy must be co-designed.

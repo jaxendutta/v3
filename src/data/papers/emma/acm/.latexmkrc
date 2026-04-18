@@ -3,6 +3,7 @@ $out_dir = 'out';
 $pdf_mode = 1;
 
 ensure_path('BIBINPUTS', '../');
+ensure_path('TEXINPUTS', '../figures//');
 ensure_path('TEXINPUTS', '../../../shared/acm-assets//');
 ensure_path('BSTINPUTS', '../../../shared/acm-assets//');
 

@@ -1,0 +1,42 @@
+%% sections/04_ner_collocation.tex
+\section{Named Entity Recognition \& Collocation}
+\label{sec:ner}
+
+\subsection{Problem Definition}
+
+Before retrieved textbook passages can improve \gls{llm} accuracy, the \gls{faiss} retrieval query must be precise. Raw clinical vignettes dilute the embedding withincidental language: patient age, presentation verbs, conjunctions. A query like ``A 45-year-old man presents with chest pain, diaphoresis, and ST elevation in leads II, III, aVF'' embeds very differently from ``chest pain diaphoresis ST elevationmyocardial infarction.'' \gls{ner}-based query rewriting isolates only the clinically meaningful tokens before querying \gls{faiss}.
+
+\subsection{Model Choice}
+
+The \texttt{en\_ner\_bc5cdr\_md} model~\cite{neumann2019} is trained on the BC5CDR corpus~\cite{li2016} and produces two typed entity labels: \texttt{DISEASE} and \texttt{CHEMICAL}, that map directly to what \gls{usmle} questions test. \texttt{en\_core\_sci\_md} was rejected as it outputs a single generic \texttt{ENTITY} label unsuitable for typed retrieval rewriting.
+
+\subsection{Corpus Analysis}
+
+Running \texttt{en\_ner\_bc5cdr\_md} over all 10,178 MedQA training questions produced 54,256 total entities (\texttt{DISEASE}: 39,575; \texttt{CHEMICAL}: 14,681), with a mean of 5.33 entities per question. Of these, 593 questions (5.8\%) contain zero entities and fall back to raw query retrieval.
+
+\begin{strip}
+  \centering
+  \includegraphics[width=0.865\textwidth]{entity_dist}
+  \Description{Two plots: entity count distribution per question showing a right-skewed distribution with mean 5.3, and top 20 extracted clinical entities ranked by frequency with pain, hypertension, and fever at the top.}
+  \captionsetup{hypcap=false}
+  \captionof{figure}{\gls{ner} corpus statistics. Left: distribution of entity count per question (mean = 5.33; 5.8\% of questions have zero entities). Right: top 20 extracted clinical entities by frequency --- pain, hypertension, and fever dominate, reflecting the clinical reasoning focus of \gls{usmle} questions.}
+  \label{fig:entities}
+\end{strip}
+
+\subsection{Retrieval Score Impact}
+
+\gls{faiss} top-1 retrieval scores were compared for raw vignettes versus \gls{ner}-rewritten entity strings across all three embedding models on a 50-question sample of clinical vignettes. Results: all-MiniLM-L12-v2 $-0.022$, Qwen3-Embedding-0.6B $+0.005$, Octen-Embedding-0.6B $+0.006$. \gls{ner} rewriting hurts MiniLM because removing context reduces signal for a non-biomedical embedding.
+
+\pagebreak
+\begin{strip}
+  \centering
+  \includegraphics[width=0.875\textwidth, trim={0 0 0 10mm},clip]{ner_impact}
+  \Description{Bar chart comparing \gls{faiss} top-1 retrieval scores for raw vs \gls{ner}-rewritten queries. MiniLM decreases, both biomedical embeddings increase.}
+  \captionsetup{hypcap=false}
+  \captionof{figure}{\gls{ner} query rewriting impact on \gls{faiss} top-1 retrieval scores. Rewriting helps biomedical-scale embeddings and hurts the general-purpose MiniLM model, directly informing model selection for the ablation grid.}
+  \label{fig:ner_impact}
+\end{strip}
+
+\subsection{Collocation Analysis}
+
+\gls{pmi} and chi-square bigram analysis was applied to all MedQA training question text (minimum frequency threshold: 10). Two hundred top bigrams were extracted by each measure. A \gls{pmi}-derived lay-to-clinical thesaurus was constructed by filtering bigrams where one word appears in a curated lay-term seed list.

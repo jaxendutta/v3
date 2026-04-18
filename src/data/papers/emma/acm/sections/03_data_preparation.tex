@@ -1,0 +1,9 @@
+%% sections/03_data_preparation.tex
+\section{Data Preparation}
+\label{sec:data}
+
+The datasets used are MedQA-\gls{usmle} \cite{jin2021} and MedMCQA \cite{pal2022}, both of which are also used for benchmark evaluation in the \gls{amg-rag} methodology of \citet{rezaei2025}. MedQA is a multiple-choice question answering dataset derived from professional medical licensing examinations \cite{jin2021}, and its questions were written in reference to a collection of 18 standard medical textbooks. MedMCQA is built from medical entrance examination data and covers both foundational and clinical knowledge across a broad range of medical specialties \cite{pal2022}.
+
+For the purposes of this system, the MedQA textbooks serve as the \gls{rag} retrieval corpus, while MedMCQA is used exclusively to train the specialty classifier, as it provides explicit subject labels that MedQA lacks. Initial exploratory analysis confirmed answer balance in MedQA and characterised the specialty distribution in MedMCQA, with Internal Medicine dominating training data. These counts were subsequently verified prior to vectorstore construction.
+
+Following these exploratory checks, the MedQA textbooks are chunked into 400-word sections with a 50-word overlap, producing 36,723 chunks across all 18 books. To support the embedding model ablation (Section~\ref{sec:ablation}), three separate \gls{faiss} vectorstores were constructed --- one each for all-MiniLM-L12-v2, Qwen3-Embedding-0.6B, and Octen-Embedding-0.6B. All three fit within the Colab T4 \gls{vram} budget at 0.6B parameters.

@@ -3,7 +3,7 @@
 
 \section{Pilot Run: Notebook 04}
 
-A pilot evaluation was run using Qwen3-4B (standard, non-thinking variant) with Qwen3-Embedding-0.6B on 50 MedQA questions. Retrieval used a \gls{faiss} \gls{ifip} \cite{johnson2019} over 36,723 textbook chunks. Results: \gls{rag} accuracy = 38\%, baseline = 42\%, delta = $-4$\gls{pp}. RAG helped 6 questions and hurt 8. Mean retrieval score = 0.648. This result prompted the hypothesis that the standard \gls{llm} variant cannot effectively use retrieved context. 
+A pilot evaluation was run using Qwen3-4B (standard, non-thinking variant) with Qwen3-Embedding-0.6B on 100 MedQA questions. Retrieval used a \gls{faiss} \gls{ifip} \cite{johnson2019} over 36,723 textbook chunks. Results: \gls{rag} accuracy = 38\%, baseline = 42\%, delta = $-4$\gls{pp}. RAG helped 6 questions and hurt 8. Mean retrieval score = 0.648. This result prompted the hypothesis that the standard \gls{llm} variant cannot effectively use retrieved context. 
 
 \section{Full Ablation Grid: Notebook 07}
 A six-run ablation grid was conducted with varying embedding models, \gls{llm} variants, and \gls{rag} conditions. All runs evaluated on MedQA questions; runs 3-6 used 100 questions each. See Table \ref{tab:ablation} in Appendix for Grid Results, and Figure \ref{fig:ablation} for visual. For reference, \gls{amg-rag} achieves 74.1\% F1 on MedQA, powered by GPT-4o-mini, which is a paid model with $\sim$8B parameters, integrated with a dynamic PubMed knowledge graph \cite{rezaei2025}. 

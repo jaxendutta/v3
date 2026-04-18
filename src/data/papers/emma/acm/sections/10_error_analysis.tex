@@ -1,0 +1,45 @@
+%% sections/10_error_analysis.tex
+\section{Error Analysis}
+\label{sec:error}
+
+\subsection{Classification Errors}
+
+After selecting the champion model, a 90/10 holdout split was used to generate a per-specialty breakdown and confusion matrix. Dermatology (F1 = 0.30) is the most poorly classified specialty, consistent with its small training support (177 examples) and high lexical overlap with Pathology. Obstetrics \& Gynaecology (F1 = 0.81) and Ophthalmology (F1 = 0.80) are most accurately classified, reflecting their distinctive specialized vocabularies.
+
+\pagebreak
+\begin{strip}
+  \centering
+  \includegraphics[width=0.8\textwidth, trim={0 0.25cm 0 0.75cm},clip]{classification_confusion_matrix}
+  \Description{Confusion matrix for the \gls{tfidf} Bigrams plus \gls{lsvc} champion model across 19 medical specialties. Internal Medicine and Surgery show the most off-diagonal mass.}
+  \captionsetup{hypcap=false}
+  \captionof{figure}{Champion classifier confusion matrix. Internal Medicine and Surgery show the most misclassification mass, consistent with their broad clinical overlap with other specialties.}
+  \label{fig:classification_confusion_matrix}
+\end{strip}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\columnwidth]{classification_error_analysis}
+  \Description{Bar chart showing per-specialty F1 scores, precision, and recall for the champion \gls{tfidf} Bigrams plus \gls{lsvc} model.}
+  \caption{Per-specialty classification performance for the champion model. Dermatology (F1 = 0.30) is most challenging; Obstetrics \& Gynaecology (F1 = 0.81) is most accurately classified.}
+  \label{fig:classification_error_analysis}
+\end{figure}
+
+\subsection{RAG Pipeline Errors}
+
+Figure~\ref{fig:rag_by_specialty} shows \gls{rag} accuracy delta by specialty under the pilot configuration (Qwen3-4B + Qwen3-Embedding, run 2). \gls{rag} hurts Surgery ($-40.0$\gls{pp}), Pathology ($-14.2$\gls{pp}), Dental, and Public Health --- specialties relying on clinical judgment and procedural reasoning rather than factual recall, where textbook retrieval is imprecise. Under the optimal configuration (run 6), Pharmacology and Obstetrics \& Gynaecology show positive \gls{rag} deltas, consistent with their reliance on specific drug names and protocol thresholds.
+
+\subsection{NER Failure Modes}
+
+Of 10,178 MedQA training questions, 593 (5.8\%) contain zero \texttt{DISEASE} or \texttt{CHEMICAL} entities and cannot benefit from \gls{ner} rewriting. These questions typically involve mechanism-of-action or statistical reasoning (``What is the positive predictive value of\ldots'') rather than named conditions or drugs. They fall back to raw query retrieval without penalty.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\columnwidth]{rag_by_specialty}
+  \Description{Bar chart showing RAG accuracy delta by specialty. Surgery and Pathology show the largest negative deltas. Pharmacology and Obstetrics show positive deltas under the best configuration.}
+  \caption{RAG accuracy delta by specialty under the pilot configuration (Qwen3-4B + Qwen3-Embedding). Surgery ($-40.0$\gls{pp}) and Pathology ($-14.2$\gls{pp}) are most harmed; Pharmacology benefits most under the optimal configuration.}
+  \label{fig:rag_by_specialty}
+\end{figure}
+
+\subsection{Recommender Limitations}
+
+The \gls{cf} recommender is trained on a synthetic 200-student dataset. The \gls{p@k} ceiling effect (Section~\ref{sec:crs}) and the small dataset size are the two primary limitations. Real deployment would accumulate genuine session data, improving \gls{cf} performance and eliminating the need for synthetic rating generation.
