@@ -3,6 +3,7 @@
 *.bbl
 *.blg
 *.brf
+*.cut
 *.fdb_latexmk
 *.fls
 *.glg
