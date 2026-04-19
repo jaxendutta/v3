@@ -1,0 +1,27 @@
+%% sections/01_introduction.tex
+\section{Introduction}
+\label{sec:intro}
+
+Cancer's relentless growth poses a constant challenge to human health. In Canada alone, projections estimate nearly 90,000 people aged 35 and above will lose their lives to this disease in 2024~\cite{Pader2021}. This grim reality underscores the critical need for advancements in cancer research, particularly in understanding the growth dynamics of solid tumors.
+
+Conventional mathematical models of tumor growth rely on ordinary differential equations (\gls{ode}s), which capture instantaneous rates of change but fail to represent the inherent time delays of biological processes. Cell cycle progression is one such process: a tumor cell does not immediately re-enter mitosis after completing interphase. The time spent in interphase before division --- denoted $\tau$ --- is a biologically meaningful quantity that shapes how tumors respond to treatment. \gls{dde}s extend the ODE framework by incorporating such explicit time lags~\cite{Niculescu2021}, providing a more faithful representation of tumor-immune dynamics.
+
+This paper analyzes a \gls{dde} model originally proposed by Villasana and Radunskaya~\cite{villasana2003} and extended with drug interaction parameters by Villasana and Ochoa~\cite{villasana2004}. The model tracks four coupled populations: interphase tumor cells $T_I$, mitotic tumor cells $T_M$, immune cells $I$, and drug concentration $u$. We make the following contributions:
+
+\begin{enumerate}
+  \item We reproduce and extend the published analytical stability analysis of the
+    tumor-free steady state, clarifying the non-monotone dependence of stability on
+    the delay $\tau$ and its clinical implications for cell-cycle-specific drugs.
+  \item We numerically estimate the basin of attraction of the tumor-free steady state
+    under chemotherapy, providing a practical tool for identifying initial conditions
+    that lead to tumor eradication without further intervention.
+  \item We introduce a novel \gls{qcc} extension incorporating a dormant cell
+    subpopulation --- estimated to comprise roughly 20\% of total tumor mass and
+    largely invisible to standard chemotherapy --- and characterize the threshold
+    quiescence parameters beyond which tumor survival becomes inevitable under the
+    simulated regimen.
+\end{enumerate}
+
+The central finding is that \gls{qcc}s substantially reduce treatment effectiveness. An identical chemotherapy regimen that eradicates tumor cells in the base model fails when quiescent cells are present, because dormant cells survive the drug and repopulate the tumor after treatment ends. The extended basin-of-attraction analysis further reveals that values of the quiescence activation rate $a_q$ and death rate $d_q$ above approximately 0.0025 make tumor survival inevitable for the tested regimen. This has direct implications for treatment design: effective long-term tumor control requires therapies that target both proliferating and quiescent subpopulations.
+
+The remainder is organized as follows. Section~\ref{sec:model} presents the base \gls{dde} model. Section~\ref{sec:implementation} describes the numerical implementation and baseline behavior. Section~\ref{sec:analysis} analyzes stability and the basin of attraction. Section~\ref{sec:extension} introduces and analyzes the \gls{qcc} extension. Section~\ref{sec:conclusion} concludes.

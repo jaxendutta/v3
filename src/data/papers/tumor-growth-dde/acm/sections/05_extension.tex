@@ -1,0 +1,66 @@
+%% sections/05_extension.tex
+\section{Extension: Quiescent Cancer Cells}
+\label{sec:extension}
+
+\subsection{Motivation}
+
+The base model's exclusion of the $G_0$ (quiescent) phase is a known simplification. Quiescent cancer cells (\gls{qcc}s) are a dormant subpopulation estimated to comprise roughly 20\% of the total tumor cell population~\cite{villasana2003}. Because the drug in the base model targets cells during mitosis, \gls{qcc}s are largely invisible to treatment --- they survive the chemotherapy course and can reactivate to repopulate the tumor after treatment ends~\cite{Davis2019}. This mechanism is linked directly to tumor dormancy and late relapse, motivating the extension.
+
+\subsection{Extended Model}
+
+We introduce a fifth population $Q(t)$ of quiescent cancer cells, governed by two new parameters: $a_q$ (rate at which interphase cells enter quiescence) and $d_q$ (natural death rate of quiescent cells). The extended equations for $T_I$ and $Q$ are:
+
+\begin{align}
+  T_I' &= 2a_4T_M - (c_1I + d_2 + a_q)T_I - a_1T_I(t-\tau) + d_q\, Q \\
+  Q'   &= a_q\, T_I - d_q\, Q
+\end{align}
+
+Equations~\ref{eq:TM}--\ref{eq:u} remain identical to the base model. The term $a_q T_I$ represents interphase cells transitioning to quiescence; $d_q Q$ represents quiescent cells either dying naturally or returning to active cycling. A separate delay $\tau_q = 30$ governs the history of $Q$, reflecting the longer timescale of quiescent cell dynamics.
+
+\subsection{Effect on Treatment Efficacy}
+
+Figure~\ref{fig:qcc-comparison} demonstrates the core result: the introduction of \gls{qcc}s makes treatment substantially more difficult. The identical chemotherapy regimen that achieves eradication in the base model fails in the extended model because quiescent cells survive drug exposure and serve as a reservoir for tumor regrowth.
+
+\begin{strip}
+  \centering
+  \begin{minipage}{0.475\textwidth}
+    \includegraphics[width=\textwidth]{without_qcc}
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.475\textwidth}
+    \includegraphics[width=\textwidth]{with_qcc}
+  \end{minipage}
+  \Description{Two side-by-side simulation plots. Left: tumor cells eradicated by chemotherapy in the base model. Right: identical regimen fails to eradicate tumor when QCCs are present.}
+  \captionsetup{hypcap=false}
+  \captionof{figure}{Identical chemotherapy regimen without (left) and with (right) the \gls{qcc} subpopulation. The regimen eradicates tumor cells in the base model but fails when quiescent cells are present --- dormant cells survive and repopulate the tumor after treatment ends.}
+  \label{fig:qcc-comparison}
+\end{strip}
+
+\subsection{Sensitivity to Quiescence Parameters}
+
+\begin{strip}
+  \centering
+  \begin{minipage}{0.49\textwidth}
+    \includegraphics[width=\textwidth]{qcc_dies}
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.49\textwidth}
+    \includegraphics[width=\textwidth]{qcc_survives}
+  \end{minipage}
+  \Description{Two simulations with different aq and dq values. Left: tumor population decreases after chemotherapy. Right: tumor population increases after treatment ends.}
+  \captionsetup{hypcap=false}
+  \captionof{figure}{Effect of $a_q$ and $d_q$ on treatment outcome. Left: low quiescence rates allow tumor eradication. Right: higher quiescence rates enable tumor survival after treatment.}
+  \label{fig:qcc-aq-dq}
+\end{strip}
+
+The tumor's ability to evade chemotherapy depends critically on $a_q$ and $d_q$, as shown in Figure~\ref{fig:qcc-aq-dq}. To characterize this dependence systematically, we performed an analysis analogous to the basin-of-attraction study of Section~\ref{sec:analysis}, varying $a_q$ and $d_q$ over a grid and recording whether the tumor population at the end of the simulation is smaller than immediately after the chemotherapy period.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.75\columnwidth]{basin_of_attraction_extended}
+  \Description{Basin of attraction for the extended model as a function of aq and dq. Purple indicates tumor eradication; yellow indicates tumor survival. A boundary appears around aq = dq = 0.0025.}
+  \caption{Extended basin of attraction as a function of quiescence parameters $a_q$ and $d_q$ under the baseline regimen ($8 \times [3\text{ days} + 11\text{ days rest}]$, $u_{\max} = 0.7$, $\tau_q = 30$). Purple: tumor eradicated. Yellow: tumor survives. Values of $a_q$ and $d_q$ above $\approx 0.0025$ lead to treatment failure.}
+  \label{fig:basin-extended}
+\end{figure}
+
+Figure~\ref{fig:basin-extended} reveals a clear threshold at approximately $a_q = d_q \approx 0.0025$. Below this boundary, the drug regimen successfully drives the system into the tumor-free basin. Above it, the quiescent subpopulation is sufficiently active to sustain tumor regrowth despite treatment. This threshold represents a practical relapse boundary: tumors with quiescence dynamics above this level require qualitatively different treatment strategies --- specifically, agents that can target and eliminate dormant cells in addition to proliferating ones.

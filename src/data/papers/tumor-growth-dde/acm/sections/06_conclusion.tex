@@ -1,0 +1,13 @@
+%% sections/06_conclusion.tex
+\section{Conclusion}
+\label{sec:conclusion}
+
+This paper analyzed a \gls{dde} model of tumor growth under cell-cycle-specific
+chemotherapy, contributed a numerical basin-of-attraction analysis, and extended the
+model to incorporate quiescent cancer cells.
+
+The stability analysis of the tumor-free steady state reveals a non-intuitive result: stability does not decrease monotonically with $\tau$. As $\tau$ increases, the tumor-free state can switch between stable and unstable a finite number of times before becoming permanently unstable beyond a threshold $\tau^*$. Since cell-cycle-specific drugs effectively increase $\tau$, an improperly dosed regimen could destabilize the tumor-free state and cause relapse after treatment ends --- even when the tumor appeared eradicated during treatment. The basin-of-attraction analysis provides a complementary tool: it numerically maps the initial conditions from which the system converges to tumor-free equilibrium, offering a practical criterion for determining when treatment can safely stop.
+
+The \gls{qcc} extension demonstrates that dormant cancer cells substantially undermine treatment efficacy. An identical chemotherapy regimen eradicates tumor cells in the base model but fails when quiescent cells are present, because dormant cells survive the drug and repopulate the tumor after treatment ends. The extended basin-of-attraction analysis identifies $a_q \approx d_q \approx 0.0025$ as the threshold beyond which tumor survival becomes inevitable under the tested regimen. The model therefore suggests that effective long-term tumor control requires therapies that target both proliferating and quiescent cancer cell subpopulations.
+
+Three directions for future work stand out. First, incorporating spatial tumor heterogeneity would allow the model to represent differences in drug penetration and immune access across tumor regions. Second, patient-specific parameter estimation from clinical data would enable personalized treatment optimization. Third, explicitly modeling the immune system's role in controlling \gls{qcc} reactivation --- which is absent from the current extension --- could reveal additional therapeutic levers beyond direct cytotoxicity.

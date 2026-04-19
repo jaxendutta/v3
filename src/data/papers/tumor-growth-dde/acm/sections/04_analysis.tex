@@ -1,0 +1,27 @@
+%% sections/04_analysis.tex
+\section{Stability Analysis}
+\label{sec:analysis}
+
+\subsection{Tumor-Free Steady State}
+
+The tumor-free steady state $(T_I, T_M, I, u) = (0, 0, k/d_1, 0)$ always exists and represents the target of chemotherapy. Its stability depends on the model parameters and, crucially, on the delay $\tau$~\cite{villasana2003}.
+
+A non-intuitive result from~\cite{villasana2003} is that stability is not monotone in $\tau$: as $\tau$ increases, the tumor-free steady state can switch between stable and unstable a \emph{finite} number of times before becoming permanently unstable beyond a threshold $\tau^*$. This follows from the structure of the characteristic equation associated with the linearized system, which is a transcendental equation in $\tau$ with finitely many purely imaginary roots.
+
+\textbf{Clinical implication.} Many cell-cycle-specific chemotherapy drugs work by trapping cells in a particular phase of the cell cycle --- effectively increasing $\tau$. If this increase crosses a stability-switching threshold, completing treatment could leave the system in a regime where the tumor-free state is unstable. This means that even if the drug appears to eradicate the tumor during treatment, the system will drift away from the tumor-free state once the drug is withdrawn, causing relapse. This motivates careful attention to drug dosing schedules that maintain $\tau$ below $\tau^*$.
+
+\subsection{Basin of Attraction: Numerical Estimation}
+
+A complementary property of clinical interest is the \emph{basin of attraction} of the tumor-free steady state: the set of initial conditions from which the system converges to tumor-free equilibrium. Once the system enters this basin --- for instance, after a course of chemotherapy reduces tumor burden sufficiently --- it converges without further intervention. This provides a practical stopping criterion for treatment.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\columnwidth]{basin_of_attraction}
+  \Description{Heat map of the numerically estimated basin of attraction. The horizontal axis is initial total tumor population, the vertical axis is initial immune cell population. Purple indicates convergence to tumor-free state, yellow indicates divergence.}
+  \caption{Numerically estimated basin of attraction for the tumor-free steady state under the parameters of Table~\ref{tab:params}. Horizontal axis: initial total tumor population ($T_I + T_M$, split equally). Vertical axis: initial immune cell population $I(0)$. Purple: converges to tumor-free state. Yellow: tumor survives. The boundary approximates the relapse threshold.}
+  \label{fig:basin}
+\end{figure}
+
+We estimated the basin by testing a grid of initial conditions $(T_I(0) + T_M(0),\, I(0))$, split evenly between $T_I$ and $T_M$, and recording whether the total tumor population decreased by end of simulation. Figure~\ref{fig:basin} shows the result. The purple/yellow boundary approximates the relapse threshold: initial conditions above the boundary converge to tumor-free equilibrium; below it, the tumor survives.
+
+A known limitation of this numerical approach is the possibility of false positives --- a simulation classified as converged due to insufficient duration may eventually show tumor regrowth given a longer time horizon.

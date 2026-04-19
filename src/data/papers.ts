@@ -107,6 +107,10 @@ export const papersData: PapersData = {
         ],
         projectId: "tumor-growth-dde",
         links: {
+            acm: {
+                label: "ACM Format",
+                type: "paper",
+            },
             thesis: {
                 label: "Thesis Format",
                 type: "paper",
