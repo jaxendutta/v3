@@ -90,4 +90,39 @@ export const papersData: PapersData = {
             },
         },
     },
+
+    "tumor-growth-dde": {
+        title: "Modeling Tumor Growth with Delay Differential Equations",
+        abstract:
+            "Mathematical models are valuable tools for understanding tumor growth dynamics. This paper proposes a novel extension to an existing delay differential equation model that incorporates the immune system's response and a cell cycle-specific drug. The extended model distinguishes three key populations: proliferating tumor cells, dividing tumor cells (mitosis), and immune cells. The delay term accounts for the time spent by tumor cells in the interphase before entering mitosis. We analyze the model's stability using the argument principle and establish a theorem that links stability to the time delay. Furthermore, we demonstrate the potential for periodic solutions arising through Hopf bifurcations, explored both theoretically and numerically. The paper also addresses the rationale behind excluding the quiescent cancer cell population ($G_0$) from the base model and discusses the potential impact of their reactivation on tumor recurrence. This comprehensive approach provides a deeper understanding of the interplay between tumor growth, immune response, and cell cycle-specific drugs.",
+        venue: ["Undergraduate Thesis", "University of Waterloo"],
+        duration: {
+            start: new Date("2024-04-01"),
+            end: new Date("2024-04-24")
+        },
+        tags: [
+            "Mathematical Biology",
+            "Delay Differential Equations",
+            "Tumor Growth",
+            "Immune Response",
+            "Hopf Bifurcation",
+            "Stability Analysis",
+            "Python",
+        ],
+        projectId: "tumor-growth-dde",
+        links: {
+            thesis: {
+                label: "Thesis Format",
+                type: "paper",
+            },
+            acm: {
+                label: "ACM Format",
+                type: "paper",
+            },
+            presentation: {
+                label: "Presentation Slides",
+                type: "slides",
+            },
+        },
+    }
 };
