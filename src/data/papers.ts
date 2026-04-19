@@ -116,7 +116,7 @@ export const papersData: PapersData = {
                 type: "paper",
             },
             presentation: {
-                label: "Presentation Slides",
+                label: "Presentation",
                 type: "slides",
             },
         },
