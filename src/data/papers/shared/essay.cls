@@ -19,7 +19,7 @@
 \linespread{0.9}
 
 % 5. Add more space around the title
-\def\frontmatter@title@above{\vspace*{1.5in}} 
+\def\frontmatter@title@above{\vspace*{1.25in}} 
 \def\frontmatter@title@below{\vspace*{0.375in}}
 
 % 6. Title Formatting: Make it larger, normal weight, and explicitly centered
@@ -79,9 +79,6 @@
 
 % Custom acronym display: indent acronym entries in the list
 \setabbreviationstyle[acronym]{long-short-desc}
-% Use enumitem to set left margin for description lists (used by glossaries-extra)
-\RequirePackage{enumitem}
-\setlist[description]{leftmargin=3em}
 
 % 15. Print all glossaries before bibliography by default
 \pretocmd{\bibsection}{%
@@ -97,4 +94,58 @@
 \def\bibfont{\small}
 \def\Urlmuskip{0mu plus 1mu}
 
+% 17. Custom headers/footers using fancyhdr and add vertical page padding
+\RequirePackage{fancyhdr}
+
+
+% Safe, expandable versions of title/author/date for headers/footers
+\newcommand{\essaysafedtitle}{}
+\newcommand{\essaysafedauthor}{}
+\newcommand{\essaysafeddate}{}
+\let\oldtitle\title
+\renewcommand{\title}[1]{\oldtitle{#1}\renewcommand{\essaysafedtitle}{#1}}
+\let\oldauthor\author
+\renewcommand{\author}[1]{\oldauthor{#1}\renewcommand{\essaysafedauthor}{#1}}
+\let\olddatecmd\date
+\renewcommand{\date}[1]{\olddatecmd{#1}\renewcommand{\essaysafeddate}{#1}}
+
+% Macro to remove \\ and \newline from a string (for header/footer only)
+\newcommand{\removenewlines}[1]{%
+  \begingroup
+    \let\\\space
+    \let\newline\space
+    #1
+  \endgroup
+}
+
+\fancypagestyle{essay}{%
+  \fancyhf{}% clear all fields
+  % Top left: Title (\small, newlines removed)
+  \fancyhead[L]{\small\nouppercase{\removenewlines{\essaysafedtitle}}}
+  % Top right: Author (\small, newlines removed)
+  \fancyhead[R]{\small\nouppercase{\removenewlines{\essaysafedauthor}}}
+  % Bottom left: Date (\small, newlines removed)
+  \fancyfoot[L]{\small\removenewlines{\essaysafeddate}}
+  % Bottom right: Page number (normal size)
+  \fancyfoot[R]{\thepage}
+  % Remove header line
+  \renewcommand{\headrulewidth}{0pt}
+  % Remove footer line
+  \renewcommand{\footrulewidth}{0pt}
+}
+
+% Apply custom pagestyle from page 2 onwards and add vertical page padding
+\AtBeginDocument{%
+  % Vertically center text block after reducing textheight
+  \newlength{\origtextheight}
+  \setlength{\origtextheight}{\textheight}
+  \setlength{\textheight}{0.925\origtextheight}% Reduce text area by 10%
+  \addtolength{\topmargin}{0.5\dimexpr\origtextheight-\textheight}\relax
+  % Add a bit of padding above the footer
+  \addtolength{\footskip}{0.75em}
+  % No header/footer on first page
+  \thispagestyle{empty}%
+  % Use custom style for subsequent pages
+  \pagestyle{essay}%
+}
 \endinput

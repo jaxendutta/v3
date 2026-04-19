@@ -128,8 +128,8 @@ export const papersData: PapersData = {
             "Artificial Intelligence is rapidly transforming consequential domains, from facial recognition in law enforcement to clinical decision support in healthcare, raising urgent questions about how, or whether, to regulate it. This essay argues that no single regulatory mechanism is adequate: transparency requirements, accountability frameworks, risk-stratified oversight, and meaningful human control are each necessary but independently insufficient. This essay advances a multi-layered approach that harmonizes these four pillars into a coherent governance architecture, drawing on emerging regulatory frameworks and empirical evidence from algorithmic decision-making. The essay evaluates the benefits and limitations of this approach, emphasizing that effective AI governance requires continuous adaptation, international coordination, and substantive public engagement.",
         venue: ["Academic Essay", "University of Waterloo"],
         duration: {
-            start: new Date("2024-01-01"),
-            end: new Date("2024-01-10")
+            start: new Date("2024-03-27"),
+            end: new Date("2024-03-30")
         },
         tags: [
             "Ethics",
@@ -152,7 +152,7 @@ export const papersData: PapersData = {
     "holistic-fairness": {
         title: "Holistic Fairness: Why Neither Equality Nor Process Is Enough",
         abstract:
-            "Fairness is among the most contested yet consequential concepts in moral and political philosophy. This essay argues that neither egalitarian fairness, which prioritizes equal distribution of outcomes, nor procedural fairness, which emphasizes just processes, is independently sufficient to achieve justice. Instead, I advance a synthesized account called \"holistic fairness,\" a framework that treats equitable starting conditions and transparent, inclusive processes as mutually necessary and jointly constitutive of a just society. Drawing on philosophical, legal, and empirical literature, the essay evaluates the internal limitations of each traditional definition before defending holistic fairness as a more adaptable, culturally sensitive, and practically applicable standard for contemporary governance and social organization.",
+            "Fairness is among the most contested yet consequential concepts in moral and political philosophy. This essay initiated its exploration by arguing whether neither egalitarian fairness, which prioritizes equal distribution of outcomes, nor procedural fairness, which emphasizes just processes, is independently sufficient to achieve justice. Eventually, it advances a synthesized account called \"holistic fairness\": a framework that treats equitable starting conditions and transparent, inclusive processes as mutually necessary and jointly constitutive of a just society. Drawing on philosophical, legal, and empirical literature, the essay evaluates the internal limitations of each traditional definition before defending holistic fairness as a more adaptable, culturally sensitive, and practically applicable standard for contemporary governance and social organization.",
         venue: ["Academic Essay", "University of Waterloo"],
         duration: {
             start: new Date("2024-01-12"),
