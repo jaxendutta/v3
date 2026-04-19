@@ -1,0 +1,200 @@
+%======================================================================
+\chapter{The Existing Delay Differential Equation Model}
+%======================================================================
+
+This chapter details a mathematical model for tumor growth originally proposed by Villasana and Radunskaya (2003)~\cite{villasana2003}. The model incorporates delay differential equations to represent the time it takes for tumor cells to transition through different phases of the cell cycle.
+
+\section{Defining the Model}
+
+The model tracks four key populations:
+
+\begin{itemize}
+    \item $T_I(t)$: Tumor cells in interphase (actively growing but not undergoing mitosis).
+    \item $T_M(t)$: Tumor cells in mitosis (actively dividing).
+    \item $I(t)$: Immune cells responsible for attacking tumor cells.
+    \item $u(t)$: Drug concentration acting on the tumor cells and immune cells.
+\end{itemize}
+
+\subsection{Assumptions}
+
+%Due to the immense complexities of biological systems, all mathematical models are inherently simplified representations of real-world phenomena developed in order to understand the system better. These simplifications determine the scope of applicability and intrinsic limitations. The model for tumor cells developed by Villasana and Radunskaya (2003) is no different, and incorporates a number of simplifications as well. As such, we will first clearly define the assumptions underlying the model before providing a definition of the model itself.
+
+%Several assumptions about the biological system have been made by the authors:
+
+All mathematical models of biological phenomena are simplifications of real-world systems. Here, we outline the key assumptions underlying the model described in~\cite{villasana2003}:
+
+\begin{itemize}
+    \item \textbf{\textit{Instantaneous Mitosis:}} Mitosis, the cell division process, is assumed to be instantaneous compared to the overall cell cycle duration.
+    %
+    \item \textbf{Drug Targeting Mitosis:} The drug is modelled to specifically target and arrest tumor cells during mitosis. This arrest ultimately leads to cell death. Note that the authors use \gls{growth arrest} and cytotoxicity interchangeably in this context.
+    %
+    \item \textbf{Drug Impact on Both Cell Types:} The drug is assumed to affect both tumor cells and immune cells. This is because some \gls{chemotherapy} drugs can be cytotoxic to rapidly dividing cells, including those in the bone marrow where immune cells are produced.~\cite{villasana2003}
+    %
+    \item \textbf{Exclusion of \gls{g0} Phase: } The model does not explicitly consider a subpopulation of tumor cells residing in a dormant state, known as the \gls{g0} phase. These quiescent cells are less susceptible to most chemotherapeutic agents and are estimated to comprise roughly 20\% of the total tumor cell population~\cite{villasana2003}. Excluding this phase is a simplification, and the authors acknowledge that its inclusion could be valuable for future exploration.
+    %
+    \item \textbf{Exponential Drug Decay: } Drug concentration is assumed to decay exponentially over time, a common characteristic of many drugs with a single \gls{half-life} parameter. 
+\end{itemize}
+
+\subsection{The DDE Model} \label{the model}
+
+The model is represented by a system of \gls{dde}s:
+
+\begin{align*}
+    T_I' &= 2a_4T_M-(c_1I + d_2)T_I-a_1T_I(t-\tau)\\
+    T_M' &= a_1T_I(t-\tau)-d_3T_M - a_4T_M - c_3T_MI-k_1(1-e^{-k_2u})T_M\\
+    I' &= k + \frac{\rho I (T_I + T_M)^n}{\alpha + (T_I + T_M)^n} - c_2IT_I - c_4T_MI -d_1I - k_3(1-e^{-k_2u})I\\
+    u' &= -\gamma u
+\end{align*}
+
+\subsection{Model Parameters}
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{|l|l|l|l|}
+\hline
+$\tau = 0.92$          & $a_1 = 0.98$         & $a_4 = 0.8$            & $d_2 = 0.11$           \\ \hline
+$d_3 = 0.4$            & $d_1 = 0.29$         & $c_1 = 9\cdot 10^{-1}$ & $c_3 = 9\cdot 10^{-1}$ \\ \hline
+$c_2 = 85\cdot10^{-3}$ & $c_4=85\cdot10^{-3}$ & $\rho = 0.1$           & $\alpha = 0.2$         \\ \hline
+$k=0.036$              & $n=3$                & $\lambda_1=126.12$     & $\lambda_2=0.85$       \\ \hline
+$k_1=0.47$             & $k_2=0.57$           & $k_3=0.49$             & $k_4 = 0.061$          \\ \hline
+$r_1 = 0.73$            & $r_2 = 0.27$         &                        &                        \\ \hline
+\end{tabular}
+\caption{Parameter values used in \cite{villasana2004} (non-dimensional)}
+\label{table:parameter values}
+\end{table}
+
+Table \ref{table:parameter values} shows the parameter values used in~\cite{villasana2004}. It is important to note that these values are non-dimensional.
+
+We are using the parameter values from Villasana and Ochoa's 2004 paper~\cite{villasana2004}, as Villasana and Radunskaya's 2003 paper did not include parameters related to drug interaction.~\cite{villasana2003}
+
+The table below provides a brief description of some key parameters used in the model:
+
+\begin{table}[ht]
+\centering
+\begin{tabularx}{\textwidth}{@{} l l X @{}}
+\toprule
+\textbf{\#} & \textbf{Symbol} & \textbf{Description} \\ \midrule
+1 & $\tau$ & Time spent by cells in interphase. \\
+2 & $a_i$ & Rates of cell reproduction. \\
+3 & $d_i$ & Rates of natural cell death. \\
+4 & $c_i$ & Rates of loss due to tumor-immune cell interaction. \\
+5 & $\rho, \alpha, n$ & Parameters for the \gls{Michaelis-Menten term} describing immune cell growth stimulated by tumor cells. \\
+6 & $k$ & Basal growth rate of immune cells. \\
+7 & $k_i$ & Parameters related to the drug's effect on tumor and immune cells. \\
+8 & $\gamma$ & Drug decay rate. \\
+9 & $\lambda_i$ & Parameters representing the decay rates of the two drug terms. \\
+10 & $r_i$ & Parameters representing the proportions of the two drug terms. \\ \bottomrule
+\end{tabularx}
+\caption{Description of key model parameters}
+\label{table:parameter descriptions}
+\end{table}
+
+\textbf{Note:} The original model in~\cite{villasana2003} used a single drug term instead of $\lambda_i$ and $r_i$. This new set of parameters was used in~\cite{villasana2004} where the authors use a modified model with two drug terms. For our model \cite{villasana2003}, we elect to use $ \gamma := \lambda_2$.
+
+By analyzing these equations and parameter definitions, we can gain a deeper understanding of the biological processes. The following is a deconstruction of the model equations (\ref{the model}) to further clarify their biological meaning.
+
+\begin{align*}
+    T_I' &= \underbrace{2a_4T_M}_{\substack{\text{Cells entering} \\ \text{Interphase} \\ \text{after Mitosis}}}-(\underbrace{c_1I}_{\substack{\text{Combat}\\\text{Deaths}}} + \underbrace{d_2)\;T_I}_{\substack{\text{Natural}\\\text{Deaths}}}- \underbrace{a_1T_I(t-\tau)}_{\substack{\text{Interphase Cells}\\ \text{entering Mitosis}}}\\
+    \\
+    %
+    T_M' &= \underbrace{a_1T_I(t-\tau)}_{\substack{\text{Interphase Cells}\\ \text{entering Mitosis}}}- \underbrace{d_3T_M}_{\substack{\text{Natural}\\\text{Deaths}}} - \underbrace{a_4T_M}_{\substack{\text{Cells entering} \\ \text{Interphase} \\ \text{after mitosis}}} - \underbrace{c_3T_MI}_{\substack{\text{Combat}\\\text{Deaths}}}- \underbrace{k_1(1-e^{-k_2u})T_M}_{\text{Drug Interaction}}\\
+    \\
+    %
+    I' &= \underbrace{k}_{\substack{\text{Basal}\\\text{Growth Rate}}} + \underbrace{\frac{\rho I (T_I + T_M)^n}{\alpha + (T_I + T_M)^n}}_{\substack{\text{Growth due to stimulus}\\\text{(Michaelis-Menten)}}} - \underbrace{c_2IT_I}_{\substack{\text{Combat}\\\text{Deaths}}} - \underbrace{c_4T_MI}_{\substack{\text{Combat}\\\text{Deaths}}} - \underbrace{d_1I}_{\substack{\text{Natural}\\\text{Deaths}}} - \underbrace{k_3(1-e^{-k_2u})I}_{\text{Drug Interaction}}\\
+    \\
+    %
+    u' &= -\underbrace{\gamma u}_{\text{Exponential Decay}}
+\end{align*}
+
+\section{Strengths and Weaknesses of the Model}
+
+This paper offers a novel application of \gls{dde}s to model tumor growth, incorporating the crucial factor of cell cycle delays. While this approach provides a fresh perspective on tumor dynamics (unlike simpler models that neglect time lags), it also presents limitations that warrant further exploration. Here, we delve into the model's strengths and weaknesses.
+
+\subsection{Strengths: Bridging the Gap Between Biological Reality and Mathematical Modelling}
+
+A key strength lies in its biological relevance. By explicitly considering cell cycle delays, the \gls{dde} approach offers a more realistic portrayal of tumor growth compared to simpler models. This enhanced relevance allows for a more accurate representation of real-world scenarios.
+
+% \begin{align}
+%     F_1(y) = |P (iy)|^2 - |Q(iy)|^2 \label{eq: cooke et al eq}
+% \end{align}
+
+Furthermore, the paper establishes a robust analytical framework.
+%Equation \ref{eq: cooke et al eq} (derived from~\cite{Cooke1986})
+The usage of various equations, and theorems, and numerical tools provides a mathematical link between model parameters and tumor-free fixed point stability. This empowers researchers to investigate how factors like treatment efficacy or immune response can influence tumor behavior. The ability to predict stability based on parameters allows for targeted control strategies. For instance, researchers can identify optimal drug concentrations that promote tumor regression.
+
+Beyond stability, the paper explores periodic solutions using the argument principle and \gls{Hopf bifurcation} analysis. This opens doors to investigating potential causes of fluctuating tumor sizes observed clinically. By understanding conditions leading to such patterns, researchers can gain insights into tumor heterogeneity and develop tailored treatment strategies.
+
+\subsection{Weaknesses: Addressing Complexity and Clinical Applications}
+
+The model's generalizability to different tumor types might be limited. Tumors exhibit diverse growth patterns depending on the specific cancer and involved mutations. The current model might require refinement to capture the dynamics of different sub-types.
+
+The use of one delay variable limits the inclusion of more delays for cell phases and cell-cycle-specific drug interaction. Additionally, the model simplifies the immune system and ignores drug resistance within the tumor cell population. It also assumes a \gls{deterministic system}, whereas some components may be more \gls{stochastic}.
+
+Another limitation is the lack of data validation. The strong theoretical framework requires validation with real-world tumor growth data for broader acceptance and practical application. Fitting model parameters to patient data and comparing predicted growth patterns with observed data would strengthen the model's credibility and enhance its value in clinical settings.
+
+Finally, the limited scope of the analysis presents an opportunity for further exploration. While the focus on fixed point stability and periodic solutions provides valuable insights, a more comprehensive understanding can be achieved by exploring the model's behavior under a broader range of parameter values or incorporating additional biological factors like nutrient availability, \gls{spatial heterogeneity}, or the immune system's influence.
+
+\subsection{Future Directions: Building Upon a Strong Foundation}
+
+By addressing the limitations outlined above, the model's robustness and applicability can be significantly enhanced:
+
+\begin{enumerate}
+    \item \textbf{\textit{Model Refinement:}} Refining the model to account for different cell cycle lengths or incorporating additional delays could increase its generalizability. This could involve incorporating parameters reflecting variations in cell cycle duration observed in different cancers.
+    %
+    \item \textbf{\textit{Data Integration:}} Integrating patient data for parameter estimation and model validation would strengthen the model's clinical relevance and allow for personalized treatment approaches. This would involve collaborating with clinicians to collect patient data and utilize statistical techniques to fit the model parameters to specific tumor characteristics.
+    %
+    \item \textbf{\textit{Model Expansion:}} Extending the analysis to explore a broader range of parameter values and incorporating additional biological factors could lead to a more comprehensive understanding of tumor growth dynamics. This would involve developing computational tools to explore the model's behavior under various parameter combinations and incorporating additional biological modules that represent factors like nutrient availability and immune response.
+\end{enumerate}
+
+This \gls{dde} model presents a valuable contribution by capturing cell cycle delays. The established analytical framework lays a strong foundation for further research. By addressing the limitations, researchers can significantly enhance this approach, ultimately contributing to personalized medicine and the development of more effective treatment strategies for cancer patients.
+
+% PREVIOUS VERSION: 1138 WORDS -----------------------------------------------
+% This paper presents a novel application of delay differential equations (DDEs) to model tumor growth, incorporating the critical factor of cell cycle phases. This approach offers a fresh perspective on understanding tumor dynamics but also presents limitations that warrant further exploration. Here, we delve into the strengths and weaknesses of the paper, highlighting its potential contributions and areas for future development.
+
+% \subsection{Strengths: Bridging the Gap Between Biological Reality and Mathematical Modeling}
+
+% One of the most significant strengths of this paper lies in its biological relevance. Unlike simpler models that often neglect the inherent time lags associated with cellular processes, this DDE approach explicitly considers delays within the cell cycle. These delays represent the time required for events like DNA replication and mitosis, leading to a more realistic portrayal of tumor growth dynamics. This enhanced biological relevance allows for a more accurate representation of how tumors grow in real-world scenarios.
+
+% \begin{align}
+%     F_1(y) = |P (iy)|^2 - |Q(iy)|^2 \label{eq: cooke et al eq}
+% \end{align}
+
+% Furthermore, the paper establishes a robust analytical framework through \ref{eq: cooke et al eq} (derived from~\cite{Cooke1986}. This theorem provides a clear mathematical link between the model's parameters and the stability of the tumor-free fixed point.  This framework empowers researchers with analytical tools to investigate how changes in various factors, such as treatment efficacy or immune response rate, can influence tumor behavior. The ability to predict stability based on parameter values allows for a more targeted approach to tumor control strategies. For instance, researchers can utilize the framework to identify optimal drug concentrations or treatment schedules that promote tumor regression (stability of the tumor-free fixed point).
+
+% Beyond stability analysis, the paper delves into the possibility of periodic solutions using the argument principle and \gls{Hopf bifurcation} analysis. This exploration opens doors to investigating potential causes behind fluctuating tumor sizes observed in some clinical cases. By understanding the conditions that lead to periodic growth patterns, researchers can gain insights into tumor heterogeneity and develop treatment strategies tailored to specific growth dynamics. For example, the model could be used to identify tumors with an inherent tendency for periodic growth, allowing for more proactive interventions to prevent future growth surges.
+
+% \subsection{Weaknesses: Addressing Complexity and Bridging the Gap to Clinical Applications}
+
+% The model's generalizability to different tumor types with varying cell cycle characteristics might be limited. Tumors can exhibit diverse growth patterns depending on the specific cancer type and genetic mutations involved. The current model might require further refinement or adaptation to accurately capture the dynamics of different tumor sub-types. This affects the model's accuracy.
+
+% The usage of delay differential equations with one delay variable leaves the inclusion of more delays to better represent cells' phases and cell-cycle-specific drug interaction to be desired for increased precision. The resistance to drug intervention is also not accounted for among the tumor cell population. We also simplify the immune system's role in the model to one variable, reducing the complicated role of immunity. 
+
+% The model consists of many components which may be more \gls{stochastic},  than \gls{deterministic}. For example, the resident time for the phases is not fixed but is variable around the average value. This can alter the dynamics of the system, like in the case of stability switching.
+
+% Another notable limitation lies in the lack of data validation. The paper establishes a strong theoretical framework, but for broader acceptance and practical application, validation with real-world tumor growth data is crucial. Fitting the model parameters to patient data and comparing predicted growth patterns with observed clinical data would strengthen the model's credibility and enhance its value in clinical settings. This validation process would involve acquiring patient data on tumor growth rates, treatment responses, and potential cell cycle characteristics. By fine-tuning the model parameters based on real-world data, researchers can increase its predictive power and pave the way for its integration into clinical decision-making.
+
+% Finally, the limited scope of the current analysis presents an opportunity for further exploration. The focus on the stability of the fixed point and the possibility of periodic solutions provides valuable insights, but a more comprehensive understanding of tumor dynamics can be achieved by exploring the model's behavior under a broader range of parameter values or incorporating additional biological factors. These factors could include nutrient availability, \gls{spatial heterogeneity} within the tumor microenvironment, or the influence of the immune system. By expanding the model's scope, researchers can gain a deeper understanding of how various factors interact to shape tumor growth patterns. This comprehensive understanding can ultimately lead to the development of more sophisticated models that can predict tumor response to various treatment strategies.
+
+% \subsection{Future Directions: Building Upon a Strong Foundation}
+
+% By addressing the limitations outlined above, the model's robustness and applicability can be significantly enhanced:
+
+% \begin{itemize}
+%     \item \textbf{\textit{Model Refinement:}} Refining the model to account for different cell cycle lengths or incorporating additional delays associated with specific biological processes could increase its generalizability to different tumor types. This refinement could involve incorporating parameters that reflect variations in cell cycle duration observed in different cancers.
+%     %
+%     \item \textbf{\textit{Data Integration:}} Integrating patient data for parameter estimation and model validation would strengthen the model's clinical relevance and allow for personalized treatment approaches. This integration would involve collaborating with clinicians to collect patient data and utilize statistical techniques to fit the model parameters to specific tumor characteristics.
+%     %
+%     \item \textbf{\textit{Model Expansion:}} Extending the analysis to explore a broader range of parameter values and incorporating additional biological factors could lead to a more comprehensive understanding of tumor growth dynamics. This expansion would involve developing computational tools to explore the model's behavior under various parameter combinations and incorporating additional biological modules that represent factors like nutrient availability and immune response.
+% \end{itemize}
+    
+% This DDE model for tumor growth presents a valuable contribution by capturing the crucial factor of cell cycle delays. The established analytical framework lays a strong foundation for further research on the impact of various factors on tumor stability and the potential for oscillatory growth patterns. By addressing the limitations through data validation, model refinement for broader applicability, and expansion to encompass more biological complexities, researchers can significantly enhance this approach. This, in turn, holds promise for:
+
+% \begin{itemize}
+%     \item \textbf{\textit{Predicting tumor response to treatment:}} Simulating treatment strategies can lead to the identification of optimal regimens tailored to specific tumors.
+%     %
+%     \item \textbf{\textit{Understanding tumor heterogeneity:}} Exploring solutions and parameter influences can shed light on the variability observed in tumor growth patterns.
+%     %
+%     \item \textbf{\textit{Designing personalized treatment plans:}} Integrating patient data and refining the model can potentially allow clinicians to predict a patient's specific response to therapy, paving the way for personalized medicine.
+% \end{itemize}
+
+% By acknowledging the strengths and weaknesses of the current approach and pursuing these future directions, researchers can unlock the full potential of DDE models. This will ultimately contribute to the advancement of personalized medicine and the development of more effective treatment strategies for cancer patients.

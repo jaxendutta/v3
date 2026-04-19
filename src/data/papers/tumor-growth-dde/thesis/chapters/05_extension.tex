@@ -1,0 +1,145 @@
+%======================================================================
+\chapter{Extension: Incorporation of QCCs}
+%======================================================================
+
+Traditional mathematical models of tumor growth, like the one presented earlier, often focus solely on actively proliferating cancer cells. However, cancer cell populations are more heterogeneous, containing a subpopulation of \gls{qcc}s in a dormant state. These \gls{qcc}s are less susceptible to traditional therapies due to their low metabolic activity and can contribute to tumor recurrence~\cite{Davis2019}. To enhance the model's realism and capture this biological complexity, we propose extending the model by incorporating \gls{qcc} dynamics.
+
+\section{Extended Model Definition}
+
+The existing tumor growth model is extended by incorporating the dynamics of \gls{qcc}s. These \gls{qcc}s are less susceptible to traditional therapies and can contribute to tumor recurrence. To achieve this, we modify the existing model equations to account for the following key processes:
+
+\begin{enumerate}
+    \item \textbf{\textit{Transition between Proliferating and Quiescent States:}} Two new parameter terms ($a_q$ and $d_q$) are introduced representing the transition rates between the proliferating and quiescent states of cancer cells.
+    
+    \item \textbf{\textit{Quiescent Cell Proliferation:}}  While \gls{qcc}s are less active, they still retain the ability to proliferate under certain conditions. The model will account for this by including a proliferation term for the \gls{qcc} population, $T_Q$.
+    
+    \item \textbf{\textit{Drug Sensitivity of QCCs:}} The model will consider the potential resistance of \gls{qcc}s to a cytotoxic drug administered after a constant number of days.
+\end{enumerate}
+
+\subsection{Species and Parameter Extensions}
+
+The original model is expanded to account for the new \gls{qcc} population and the associated parameters governing their dynamics.
+
+\subsubsection{Species Extension}
+$T_Q$, representing the population of tumor cells residing in the \gls{g0} phase.
+
+\subsubsection{Parameter Extension}
+
+\begin{itemize}
+    \item $a_q$: Rate of production of \gls{qcc}s from the proliferative cancer cell population ($T_M$).
+    \item $d_q$: Rate at which \gls{qcc}s transition back into the proliferative phase, effectively exiting the \gls{g0} state.
+    \item $\tau_q$: Characteristic time delay associated with \gls{qcc}s exiting the \gls{g0} phase. This parameter accounts for the biological processes that need to occur before a \gls{qcc} re-enters the cell cycle.
+\end{itemize}
+
+\subsection{DDE Model Update}
+
+The original model's equations (\ref{the model}) are updated to incorporate the \gls{g0} phase dynamics as follows:
+
+\begin{align} 
+T_Q' &= \underbrace{2a_q T_M}_{\substack{\text{Cancer cells}\\\text{entering } G_0}} - \underbrace{d_q T_Q (t-\tau_q)}_{\substack{\text{Cancer cells}\\\text{exiting } G_0}} \label{eq:1} \\
+T_I' &= 2a_4 T_M - (c_1 I + d_2)T_I - a_1 T_I (t-\tau) + \underbrace{d_q T_Q (t - \tau_q)}_{\substack{\text{Cancer cells}\\\text{exiting } G_0\text{ and}\\\text{entering Interphase}}} \label{eq:2}\\
+T_M' &= a_1 T_I (t - \tau) - d_3 T_M - a_4 T_M - c_3 T_M I - k_1 (1 - e^{-k_2 u}) T_M - \underbrace{a_q T_M}_{\substack{\text{Cancer cells}\\\text{entering } G_0}} \label{eq:3}
+\end{align}
+
+Equation \ref{eq:1} describes the change in the quiescent cell population ($T_Q'$). The first term ($a_q T_M$) represents the influx of cells from the proliferative population, while the second term ($d_q T_Q (t - \tau)$) accounts for cells exiting the quiescent phase with a time delay of $\tau$.
+
+Equations \ref{eq:2} and \ref{eq:3} are modified versions of the original model's equations for the interphase cell population ($T_I$) and the proliferative cancer cell population ($T_M'$), respectively. They now include a term ($d_q T_Q (t - \tau_q)$) representing the influx of \gls{qcc}s that have exited the quiescent phase and entered interphase. Additionally, the term ($a_q T_M$) in the third equation captures the loss of proliferative cells due to their entry into the quiescent phase.
+
+The differential equations for $I$ and $u$ remain identical to \ref{the model}.
+
+This extension allows the model to capture the dynamics of tumor cell populations that exhibit a quiescent phase, providing a more comprehensive representation of the underlying biological processes.
+
+\newpage
+\section{Analysis}
+\subsection{Behaviour Compared to Original Model}
+As expected, the introduction of \gls{qcc}s makes treatment more difficult, as shown in Figure \ref{fig:w/o QCCs vs w/ QCCs} where an identical chemotherapy regimen fails to eradicate tumor cells when \gls{qcc}s are introduced.
+
+\begin{figure}[!ht]
+  \subfloat[Without \gls{qcc}s]{%
+   \includegraphics[width=0.49\textwidth]{without_qcc}
+  }
+  \hfill
+  \subfloat[With \gls{qcc}s]{%
+   \includegraphics[width=0.49\textwidth]{with_qcc}
+  }
+  \caption{Simulation of a Chemotherapy Infusion \textbf{(a)} without and \textbf{(b)} with the \gls{qcc} sub-population}
+  \label{fig:w/o QCCs vs w/ QCCs}
+\end{figure}
+
+\subsection{Effect of $a_q$ and $d_q$}
+
+The cancer population's ability to evade chemotherapy depends on the values of $a_q$ and $d_q$. An example of this phenomenon can be seen in Figure \ref{fig:tumor survival depends on aq and dq}.
+
+\begin{figure}[!ht]
+  \subfloat[Tumor population decreases after chemotherapy]{%
+   \includegraphics[width=0.49\textwidth]{qcc_dies}
+  }
+  \hfill
+  \subfloat[Tumor population increases after chemotherapy]{%
+   \includegraphics[width=0.49\textwidth]{qcc_survives}
+  }
+  \caption{Simulation of a chemotherapy with different values of  $a_q$ and $d_q$ can result in the tumor population \textbf{(a)} being eradicated or \textbf{(b)} surviving}
+  \label{fig:tumor survival depends on aq and dq}
+\end{figure}
+
+We can perform analysis similar to \ref{numerical stability analysis}, where we test different combinations of $a_q$ and $d_q$. Figure \ref{fig:basin of attraction extended} shows the results of this analysis for our extended model. Again, the purple region is where the tumor population converges to the tumour-free steady state, and the yellow region is where it diverges. In this case, we considered a system to be inside the basin of attraction if the tumor population at the end of the simulation is smaller than immediately after the chemotherapy period.
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=0.5\linewidth]{basin_of_attraction_extended}
+    \caption{Basin of Attraction for extended model}
+    \label{fig:basin of attraction extended}
+\end{figure}
+
+We see from \ref{fig:basin of attraction extended} that, for our particular choice of chemotherapy, values of $a_q$ and $d_q$ above 0.0025 result in the tumor population being able to survive chemotherapy.
+
+Simulation details for this analysis:
+\begin{itemize}
+    \item $\tau_q = 30$ was arbitrarily chosen.
+    \item The chemotherapy regiment simulated was $8 \times (3 \text{ days of chemotherapy } + 11 \text{ days of rest})$, where $u$ reaches $0.7$ (arbitrary choices).
+    \item Initial conditions $(T_I, T_M, I, u, T_Q) = (2.5, 2.5, 0.9, 0, 0)$ was chosen arbitrarily.
+    \item All other parameter values are identical to Table \ref{table:parameter values}.
+\end{itemize}
+
+
+\subsection{Effect of chemotherapy schedule}
+Another variable that influences whether chemotherapy is successful is its schedule: even with the same total dose, the cadence at which it's taken can drastically change the results. 
+
+Figure \ref{fig:3 day gap} shows the tumor population's behaviour when following a particular chemotherapy schedule where there is a 3-day gap between each cycle. We see that the immune system can kill the remaining tumor cells after chemotherapy.
+
+
+\begin{figure}[!ht]
+  \subfloat[Behaviour during chemotherapy]{%
+   \includegraphics[width=0.49\textwidth]{3_day_gap_zoomed_in}
+  }
+  \hfill
+  \subfloat[Long-term behaviour]{%
+   \includegraphics[width=0.49\textwidth]{3_day_gap_zoomed_out}
+  }
+  \caption{Simulation of chemotherapy with 3 days of medication followed by 3 days of rest}
+  \label{fig:3 day gap}
+\end{figure}
+
+Figure \ref{fig:4 day gap} shows the behaviour when the gap is increased to 4 days. We see that the concentration of the drug reaches a much lower trough compared to the previous case, resulting in long-term behaviour where the cancer cells can overpower the immune cells.
+
+\begin{figure}[!ht]
+  \subfloat[Behaviour during chemotherapy]{%
+   \includegraphics[width=0.49\textwidth]{4_day_gap_zoomed_in}
+  }
+  \hfill
+  \subfloat[Long-term behaviour]{%
+   \includegraphics[width=0.49\textwidth]{4_day_gap_zoomed_out}
+  }
+  \caption{Simulation of chemotherapy with 3 days of medication followed by 4 days of rest}
+  \label{fig:4 day gap}
+\end{figure}
+
+This suggests that administering chemotherapy doses in close succession can enhance its efficacy and combat tumor faster. However, caution must be taken since chemotherapy also harms normal cells, and an overly aggressive may harm the patient instead.
+
+Simulation details for this analysis:
+\begin{itemize}
+    \item $\tau_q = 30$ was arbitrarily chosen.
+    \item The chemotherapy regiment simulated was $8 \times (3 \text{ days of chemotherapy } + \text{ 3 or 4 days of rest})$, where $u$ reaches $0.5$ (arbitrary choices).
+    \item Initial conditions $(T_I, T_M, I, u, T_Q) = (2.5, 2.5, 0.9, 0, 0)$ was chosen arbitrarily.
+    \item All other parameter values are identical to Table \ref{table:parameter values}.
+\end{itemize}

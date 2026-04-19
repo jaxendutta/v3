@@ -1,0 +1,120 @@
+\chapter[Python Code]{Python Code} \label{code}
+\definecolor{mygreen}{rgb}{0,0.6,0}
+\definecolor{mygray}{rgb}{0.5,0.5,0.5}
+\definecolor{mymauve}{rgb}{0.58,0,0.82}
+
+\lstset{ %
+    backgroundcolor=\color{white},   % choose the background color
+    basicstyle=\ttfamily\small,        % size of fonts used for the code
+    breaklines=true,                 % automatic line breaking only at whitespace
+    captionpos=b,                    % sets the caption-position to bottom
+    commentstyle=\color{mygreen},    % comment style
+    escapeinside={\%*}{*)},          % if you want to add LaTeX within your code
+    keywordstyle=\color{blue},       % keyword style
+    stringstyle=\color{mymauve},     % string literal style
+    numberstyle=\tiny,
+    breaklines=true,
+    postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space},
+    language=Python,
+    frame=single,
+    columns=fullflexible,
+    numbers=left,
+}
+\begin{lstlisting}[
+]
+# pre-existing model parameters
+tau = 0.92
+a1 = 0.98
+a4 = 0.8
+d2 = 0.11
+
+d3 = 0.4
+d1 = 0.29
+c1 = 0.9 #9e-1
+c3 = 0.9 #9e-1
+
+c2 = 85e-3
+c4 = 85e-3
+rho = 0.1
+alpha =  0.2
+
+k=0.036
+n = 3
+lambda1 = 126.12
+lambda2 = 0.85
+
+k1 = 0.47
+k2 = 0.57
+k3 = 0.49
+k4 = 0.061
+
+r1 = 0.73
+r2 = 0.27
+
+# custom parameters
+aq = 0.00125 # production term for TM->TQ
+dq = 0.00125 # exit term for TQ->TI
+tau_q = 30 
+
+u_target = 0.5
+u_active = 3
+u_rest = 4
+u_cycles = 8
+u_start = 90
+
+u_cycle_duration = u_active + u_rest # do not change
+
+def delay_rhs(x, t):
+    global dq
+    TI, TM, I, u, TQ = x(t)
+    TI_past, _, _, _, _ = x(t - tau)
+    _, _, _, _, TQ_past= x(t - tau_q)
+
+
+    dx = [0,0,0,0,0]
+    dx[0] = 2*a4*TM - (c1*I + d2)*TI - a1*(TI_past) + dq*(TQ_past)# TI
+    dx[1] = a1*(TI_past) - d3*TM - a4*TM - c3*TM*I - k1*(1 - np.exp(-k2*u))*TM - aq*TM # TM
+    
+    if (alpha * 1000 < TI + TM):
+        dx[2] = k + rho * I - c2*I*TI - c4*TM*I - d1*I - k3*(1 - np.exp(-k4 * u))*I# I
+    else:
+        dx[2] = k + (rho * I * (TI + TM)**n)/(alpha + (TI + TM)**n) - c2*I*TI - c4*TM*I - d1*I - k3*(1 - np.exp(-k4 * u))*I# I
+
+    dx[3] = - lambda2 * u # u
+    if ( t > u_start and t < u_start + u_cycle_duration * u_cycles and (t - u_start) % u_cycle_duration < u_active):
+        dx[3] = u_target
+    
+    dx[4] = 2*aq*TM - dq*(TQ_past) # TQ
+
+    for i in range(4):
+        if x(t)[i] + dx[i] >= 100 :
+            dx[i] = 0
+
+    return dx
+
+# Initial history
+def initial_history_func(t):
+    #         TI TM I u TQ
+    return [2.5, 2.5, 0.9, 0, 0]
+
+# Time points we want
+t = np.linspace(0, 2000, 40000)
+
+# Perform the integration
+x = ddeint(delay_rhs, initial_history_func, t)
+
+plt.figure()
+plt.plot(t, x[:,3], label="U (meds)", color='#4eb3e4')
+plt.plot(t, x[:,0], label="TI (interphase)", color='#fabb4b')
+plt.plot(t, x[:,1], label="TM (mitosis)", color='#e6222e')
+plt.plot(t, x[:,2], label="I (immune)", color='#1d9a4d')
+plt.plot(t, x[:,4], label="TQ (quiescent)", color='purple')
+plt.plot(t, x[:,0]+ x[:,1]+ x[:,4], label="Total tumor", color='black')
+
+plt.xlabel("Time")
+plt.ylabel("Concentration")
+plt.title(f"rest period = {u_rest}")
+plt.legend()
+plt.ylim(0,0.5)
+plt.show()
+\end{lstlisting}

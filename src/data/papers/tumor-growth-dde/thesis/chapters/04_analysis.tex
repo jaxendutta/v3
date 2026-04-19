@@ -1,0 +1,28 @@
+%======================================================================
+\chapter{Analysis of Existing Model}
+%======================================================================
+
+\section{Published Stability Analysis}
+
+The paper performs stability analysis on the model described in \ref{the model}. In general, there are multiple steady states for the system but the tumor-free steady state $(T_I, T_M, I, u) = (0, 0, k/d1, 0)$ is of particular interest since the is the goal of chemotherapy is to eradicate all cancer cells~\cite{villasana2003}.
+
+This tumour-free steady state always exists, but its stability depends on the exact values of the parameters. In particular, it can be shown that for certain values of parameters the stability of the tumor-free steady state depends on $\tau$, where the steady state becomes unstable after a large enough threshold~\cite{villasana2003}. However, a finite number of stability switching can occur between $\tau = 0$ and the threshold. This means that as $\tau$ increases, the system can switch between stable and unstable multiple times before it becomes permanently unstable. This is a non-intuitive result since one might expect that increasing $\tau$ would only make the system more unstable.
+
+
+Many chemotherapy drugs work by trapping cancer cells in a particular phase in their cell cycle, where cells eventually die from natural causes. This can be interpreted as increasing $\tau$. This analysis shows that caution must be taken when doing this since by changing the timing of the cell cycle, the tumor-free steady state might switch from stable to unstable. This would mean that when treatment is completed, the system would not move towards the tumor-free state~\cite{villasana2003}. 
+
+\section{Extension: Numerical Stability Analysis}
+\label{numerical stability analysis}
+
+A property of interest is the basin of attraction towards the tumour-free steady state. This is because once the system is within the \gls{basin of attraction}, the system will converge to a tumor-free state even without drug intervention.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.9\linewidth]{basin_of_attraction}
+    \caption{Basin of Attraction}
+    \label{fig:basin of attraction}
+\end{figure}
+
+We can numerically estimate the basin of attraction by testing different initial conditions and plotting whether the system converges toward the tumour-free steady state. Figure \ref{fig:basin of attraction} shows the estimated basin of attraction using the parameters in Table \ref{table:parameter values}. The horizontal axis is the initial tumor population (split evenly between $T_I$ and $T_M$) and the vertical axis is the initial immune cell population. The purple region is where the tumor population converges to the tumour-free steady state, and the yellow region is where it diverges. A simulation was considered to have converged if the total tumor population decreased by the end of the simulation.
+
+A limitation of numerical estimation is that there may be false positives due to insufficient simulation duration or time step size. 

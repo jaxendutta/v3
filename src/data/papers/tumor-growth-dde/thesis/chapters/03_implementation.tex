@@ -1,0 +1,44 @@
+%======================================================================
+\chapter{Implementation of Existing Model}
+%======================================================================
+% In this section, we'll discuss the implementation of the existing DDE model for tumor growth.
+
+\section{Software Selection}
+
+We chose to implement the model using \texttt{Python}. This decision was primarily driven by \texttt{Python}'s support of the \verb|ddeint| library, which is a well-documented \gls{dde} solver. It also supports \verb|pyplot|, which is a convenient way to plot simulation results. Sample code can be found in Appendix \ref{code}.
+
+
+% Briefly explain the chosen software for implementing the model. Examples include specialized DDE solvers in MATLAB (e.g., \verb|dde_solver|), Python packages (e.g., \verb|DelayDiffEq.jl|), or general-purpose scientific computing software (e.g., \verb|SciPy| in Python).
+
+% Justify your choice by considering factors like:
+% - Suitability for DDEs: Does the software have built-in functions or libraries specifically designed for solving DDEs?
+% - User-friendliness: How easy is it to learn and use the software for your specific needs?
+% - Documentation and Support: Does the software have clear documentation and readily available support resources?
+% - Compatibility: Does the software run on your preferred operating system and integrate well with any other tools you plan to use (e.g., data analysis, visualization)?
+
+\section{Model Implementation}
+
+We chose to use a constant value for the history function of the \gls{dde}. Although this is not realistic, it is considered an acceptable simplification since $\tau =0.92$  is considerably shorter than the simulation's duration~\cite{villasana2004}.
+
+% TODO: Briefly outline the steps involved in implementing the model within the chosen software. This might include:
+% - Defining the model equations using the software's syntax for DDEs.
+% - Specifying initial conditions for all model variables (e.g., tumor cell populations, immune cells, drug concentration).
+% - Setting model parameters with their corresponding values (e.g., growth rates, death rates, delay time).
+% - Choosing a numerical solver appropriate for DDEs (if the software offers different options).
+
+\section{Model Simulation Visualization}
+
+% TODO: If applicable, you can discuss how you used the software to simulate the model's behavior under different scenarios (e.g., varying drug concentrations, initial cell populations).
+% Briefly mention how you visualized the simulation results (e.g., plotting population dynamics over time).
+
+\begin{figure}[!ht]
+  \subfloat[Exponential growth]{%
+   \includegraphics[width=0.49\linewidth]{exponential_growth}
+  }
+  \hfill
+  \subfloat[Contained Growth]{%
+   \includegraphics[width=0.49\linewidth]{contained_growth}
+  }
+  \caption{Typical simulations showing \textbf{(a)} exponential growth and \textbf{(b)} containment by the immune system}
+  \label{fig:exponential vs contained}
+\end{figure}
