@@ -13,11 +13,11 @@ $t \leq 0$. We use the constant history:
 \[
   (T_I, T_M, I, u) = (1.3,\ 1.2,\ 0.9,\ 0) \quad \forall\, t \leq 0,
 \]
-representing a small initial tumor burden with baseline immune presence and no drug. A constant history is an accepted simplification since $\tau = 0.92$ is considerably shorter than the simulation duration~\cite{villasana2004}. Simulations ran over $t \in [0, 3000]$ with 40,000 uniformly spaced time points.
+representing a small initial tumor burden with baseline immune presence and no drug. A constant history is an accepted simplification since $\tau = 0.92$ is considerably shorter than the simulation duration~\cite{villasana_heuristic_2004}. Simulations ran over $t \in [0, 3000]$ with 40,000 uniformly spaced time points.
 
 \subsection{Baseline Behaviour}
 
-Before introducing drug intervention, we verify that the model reproduces the two canonical qualitative behaviors of tumor-immune dynamics.
+Before introducing drug intervention, we verify that the model reproduces the two canonical qualitative behaviours of tumor-immune dynamics.
 
 Figure~\ref{fig:baseline} confirms both regimes. When initial immune population is insufficient relative to tumor burden, proliferation is unchecked and the tumor grows exponentially. When immune cells are sufficient, they suppress the tumor to a low stable equilibrium. The boundary between these regimes is exactly what the basin-of-attraction analysis in Section~\ref{sec:analysis} characterizes numerically.
 
@@ -32,11 +32,11 @@ Figure~\ref{fig:baseline} confirms both regimes. When initial immune population 
     \includegraphics[width=\textwidth]{contained_growth}
   \end{minipage}
   \Description{Two simulation plots. Left: tumor populations grow exponentially when immune response is insufficient. Right: immune system successfully contains tumor growth at a low stable equilibrium.}
-  
-  \captionof{figure}{Baseline model behavior. Left: exponential tumor growth when immune cells are overwhelmed. Right: immune containment, where the tumor stabilizes at a low equilibrium. These two regimes define the basin-of-attraction boundary analyzed in Section~\ref{sec:analysis}.}
+  \captionsetup{hypcap=false}
+  \captionof{figure}{Baseline model behaviour. Left: exponential tumor growth when immune cells are overwhelmed. Right: immune containment, where the tumor stabilizes at a low equilibrium. These two regimes define the basin-of-attraction boundary analyzed in Section~\ref{sec:analysis}.}
   \label{fig:baseline}
 \end{strip}
 
 \subsection{Chemotherapy Modelling}
 
-Drug infusion is modelled as discrete periodic episodes: during active periods, $u$ is held at a target concentration $u_{\max}$; between episodes it decays exponentially at rate $\gamma$. The baseline regimen used throughout is $8 \times (3\text{ days active} + 11\text{ days rest})$ with $u_{\max} = 0.7$ --- sufficient to eradicate tumor cells in the base model.
+Drug infusion is modelled as discrete periodic episodes: during active periods, $u$ is held at a target concentration $u_{\max}$; between episodes it decays exponentially at rate $\gamma$. The baseline regimen used throughout is $8 \times (3\text{ days active} + 11\text{ days rest})$ with $u_{\max} = 0.7$. This is sufficient to eradicate tumor cells in the base model.

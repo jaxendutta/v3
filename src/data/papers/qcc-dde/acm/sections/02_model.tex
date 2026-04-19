@@ -6,19 +6,20 @@ The model, originally proposed by Villasana and Radunskaya~\cite{villasana2003} 
 
 \subsection{Assumptions}
 
-All mathematical models of biological systems are simplifications. The key assumptions here are~\cite{villasana2003}: (1) mitosis is instantaneous relative to the overall cell cycle duration; (2) the drug specifically targets and arrests tumor cells during mitosis; (3) the drug is cytotoxic to both tumor and immune cells, reflecting the bone marrow toxicity common to many chemotherapy agents; (4) the quiescent $G_0$ phase is excluded from the base model --- quiescent cells are estimated to comprise roughly 20\% of total tumor mass and are largely resistant to chemotherapy. This exclusion is addressed in Section~\ref{sec:extension}; (5) drug concentration decays exponentially, corresponding to a single-compartment pharmacokinetic model.
+All mathematical models of biological systems are simplifications. The key assumptions here are~\cite{villasana2003}: (1) mitosis is instantaneous relative to the overall cell cycle duration; (2) the drug specifically targets and arrests tumor cells during mitosis; (3) the drug is cytotoxic to both tumor and immune cells, reflecting the bone marrow toxicity common to many chemotherapy agents; (4) the quiescent $G_0$ phase is excluded from the base model, despite quiescent cells being estimated to comprise roughly 20\% of total tumor mass and are largely resistant to chemotherapy. This exclusion is addressed in Section~\ref{sec:extension}; (5) drug concentration decays exponentially, corresponding to a single-compartment pharmacokinetic model.
 
 \subsection{System of Equations}
 
 \begin{align}
   T_I' &= 2a_4T_M - (c_1I + d_2)T_I - a_1T_I(t-\tau) \label{eq:TI} \\
-  T_M' &= a_1T_I(t-\tau) - (d_3 + a_4 + c_3I + k_1(1-e^{-k_2u}))T_M \label{eq:TM} \\
-  I'   &= k + \frac{\rho I(T_I+T_M)^n}{\alpha+(T_I+T_M)^n}
-           - (c_2T_I + c_4T_M + d_1 + k_3(1-e^{-k_2u}))I \label{eq:I} \\
+  T_M' &= a_1T_I(t-\tau) - (d_3 + a_4 + c_3I)T_M \notag \\
+       &\quad - k_1(1-e^{-k_2u})T_M \label{eq:TM} \\
+  I'   &= k + \frac{\rho I(T_I+T_M)^n}{\alpha+(T_I+T_M)^n} \notag \\
+       &\quad - (c_2T_I + c_4T_M + d_1 + k_3(1-e^{-k_2u}))I \label{eq:I} \\
   u'   &= -\gamma u \label{eq:u}
 \end{align}
 
-The delay $\tau$ in Equations~\ref{eq:TI} and~\ref{eq:TM} represents the time spent by tumor cells in interphase before entering mitosis. The term $a_1T_I(t-\tau)$ captures cells that entered interphase $\tau$ time units ago and are now transitioning to division --- this is the key biological realism that ODEs cannot represent.
+The delay $\tau$ in Equations~\ref{eq:TI} and~\ref{eq:TM} represents the time spent by tumor cells in interphase before entering mitosis. The term $a_1T_I(t-\tau)$ captures cells that entered interphase $\tau$ time units ago and are now transitioning to division. This is the key biological realism that \gls{ode} models cannot represent.
 
 In Equation~\ref{eq:I}, the Michaelis-Menten term models immune stimulation by the tumor: as tumor burden increases, immune response grows up to a saturation ceiling $\alpha$. The drug term $k_3(1-e^{-k_2u})$ captures immune cell toxicity from chemotherapy.
 
