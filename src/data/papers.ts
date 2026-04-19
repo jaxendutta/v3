@@ -80,10 +80,6 @@ export const papersData: PapersData = {
                 label: "Thesis Format",
                 type: "paper",
             },
-            acm: {
-                label: "ACM Format",
-                type: "paper",
-            },
             project: {
                 label: "Linked Project",
                 type: "project",
