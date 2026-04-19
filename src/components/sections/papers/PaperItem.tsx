@@ -127,6 +127,24 @@ export const PaperItem = ({
         </div>
     );
 
+    const inlineLinksSection = docEntries.length > 0 ? (
+        <>
+            <p className="text-[10px] md:text-xs font-mono uppercase tracking-widest opacity-50">
+                Links
+            </p>
+            <div className="flex flex-wrap gap-2">
+                {docEntries.map(([key, doc]) => (
+                    <DocLink
+                        key={key}
+                        paperId={paperId}
+                        formatKey={key}
+                        doc={doc}
+                    />
+                ))}
+            </div>
+        </>
+    ) : null;
+
     return (
         <CollapsibleItem
             header={header}
@@ -147,6 +165,13 @@ export const PaperItem = ({
                         ))}
                     </div>
 
+                    {/* Links inline ABOVE abstract, mobile only */}
+                    {inlineLinksSection && (
+                        <div className="flex flex-col gap-2 md:hidden">
+                            {inlineLinksSection}
+                        </div>
+                    )}
+
                     {/* Abstract */}
                     <div>
                         <p className="text-[10px] md:text-xs font-mono uppercase tracking-widest opacity-50 mb-2">
@@ -163,22 +188,10 @@ export const PaperItem = ({
                         </p>
                     </div>
 
-                    {/* Links — inline below abstract, wraps on narrow screens */}
-                    {docEntries.length > 0 && (
-                        <div className="flex flex-col gap-2 2xl:hidden">
-                            <p className="text-[10px] md:text-xs font-mono uppercase tracking-widest opacity-50">
-                                Links
-                            </p>
-                            <div className="flex flex-wrap gap-2">
-                                {docEntries.map(([key, doc]) => (
-                                    <DocLink
-                                        key={key}
-                                        paperId={paperId}
-                                        formatKey={key}
-                                        doc={doc}
-                                    />
-                                ))}
-                            </div>
+                    {/* Links inline BELOW abstract, tablet/desktop (up to xl) */}
+                    {inlineLinksSection && (
+                        <div className="hidden md:flex flex-col gap-2 2xl:hidden">
+                            {inlineLinksSection}
                         </div>
                     )}
                 </div>
