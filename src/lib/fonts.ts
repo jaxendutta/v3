@@ -22,7 +22,7 @@ export const googleSansFlex = Google_Sans_Flex({
 
 export const googleSansCode = Google_Sans_Code({
     subsets: ["latin"],
-    style: ['normal'],
+    style: ['normal', 'italic'],
     display: "swap",
     weight: ['300', '400', '500', '600', '700'],
 });
