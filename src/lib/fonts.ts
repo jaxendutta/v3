@@ -22,14 +22,14 @@ export const googleSansFlex = Google_Sans_Flex({
 
 export const googleSansCode = Google_Sans_Code({
     subsets: ["latin"],
-    style: ['normal', 'italic'],
+    style: ['normal'],
     display: "swap",
     weight: ['300', '400', '500', '600', '700'],
 });
 
 export const notoSerif = Noto_Serif({
     subsets: ["latin"],
-    style: ['normal'],
+    style: ['normal', 'italic'],
     display: "swap",
     weight: ['300', '400', '500', '600', '700'],
 });
