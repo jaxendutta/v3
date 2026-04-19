@@ -75,7 +75,15 @@ export default function Navbar() {
         <nav
             className={`fixed left-0 right-0 top-0 z-50 p-4 text-theme mix-blend-difference ${theme === "light" && "invert"}`}
         >
-            <div className={`flex items-center justify-between ${googleSansCode.className}`}>
+            {/* Mobile Layout (equidistant tabs) */}
+            <div className={`flex md:hidden items-center justify-between w-full ${googleSansCode.className}`}>
+                {navLinks.map((link) => (
+                    <NavLink key={link.name} {...link} />
+                ))}
+            </div>
+
+            {/* Desktop Layout (split links) */}
+            <div className={`hidden md:flex items-center justify-between ${googleSansCode.className}`}>
                 <div className="flex items-center justify-between gap-6">
                     {leftLinks.map((link) => (
                         <NavLink key={link.name} {...link} />
