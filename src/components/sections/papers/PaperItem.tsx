@@ -115,7 +115,7 @@ export const PaperItem = ({
     const header = (
         <div className="flex flex-col justify-center gap-0.5 pr-2 md:pr-8">
             <div className="flex flex-wrap items-center gap-2 mb-0.5">
-                <span className=`{serifFont} italic text-base md:text-2xl leading-[1.2]`>
+                <span className={`${serifFont} italic text-base md:text-2xl leading-[1.2]`}>
                     {data.title}
                 </span>
                 <StatusBadge status={data.status} />
