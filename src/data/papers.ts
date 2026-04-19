@@ -141,7 +141,7 @@ export const papersData: PapersData = {
             "HCI",
         ],
         links: {
-            thesis: {
+            essay: {
                 label: "PDF",
                 type: "paper",
             },
