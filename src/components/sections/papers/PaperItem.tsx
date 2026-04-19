@@ -8,7 +8,7 @@ import { Paper, PaperDocument, DocumentType } from "@/types/paper";
 import { papersData } from "@/data/papers";
 import Tag from "@/components/ui/Tag";
 import CollapsibleItem from "@/components/ui/CollapsibleItem";
-import { serifFont } from "@/lib/fonts";
+import { sansFont, serifFont, serifSCFont } from "@/lib/fonts";
 import {
     HiOutlineDocumentText,
 } from "react-icons/hi";
@@ -115,13 +115,13 @@ export const PaperItem = ({
     const header = (
         <div className="flex flex-col justify-center gap-0.5 pr-2 md:pr-8">
             <div className="flex flex-wrap items-center gap-2 mb-0.5">
-                <span className={`${serifFont} italic text-base md:text-2xl leading-[1.2]`}>
+                <span className={`${serifFont} italic text-base md:text-2xl`}>
                     {data.title}
                 </span>
                 <StatusBadge status={data.status} />
             </div>
             {data.venue && (
-                <span className="font-thin text-xs md:text-base opacity-70">
+                <span className={`${sansFont} font-thin text-sm md:text-base opacity-70 md:tracking-wide`}>
                     {data.venue.join(" ✧ ")}
                 </span>
             )}

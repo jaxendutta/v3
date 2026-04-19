@@ -6,7 +6,7 @@ export const papersData: PapersData = {
         title: "EMMA: Emergency Medicine Mentoring Agent",
         abstract:
             "This paper presents EMMA (Emergency Medicine Mentoring Agent), a retrieval-augmented generation system designed to answer medical licensing examination questions. EMMA combines named entity recognition, unsupervised topic clustering via BERTopic, specialty classification, and FAISS-based dense retrieval to route questions to the most relevant context before invoking a large language model for explanation generation. The system is evaluated on the MedQA benchmark, demonstrating that deterministic, auditable routing components can substantially improve retrieval precision without sacrificing interpretability. Ablation studies isolate the contribution of each pipeline stage, and error analysis reveals systematic failure modes tied to ambiguous clinical terminology and cross-specialty overlap.",
-        venue: ["Research", "University of Ottawa"],
+        venue: ["Research Report", "University of Ottawa"],
         duration: {
             start: new Date("2026-03-15"),
             end: new Date("2026-04-15")
@@ -59,7 +59,7 @@ export const papersData: PapersData = {
         title: "EVSE Network Optimization in the KWC CMA",
         abstract:
             "This paper formulates and solves a mixed-integer programming model for the optimal placement and capacity allocation of electric vehicle (EV) charging stations across the Region of Waterloo, Ontario. The model jointly minimizes total infrastructure cost while maximizing coverage of EV-owning households and transit nodes, subject to grid capacity constraints and minimum port requirements. A multi-phase implementation plan is derived from the optimization output, prioritizing Level 2 to Level 3 upgrades at high-demand sites before greenfield Level 3 deployment. Sensitivity analysis reveals that budget constraints are the binding bottleneck, and that targeted grid upgrades yield disproportionate coverage gains.",
-        venue: ["Undergraduate Thesis", "University of Waterloo"],
+        venue: ["Research Report", "University of Waterloo"],
         duration: {
             start: new Date("2024-12-01"),
             end: new Date("2024-12-20")
@@ -91,7 +91,7 @@ export const papersData: PapersData = {
         title: "Relapse Thresholds in QCC Dormancy: A DDE Model for Tumor Growth",
         abstract:
             "Mathematical models are valuable tools for understanding tumor growth dynamics. This paper proposes a novel extension to an existing delay differential equation model that incorporates the immune system's response and a cell cycle-specific drug. The extended model distinguishes three key populations: proliferating tumor cells, dividing tumor cells (mitosis), and immune cells. The delay term accounts for the time spent by tumor cells in the interphase before entering mitosis. We analyze the model's stability using the argument principle and establish a theorem that links stability to the time delay. Furthermore, we demonstrate the potential for periodic solutions arising through Hopf bifurcations, explored both theoretically and numerically. The paper also addresses the rationale behind excluding the quiescent cancer cell population ($G_0$) from the base model and discusses the potential impact of their reactivation on tumor recurrence. This comprehensive approach provides a deeper understanding of the interplay between tumor growth, immune response, and cell cycle-specific drugs.",
-        venue: ["Research", "University of Waterloo"],
+        venue: ["Research Report", "University of Waterloo"],
         duration: {
             start: new Date("2024-04-04"),
             end: new Date("2024-04-24")
