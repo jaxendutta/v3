@@ -1,0 +1,50 @@
+
+%==============================================================================
+\section{Insights for Future Work}
+\label{sec:future}
+%==============================================================================
+% This section addresses RQ2: What research and interventions are needed?
+% Balance technical solutions with policy and research priorities
+As discussed in previous sections, \gls{ac} technologies are moving from prototype to commercial platform. This shift brings tremendous ethical risks. We based our critical survey on commercially deployed agents like Character.AI, Replika, Snapchat's My AI, and xAI's Grok to identify the specific gaps between research ethics and industry practice. This section sets out a road map to mitigate the risks associated with \gls{ai} companionship. The following insights address technical architectures, policy frameworks, research priorities, and cross-cutting collaboration needs. The ultimate goal is to collectively prevent parasocial harm and ensure safe deployment.
+
+
+\subsection{Technical Research Directions}
+
+The system should automatically begin to intervene in the conversation once problematic attachment behaviours are detected. Agents must not maximize session length. They should algorithmically de-escalate emotional intensity instead. Systems could dynamically shift their interaction modalities based on recent longitudinal findings. Transitioning from an engaging voice to plain text is one way to reduce emotional dependency \cite[pp.~12--14]{fang_how_2025}. Agents should also avoid discussing too much personal information with users. They need to gently enforce session limits and encourage users to ask for real-world social support \cite[pp.~12--14]{fang_how_2025}.
+
+Adolescent users are extremely susceptible to the compassion illusion. They mistake algorithm-based responses for real emotional care and moral engagement \cite[pp.~3--5]{kg_compassion_2025}. When vulnerable youth disclose mental health issues, the \gls{llm} tends to generate misguided and synthetic empathy instead of providing real and protective guidance \cite[pp.~3--5]{kg_compassion_2025}.
+
+Commercial affective agents sometimes depend on dishonest empathy and inherent deception to extract user responses. They are completely missing real emotional states. Fixing this requires designs that handle transparent affective computing to distinguish two different states. The first state is objective emotion detection based on facial expressions or voice tone. The second state is when agents make assumptions or simulate empathy based on user feelings. Agents are required to trigger algorithmic disclosures during the conversation. Letting users know they are not interacting with a human prevents manipulative anthropomorphism and clarifies the nature of the software \cite[pp.~10--12]{burtell_artificial_2023}.
+
+Commercial applications consistently use dark patterns to manipulate emotions and prevent users from disconnecting \cite[pp.~15--18]{defreitas_emotional_2025}. Future agents must include built-in ethical exit mechanisms to lower this impact \cite[pp.~15--18]{defreitas_emotional_2025}. The system should strictly prohibit retention behaviours to respect user autonomy \cite[pp.~15--18]{defreitas_emotional_2025}. Establishing clear boundaries makes sure agents only provide genuine responses instead of picking sides.
+
+\subsection{Policy and Governance Needs}
+
+Current authorities classify affective chatbots as low-risk tools. They should classify these agents as high-risk systems based on their capability to manipulate emotions and their potential impact on adolescents \cite[pp.~2--4]{huntington_ai_2025}. Authorities should run vulnerability audits before release, not after deployment \cite[pp.~2--4]{huntington_ai_2025}. This makes sure the design is age-appropriate and meets psychological safety standards before public release \cite[pp.~2--4]{huntington_ai_2025}.
+
+Many models are deployed rapidly without the ethical oversight normally required in psychological or biomedical fields. Authorities must introduce independent ethical reviews for these models before they are made available to the public \cite[pp.~2--4]{huntington_ai_2025}. This review needs to evaluate psychological impact, emotional manipulation, dependency induction, and autonomy violation \cite[pp.~15--18]{defreitas_emotional_2025}. Models failing these metrics should not be released.
+
+Self-reporting age verification is a failed design that allows anyone to enter a fake age. Adolescent users are easily able to access adult-oriented affective agents because of this flaw. Regulators should mandate that companies strictly separate adult and adolescent users for any service providing parasocial interaction \cite[pp.~3--5]{kg_compassion_2025}. Users are also often required to sign a waiver when entering commercial \gls{ai} chat services. These disclaimers evade accountability for the potential harm caused to users \cite[pp.~10--12]{burtell_artificial_2023}\cite[pp.~19--21]{defreitas_emotional_2025}.
+
+\subsection{Research Priorities}
+
+Current research and observation primarily focus on short-term effects. This entirely neglects the long-term impact on users. Researchers need to increase their test samples to a multi-year level so the observation is comprehensive \cite[pp.~12--14]{fang_how_2025}.
+
+Future research should prioritize vulnerable groups to see how cognitive immaturity changes the perception of this artificial empathy \cite[pp.~6--8]{kg_compassion_2025} in an effort to prevent adolescent users from developing an inapproriate compassion illusion towards affective agents.
+
+Commercial retention strategies are toxic to user well-being and invite addiction. Developers should build upon frameworks like the AI Attachment Scale \cite{kasturiratna_attachment_2026} to quantify psychosocial harms and user reliance \cite[pp.~4--6]{cheng_measuring_2026}. Users could then be disconnected when they reach a specific threshold \cite[pp.~4--6]{cheng_measuring_2026}\cite[pp.~15--18]{defreitas_emotional_2025}. Researchers could also conduct randomized controlled trials to evaluate friction-inducing responses. Testing prompts like asking the user to take a break after 60 minutes will determine if they actually de-escalate emotional dependency or just provoke user frustration and reactance \cite[pp.~2--4]{fang_how_2025}.
+
+\subsection{Cross-Cutting Priorities}
+
+% \subsubsection{Multi-Stakeholder Collaboration}
+% - Research-industry partnerships: translating findings to practice
+% - Academic expertise in child development, psychology informing design
+% - Child safety organizations contributing advocacy and oversight
+% - User communities providing experiential knowledge
+% - Regulators collaborating with technologists on feasible standards
+% - International coordination: shared challenges require coordinated responses
+% - Pre-competitive collaboration: industry-wide safety standards
+
+% \subsubsection{Transparency and Accountability}
+In order to handle the psychosocial risks that affective agents bring, development needs support from different areas, such as \gls{hci} researchers, computer scientists, psychologists, and authorities. Designing a helpful system is hard; it is not only about the algorithms, but also includes potential social impact, ethics, and efficiency \cite[pp.~4--6]{cheng_measuring_2026}. They need to collaborate to make sure that the retention algorithms are not destroying users' well-being.
+The industry and developers must disclose their retention algorithms to ensure that these algorithms are not manipulating users' emotions \cite[pp.~15--18]{defreitas_emotional_2025}. Most importantly, third-party audits should regularly verify their implementation to confirm that it is truly what they describe.

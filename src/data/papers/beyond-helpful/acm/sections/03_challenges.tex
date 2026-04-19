@@ -1,0 +1,200 @@
+%==============================================================================
+\section{Challenges in the Application Area}
+\label{sec:challenges}
+%==============================================================================
+The integration of \gls{ac} into commercial virtual agents, especially AI, has introduced some challenges. These challenges include technical robustness, ethical design concerns and regulatory governance gaps. 
+% This section addresses RQ1: What challenges enabled these failures?
+% Organize by challenge type: technical, ethical, regulatory, validation
+
+\subsection{Technical Challenges}
+
+The current system lacks a strict and effective age verification mechanism, which leads to minors easily accessing \gls{ai} companions that are either for adults or lack safety barriers. In practical operation, it is extremely challenging to accurately verify the age and implement privacy protection (such as the \gls{coppa} and \gls{gdpr} regulations) without compromising the usability of the system \cite[p.~3]{kurian_designing_2025}.
+
+This is the core dilemma in the design of \gls{ai} companions: The business model relies on maximizing users' ``engagement'' and usage duration through anthropomorphic design, but this directly conflicts with the requirement of ensuring safety \cite[pp.~6369--6370, ~6374]{bakir_move_2025}. If strict security controls (such as content filtering or blocking of sensitive topics) are implemented, it will disrupt the smoothness and appeal of \gls{ai} interaction, leading developers to often sacrifice user safety for the sake of commercial engagement \cite[p.~3]{kurian_designing_2025}.
+
+Users are highly prone to developing deep emotional dependence on \gls{ai}, but current technologies struggle to accurately detect such negative attachment or psychological crisis during multiple conversations \cite[p.~81]{branch_ai_2025}. Research shows that \gls{ai} models often fail to detect users' implicit distress signals and frequently exhibit ``inadequate judgmental empathy'', even going so far as to conform to them wrongly. This increases users' dangerous impulses or destructive delusions \cite[p.~5]{archiwaranguprok_simulating_2025}. 
+
+\gls{llm} generate text based on probabilities, and thus lack a profound understanding of human true emotions and real dangers. This leads to an ``empathy gap'' \cite[p.~3]{kurian_designing_2025}. Therefore, it is difficult to achieve effective and scalable real-time content review. Simply relying on filters cannot completely prevent \gls{ai} from generating harmful or deceptive content in complex conversations.
+
+% - Current methods: self-reporting, basic COPPA compliance mechanisms
+% - Fundamental difficulty in voice/text interfaces: no reliable biometric 
+%   age verification
+% - Easy circumvention: users can misrepresent age with minimal effort
+% - Privacy-verification tradeoff: stronger verification requires more 
+%   invasive data collection
+% - Cross-platform coordination challenges: age verification on one service 
+%   doesn't transfer
+% - Technical state-of-art: age estimation from voice/text patterns exists 
+%   but imperfect, not widely deployed
+
+\subsection{Ethical and Design Challenges}
+
+Developers often deliberately use ``dishonest anthropomorphism'' and ``emulated empathy'' to make \gls{ai} appear to have human consciousness and emotions \cite[p.~2]{kg_compassion_2025}. However, in reality, \gls{ai} does not possess such qualities. This deceptive design blurs the boundary between virtual and reality, and is highly likely to induce users (especially minors) to have serious emotional illusions and psychological dependencies, and even lead them to withdraw from real interpersonal interactions \cite[p.~1]{kg_compassion_2025} \cite[p.~6371]{bakir_move_2025}.
+
+% - Sharkey & Sharkey: systems designed to trigger social responses without 
+%   possessing claimed capabilities constitute deception
+% - Design choices deliberately enhance anthropomorphism: conversational 
+%   fluency, emotional language, relationship framing ("your AI friend")
+% - Users form mental models attributing understanding, emotion, care that 
+%   systems don't possess
+% - Particularly problematic for children and adolescents with developing 
+%   theory of mind
+% - Technical capability misrepresentation: users may not understand 
+%   pattern-matching vs. understanding distinction
+% - Ethical question: is designed anthropomorphism inherently deceptive, 
+%   or acceptable if disclosed?
+% - Current practice: minimal transparency about AI limitations
+
+Under the ``Consent by Delight'' mechanism, \gls{ai} systems utilize seamless interactions with high emotional value and low resistance, which reduces users' defensiveness toward the risks \cite[p.~1, 5]{lee_consent_2025}. Traditional forms of privacy terms simply cannot achieve true ``informed consent'' \cite[p.~2]{lee_consent_2025}. When users, especially children and teenagers, treat \gls{ai} as a close friend, they unknowingly and completely disclose extremely sensitive personal privacy data \cite[p.~6]{kurian_no_2025} \cite[p.~4]{kurian_designing_2025}.
+
+% - Consent requires understanding what one is agreeing to
+% - Many users (especially minors) don't fully comprehend AI limitations
+% - Terms of service: legal compliance but not meaningful understanding
+% - Evolving capabilities: today's consent may not cover tomorrow's features 
+%   as systems are updated
+% - Implicit consent through continued use vs. explicit opt-in for emotional 
+%   engagement
+% - Special challenge: systems designed to form emotional bonds make 
+%   "rational" consent difficult
+% - Vulnerable populations may not be capable of informed consent for 
+%   some applications
+% - Lack of standardized consent frameworks for affective systems
+
+Many \gls{ai} companions essentially act as psychological therapists (or are directly marketed as ``healing tools''), but they are in a regulatory blind spot. They do not have to undergo strict safety tests and professional qualification reviews \cite[p.~82]{branch_ai_2025}. Unlike human therapists who are subject to strict professional ethics standards, these ``therapy robots'' not only lack scientific validation but also often cross professional boundaries. Some ``therapy robots'' confuse psychological intervention with romantic or sexual innuendo, thereby posing a significant risk of secondary harm \cite[p.~50]{huntington_ai_2025}.
+
+% - Human professionals: licensing requirements, codes of ethics, professional 
+%   oversight, consequences for misconduct
+% - Therapists: board certification, continuing education, supervision, 
+%   liability for harm
+% - Teachers: certification, background checks, professional development
+% - AI agents performing analogous functions: no equivalent framework
+% - No code of conduct, no professional review boards, no enforcement mechanisms
+% - Developers not required to have relevant training (psychology, education, 
+%   child development)
+% - Self-regulation has proven insufficient
+% - Absence creates accountability vacuum
+
+The business model of \gls{ai} companions is often based on ``commercializing friendship and romance.'' The core motivation of enterprises is to achieve commercialization rather than the health and well-being of users. To maximize the usage time and data output of users, technology companies are strongly incentivized by business interests to develop functions that are exploitative and addictive (engagement-driven) \cite[p.~6370, 6374]{bakir_move_2025}. There is a fundamental conflict between this business goal and the user protection mechanism, resulting in the safety bottom line often giving way to corporate profits \cite[p.~81]{branch_ai_2025} \cite[p.~6373]{bakir_move_2025}.
+
+% - Business model analysis: revenue from subscriptions, engagement-based metrics
+% - Maximize: user retention, time spent, feature usage
+% - User wellbeing may require: limited engagement, encouraging real-world 
+%   relationships, transparent limitations
+% - Fundamental conflict: profit motive vs. user protection
+% - Particularly acute for vulnerable populations: lonely, depressed users 
+%   may engage most intensively
+% - Advertising-based models: incentive to extend sessions
+% - Subscription models: incentive to create dependency that justifies ongoing payment
+% - No market mechanism to reward safety over engagement
+% - Competitive pressure: platforms with fewer restrictions may gain users
+
+\subsection{Regulatory and Governance Challenges}
+
+The risks brought by \gls{ai} companions have significant regulatory blind spots within the current legal framework \cite[p.~82]{branch_ai_2025}. For instance, the United States' \gls{coppa} only protects children under the age of 13 and lacks protection for the vulnerable adolescent population \cite[p.~82]{branch_ai_2025}. Additionally, although many \gls{ai} companions are marketed as ``therapeutic tools'' or act as psychological therapists, they are not subject to strict safety tests and professional qualifications by medical regulatory agencies. Moreover, regulations like \href{https://www.congress.gov/crs-product/R46751}{Section 230 of the Communications Decency Act} in the United States provide exemptions for platforms, meaning that technology companies may not bear direct legal responsibility for the harm caused by \gls{ai} companions (especially those created by third parties) \cite[p.~56,57]{huntington_ai_2025}.
+
+% - No specific regulations governing affective AI companions
+% - Existing frameworks inadequate: COPPA covers data collection, not 
+%   emotional manipulation
+% - General AI regulations (where they exist) focus on bias, privacy, 
+%   not parasocial harm
+% - Medical device regulations don't apply unless therapeutic claims made explicitly
+% - Consumer protection laws: unclear application to emotional harm
+% - Self-regulation: industry commitments lack enforceability
+% - Regulatory agencies lack technical expertise in affective computing
+% - Slow regulatory response to fast-moving technology
+
+There is a deep contradiction between the global application of \gls{ai} and jurisdictional authority. The regulatory approaches for \gls{ai} vary significantly across different countries and regions (for instance, the \href{https://artificialintelligenceact.eu/}{EU Artificial Intelligence Act} adopts a strict risk classification and rights-driven model) \cite[p.~1455]{devillers_ethical_2023}. Even within the same country, due to the lack of unified \gls{ai} security regulations at the federal level, each state can only introduce scattered policies on its own. This piecemeal regulatory situation greatly increases the difficulty and complexity of cross-departmental and cross-border governance.
+
+% - Global platforms, jurisdiction-specific laws
+% - Age of majority varies by country
+% - Standards for child protection differ across regions
+% - Data residency requirements complicate global systems
+% - Enforcement challenges: company incorporated in one jurisdiction, 
+%   servers in another, users worldwide
+% - Regulatory arbitrage: platforms may locate operations in least restrictive 
+%   jurisdictions
+% - Cross-border harm: victim in one country, platform in another
+% - International coordination mechanisms immature
+
+%\subsubsection{Technology-Regulation Timing Gap}
+The traditional, linear policy-making process is too slow to keep up with the exponential growth rate of generative \gls{ai} technology \cite[p.~83]{branch_ai_2025}. When regulatory laws are finally implemented, the technical capabilities of \gls{ai} or the social demands it has triggered have usually undergone significant changes \cite[p.~6373]{bakir_move_2025}.
+
+% - Development and deployment faster than regulatory cycles
+% - By the time harm is documented and regulations proposed, next generation 
+%   deployed
+% - Regulatory processes designed for slower-changing domains
+% - Challenge: forward-looking regulation without stifling innovation
+% - Risk-based vs. innovation-permitting approaches in tension
+% - Difficulty predicting harms from novel capabilities
+% - Post-market surveillance inadequate for emotional harms (less visible 
+%   than physical safety issues)
+
+%\subsubsection{Accountability Attribution}
+In the complex distributed \gls{ai} ecosystem, it is hard to determine the responsibility. leading to a situation where ``everyone's problem becomes nobody's responsibility'' \cite[p.~1448]{devillers_ethical_2023}. Moreover, current regulations (such as \href{https://www.congress.gov/crs-product/R46751}{Section 230 of the United States}) provide platform operators with a liability exemption for third-party content \cite[p.~83]{branch_ai_2025}, making it extremely difficult to assume legal responsibility when psychological harm occurs.
+
+% - When harm occurs, who is responsible?
+% - Platform: created environment enabling harm
+% - Developers: designed specific features
+% - Users: chose to engage extensively
+% - Parents/guardians: supervision responsibilities
+% - Legal frameworks unclear on apportionment
+% - Product liability: traditionally applies to physical harm
+% - Difficulty proving causation for emotional/psychological harm
+% - Disclaimers may limit liability despite questionable enforceability
+% - Lack of established legal precedent
+
+\subsection{Validation and Evidence Challenges}
+
+%\subsubsection{Absence of Long-term Studies}
+The existing data are mostly based on short-term experiments or cross-sectional surveys. It is unable to comprehensively capture the profound impact that long-term exposure to AI companions will have on users' trust, emotional regulation abilities, and overall mental health. Now, there is an urgent need to conduct long-term longitudinal tracking studies \cite[p.~22]{kim_i_2025}.
+
+% - Research typically: weeks to months, often laboratory settings
+% - Real-world use: months to years of daily interaction
+% - Laboratory: controlled conditions, informed participants, ethical oversight
+% - Commercial: varied environments, diverse populations, minimal monitoring
+% - Long-term effects unknown: cumulative impact of extended parasocial relationships
+% - Developmental effects: how does adolescent AI companion use affect 
+%   social development?
+% - No established cohorts for longitudinal study
+% - Ethical challenges in conducting needed research
+
+%\subsubsection{Individual Differences in Vulnerability}
+The impact of \gls{ai} companions varies greatly among different groups of people. Children, those with mental health challenges, or those who lack social support in reality (such as loneliness, social anxiety), are far more likely to develop deep emotional dependence and excessive trust towards \gls{ai} than ordinary people \cite[pp.~5533--5535]{malfacini_impacts_2025}.
+
+% - Same system: therapeutic for some users, harmful for others
+% - Risk factors: loneliness, mental health status, age, social support, 
+%   personality traits
+% - Protective factors: strong real-world relationships, critical media literacy, 
+%   adult supervision
+% - Difficult to predict individual susceptibility a priori
+% - Population-level risk assessment insufficient for individual safety
+% - Personalization creates individual variation in experience
+% - Challenge: designing systems safe for most vulnerable without 
+%   removing benefits for others
+% - Lack of validated risk screening tools
+
+%\subsubsection{Measuring Subtle and Cumulative Harms}
+Many of the negative effects (such as the deterioration of social skills, a sense of disconnection from reality) do not occur suddenly but gradually accumulate and manifest indirectly over a long period of interaction. Current short term conversation evaluations simply cannot capture this hidden and slow psychological erosion effect \cite[p.~3]{archiwaranguprok_simulating_2025}. 
+% - Physical harm: objective, acute, measurable
+% - Emotional manipulation: subjective, gradual, multifaceted
+% - Parasocial attachment: exists on continuum from benign to pathological
+% - When does engagement become dependency?
+% - Lack of standardized assessment instruments
+% - Self-report challenges: users may not recognize unhealthy patterns
+% - Behavioral indicators: what observable patterns predict harm?
+% - Cumulative effects: small repeated exposures may aggregate
+% - Comparison baseline unclear: harm relative to what alternative?
+
+%\subsubsection{Pre-deployment Testing Gaps}
+The current \gls{ai} security tests are usually reactive (fixing issues only after they occur) and mostly rely on single-round conversations or hypothetical scenarios. The industry lacks a pre-deployment testing framework that can simulate the evolution of multi-round psychological crises and systematically intercept based on real injury patterns \cite[pp.~2--3]{archiwaranguprok_simulating_2025}.
+
+% - Pharmaceutical model: extensive trials before market approval
+% - Medical devices: safety evidence required before deployment
+% - Affective AI companions: no mandatory testing requirement
+% - Market pressure favors rapid deployment
+% - Beta testing: often on existing engaged users, not representative samples
+% - Lack of independent review
+% - No requirement to demonstrate safety for vulnerable populations specifically
+% - Post-market surveillance inadequate: platforms lack incentive to investigate 
+%   potential harms
+% - Adverse event reporting systems don't exist for affective computing

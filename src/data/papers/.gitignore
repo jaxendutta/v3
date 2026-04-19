@@ -1,23 +1,2 @@
 # LaTeX Output
-*.aux
-*.bbl
-*.blg
-*.brf
-*.cut
-*.fdb_latexmk
-*.fls
-*.glg
-*.glg-abr
-*.glo
-*.glo-abr
-*.gls
-*.gls-abr
-*.idx
-*.ist
-*.lof
-*.log
-*.lot
-*.out
-*.symbols-glo
-*.synctex.gz
-*.toc
+out/

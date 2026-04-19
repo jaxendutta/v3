@@ -29,6 +29,32 @@ export const papersData: PapersData = {
         },
     },
 
+    "beyond-helpful": {
+        title: "Beyond Helpful: A Survey of Ethical Violations in Parasocial Companionships with AVAs",
+        abstract:
+            "The transmission of human emotional states to machines will create new possibilities to enhance educational and therapeutic standards. The wide spectrum of affective applications makes it difficult to capture their widely varying safetyrequirements into one generic framework. The real-time processing of emotional data and response generation at the commercial level faces multiple challenges during unsupervised real-world scenarios. This article identifies specific obstacles while presenting a critical survey of commercially deployed affective virtual agents. The distinguished features of this survey are as follows: first, it targets documented safety failures and boundary violations to define the gap between research ethics and industry practice; second, deployment data is collected from recent incidents involving Character.AI, Replika, Snapchat's My AI, and xAI's Grok; and third, the analysis examines exact hurdles in age verification protocols and user consent mechanisms. Proposed technical interventions and future research directions collectively target the prevention of parasocial harm.",
+        venue: ["Literature Survey", "University of Ottawa"],
+        duration: {
+            start: new Date("2026-02-18"),
+            end: new Date("2026-02-27")
+        },
+        tags: [
+            "Affective Computing",
+            "AI Safety",
+            "AI Ethics",
+            "AI Governance",
+            "Virtual Agents",
+            "Parasocial Relationships",
+            "AI Governance",
+            "HCI",
+        ],
+        projectId: "beyond-helpful",
+        links: {
+            acm: { label: "ACM Format", type: "paper" }
+        },
+    },
+
+
     "evse-opt": {
         title: "EVSE Network Optimization in the KWC CMA",
         abstract:

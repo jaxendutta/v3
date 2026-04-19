@@ -1,0 +1,22 @@
+%==============================================================================
+\section{Introduction}
+%==============================================================================
+
+\gls{ac} is a multidisciplinary research that studies human sensing and emotion extraction through multimodal tracking \cite[p.~250]{picard_affective_1997}. This includes facial, vocal, physiological, and text-based signals. With the growing area of \gls{ac} many researchers have fostered their interest to integrate such a technology in conversational \gls{ai} systems. Virtual agents interact with users through natural language.
+
+The potential of these virtual agents is significant for a wide spectrum of applications including educational tutoring, therapeutic support, coaching for social skills, and general companionship \cite[p.~1452]{devillers_ethical_2023}\cite[p.~3]{kurian_designing_2025}. Picard \cite[p.~1]{picard_affective_1995} proposed the foundational work. The implementation of affective operations requires real-time processing of massive data. We observe a rapid transition from research prototypes to commercial platforms. These platforms currently serve millions of users \cite[p.~5527]{malfacini_impacts_2025}.
+
+The deployment of \gls{avas} introduces specific obstacles at the ethical level \cite[p.~6]{lee_consent_2025}. A known problem is that the exact mechanisms which build human-machine rapport also permit user manipulation. Humans often assign mental states to software that shows emotion-like outputs. Malfacini \cite[p.~5535]{malfacini_impacts_2025} defines this psychological reaction as anthropomorphism. The resulting trust proves useful in controlled clinic and tutoring setups. Yet, unsupervised use of this trust causes exploitation and dependency \cite[p.~80]{branch_ai_2025}.
+
+We observe a clear divide between research testing and commercial system operation. Researchers evaluate their agents inside laboratories. These tests use informed subjects. Commercial networks run with almost zero constraints. They deploy to varied user groups. Profit dictates their operation. We note a primary difference in their objective functions. Research models target validated outcomes. Commercial platforms optimize solely for engagement metrics. Devillers and Cowie \cite[p.~1454]{devillers_ethical_2023} state that these architectures rely on inherent deception. Designers build them to extract social responses, but the software lacks actual emotional states. Moving these applications from the laboratory into long-term public use produces documented user harm \cite[p.~16]{zhang_dark_2025}\cite[p.~6373]{bakir_move_2025}.
+
+This paper presents a critical survey of commercially deployed \gls{avas}. Unlike many of its predecessors, this survey targets the safety failures and boundary violations occurring in these commercial systems \cite[p.~621, ~626--627]{kurian_no_2025}. We mainly focus on platforms engineered for extended emotional engagement \cite[p.~3]{zhang_dark_2025}. These include AI companions, chatbots, and virtual assistants. Throughout this paper we will define the population of concern. This group involves vulnerable users such as minors \cite[p.~2]{kurian_designing_2025}\cite[p.~4]{kim_i_2025}, socially isolated individuals \cite[p.~80]{branch_ai_2025}, and those with mental health vulnerabilities \cite[p.~6]{sobowale_evaluating_2025}.
+
+We formulate two research questions to guide our survey:
+
+\begin{itemize}
+    \item \textbf{RQ1:} What technical, ethical, and regulatory hurdles have enabled safety failures in commercial \gls{avas}?
+    \item \textbf{RQ2:} What research directions and design interventions are necessary to solve these problems?
+\end{itemize}
+
+The rest of this document proceeds as follows. Section \ref{sec:survey} surveys validated applications alongside documented failures to establish empirical bounds. Section \ref{sec:challenges} dissects the exact obstacles to resolve the first research question. Section \ref{sec:future} outlines necessary technical interventions and future research trajectories to answer the second research question. Section \ref{sec:conclusion} summarizes the results.
