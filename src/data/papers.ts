@@ -122,6 +122,33 @@ export const papersData: PapersData = {
         },
     },
 
+    "a-symphony-of-safeguards": {
+        title: "A Symphony of Safeguards: The Case for Multi-Layered AI Regulation",
+        abstract:
+            "Artificial Intelligence is rapidly transforming consequential domains, from facial recognition in law enforcement to clinical decision support in healthcare, raising urgent questions about how, or whether, to regulate it. This essay argues that no single regulatory mechanism is adequate: transparency requirements, accountability frameworks, risk-stratified oversight, and meaningful human control are each necessary but independently insufficient. This essay advances a multi-layered approach that harmonizes these four pillars into a coherent governance architecture, drawing on emerging regulatory frameworks and empirical evidence from algorithmic decision-making. The essay evaluates the benefits and limitations of this approach, emphasizing that effective AI governance requires continuous adaptation, international coordination, and substantive public engagement.",
+        venue: ["Academic Essay", "University of Waterloo"],
+        duration: {
+            start: new Date("2024-01-01"),
+            end: new Date("2024-01-10")
+        },
+        tags: [
+            "Ethics",
+            "AI Regulation",
+            "AI Governance",
+            "Transparency",
+            "Accountability",
+            "Risk Stratification",
+            "Human Control",
+            "HCI",
+        ],
+        links: {
+            essay: {
+                label: "PDF",
+                type: "paper",
+            },
+        },
+    },
+
     "holistic-fairness": {
         title: "Holistic Fairness: Why Neither Equality Nor Process Is Enough",
         abstract:
