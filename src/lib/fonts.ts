@@ -2,7 +2,8 @@
 import {
     Major_Mono_Display,
     Google_Sans_Flex,
-    Google_Sans_Code
+    Google_Sans_Code,
+    Noto_Serif
 } from "next/font/google";
 
 export const majorMono = Major_Mono_Display({
@@ -26,6 +27,14 @@ export const googleSansCode = Google_Sans_Code({
     weight: ['300', '400', '500', '600', '700'],
 });
 
+export const notoSerif = Noto_Serif({
+    subsets: ["latin"],
+    style: ['normal'],
+    display: "swap",
+    weight: ['300', '400', '500', '600', '700'],
+});
+
 export const headingFont = majorMono.className;
 export const displayFont = majorMono.className;
 export const codeFont = googleSansCode.className;
+export const serifFont = notoSerif.className;
