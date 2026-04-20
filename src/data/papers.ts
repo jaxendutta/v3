@@ -149,6 +149,33 @@ export const papersData: PapersData = {
         },
     },
 
+    "healing-the-algorithm": {
+        title: "Healing the Algorithm: The Case for Comprehensive Metrics and Explainable AI in Healthcare Allocation",
+        abstract:
+            "Widely deployed risk-stratification tools have been shown to encode racial and socioeconomic bias, primarily because they conflate healthcare cost with healthcare need. This essay proposes two concrete technical reforms: replacing cost-based risk scores with a comprehensive, multi-dimensional health-metrics framework updated continuously via reinforcement learning, and embedding explainable AI and independent auditing mechanisms directly into the algorithm's architecture so that every allocation decision can be inspected, contested, and corrected in real time. The essay argues that these reforms are preferable to alternatives such as demographic re-weighting or post-hoc bias correction, which treat symptoms rather than causes.",
+        venue: ["Academic Essay", "University of Waterloo"],
+        duration: {
+            start: new Date("2024-01-27"),
+            end: new Date("2024-01-29")
+        },
+        tags: [
+            "Ethics",
+            "Algorithmic Bias",
+            "Health Equity",
+            "Explainable AI",
+            "Machine Learning",
+            "Auditing",
+            "Risk Stratification",
+            "HCI",
+        ],
+        links: {
+            essay: {
+                label: "PDF",
+                type: "paper",
+            },
+        },
+    },
+
     "holistic-fairness": {
         title: "Holistic Fairness: Why Neither Equality Nor Process Is Enough",
         abstract:

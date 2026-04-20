@@ -1,0 +1,61 @@
+\documentclass[11pt,showkeys]{../../shared/essay}
+
+% Optionally override the glossary file for this paper (uncomment if needed)
+% \renewcommand{\glossaryfile}{../glossaries}
+
+\begin{document}
+
+\title{\textit{Healing the Algorithm:}\\
+The Case for Comprehensive Metrics and XAI in Healthcare Allocation}
+
+\author{Jaxen Dutta}
+  \email[]{jaxen.dutta@uwaterloo.ca}
+  \affiliation{David R. Cheriton School of Computer Science,\\
+  University of Waterloo, Waterloo, Ontario, Canada}
+
+\date{January 29, 2024}
+
+\begin{abstract}
+In the evolving landscape of healthcare, the integration of algorithms to allocate resources has become both a boon and a challenge. Widely deployed risk-stratification tools have been shown to encode racial and socioeconomic bias, primarily because they conflate healthcare cost with healthcare need. This essay proposes two concrete technical reforms. First, replacing cost-based risk scores with a comprehensive, multi-dimensional health-metrics framework that accounts for chronic illness, pre-existing conditions, and socioeconomic determinants, updated continuously via reinforcement learning. Second, embedding explainable AI and independent auditing mechanisms directly into the algorithm's architecture, so that the basis for every allocation decision can be inspected, contested, and corrected in real time. The essay argues that these two reforms are preferable to alternatives such as demographic re-weighting or post-hoc bias correction, which treat symptoms rather than causes. Together they prioritize transparency, adaptability, and fairness, providing a robust foundation for healthcare decision-making that genuinely serves a diverse population.
+\end{abstract}
+
+\keywords{healthcare algorithms, algorithmic bias, risk stratification, explainable AI, fairness, auditing, health equity, machine learning, reinforcement learning}
+
+\maketitle
+
+\section{Introduction}
+
+In the evolving landscape of healthcare, the integration of algorithms to allocate resources has become both a boon and a challenge. Obermeyer et al.~\cite{obermeyer_dissecting_2019} demonstrated that a widely deployed commercial risk-stratification tool systematically underestimated the health needs of Black patients by using healthcare cost as a proxy for health need, a flaw that halved the proportion of Black patients referred for high-risk care programs. Ledford~\cite{ledford_millions_2019} estimated the downstream effect at millions of affected individuals. These findings reveal not an isolated defect but a structural failure in how algorithmic risk is conceived and governed. This essay proposes two concrete technical changes to the healthcare allocation algorithm discussed in the readings, focusing on enhancing fairness, accuracy, and inclusivity in healthcare decision-making.
+
+\section{From Cost to Comprehensive Health Metrics}
+
+The first proposed technical change involves a fundamental shift in how the algorithm assigns risk scores to patients, basing it on comprehensive health metrics rather than proxy economic data. The core flaw identified by Obermeyer et al.~\cite{obermeyer_dissecting_2019} is that cost correlates with health need differently across racial groups: Black patients incur lower costs than equally sick White patients due to systemic barriers to access, so the algorithm interprets lower spending as lower need. To rectify this, the algorithm must undergo a profound transformation in how it assesses and categorizes patients.
+
+In lieu of the current approach, the algorithm should incorporate a comprehensive set of health metrics that extend beyond economic considerations and encompass a patient's entire health profile, including chronic illnesses, pre-existing conditions, and socioeconomic determinants. Rajpurkar et al.~\cite{rajpurkar_ai_2022} document how modern clinical \gls{ml} systems, when trained on rich multimodal data rather than administrative billing records, achieve substantially more equitable performance across demographic groups. By adopting a nuanced approach that accounts for the complexity of individual medical conditions, the algorithm can better tailor its recommendations to meet the diverse healthcare needs of the population. Moreover, this proposed change necessitates ongoing validation and adjustment. The algorithm must continuously evolve, ensuring that the selected health metrics remain reflective of the population's health diversity. Regular updates and re-evaluations are imperative to prevent the entrenchment of biases and to adapt to the dynamic nature of medical knowledge and societal changes.
+
+The redefinition of risk scores based on comprehensive health metrics also necessitates a more granular analysis of patient data. Vyas et al.~\cite{vyas_hidden_2020} warn that substituting one flawed proxy for another, such as introducing race as a correction factor, risks encoding discrimination in a different form rather than eliminating it. A genuinely comprehensive metrics approach must therefore be grounded in clinically validated indicators of need, not demographic shortcuts. Implementing reinforcement learning techniques would enable the algorithm to adjust its risk assessment criteria based on real-time data and evolving medical knowledge, ensuring it remains responsive to emerging health trends and demographic shifts and preventing the entrenchment of biases over time.
+
+\section{Explainable AI and Independent Auditing}
+
+The second proposed technical change revolves around the incorporation of \gls{xai} and auditing mechanisms to enhance transparency and accountability. Char et al.~\cite{char_implementing_2018} argue that the ethical deployment of \gls{ml} in healthcare requires not only technical accuracy but also interpretability: clinicians must be able to interrogate algorithmic recommendations, identify failure modes, and retain meaningful oversight. By integrating \gls{xai} techniques, the algorithm can provide clear, interpretable insights into the factors influencing its decisions, transforming a black box into a transparent sequence of actions understandable by healthcare professionals and the general public alike.
+
+In conjunction with \gls{xai}, the algorithm should incorporate auditing mechanisms that regularly assess its performance against predefined fairness metrics. These audits should be conducted by independent third parties to ensure objectivity. If any biases or discriminatory patterns are identified, the auditing mechanism should trigger an immediate review and adjustment of the algorithm. This involves employing techniques such as \gls{lime}~\cite{ribeiro_why_2016} to provide detailed insights into how the algorithm arrives at specific decisions for individual cases. Doshi-Velez and Kortz~\cite{doshi-velez_accountability_2017} further argue that legal accountability frameworks for \gls{ai} depend on the availability of such explanations: without them, neither regulators nor affected patients can meaningfully contest an erroneous decision. Additionally, natural language generation capabilities should be incorporated to generate human-readable explanations, fostering better understanding among healthcare professionals and patients.
+
+Furthermore, the auditing mechanisms should encompass a broader ethical scope. Audits should evaluate not only the algorithm's adherence to fairness metrics but also its alignment with ethical standards in healthcare, including the impact of algorithmic decisions on vulnerable populations, ensuring that the algorithm promotes health equity rather than exacerbating existing disparities.
+
+\section{Comparison with Alternative Approaches}
+
+\subsection{Comprehensive Health Metrics}
+
+The choice to redefine risk scores based on comprehensive health metrics addresses the root cause identified by Obermeyer et al.~\cite{obermeyer_dissecting_2019}: a structurally biased proxy variable. Alternative solutions, such as re-weighting healthcare costs based on demographic factors, might partially address the issue but risk oversimplifying the complexity of health disparities. As Vyas et al.~\cite{vyas_hidden_2020} caution, demographic correction factors can themselves become a vehicle for encoding bias when applied without rigorous clinical grounding. A comprehensive health metrics approach ensures a more accurate and equitable representation of individual health needs by targeting the data itself rather than patching the output.
+
+\subsection{Explainable AI and Auditing}
+
+Incorporating \gls{xai} and auditing mechanisms directly tackles the opacity of the algorithm's decision-making process. Alternative solutions, like post-hoc bias correction, may address biases after they occur, but they lack the proactive transparency that Doshi-Velez and Kortz~\cite{doshi-velez_accountability_2017} identify as essential for legal and ethical accountability. Char et al.~\cite{char_implementing_2018} similarly note that reactive corrections are insufficient in high-stakes clinical contexts where a single erroneous allocation can have irreversible consequences. These alternatives might not prevent the entrenchment of biases and may lead to delayed corrective actions.
+
+\section{Conclusion}
+
+Addressing discriminatory outcomes in healthcare allocation algorithms requires a multifaceted approach. The proposed changes, encompassing a redefinition of risk scores based on comprehensive health metrics and the integration of \gls{xai} and auditing mechanisms, aim to provide a robust foundation for equitable healthcare decision-making. These changes prioritize transparency, adaptability, and fairness, addressing the specific challenges identified in the readings and paving the way for a healthcare system that truly serves the diverse needs of the population. As we navigate the intersection of technology and healthcare, these technical changes serve as a testament to our commitment to a future where algorithms contribute positively to health outcomes for all.
+
+\bibliography{healing-the-algorithm}
+\end{document}
