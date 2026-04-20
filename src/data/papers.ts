@@ -149,6 +149,32 @@ export const papersData: PapersData = {
         },
     },
 
+    "rooted-in-the-land": {
+        title: "Rooted in the Land: Redesigning GPS Through Indigenous Perspectives",
+        abstract:
+            "The Global Positioning System was designed around Western cartographic conventions: standardized coordinates, abstracted overhead views, and value-neutral maps that strip landscapes of cultural meaning. This essay examines Indigenous navigation epistemologies grounded in relational knowledge of land, celestial bodies, and ecological cues, and proposes four pillars for a genuinely inclusive redesign: integration of traditional knowledge and environmental navigation cues, meaningful community co-design, built-in cultural sensitivity protections for sacred and restricted sites, and features that promote ecological interconnectedness. Two case studies, the CyberTracker project in South Africa and the Maori Maps initiative in New Zealand, demonstrate that such integration produces technology that is more accurate, culturally preserving, and community-empowering than any top-down alternative.",
+        venue: ["Academic Essay", "University of Waterloo"],
+        duration: {
+            start: new Date("2024-02-02"),
+            end: new Date("2024-02-05")
+        },
+        tags: [
+            "Ethics",
+            "Indigenous Knowledge",
+            "Participatory Design",
+            "Cultural Sensitivity",
+            "Decolonial Technology",
+            "Navigation",
+            "HCI",
+        ],
+        links: {
+            essay: {
+                label: "PDF",
+                type: "paper",
+            },
+        },
+    },
+
     "healing-the-algorithm": {
         title: "Healing the Algorithm: The Case for Comprehensive Metrics and Explainable AI in Healthcare Allocation",
         abstract:
