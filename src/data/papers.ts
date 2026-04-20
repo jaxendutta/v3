@@ -140,6 +140,34 @@ export const papersData: PapersData = {
             "Risk Stratification",
             "Human Control",
             "HCI",
+            "Human-AI Interaction",
+        ],
+        links: {
+            essay: {
+                label: "PDF",
+                type: "paper",
+            },
+        },
+    },
+
+    "handle-with-care": {
+        title: "Handle With Care: The Conditional Case for Mental Health Chatbots in Personal Treatment",
+        abstract:
+            "Mental health chatbots have emerged as a scalable and accessible complement to traditional care in a landscape defined by chronic provider shortages and persistent stigma. A growing body of randomized controlled trials and meta-analyses demonstrates that purpose-built AI chatbots can produce clinically meaningful reductions in symptoms of depression and anxiety, often through delivery of CBT-informed interventions. Yet serious concerns remain: unregulated deployment, privacy vulnerabilities, the absence of crisis detection protocols, and the risk of substituting rather than supplementing professional care. This essay takes a conditional position, arguing that a chatbot should be encouraged as a structured adjunct to professional treatment, not a replacement for it, with careful guidance about platform selection, privacy awareness, and the limits of what conversational AI can perceive and respond to.",
+        venue: ["Academic Essay", "University of Waterloo"],
+        duration: {
+            start: new Date("2024-03-01"),
+            end: new Date("2024-03-04")
+        },
+        tags: [
+            "Ethics",
+            "Mental Health",
+            "Conversational AI",
+            "Digital Health",
+            "AI Safety",
+            "Accessibility",
+            "HCI",
+            "Human-AI Interaction",
         ],
         links: {
             essay: {
@@ -193,6 +221,7 @@ export const papersData: PapersData = {
             "Auditing",
             "Risk Stratification",
             "HCI",
+            "Human-AI Interaction",
         ],
         links: {
             essay: {
@@ -218,7 +247,6 @@ export const papersData: PapersData = {
             "Procedural Justice",
             "Ethical Frameworks",
             "Case Studies",
-            "HCI",
         ],
         links: {
             essay: {
