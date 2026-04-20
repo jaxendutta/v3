@@ -150,6 +150,32 @@ export const papersData: PapersData = {
         },
     },
 
+    "data-for-whom": {
+        title: "Data for Whom: Responsible Data Collection in the Global South",
+        abstract:
+            "Technology companies from wealthy nations increasingly collect data from developing countries, presenting a double-edged opportunity: the potential for development impact alongside the risk of perpetuating extractive, neocolonial dynamics. This essay identifies six principles that should govern responsible data collection in these contexts: local context engagement and collaborative partnerships; informed consent with culturally adapted mechanisms; data minimization; local capacity building; robust data security adapted to infrastructure constraints; and fair benefit sharing with host communities. Underlying all six is a structural imperative: a conscious rejection of data colonialism, in which companies must operate as partners respecting local sovereignty rather than as external actors extracting a resource.",
+        venue: ["Academic Essay", "University of Waterloo"],
+        duration: {
+            start: new Date("2024-03-15"),
+            end: new Date("2024-03-18")
+        },
+        tags: [
+            "Ethics",
+            "Data Governance",
+            "Global Development",
+            "Informed Consent",
+            "Data Colonialism",
+            "Privacy",
+            "HCI",
+        ],
+        links: {
+            essay: {
+                label: "PDF",
+                type: "paper",
+            },
+        },
+    },
+
     "handle-with-care": {
         title: "Handle With Care: The Conditional Case for Mental Health Chatbots in Personal Treatment",
         abstract:
