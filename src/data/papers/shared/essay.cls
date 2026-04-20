@@ -2,7 +2,6 @@
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{essay}[2026/04/19 Essay class]
 
-
 % 1. Force the twocolumn option by default
 \PassOptionsToClass{twocolumn}{revtex4-2}
 
@@ -80,6 +79,11 @@
 % Custom acronym display: indent acronym entries in the list
 \setabbreviationstyle[acronym]{long-short-desc}
 
+% Reduce space above the acronym glossary header by patching the heading style
+\glssetcategoryattribute{acronym}{noindex}{true} % just in case, does not affect spacing
+\renewcommand*{\acronymname}{Acronyms}
+\renewcommand*{\glossarysection}[2][]{{\vspace*{-1em}\section*{#2}}}
+
 % 15. Print all glossaries before bibliography by default
 \pretocmd{\bibsection}{%
   \glsaddall
@@ -124,8 +128,8 @@
   \fancyhead[L]{\small\nouppercase{\removenewlines{\essaysafedtitle}}}
   % Top right: Author (\small, newlines removed)
   \fancyhead[R]{\small\nouppercase{\removenewlines{\essaysafedauthor}}}
-  % Bottom left: Date (\small, newlines removed)
-  \fancyfoot[L]{\small\removenewlines{\essaysafeddate}}
+  % Bottom left: Date (\small, italics, newlines removed)
+  \fancyfoot[L]{\small\textit{\removenewlines{\essaysafeddate}}}
   % Bottom right: Page number (normal size)
   \fancyfoot[R]{\thepage}
   % Remove header line
