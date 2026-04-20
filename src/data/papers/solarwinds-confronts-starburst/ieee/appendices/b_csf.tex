@@ -1,0 +1,51 @@
+\clearpage
+\section{NIST CSF 2.0 Critical Gap Analysis}
+\label{app:csf}
+
+% Define color codes for the maturity tiers
+\newcommand{\tierzero}{\cellcolor{red!20}\textbf{Tier 0}}
+\newcommand{\tierone}{\cellcolor{orange!20}\textbf{Tier 1}}
+\newcommand{\tierthree}{\cellcolor{green!20}\textbf{Tier 3}}
+
+\begin{table}[h]
+    \centering
+    \small
+    \renewcommand{\arraystretch}{1.4}
+    \begin{tabularx}{\linewidth}{>{\bfseries}c >{\bfseries}l >{\raggedright\arraybackslash}X c >{\raggedright\arraybackslash}X c >{\raggedright\arraybackslash}X}
+        \toprule
+        \# & CSF ID & Description & Current & Current Gaps & Target & Current Artifacts and Evidence \\
+        \midrule
+        1 & GV.OC-04 & Critical assets identified & \tierone & Build systems classified ``non-production'' despite tier-0 criticality & \tierthree & Organizational context misunderstood software vendor threat model \cite{boyens2024} \\
+        
+        2 & GV.RM-03 & Risk management approach & \tierone & Compliance-driven vs threat-informed; perimeter defense prioritized & \tierthree & ``Above industry average'' spending strategically misdirected \cite{nagle2023} \\
+        
+        3 & GV.RM-06 & Supplier risk management & \tierzero & No supplier risk assessments, no contractual security requirements & \tierthree & Complete absence enabled supply chain blind spot \cite{boyens2024} \\
+        
+        4 & GV.SC-01 & C-SCRM policy established & \tierzero & No formal C-SCRM program; dev. infra. not recognized as supply chain risk & \tierthree & Absence \cite{openhearing2021}; Post-breach implementation \cite{nagle2023} \\
+        
+        5 & GV.SC-02 & C-SCRM strategy/plan & \tierzero & No C-SCRM strategy, implementation plan, SBOM, or monitoring & \tierthree & Root cause governance failure \cite{boyens2024} \\
+        
+        6 & ID.AM-02 & Software inventory & \tierone & Build tools/infrastructure not comprehensively inventoried & \tierthree & Post-breach uncertainty about exploited components \cite{openhearing2021} \\
+        
+        7 & ID.AM-04 & Supplier service inventories & \tierzero & No SBOM for development tools or dependencies & \tierthree & Complete absence of software composition tracking \cite{boyens2024} \\
+        
+        8 & ID.AM-05 & Asset prioritization & \tierone & Build systems deprioritized based on ``non-production'' label & \tierthree & Criticality assessment failed to account for cascade impact \cite{boyens2024} \\
+        
+        9 & ID.RA-03 & Threat identification & \tierone & Supply chain compromise not in threat model & \tierthree & Nation-state supply chain targeting systematically underestimated \cite{nagle2023} \\
+        
+        10 & ID.RA-10 & Supplier assessment & \tierzero & No critical supplier identification or assessment & \tierthree & No vendor security assessments conducted pre-breach \cite{boyens2024} \\
+        
+        11 & PR.AA-03 & Authentication & \tierone & No MFA on privileged build accounts & \tierthree & ``Organization-wide MFA enforcement'' added post-breach \cite{nagle2023} \\
+        
+        12 & PR.DS-06 & Integrity checking mechanisms & \tierzero & No build integrity verification; binaries not verified & \tierthree & ``Checks compiled releases match source'' added \cite{nagle2023} \\
+        
+        13 & PR.PS-06 & Secure development & \tierzero & Development environments not hardened proportionate to criticality & \tierthree & ``Threat protection...critical focus on dev environments'' added \cite{nagle2023} \\
+        
+        14 & DE.CM-01 & Networks monitored & \tierzero & No EDR on build servers; dev excluded from monitoring & \tierthree & 7-month detection gap; external discovery \cite{nelson2025} \\
+        
+        15 & DE.CM-03 & Personnel monitoring & \tierzero & No UEBA detecting anomalous privileged account activity & \tierthree & Behavioural analytics absent; baseline deviations not detected \cite{nagle2023} \\
+        
+        16 & DE.AE-02 & Event analysis & \tierzero & No behavioral analytics for build process anomalies & \tierthree & Seven-month detection gap, ultimate failure mode \cite{nelson2025} \\
+        \bottomrule
+    \end{tabularx}
+\end{table}

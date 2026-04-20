@@ -1,0 +1,37 @@
+\section{\gls{nist} \gls{csf} 2.0 Assessment}
+
+\subsection{Maturity Evaluation}
+SolarWinds' pre-breach cybersecurity posture is assessed using \gls{nist} \gls{csf} 2.0 \cite{pascoe2024}, revealing systematic governance and control failures. The organization operated at Tier 1 (Partial) across most Functions, with critical gaps in supply chain risk management despite significant security investments.
+
+\tinypara{Current Profile:} Tier 1 (Partial) - Cybersecurity risk management informal, reactive, and inconsistently implemented.
+
+\tinypara{Target Profile:} Tier 3 (Repeatable) - Risk-informed processes, integrated cybersecurity, regularly updated based on threat intelligence.
+
+\subsection{GOVERN Function Assessment}
+SolarWinds exhibited catastrophic governance failures that cascaded systematically through all other \gls{csf} Functions.
+
+\begin{enumerate}
+    \item \tinypara{GV.OC (Organizational Context) [Inadequate]:} SolarWinds classified build systems as ``non-production'' infrastructure receiving lower security prioritization, a fundamental misunderstanding of the software vendor threat model \cite{boyens2024}.
+    \item \tinypara{GV.RM (Risk Management Strategy) [Inadequate]:} Despite ``above industry average'' security spending \cite{nagle2023}, investments were strategically misdirected toward perimeter defenses and compliance requirements.
+    \item \tinypara{GV.SC (Cybersecurity Supply Chain Risk Management) [Absent]:} The most critical governance failure. SolarWinds operated without a formal C-SCRM program per \gls{nist} SP 800-161r1, resulting in no SBOM tracking, no supplier risk assessment, and no ongoing supply chain monitoring \cite{boyens2024}.
+    \item \tinypara{GV.RR, GV.PO \& GV.OV [Inadequate]:} Organizational structure did not provide adequate authority for security leadership over engineering efficiency. Board-level cybersecurity oversight did not include supply chain risk as a regular agenda item \cite{nagle2023}.
+\end{enumerate}
+
+\subsection{IDENTIFY Function Assessment}
+\begin{enumerate}
+    \item \tinypara{ID.AM (Asset Management) [Inadequate]:} Build tools and infrastructure not comprehensively inventoried \cite{openhearing2021}.
+    \item \tinypara{ID.RA (Risk Assessment) [Inadequate]:} Supply chain compromise scenarios not included in threat modeling despite being the primary attack vector for nation-state adversaries.
+\end{enumerate}
+
+\subsection{PROTECT Function Assessment}
+\begin{enumerate}
+    \item \tinypara{PR.AA (Identity Management \& Access Control) [Inadequate]:} No \gls{mfa} enforcement on privileged build accounts \cite{nagle2023}.
+    \item \tinypara{PR.DS (Data Security) [Critical Gap]:} No build integrity verification. Compiled releases were not verified against source code \cite{nagle2023}.
+    \item \tinypara{PR.PS (Platform Security) [Inadequate]:} Development environment not hardened proportionate to criticality.
+\end{enumerate}
+
+\subsection{DETECT Function Assessment}
+\begin{enumerate}
+    \item \tinypara{DE.CM (Continuous Monitoring) [Critical failure]:} Four systematic monitoring gaps created a blind spot: no \gls{edr} on development systems, no SIEM configuration for dev logs, no \gls{ueba}, and no Network Traffic Analysis \cite{nagle2023}. External discovery after seven months represents the ultimate detection failure mode \cite{nelson2025}.
+    \item \tinypara{DE.AE (Adverse Event Analysis) [Absent]:} No behavioural analytics capabilities existed to identify deviations from established baselines \cite{nelson2025}.
+\end{enumerate}

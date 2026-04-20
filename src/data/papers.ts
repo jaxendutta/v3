@@ -54,6 +54,34 @@ export const papersData: PapersData = {
         },
     },
 
+    "solarwinds-confronts-starburst": {
+        title: "SolarWinds Confronts Starburst: A Post-Mortem Analysis of the Sunburst Campaign and Its Implications for Software Supply Chain Security",
+        abstract:
+            "The SUNBURST campaign, attributed to the APT29 group, represents a watershed moment in cybersecurity, exposing critical vulnerabilities in software supply chains. This paper provides a comprehensive post-mortem analysis of the attack, detailing the sophisticated techniques employed by the adversary, including novel code obfuscation and multi-stage payload delivery. We evaluate the attack's impact on national security, industry practices, and public awareness, and analyze the response strategies deployed by SolarWinds and affected organizations. The paper concludes with actionable recommendations for enhancing software supply chain security, emphasizing the need for proactive threat intelligence sharing, robust code integrity verification, and comprehensive incident response planning.",
+        venue: ["Research Report", "University of Ottawa"],
+        duration: {
+            start: new Date("2025-12-02"),
+            end: new Date("2025-12-12")
+        },
+        tags: [
+            "Cybersecurity",
+            "Software Supply Chain",
+            "APT29",
+            "Incident Response",
+            "Threat Intelligence",
+            "Security Analysis",
+            "NIST CSF",
+            "MITRE ATT&CK",
+            "Microsoft STRIDE",
+            "Microsoft Threat Modeling",
+            "SolarWinds",
+            "Starburst",
+        ],
+        links: {
+            ieee: { label: "IEEE Format", type: "paper" }
+        },
+    },
+
     "prompt-based-web-services-and-api-design": {
         title: "Prompt-Based Web Services and API Design: A New Paradigm for Natural Language Interfaces",
         abstract: "Large Language Models have transformed web service architecture by introducing prompt-based APIs that accept natural language instructions rather than structured parameters. This survey examines the paradigm shift from REST APIs to prompt-based services, analyzing design patterns, implementation challenges, and security considerations including prompt injection attacks. Through comparative analysis of existing literature and an AWS Bedrock implementation using Amazon Nova Micro (\$0.000035 per 1,000 input tokens), we demonstrate that intelligent model selection matching task complexity to capacity achieves substantial cost savings. Our evaluation of prompt templating, output extraction, and testing methodologies reveals that prompt-based APIs offer flexibility but introduce challenges in validation, consistency, and versioning. We propose design recommendations for hybrid architectures combining RESTful principles with prompt-based interfaces. This work provides practitioners with evidence-based guidance for integrating LLMs into production web services.",

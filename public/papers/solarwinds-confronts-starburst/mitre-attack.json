@@ -1,0 +1,263 @@
+{
+    "name": "APT29 / SolarWinds Sunburst Campaign",
+    "versions": {
+        "attack": "18",
+        "navigator": "5.1.0",
+        "layer": "4.5"
+    },
+    "domain": "enterprise-attack",
+    "description": "Tactical mapping of the SolarWinds SUNBURST supply chain compromise (C0024), executed by SVR/APT29, updated for ATT&CK v18.",
+    "filters": {
+        "platforms": [
+            "Windows",
+            "Linux",
+            "macOS",
+            "Network Devices",
+            "ESXi",
+            "Containers",
+            "IaaS",
+            "Office 365",
+            "SaaS",
+            "Google Workspace",
+            "Identity Provider",
+            "Azure AD"
+        ]
+    },
+    "sorting": 0,
+    "layout": {
+        "layout": "side",
+        "aggregateFunction": "average",
+        "showID": false,
+        "showName": true,
+        "showAggregateScores": false,
+        "countUnscored": false
+    },
+    "hideDisabled": false,
+    "techniques": [
+        {
+            "techniqueID": "T1195.002",
+            "tactic": "initial-access",
+            "color": "#e60d0d",
+            "comment": "SUNSPOT injected SUNBURST into Orion platform updates"
+        },
+        {
+            "techniqueID": "T1133",
+            "tactic": "initial-access",
+            "color": "#e60d0d",
+            "comment": "Accessed networks via VPNs and remote access tools using compromised identities"
+        },
+        {
+            "techniqueID": "T1059.001",
+            "tactic": "execution",
+            "color": "#e60d0d",
+            "comment": "PowerShell used for lateral movement and C2"
+        },
+        {
+            "techniqueID": "T1059.003",
+            "tactic": "execution",
+            "color": "#e60d0d",
+            "comment": "Executed commands via cmd.exe on remote machines"
+        },
+        {
+            "techniqueID": "T1569.002",
+            "tactic": "execution",
+            "color": "#e60d0d",
+            "comment": "Execution via trusted SolarWinds businesslayerhost.exe"
+        },
+        {
+            "techniqueID": "T1543.003",
+            "tactic": "persistence",
+            "color": "#e60d0d",
+            "comment": "Modified Windows Services for persistence"
+        },
+        {
+            "techniqueID": "T1098.001",
+            "tactic": "persistence",
+            "color": "#e60d0d",
+            "comment": "Added credentials to OAuth Applications and Service Principals in Azure AD"
+        },
+        {
+            "techniqueID": "T1098.002",
+            "tactic": "persistence",
+            "color": "#e60d0d",
+            "comment": "Added Exchange Email Delegate Permissions"
+        },
+        {
+            "techniqueID": "T1098.003",
+            "tactic": "persistence",
+            "color": "#e60d0d",
+            "comment": "Granted company administrator privileges to Service Principals"
+        },
+        {
+            "techniqueID": "T1098.005",
+            "tactic": "persistence",
+            "color": "#e60d0d",
+            "comment": "Registered devices to enable mailbox syncing via Set-CASMailbox"
+        },
+        {
+            "techniqueID": "T1055.012",
+            "tactic": "privilege-escalation",
+            "color": "#e60d0d",
+            "comment": "Process Hollowing via TEARDROP"
+        },
+        {
+            "techniqueID": "T1484.002",
+            "tactic": "privilege-escalation",
+            "color": "#e60d0d",
+            "comment": "Domain Trust Modification: Configured Azure AD to accept forged SAML tokens"
+        },
+        {
+            "techniqueID": "T1562.001",
+            "tactic": "defense-evasion",
+            "color": "#e60d0d",
+            "comment": "Disabled over 100 EDR/AV security tools"
+        },
+        {
+            "techniqueID": "T1562.002",
+            "tactic": "defense-evasion",
+            "color": "#e60d0d",
+            "comment": "Disabled Windows Event Logging via AUDITPOL"
+        },
+        {
+            "techniqueID": "T1070.004",
+            "tactic": "defense-evasion",
+            "color": "#e60d0d",
+            "comment": "File Deletion: Routinely removed custom backdoors post-access"
+        },
+        {
+            "techniqueID": "T1564.004",
+            "tactic": "defense-evasion",
+            "color": "#e60d0d",
+            "comment": "NTFS File Attributes manipulation"
+        },
+        {
+            "techniqueID": "T1027.002",
+            "tactic": "defense-evasion",
+            "color": "#e60d0d",
+            "comment": "Software Packing using custom packers"
+        },
+        {
+            "techniqueID": "T1553.002",
+            "tactic": "defense-evasion",
+            "color": "#e60d0d",
+            "comment": "SUNBURST payload signed with legitimate SolarWinds certificate"
+        },
+        {
+            "techniqueID": "T1480.001",
+            "tactic": "defense-evasion",
+            "color": "#e60d0d",
+            "comment": "Environmental Keying: Validated domain, process, and AV presence before execution"
+        },
+        {
+            "techniqueID": "T1003.001",
+            "tactic": "credential-access",
+            "color": "#e60d0d",
+            "comment": "LSASS Memory dumping"
+        },
+        {
+            "techniqueID": "T1552.004",
+            "tactic": "credential-access",
+            "color": "#e60d0d",
+            "comment": "Stole private keys to enable SAML token forgery"
+        },
+        {
+            "techniqueID": "T1606.002",
+            "tactic": "credential-access",
+            "color": "#e60d0d",
+            "comment": "SAML token forgery (Golden SAML) to access M365"
+        },
+        {
+            "techniqueID": "T1606.001",
+            "tactic": "credential-access",
+            "color": "#e60d0d",
+            "comment": "Forged Web Cookies to bypass authentication"
+        },
+        {
+            "techniqueID": "T1087.002",
+            "tactic": "discovery",
+            "color": "#e60d0d",
+            "comment": "Domain Account discovery via PowerShell"
+        },
+        {
+            "techniqueID": "T1046",
+            "tactic": "discovery",
+            "color": "#e60d0d",
+            "comment": "Network Service Scanning"
+        },
+        {
+            "techniqueID": "T1069.002",
+            "tactic": "discovery",
+            "color": "#e60d0d",
+            "comment": "Domain Groups discovery"
+        },
+        {
+            "techniqueID": "T1482",
+            "tactic": "discovery",
+            "color": "#e60d0d",
+            "comment": "Domain Trust Discovery via AdFind"
+        },
+        {
+            "techniqueID": "T1021.001",
+            "tactic": "lateral-movement",
+            "color": "#e60d0d",
+            "comment": "Lateral movement via Remote Desktop Protocol"
+        },
+        {
+            "techniqueID": "T1021.002",
+            "tactic": "lateral-movement",
+            "color": "#e60d0d",
+            "comment": "Lateral movement via SMB/Windows Admin Shares"
+        },
+        {
+            "techniqueID": "T1114.002",
+            "tactic": "collection",
+            "color": "#e60d0d",
+            "comment": "Remote Email Collection from Exchange Online"
+        },
+        {
+            "techniqueID": "T1560.001",
+            "tactic": "collection",
+            "color": "#e60d0d",
+            "comment": "Archive Collected Data via 7-Zip utility"
+        },
+        {
+            "techniqueID": "T1001.002",
+            "tactic": "command-and-control",
+            "color": "#e60d0d",
+            "comment": "Steganographic extraction of commands mimicking Orion Improvement Program (OIP)"
+        },
+        {
+            "techniqueID": "T1071.001",
+            "tactic": "command-and-control",
+            "color": "#e60d0d",
+            "comment": "Application Layer Protocol: Web Protocols (HTTPS)"
+        },
+        {
+            "techniqueID": "T1568.002",
+            "tactic": "command-and-control",
+            "color": "#e60d0d",
+            "comment": "Domain Generation Algorithms (DGA) for avsvmcloud.com"
+        },
+        {
+            "techniqueID": "T1048.003",
+            "tactic": "exfiltration",
+            "color": "#e60d0d",
+            "comment": "Exfiltration Over Unencrypted Non-C2 Protocol"
+        }
+    ],
+    "gradient": {
+        "colors": [
+            "#ff6666ff",
+            "#ffe766ff",
+            "#8ec843ff"
+        ],
+        "minValue": 0,
+        "maxValue": 100
+    },
+    "legendItems": [
+        {
+            "label": "TTPs observed in SUNBURST campaign (v18)",
+            "color": "#e60d0d"
+        }
+    ]
+}

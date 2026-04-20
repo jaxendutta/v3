@@ -1,0 +1,22 @@
+\section{Incident Response Evaluation}
+
+\subsection{Organizational Response Dynamics and Decision-Making}
+Once alerted by FireEye on December 12, 2020, SolarWinds faced unprecedented crisis management challenges \cite{nagle2023}.
+
+\tinypara{Immediate Recognition and Coordination (December 12-14):} Within 24 hours, then-CEO Kevin Thompson mobilized a tiger team of 15-20 senior leaders \cite{nagle2023}. Simultaneously, SolarWinds initiated coordination with the FBI, \gls{cisa}, FireEye/Mandiant, and Microsoft. \gls{cisa}'s Emergency Directive 21-01 provided external authority supporting customer recommendations while distributing accountability \cite{openhearing2021}.
+
+\tinypara{Transparency vs. Legal Risk Trade-off:} General Counsel Tim Brown articulated the dilemma of disclosure versus future litigation \cite{nagle2023}. SolarWinds filed SEC Form 8-K within 48 hours, exceeding legal requirements, reflecting a strategic judgment that reputational damage from perceived non-transparency would exceed litigation costs.
+
+\tinypara{Customer Communication and Technical Response:} SolarWinds implemented phased customer outreach, reaching 13,000 potentially affected customers within eight days. Engineering teams distributed hotfixes removing SUNBURST code within 48 hours \cite{nagle2023}.
+
+\tinypara{Leadership Transition:} Concurrent with incident response, the board appointed Sudhakar Ramakrishna as incoming CEO, signaling fundamental transformation rather than merely tactical security improvements \cite{nagle2023}.
+
+\subsection{Maturity Assessment per \gls{nist} SP 800-61r3}
+Evaluating per \gls{nist} SP 800-61r3 \cite{nelson2025}:
+\begin{enumerate}
+    \item \textbf{Preparation (Inadequate):} Detection capabilities catastrophically insufficient; scenario planning did not address supply chain compromise.
+    \item \textbf{Detection \& Analysis (Failed):} External discovery after seven months.
+    \item \textbf{Containment, Eradication, \& Recovery (Effective):} Rapid containment, thorough eradication with complete rebuild, comprehensive recovery.
+    \item \textbf{Post-Incident Activity (Exemplary):} Organizational learning through systematic gap remediation, public knowledge sharing, industry collaboration.
+\end{enumerate}
+Overall, strong response execution was overshadowed by catastrophic detection failures \cite{rose2020}.

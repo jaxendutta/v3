@@ -1,0 +1,104 @@
+%% The first command in your LaTeX source must be the \documentclass command.
+\documentclass[conference]{IEEEtran}
+
+%% Package imports
+\usepackage{amsmath,amstext}
+\usepackage{graphicx}
+\graphicspath{{../figures/}}
+
+\usepackage{float}
+\usepackage{cuted}
+\usepackage{parskip}
+\usepackage{tabularx}
+\usepackage{listings}
+\usepackage{booktabs}
+\usepackage{pdflscape} % Added for landscape appendices
+\usepackage[table]{xcolor} % Added for table coloring
+\usepackage{xurl} % Allows long URLs to break across lines
+\usepackage{hyperref}
+\usepackage{microtype}
+
+%% Glossaries (same entries as thesis — reuse the file)
+\usepackage[acronym,nomain,nogroupskip]{glossaries-extra}
+\setabbreviationstyle[acronym]{long-short}
+\input{../glossaries}
+\makeglossaries
+\glsdisablehyper
+
+\newcommand{\tinypara}[1]{\vspace{0.5ex}\noindent\textbf{\textit{#1}}}
+\renewcommand{\tabularxcolumn}[1]{m{#1}}
+
+\begin{document}
+
+\title{\textit{SolarWinds Confronts Starburst:} A Post-Mortem Analysis of the Sunburst Campaign and Its Implications for Software Supply Chain Security}
+
+\author{
+    \IEEEauthorblockN{Jaxen Anirban Dutta}
+    \IEEEauthorblockA{\textit{Faculty of Engineering} \\
+    \textit{University of Ottawa}\\
+    Ottawa, Canada \\
+    adutt042@uottawa.ca}
+    % To add your co-author, uncomment the block below:
+    % \and
+    % \IEEEauthorblockN{Payton Pei}
+    % \IEEEauthorblockA{\textit{Faculty of Engineering} \\
+    % \textit{University of Ottawa}\\
+    % Ottawa, Canada \\
+    % dpei045@uottawa.ca}
+}
+
+\maketitle
+
+\begin{abstract}
+The SolarWinds Sunburst campaign represents a watershed moment in cybersecurity, exposing critical vulnerabilities in software supply chains and prompting a global reckoning with the risks of third-party dependencies. This paper provides a comprehensive post-mortem analysis of the Sunburst attack, dissecting its technical execution, the systemic failures that enabled it, and the incident response efforts that followed. We apply the STRIDE threat modeling framework to categorize the attack vectors and identify the specific control failures that were exploited. A critical gap analysis is conducted against the NIST Cybersecurity Framework 2.0, revealing key areas where SolarWinds' security posture was deficient. We also map the attack techniques to the MITRE ATT\&CK framework to contextualize the adversary's tactics, techniques, and procedures (TTPs). Finally, we synthesize these findings into strategic recommendations for organizations to enhance their software supply chain security and mitigate the risks of similar attacks in the future. This analysis not only serves as a case study of the Sunburst campaign but also contributes to the broader discourse on securing complex software ecosystems in an increasingly interconnected digital landscape.
+\end{abstract}
+
+\begin{IEEEkeywords}
+software supply chain security, sunburst campaign, cybersecurity, threat analysis, nist csf, cyber kill chain, mitre attack, incident response, strategic recommendations
+\end{IEEEkeywords}
+
+%% -----------------------------------------------------------
+%% Body Sections
+%% -----------------------------------------------------------
+
+\input{sections/00_executive_summary}
+\input{sections/01_introduction}
+\input{sections/02_attack_analysis}
+\input{sections/03_nist_csf}
+\input{sections/04_incident_response}
+\input{sections/05_recommendations}
+\input{sections/06_community_impact}
+\input{sections/07_conclusion}
+
+%% -----------------------------------------------------------
+%% Acknowledgments
+%% -----------------------------------------------------------
+
+\section*{Acknowledgment}
+The author would like to express their gratitude to Dr. Umar Ruhi for his guidance and insights throughout his series of Cyber Security Systems \& Strategies sessions at the University of Ottawa. This case analysis was heavily informed by the theoretical frameworks discussed in those sessions, which provided a robust lens for examining the systemic failures and responses during the SolarWinds Sunburst incident.
+
+%% -----------------------------------------------------------
+%% Glossary of Acronyms
+%% -----------------------------------------------------------
+\glsaddall % Ensures all acronyms in .tex are listed even if not explicitly called
+\printglossary[type=\acronymtype,title=List of Acronyms]
+
+%% -----------------------------------------------------------
+%% Bibliography
+%% -----------------------------------------------------------
+
+\bibliographystyle{IEEEtran}
+\bibliography{solarwinds-confronts-starburst}
+
+%% -----------------------------------------------------------
+%% Appendices
+%% -----------------------------------------------------------
+
+\appendices
+\onecolumn
+
+\input{appendices/a_stride}
+\input{appendices/b_csf}
+\input{appendices/c_mitre}
+
+\end{document}
