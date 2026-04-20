@@ -1,263 +1,409 @@
 {
-    "name": "APT29 / SolarWinds SUNBURST Campaign",
-    "versions": {
-        "attack": "18",
-        "navigator": "5.1.0",
-        "layer": "4.5"
-    },
-    "domain": "enterprise-attack",
-    "description": "Tactical mapping of the SolarWinds SUNBURST supply chain compromise (C0024), executed by SVR/APT29, updated for ATT&CK v18.",
-    "filters": {
-        "platforms": [
-            "Windows",
-            "Linux",
-            "macOS",
-            "Network Devices",
-            "ESXi",
-            "Containers",
-            "IaaS",
-            "Office 365",
-            "SaaS",
-            "Google Workspace",
-            "Identity Provider",
-            "Azure AD"
-        ]
-    },
-    "sorting": 0,
-    "layout": {
-        "layout": "side",
-        "aggregateFunction": "average",
-        "showID": false,
-        "showName": true,
-        "showAggregateScores": false,
-        "countUnscored": false
-    },
-    "hideDisabled": false,
-    "techniques": [
-        {
-            "techniqueID": "T1195.002",
-            "tactic": "initial-access",
-            "color": "#e60d0d",
-            "comment": "SUNSPOT injected SUNBURST into Orion platform updates"
-        },
-        {
-            "techniqueID": "T1133",
-            "tactic": "initial-access",
-            "color": "#e60d0d",
-            "comment": "Accessed networks via VPNs and remote access tools using compromised identities"
-        },
-        {
-            "techniqueID": "T1059.001",
-            "tactic": "execution",
-            "color": "#e60d0d",
-            "comment": "PowerShell used for lateral movement and C2"
-        },
-        {
-            "techniqueID": "T1059.003",
-            "tactic": "execution",
-            "color": "#e60d0d",
-            "comment": "Executed commands via cmd.exe on remote machines"
-        },
-        {
-            "techniqueID": "T1569.002",
-            "tactic": "execution",
-            "color": "#e60d0d",
-            "comment": "Execution via trusted SolarWinds businesslayerhost.exe"
-        },
-        {
-            "techniqueID": "T1543.003",
-            "tactic": "persistence",
-            "color": "#e60d0d",
-            "comment": "Modified Windows Services for persistence"
-        },
-        {
-            "techniqueID": "T1098.001",
-            "tactic": "persistence",
-            "color": "#e60d0d",
-            "comment": "Added credentials to OAuth Applications and Service Principals in Azure AD"
-        },
-        {
-            "techniqueID": "T1098.002",
-            "tactic": "persistence",
-            "color": "#e60d0d",
-            "comment": "Added Exchange Email Delegate Permissions"
-        },
-        {
-            "techniqueID": "T1098.003",
-            "tactic": "persistence",
-            "color": "#e60d0d",
-            "comment": "Granted company administrator privileges to Service Principals"
-        },
-        {
-            "techniqueID": "T1098.005",
-            "tactic": "persistence",
-            "color": "#e60d0d",
-            "comment": "Registered devices to enable mailbox syncing via Set-CASMailbox"
-        },
-        {
-            "techniqueID": "T1055.012",
-            "tactic": "privilege-escalation",
-            "color": "#e60d0d",
-            "comment": "Process Hollowing via TEARDROP"
-        },
-        {
-            "techniqueID": "T1484.002",
-            "tactic": "privilege-escalation",
-            "color": "#e60d0d",
-            "comment": "Domain Trust Modification: Configured Azure AD to accept forged SAML tokens"
-        },
-        {
-            "techniqueID": "T1562.001",
-            "tactic": "defense-evasion",
-            "color": "#e60d0d",
-            "comment": "Disabled over 100 EDR/AV security tools"
-        },
-        {
-            "techniqueID": "T1562.002",
-            "tactic": "defense-evasion",
-            "color": "#e60d0d",
-            "comment": "Disabled Windows Event Logging via AUDITPOL"
-        },
-        {
-            "techniqueID": "T1070.004",
-            "tactic": "defense-evasion",
-            "color": "#e60d0d",
-            "comment": "File Deletion: Routinely removed custom backdoors post-access"
-        },
-        {
-            "techniqueID": "T1564.004",
-            "tactic": "defense-evasion",
-            "color": "#e60d0d",
-            "comment": "NTFS File Attributes manipulation"
-        },
-        {
-            "techniqueID": "T1027.002",
-            "tactic": "defense-evasion",
-            "color": "#e60d0d",
-            "comment": "Software Packing using custom packers"
-        },
-        {
-            "techniqueID": "T1553.002",
-            "tactic": "defense-evasion",
-            "color": "#e60d0d",
-            "comment": "SUNBURST payload signed with legitimate SolarWinds certificate"
-        },
-        {
-            "techniqueID": "T1480.001",
-            "tactic": "defense-evasion",
-            "color": "#e60d0d",
-            "comment": "Environmental Keying: Validated domain, process, and AV presence before execution"
-        },
-        {
-            "techniqueID": "T1003.001",
-            "tactic": "credential-access",
-            "color": "#e60d0d",
-            "comment": "LSASS Memory dumping"
-        },
-        {
-            "techniqueID": "T1552.004",
-            "tactic": "credential-access",
-            "color": "#e60d0d",
-            "comment": "Stole private keys to enable SAML token forgery"
-        },
-        {
-            "techniqueID": "T1606.002",
-            "tactic": "credential-access",
-            "color": "#e60d0d",
-            "comment": "SAML token forgery (Golden SAML) to access M365"
-        },
-        {
-            "techniqueID": "T1606.001",
-            "tactic": "credential-access",
-            "color": "#e60d0d",
-            "comment": "Forged Web Cookies to bypass authentication"
-        },
-        {
-            "techniqueID": "T1087.002",
-            "tactic": "discovery",
-            "color": "#e60d0d",
-            "comment": "Domain Account discovery via PowerShell"
-        },
-        {
-            "techniqueID": "T1046",
-            "tactic": "discovery",
-            "color": "#e60d0d",
-            "comment": "Network Service Scanning"
-        },
-        {
-            "techniqueID": "T1069.002",
-            "tactic": "discovery",
-            "color": "#e60d0d",
-            "comment": "Domain Groups discovery"
-        },
-        {
-            "techniqueID": "T1482",
-            "tactic": "discovery",
-            "color": "#e60d0d",
-            "comment": "Domain Trust Discovery via AdFind"
-        },
-        {
-            "techniqueID": "T1021.001",
-            "tactic": "lateral-movement",
-            "color": "#e60d0d",
-            "comment": "Lateral movement via Remote Desktop Protocol"
-        },
-        {
-            "techniqueID": "T1021.002",
-            "tactic": "lateral-movement",
-            "color": "#e60d0d",
-            "comment": "Lateral movement via SMB/Windows Admin Shares"
-        },
-        {
-            "techniqueID": "T1114.002",
-            "tactic": "collection",
-            "color": "#e60d0d",
-            "comment": "Remote Email Collection from Exchange Online"
-        },
-        {
-            "techniqueID": "T1560.001",
-            "tactic": "collection",
-            "color": "#e60d0d",
-            "comment": "Archive Collected Data via 7-Zip utility"
-        },
-        {
-            "techniqueID": "T1001.002",
-            "tactic": "command-and-control",
-            "color": "#e60d0d",
-            "comment": "Steganographic extraction of commands mimicking Orion Improvement Program (OIP)"
-        },
-        {
-            "techniqueID": "T1071.001",
-            "tactic": "command-and-control",
-            "color": "#e60d0d",
-            "comment": "Application Layer Protocol: Web Protocols (HTTPS)"
-        },
-        {
-            "techniqueID": "T1568.002",
-            "tactic": "command-and-control",
-            "color": "#e60d0d",
-            "comment": "Domain Generation Algorithms (DGA) for avsvmcloud.com"
-        },
-        {
-            "techniqueID": "T1048.003",
-            "tactic": "exfiltration",
-            "color": "#e60d0d",
-            "comment": "Exfiltration Over Unencrypted Non-C2 Protocol"
-        }
-    ],
-    "gradient": {
-        "colors": [
-            "#ff6666ff",
-            "#ffe766ff",
-            "#8ec843ff"
-        ],
-        "minValue": 0,
-        "maxValue": 100
-    },
-    "legendItems": [
-        {
-            "label": "TTPs observed in SUNBURST campaign (v18)",
-            "color": "#e60d0d"
-        }
+  "name": "APT29 / SolarWinds Sunburst Campaign",
+  "versions": {
+    "attack": "18",
+    "navigator": "5.1.0",
+    "layer": "4.5"
+  },
+  "domain": "enterprise-attack",
+  "description": "Tactical mapping of the SolarWinds SUNBURST supply chain compromise (C0024), executed by SVR/APT29, updated for ATT&CK v18 to exactly match the provided visual matrix.",
+  "filters": {
+    "platforms": [
+      "Windows",
+      "Linux",
+      "macOS",
+      "Network Devices",
+      "ESXi",
+      "Containers",
+      "IaaS",
+      "Office 365",
+      "SaaS",
+      "Google Workspace",
+      "Identity Provider",
+      "Azure AD"
     ]
+  },
+  "sorting": 0,
+  "layout": {
+    "layout": "side",
+    "aggregateFunction": "average",
+    "showID": false,
+    "showName": true,
+    "showAggregateScores": false,
+    "countUnscored": false
+  },
+  "hideDisabled": false,
+  "techniques": [
+    {
+      "techniqueID": "T1589.001",
+      "tactic": "reconnaissance",
+      "color": "#e60d0d",
+      "comment": "Gather Victim Org Information: Credentials"
+    },
+    {
+      "techniqueID": "T1587.001",
+      "tactic": "resource-development",
+      "color": "#e6d60d",
+      "comment": "Develop Capabilities: Malware"
+    },
+    {
+      "techniqueID": "T1584.001",
+      "tactic": "resource-development",
+      "color": "#e6d60d",
+      "comment": "Compromise Infrastructure: Domains"
+    },
+    {
+      "techniqueID": "T1583.001",
+      "tactic": "resource-development",
+      "color": "#e6550d",
+      "comment": "Acquire Infrastructure: Domains"
+    },
+    {
+      "techniqueID": "T1078.004",
+      "tactic": "initial-access",
+      "color": "#e60d0d",
+      "comment": "Valid Accounts: Cloud Accounts"
+    },
+    {
+      "techniqueID": "T1195.002",
+      "tactic": "initial-access",
+      "color": "#fce93b",
+      "comment": "Compromise Software Supply Chain"
+    },
+    {
+      "techniqueID": "T1047",
+      "tactic": "execution",
+      "color": "#e60d0d",
+      "comment": "Windows Management Instrumentation"
+    },
+    {
+      "techniqueID": "T1053.005",
+      "tactic": "execution",
+      "color": "#e60d0d",
+      "comment": "Scheduled Task"
+    },
+    {
+      "techniqueID": "T1059.003",
+      "tactic": "execution",
+      "color": "#e60d0d",
+      "comment": "Windows Command Shell"
+    },
+    {
+      "techniqueID": "T1059.005",
+      "tactic": "execution",
+      "color": "#e60d0d",
+      "comment": "Visual Basic"
+    },
+    {
+      "techniqueID": "T1059.001",
+      "tactic": "execution",
+      "color": "#e60d0d",
+      "comment": "PowerShell"
+    },
+    {
+      "techniqueID": "T1078.004",
+      "tactic": "persistence",
+      "color": "#e60d0d",
+      "comment": "Valid Accounts: Cloud Accounts"
+    },
+    {
+      "techniqueID": "T1053.005",
+      "tactic": "persistence",
+      "color": "#e60d0d",
+      "comment": "Scheduled Task"
+    },
+    {
+      "techniqueID": "T1546.003",
+      "tactic": "persistence",
+      "color": "#fdae6b",
+      "comment": "WMI Event Subscription"
+    },
+    {
+      "techniqueID": "T1484.002",
+      "tactic": "persistence",
+      "color": "#e60d0d",
+      "comment": "Domain Policy Modification: Trust Modification"
+    },
+    {
+      "techniqueID": "T1098.003",
+      "tactic": "persistence",
+      "color": "#e60d0d",
+      "comment": "Additional Cloud Roles"
+    },
+    {
+      "techniqueID": "T1098.001",
+      "tactic": "persistence",
+      "color": "#fc3b3b",
+      "comment": "Additional Cloud Credentials"
+    },
+    {
+      "techniqueID": "T1078.004",
+      "tactic": "privilege-escalation",
+      "color": "#e60d0d",
+      "comment": "Valid Accounts: Cloud Accounts"
+    },
+    {
+      "techniqueID": "T1053.005",
+      "tactic": "privilege-escalation",
+      "color": "#e60d0d",
+      "comment": "Scheduled Task"
+    },
+    {
+      "techniqueID": "T1546.003",
+      "tactic": "privilege-escalation",
+      "color": "#fdae6b",
+      "comment": "WMI Event Subscription"
+    },
+    {
+      "techniqueID": "T1484.002",
+      "tactic": "privilege-escalation",
+      "color": "#e60d0d",
+      "comment": "Domain Policy Modification: Trust Modification"
+    },
+    {
+      "techniqueID": "T1098.003",
+      "tactic": "privilege-escalation",
+      "color": "#e60d0d",
+      "comment": "Additional Cloud Roles"
+    },
+    {
+      "techniqueID": "T1098.001",
+      "tactic": "privilege-escalation",
+      "color": "#fc3b3b",
+      "comment": "Additional Cloud Credentials"
+    },
+    {
+      "techniqueID": "T1550.001",
+      "tactic": "defense-evasion",
+      "color": "#e60d0d",
+      "comment": "Application Access Token"
+    },
+    {
+      "techniqueID": "T1218.011",
+      "tactic": "defense-evasion",
+      "color": "#e6550d",
+      "comment": "System Binary Proxy Execution: Rundll32"
+    },
+    {
+      "techniqueID": "T1553.002",
+      "tactic": "defense-evasion",
+      "color": "#e60d0d",
+      "comment": "Code Signing"
+    },
+    {
+      "techniqueID": "T1036.005",
+      "tactic": "defense-evasion",
+      "color": "#fd8d3c",
+      "comment": "Match Legitimate Resource Name or Location"
+    },
+    {
+      "techniqueID": "T1036.004",
+      "tactic": "defense-evasion",
+      "color": "#e60d0d",
+      "comment": "Masquerade Task or Service"
+    },
+    {
+      "techniqueID": "T1070.006",
+      "tactic": "defense-evasion",
+      "color": "#31a354",
+      "comment": "Timestomp"
+    },
+    {
+      "techniqueID": "T1070.004",
+      "tactic": "defense-evasion",
+      "color": "#31a354",
+      "comment": "File Deletion"
+    },
+    {
+      "techniqueID": "T1070.008",
+      "tactic": "defense-evasion",
+      "color": "#31a354",
+      "comment": "Clear Mailbox Data"
+    },
+    {
+      "techniqueID": "T1562.002",
+      "tactic": "defense-evasion",
+      "color": "#31a354",
+      "comment": "Disable Windows Event Logging"
+    },
+    {
+      "techniqueID": "T1562.001",
+      "tactic": "defense-evasion",
+      "color": "#31a354",
+      "comment": "Disable or Modify Tools"
+    },
+    {
+      "techniqueID": "T1562.004",
+      "tactic": "defense-evasion",
+      "color": "#31a354",
+      "comment": "Disable or Modify System Firewall"
+    },
+    {
+      "techniqueID": "T1484.002",
+      "tactic": "defense-evasion",
+      "color": "#e60d0d",
+      "comment": "Trust Modification"
+    },
+    {
+      "techniqueID": "T1539",
+      "tactic": "credential-access",
+      "color": "#fc3b3b",
+      "comment": "Steal Web Session Cookie"
+    },
+    {
+      "techniqueID": "T1552.004",
+      "tactic": "credential-access",
+      "color": "#fc3b3b",
+      "comment": "Private Keys"
+    },
+    {
+      "techniqueID": "T1558.003",
+      "tactic": "credential-access",
+      "color": "#31a354",
+      "comment": "Kerberoasting"
+    },
+    {
+      "techniqueID": "T1003.006",
+      "tactic": "credential-access",
+      "color": "#fca2a2",
+      "comment": "DCSync"
+    },
+    {
+      "techniqueID": "T1606.001",
+      "tactic": "credential-access",
+      "color": "#e60d0d",
+      "comment": "Web Cookies"
+    },
+    {
+      "techniqueID": "T1606.002",
+      "tactic": "credential-access",
+      "color": "#e60d0d",
+      "comment": "SAML Tokens"
+    },
+    {
+      "techniqueID": "T1016.001",
+      "tactic": "discovery",
+      "color": "#31a354",
+      "comment": "Internet Connection Discovery"
+    },
+    {
+      "techniqueID": "T1069.002",
+      "tactic": "discovery",
+      "color": "#fc3b3b",
+      "comment": "Domain Groups"
+    },
+    {
+      "techniqueID": "T1087.002",
+      "tactic": "discovery",
+      "color": "#e60d0d",
+      "comment": "Domain Account"
+    },
+    {
+      "techniqueID": "T1550.004",
+      "tactic": "lateral-movement",
+      "color": "#e60d0d",
+      "comment": "Web Session Cookie"
+    },
+    {
+      "techniqueID": "T1550.001",
+      "tactic": "lateral-movement",
+      "color": "#e60d0d",
+      "comment": "Application Access Token"
+    },
+    {
+      "techniqueID": "T1021.006",
+      "tactic": "lateral-movement",
+      "color": "#fca2a2",
+      "comment": "Windows Remote Management"
+    },
+    {
+      "techniqueID": "T1021.002",
+      "tactic": "lateral-movement",
+      "color": "#fc3b3b",
+      "comment": "SMB/Windows Admin Shares"
+    },
+    {
+      "techniqueID": "T1021.001",
+      "tactic": "lateral-movement",
+      "color": "#e60d0d",
+      "comment": "Remote Desktop Protocol"
+    },
+    {
+      "techniqueID": "T1114.002",
+      "tactic": "collection",
+      "color": "#fdd0a2",
+      "comment": "Remote Email Collection"
+    },
+    {
+      "techniqueID": "T1074.002",
+      "tactic": "collection",
+      "color": "#31a354",
+      "comment": "Remote Data Staging"
+    },
+    {
+      "techniqueID": "T1213.003",
+      "tactic": "collection",
+      "color": "#fc3b3b",
+      "comment": "Code Repositories"
+    },
+    {
+      "techniqueID": "T1560.001",
+      "tactic": "collection",
+      "color": "#fc3b3b",
+      "comment": "Archive via Utility"
+    },
+    {
+      "techniqueID": "T1090.001",
+      "tactic": "command-and-control",
+      "color": "#e60d0d",
+      "comment": "Internal Proxy"
+    },
+    {
+      "techniqueID": "T1071.001",
+      "tactic": "command-and-control",
+      "color": "#fc3b3b",
+      "comment": "Web Protocols"
+    },
+    {
+      "techniqueID": "T1105",
+      "tactic": "command-and-control",
+      "color": "#fdae6b",
+      "comment": "Ingress Tool Transfer"
+    },
+    {
+      "techniqueID": "T1665",
+      "tactic": "command-and-control",
+      "color": "#fcf3a2",
+      "comment": "Hide Infrastructure"
+    },
+    {
+      "techniqueID": "T1568",
+      "tactic": "command-and-control",
+      "color": "#e6d60d",
+      "comment": "Dynamic Resolution"
+    },
+    {
+      "techniqueID": "T1048.002",
+      "tactic": "exfiltration",
+      "color": "#e6550d",
+      "comment": "Exfiltration Over Asymmetric Encrypted Non-C2 Protocol"
+    }
+  ],
+  "gradient": {
+    "colors": [
+      "#31a354",
+      "#fcf3a2",
+      "#fdae6b",
+      "#e6550d",
+      "#e60d0d"
+    ],
+    "minValue": 0,
+    "maxValue": 100
+  },
+  "legendItems": [
+    {
+      "label": "TTPs observed in SUNBURST campaign (Mapped to v18)",
+      "color": "#e60d0d"
+    }
+  ]
 }
