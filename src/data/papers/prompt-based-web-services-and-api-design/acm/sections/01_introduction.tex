@@ -1,0 +1,10 @@
+% Introduction section
+\section{Introduction}
+
+Traditional web services, from \gls{soap} to \gls{rest}, rely on structured formats with schemas enforced through \gls{wsdl} or OpenAPI \cite{FIELDING_2000, OPENAI_SPEC_3_2_0}, ensuring interoperability through formal contracts. Large Language Models enable a paradigm shift: prompt-based \gls{api} accepting natural language, leveraging semantic understanding without rigid schemas \cite{BROWN_2020, VASWANI_2017}. This introduces challenges: managing context across stateless \gls{http}, versioning prompt templates, validating non-deterministic outputs, and defending against prompt injection \cite{OWASP_2025, LERCHER_2024}.
+
+Cloud providers offer managed \gls{llm} services \cite{AWS_BEDROCK}, yet organizations face implementation challenges as prompt engineering becomes critical \cite{SAHOO_2025, WHITE_2025}.
+
+Our contributions comprise a taxonomy of prompt-based service architectures, empirical cost-performance analysis demonstrating optimal model selection, synthesis of security defences against prompt injection, and practitioner guidelines for hybrid \gls{rest}-prompt architectures.
+
+This survey examines prompt-based web services through \gls{aws} \href{https://aws.amazon.com/bedrock/}{Bedrock} using Amazon \href{https://docs.aws.amazon.com/bedrock/latest/userguide/model-card-amazon-nova-micro.html}{Nova Micro} (\$0.000035 per 1K tokens), validating that task complexity should determine model capacity \cite{AWS_NOVA}. We synthesise design patterns and security defences through analysis of 100 test cases achieving 94\% accuracy with 847ms median latency \cite{AWS_BEDROCK, CHEN_2025}.

@@ -1,0 +1,26 @@
+% Section 5: Discussion
+\section{Discussion and Best Practices}
+
+\subsection{When to Use Prompt-Based APIs}
+
+Prompt-based \gls{api}s excel where natural language understanding provides genuine value: complex query interpretation (search, recommendations, assistants), content generation (summarisation, translation, code generation), and multi-step reasoning requiring sequential decision-making through techniques like chain-of-thought prompting \cite{BROWN_2020, SCHLUNTZ_2024, WEI_2022}.
+
+\textbf{When REST Remains Superior:} \gls{crud} operations, high-frequency transactions, and deterministic responses should retain REST architecture. Prompt-based approaches introduce latency ($100-2000ms$ vs. $<10ms$), non-determinism, and cost implications (\$0.077 per 1K requests for Nova Micro vs. negligible for \gls{rest}) \cite{AWS_BEDROCK}.
+
+\textbf{Service-Oriented Architecture Evolution:} Prompt-based \gls{api}s represent service-oriented evolution rather than replacement. \gls{soap} emphasized formal contracts (\gls{wsdl}), \gls{rest} emphasized resource design (\gls{http}), and prompt-based designs emphasize intent (natural language). Each addresses different trade-offs: \gls{soap} prioritizes reliability, \gls{rest} prioritizes simplicity, prompt-based prioritizes accessibility. Modern architectures should combine paradigms: \gls{rest} for transactions, prompt-based for natural language \cite{LERCHER_2024}.
+
+\subsection{Design Recommendations}
+
+\textbf{Model Selection:} Select the smallest model capable of reliable execution. Nova Micro achieves 83\% cost savings versus Llama 3 8B \cite{AWS_NOVA}.
+
+\textbf{Prompt Engineering:} Include explicit output formats, few-shot examples (2-3 samples), and role-based framing \cite{CHEN_2025}. Separate system instructions from user content using structural markers to prevent prompt injection \cite{OWASP_2025, SCHLUNTZ_2024}.
+
+\textbf{Output Validation:} Implement schema validation, semantic guardrails (\gls{aws} \href{https://aws.amazon.com/bedrock/guardrails/}{Bedrock Guardrails}), and fallback mechanisms (retry, rule-based processing, escalation) \cite{LERCHER_2024, AWS_BEDROCK}.
+
+\textbf{Versioning and Cost:} Store prompt templates in version control, test changes, maintain multiple versions. For optimization: remove verbosity, leverage caching, aggregate requests, route simple tasks to smaller models \cite{SAHOO_2025}.
+
+\subsection{Future Directions}
+
+Multi-agent orchestration addresses complex workflows through specialized \gls{llm} collaboration \cite{SCHLUNTZ_2024}. Retrieval-augmented generation mitigates hallucination \cite{ZHOU_2025}. Standardization efforts could establish common schemas \cite{WHITE_2025}. As prompt-based \gls{api}s move into safety-critical domains, formal verification will mature \cite{AWS_BEDROCK}.
+
+Prompt-based \gls{api}s will complement \gls{rest} in hybrid architectures. The challenge lies in thoughtfully architecting systems that harness both paradigms' strengths.

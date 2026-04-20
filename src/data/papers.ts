@@ -54,6 +54,29 @@ export const papersData: PapersData = {
         },
     },
 
+    "prompt-based-web-services-and-api-design": {
+        title: "Prompt-Based Web Services and API Design: A New Paradigm for Natural Language Interfaces",
+        abstract: "Large Language Models have transformed web service architecture by introducing prompt-based APIs that accept natural language instructions rather than structured parameters. This survey examines the paradigm shift from REST APIs to prompt-based services, analyzing design patterns, implementation challenges, and security considerations including prompt injection attacks. Through comparative analysis of existing literature and an AWS Bedrock implementation using Amazon Nova Micro (\$0.000035 per 1,000 input tokens), we demonstrate that intelligent model selection matching task complexity to capacity achieves substantial cost savings. Our evaluation of prompt templating, output extraction, and testing methodologies reveals that prompt-based APIs offer flexibility but introduce challenges in validation, consistency, and versioning. We propose design recommendations for hybrid architectures combining RESTful principles with prompt-based interfaces. This work provides practitioners with evidence-based guidance for integrating LLMs into production web services.",
+        venue: ["Literature Survey", "University of Ottawa"],
+        duration: {
+            start: new Date("2025-12-04"),
+            end: new Date("2025-12-11")
+        },
+        tags: [
+            "NLP",
+            "API Design",
+            "Web Services",
+            "AWS Bedrock",
+            "Prompt Engineering",
+            "LLM",
+            "Security",
+        ],
+        links: {
+            acm: { label: "ACM Format", type: "paper" },
+            presentation: { label: "Presentation", type: "slides" },
+        },
+    },
+
 
     "evse-opt": {
         title: "EVSE Network Optimization in the KWC CMA",

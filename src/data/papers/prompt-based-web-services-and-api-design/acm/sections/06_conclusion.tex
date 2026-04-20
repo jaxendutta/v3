@@ -1,0 +1,14 @@
+% Section 6: Conclusion
+\section{Conclusion}
+
+\gls{llm} integration into web services represents a shift from parameter-based to intent-based \gls{api}s. This survey examined how natural language interfaces complement RESTful architectures through comparative analysis and AWS Bedrock deployment.
+
+Prompt-based \gls{api}s democratize access through natural language but introduce validation, testing, versioning, and security challenges. Non-determinism violates \gls{rest} principles, requiring careful use-case selection.
+
+A critical finding: Amazon Nova Micro suffices for structured extraction at 83\% cost savings versus alternatives \cite{AWS_NOVA}. This principle, matching model capacity to task complexity, is essential for sustainable design.
+
+Security demands layered defences: input sanitization, structural isolation, output guardrails, behavioural constraints \cite{OWASP_2025, AWS_BEDROCK}. Future architecture will be hybrid: \gls{rest} for deterministic transactions, prompt-based for complex interpretation.
+
+Open challenges: standardization lags adoption, testing methodologies require maturation, token costs create unpredictable expenses, context windows constrain conversational depth \cite{LERCHER_2024, MARTIN-LOPEZ_2022}.
+
+For practitioners: start with bounded use cases, leverage managed services, instrument comprehensively, treat prompts as critical artifacts. Decreasing costs and improving capabilities position prompt-based \gls{api}s as complementary technologies enabling natural language interfaces whilst preserving RESTful principles.
