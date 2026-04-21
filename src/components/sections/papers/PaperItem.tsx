@@ -191,15 +191,17 @@ export const PaperItem = ({
                                 {isTextExpanded ? "Read Less" : "Read More"}
                             </button>
                         </div>
+                        
                         <motion.div
                             className="w-full h-0.5 origin-left bg-current mb-3"
                             initial={{ scaleX: 0 }}
                             animate={{ scaleX: 1 }}
                             transition={{ duration: 0.4, ease: "easeOut", delay: 0.05 }}
                         />
+                        
                         <p 
                             className={`text-xs md:text-sm leading-relaxed text-justify opacity-80 transition-all duration-300 ${
-                                !isTextExpanded ? "line-clamp-4 md:line-clamp-none" : ""
+                                !isTextExpanded ? "line-clamp-4 md:line-clamp-none overflow-hidden" : ""
                             }`}
                         >
                             {data.abstract}
