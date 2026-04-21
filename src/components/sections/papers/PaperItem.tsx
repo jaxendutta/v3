@@ -214,9 +214,9 @@ export const PaperItem = ({
                         animate={{ 
                             height: isTextExpanded ? "auto" : "4.875rem" 
                         }}
-                        // NEW: Wait for Framer Motion to finish shrinking before applying the clamp
-                        onAnimationComplete={(target) => {
-                            if (target.height === "4.875rem") {
+                        // Rely on React state instead of Framer Motion's target object
+                        onAnimationComplete={() => {
+                            if (!isTextExpanded) {
                                 setIsClamped(true);
                             }
                         }}
