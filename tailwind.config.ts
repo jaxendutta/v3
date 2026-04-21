@@ -6,8 +6,6 @@ const config: Config = {
     theme: {
         extend: {
             colors: {
-                muted: "var(--muted-foreground)",
-
                 // Direct colors that match your CSS variables
                 theme: {
                     background: {
