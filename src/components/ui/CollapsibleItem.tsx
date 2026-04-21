@@ -33,7 +33,7 @@ export default function CollapsibleItem({
         <div className={`w-full border-b border-current ${className}`}>
             {/* ── Header row ─────────────────────────────────────────────── */}
             <div
-                className={`flex items-center justify-between px-1 py-3 md:py-5 md:px-4 ${!isActive && "cursor-pointer"
+                className={`flex items-center justify-between px-0.5 py-3 md:py-5 md:px-4 ${!isActive && "cursor-pointer"
                     }`}
                 onClick={() => !isActive && onToggle()}
             >
@@ -49,7 +49,7 @@ export default function CollapsibleItem({
 
                 {/* Toggle button */}
                 <motion.button
-                    className="relative ml-3 flex flex-shrink-0 cursor-pointer items-center justify-center rounded-full"
+                    className="relative ml-1 md:ml-3 flex flex-shrink-0 cursor-pointer items-center justify-center rounded-full"
                     onClick={(e) => {
                         e.stopPropagation();
                         onToggle();

@@ -22,28 +22,27 @@ import { TbGridDots } from "react-icons/tb";
 // ── Document type → icon ──────────────────────────────────────────────────────
 
 const DOC_ICONS: Record<DocumentType, React.ElementType> = {
-    paper:   RiFile3Line,
-    poster:  HiOutlinePhoto,
-    slides:  HiOutlinePresentationChartBar,
+    paper: RiFile3Line,
+    poster: HiOutlinePhoto,
+    slides: HiOutlinePresentationChartBar,
     project: TbGridDots,
 };
 
 // ── Status badge ──────────────────────────────────────────────────────────────
 
 const STATUS_STYLES: Record<string, string> = {
-    published:  "border-green-500 text-green-500",
-    submitted:  "border-blue-500 text-blue-500",
-    "in-review":"border-yellow-500 text-yellow-500",
-    draft:      "border-current text-muted-foreground-subtle",
+    published: "border-green-500 text-green-500",
+    submitted: "border-blue-500 text-blue-500",
+    "in-review": "border-yellow-500 text-yellow-500",
+    draft: "border-current text-muted-foreground-subtle",
 };
 
 function StatusBadge({ status }: { status: Paper["status"] }) {
     if (!status) return null;
     return (
         <span
-            className={`text-[9px] md:text-xs font-mono uppercase tracking-widest border px-2 py-0.5 rounded-full ${
-                STATUS_STYLES[status] ?? "border-current opacity-50"
-            }`}
+            className={`text-[9px] md:text-xs font-mono uppercase tracking-widest border px-2 py-0.5 rounded-full ${STATUS_STYLES[status] ?? "border-current opacity-50"
+                }`}
         >
             {status}
         </span>
@@ -115,9 +114,9 @@ export const PaperItem = ({
     const docEntries = Object.entries(data.links);
 
     const header = (
-        <div className="flex flex-col justify-center gap-0.5 pr-0.5 md:pr-8">
+        <div className="flex flex-col justify-center gap-0.5 md:pr-8">
             <div className="flex flex-wrap items-center gap-2 mb-0.5">
-                <span className={`${serifFont} italic text-base md:text-2xl`}>
+                <span className={`${serifFont} italic text-[15px] md:text-2xl`}>
                     {data.title}
                 </span>
                 <StatusBadge status={data.status} />
@@ -188,11 +187,11 @@ export const PaperItem = ({
                                 e.stopPropagation(); // Prevents CollapsibleItem from closing
                                 if (!isTextExpanded) {
                                     // EXPANDING: Remove the clamp immediately so the text can stretch, then animate open
-                                    setIsClamped(false); 
+                                    setIsClamped(false);
                                     setIsTextExpanded(true);
                                 } else {
                                     // COLLAPSING: Animate closed, but DO NOT apply the clamp yet
-                                    setIsTextExpanded(false); 
+                                    setIsTextExpanded(false);
                                 }
                             }}
                             className="md:hidden text-[9px] font-mono uppercase tracking-widest border-b border-current text-muted-foreground-subtle hover:opacity-100 transition-opacity"
@@ -200,19 +199,19 @@ export const PaperItem = ({
                             {isTextExpanded ? "Read Less" : "Read More"}
                         </button>
                     </div>
-                    
+
                     <motion.div
                         className="w-full h-0.5 origin-left bg-current mb-3"
                         initial={{ scaleX: 0 }}
                         animate={{ scaleX: 1 }}
                         transition={{ duration: 0.4, ease: "easeOut", delay: 0.05 }}
                     />
-                    
+
                     {/* The smooth slide-down wrapper */}
                     <motion.div
                         initial={false}
-                        animate={{ 
-                            height: isTextExpanded ? "auto" : "4.875rem" 
+                        animate={{
+                            height: isTextExpanded ? "auto" : "4.875rem"
                         }}
                         // Rely on React state instead of Framer Motion's target object
                         onAnimationComplete={() => {
@@ -223,14 +222,13 @@ export const PaperItem = ({
                         className="overflow-hidden md:!h-auto"
                         transition={{ duration: 0.35, ease: "easeInOut" }}
                     >
-                        <p 
-                            className={`text-xs md:text-sm leading-relaxed text-muted-foreground ${
-                                isClamped 
+                        <p
+                            className={`text-xs md:text-sm leading-relaxed text-muted-foreground ${isClamped
                                     // When fully clamped: left-align to fix Safari bug. Force none/justify on desktop.
-                                    ? "line-clamp-4 text-left md:line-clamp-none md:text-justify" 
+                                    ? "line-clamp-4 text-left md:line-clamp-none md:text-justify"
                                     // When expanding, fully expanded, or shrinking: Justify everywhere, no clamp!
                                     : "text-justify"
-                            }`}
+                                }`}
                         >
                             {data.abstract}
                         </p>
@@ -278,9 +276,9 @@ export const PaperItemWithHover = (props: {
             whileHover={
                 !props.isActive
                     ? {
-                          backgroundColor: "var(--color-highlight-bg)",
-                          color: "var(--color-highlight-text)",
-                      }
+                        backgroundColor: "var(--color-highlight-bg)",
+                        color: "var(--color-highlight-text)",
+                    }
                     : {}
             }
         >
