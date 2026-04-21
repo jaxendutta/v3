@@ -65,9 +65,9 @@ export default function PapersSection({ limit, showLink }: { limit?: number, sho
                 <div className="flex justify-center mt-8 mb-4">
                     <Link
                         href="/papers"
-                        className="px-6 py-3 border border-current hover:bg-[var(--color-text)] hover:text-[var(--color-background)] transition-colors text-xs md:text-sm font-mono uppercase tracking-widest"
+                        className="px-6 py-3 border border-current hover:bg-foreground hover:text-background! transition-colors text-xs md:text-sm font-mono uppercase tracking-widest no-underline!"
                     >
-                        View Full Research Archive ➔
+                        View ALL Papers + Written Records
                     </Link>
                 </div>
             )}

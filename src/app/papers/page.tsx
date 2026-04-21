@@ -164,9 +164,9 @@ export default function PapersPage() {
                 />
             </motion.header>
 
-            <motion.div variants={fadeIn} initial="hidden" animate="visible">
-                <motion.div className={`text-5xl md:text-7xl text-center ${serifFont} italic pb-8 md:pb-10 lg:pb-12`}>
-                    Research.
+            <motion.div variants={fadeIn} initial="hidden" animate="visible" className="w-full">
+                <motion.div className={`text-4xl md:text-5xl lg:text-6xl xl:text-7xl text-center ${serifFont} italic leading-[1.15] pb-8 md:pb-10 lg:pb-12 md:max-w-[80vw] mx-auto`}>
+                    Papers & Written Records.
                 </motion.div>
 
                 <div className="flex justify-between items-center gap-4 border-b border-current pb-4">
