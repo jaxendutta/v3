@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 import TextBorderAnimation from "@/components/ui/TextBorder";
 import ProjectButton from "@/components/ui/ProjectButton";
 import { useMemo } from "react";
+import { serifFont } from "@/lib/fonts";
 
 interface OverviewSectionProps {
     overview: OverviewItem[][];
@@ -65,12 +66,12 @@ function OverviewSlide({ items, links, isLandscape }: { items: OverviewItem[], l
                     viewport={{ once: true }}
                     transition={{ duration: 0.6 }}
                 >
-                    <p className="text-xs md:text-base leading-relaxed text-muted-foreground max-w-[60vw] md:max-w-2xl">
+                    <p className={`text-lg md:text-2xl ${serifFont} italic leading-relaxed text-muted-foreground max-w-[60vw] md:max-w-2xl`}>
                         {bodyContent}
                     </p>
 
                     {links && links.length > 0 && (
-                        <div className="flex flex-wrap justify-evenly gap-4 mt-4 pt-8 border-t border-border w-full">
+                        <div className="flex flex-wrap justify-evenly gap-4 pt-8 border-t border-border w-full">
                             {links.map((link, linkIndex) => (
                                 <ProjectButton
                                     key={linkIndex}

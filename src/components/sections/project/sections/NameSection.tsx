@@ -148,9 +148,9 @@ export default function NameSection({ project }: NameSectionProps) {
                 >
                     <div className="absolute inset-0 opacity-10 mix-blend-overlay" style={{ backgroundImage: noiseBackground }} />
                     <div className="flex-1 flex flex-row items-center justify-center w-full relative z-10">
-                        <div className={`inline-flex text-[clamp(3.5rem,24vw,12rem)] leading-[0.85] font-sans uppercase font-bold text-center max-w-[95vw] break-words hyphens-auto`}>
+                        <div className={`inline-flex text-[clamp(3.5rem,24vw,12rem)] leading-[1.1] ${serifFont} italic text-center max-w-[95vw] break-words hyphens-auto`}>
                             <span className="overflow-hidden block">
-                                {project.name}<project.icon className="ml-4 mb-8 inline-block align-middle text-[0.8em]" />
+                                {project.label}<project.icon className="ml-4 mb-8 inline-block align-middle text-[0.8em]" />
                             </span>
                         </div>
                     </div>
