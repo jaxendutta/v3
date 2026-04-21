@@ -4,9 +4,10 @@ import type { Config } from "tailwindcss";
 const config: Config = {
     darkMode: "class",
     theme: {
-        muted: "var(--muted-foreground)",
         extend: {
             colors: {
+                muted: "var(--muted-foreground)",
+
                 // Direct colors that match your CSS variables
                 theme: {
                     background: {
