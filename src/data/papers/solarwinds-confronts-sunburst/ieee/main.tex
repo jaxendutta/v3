@@ -25,7 +25,6 @@
 \setabbreviationstyle[acronym]{long-short}
 \input{../glossaries}
 \makeglossaries
-\glsdisablehyper
 
 \graphicspath{{../figures/}}
 
@@ -59,6 +58,8 @@ The author would like to express their gratitude to Dr. Umar Ruhi for his guidan
 
 %% Print Glossaries
 \glsaddall
+\setglossarystyle{alttree}
+\glssetwidest{C-SCRM} % <--- Put your longest acronym here!
 \printglossary[type=\acronymtype,title=List of Acronyms]
 
 \bibliographystyle{IEEEtran}
