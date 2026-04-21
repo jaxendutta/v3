@@ -7,9 +7,9 @@ import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
 import remarkUnwrapImages from "rehype-unwrap-images";
 import rehypeSlug from "rehype-slug";
-import { displayFont } from "@/lib/fonts";
+import { displayFont, serifFont } from "@/lib/fonts";
 import {
-    FiCpu, FiLink, FiInfo, FiAlertCircle, 
+    FiCpu, FiLink, FiInfo, FiAlertCircle,
     FiCheckCircle, FiAlertTriangle, FiBookmark
 } from "react-icons/fi";
 import ProjectsPageHeader from "@/components/sections/project/ProjectsPageHeader";
@@ -89,27 +89,27 @@ function rehypeFigureIds() {
 const ALERT_STYLES: Record<string, { icon: any, classes: string, title: string }> = {
     note: {
         icon: FiInfo,
-        classes: "bg-blue-500/10 border-blue-500 text-blue-900 dark:text-blue-300",
+        classes: "bg-blue-500/10 border-blue-500 text-alert-note",
         title: "Note"
     },
     tip: {
         icon: FiCheckCircle,
-        classes: "bg-green-500/10 border-green-500 text-green-900 dark:text-green-300",
+        classes: "bg-green-500/10 border-green-500 text-alert-tip",
         title: "Tip"
     },
     important: {
         icon: FiBookmark,
-        classes: "bg-purple-500/10 border-purple-500 text-purple-700 dark:text-purple-300",
+        classes: "bg-purple-500/10 border-purple-500 text-alert-important",
         title: "Important"
     },
     warning: {
         icon: FiAlertTriangle,
-        classes: "bg-amber-500/10 border-amber-500 text-amber-700 dark:text-amber-300",
+        classes: "bg-amber-500/10 border-amber-500 text-alert-warning",
         title: "Warning"
     },
     caution: {
         icon: FiAlertCircle,
-        classes: "bg-red-500/10 border-red-500 text-red-700 dark:text-red-300",
+        classes: "bg-red-500/10 border-red-500 text-alert-caution",
         title: "Caution"
     }
 };
@@ -141,16 +141,16 @@ export default function ArticleLayout({ projectId, markdownContent }: ArticleLay
     // Helper for Headers with Links
     const HeaderRenderer = ({ id, children, levelClassName }: { id?: string, children: React.ReactNode, levelClassName: string }) => {
         const isReferences = typeof children === 'string' && children.toLowerCase() === 'references';
-        
+
         return (
-        <a
-            href={`#${id}`}
-            className={`flex-1 !no-underline hover:text-primary transition-colors flex items-baseline gap-3 w-full text-foreground ${levelClassName}`}
-        >
-            {!isReferences && <span className="number-prefix font-mono text-primary/70 mr-1 select-none flex-shrink-0"></span>}
-            <span>{children}</span>
-            <FiLink className="opacity-0 group-hover:opacity-50 transition-opacity text-[0.5em] text-muted-foreground self-center flex-shrink-0" />
-        </a>
+            <a
+                href={`#${id}`}
+                className={`flex-1 !no-underline hover:text-primary transition-colors flex items-baseline gap-3 w-full text-foreground ${levelClassName}`}
+            >
+                {!isReferences && <span className="number-prefix font-mono text-primary/70 mr-1 select-none flex-shrink-0"></span>}
+                <span>{children}</span>
+                <FiLink className="opacity-0 group-hover:opacity-50 transition-opacity text-[0.5em] text-muted-foreground self-center flex-shrink-0" />
+            </a>
         );
     };
 
@@ -168,22 +168,17 @@ export default function ArticleLayout({ projectId, markdownContent }: ArticleLay
                         <div className="flex-1 h-0.5 bg-primary" />
                         <span className="text-muted-foreground block">{project.date.toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}</span>
                     </div>
-                    <h1 className={`${displayFont} text-4xl md:text-7xl font-normal mb-2 md:mb-6 leading-[0.9] italic! flex gap-2`}>
+                    <h1 className={`${serifFont} italic text-4xl md:text-5xl lg:text-6xl  font-normal mb-2 md:mb-6 flex gap-2 items-start`}>
                         <project.icon />
-                        {project.name}
+                        {project.label}
                     </h1>
-                    {project.subtitle && (
-                        <p className={`${displayFont} text-xl md:text-3xl text-muted-foreground font-light italic!`}>
-                            {project.subtitle}
-                        </p>
-                    )}
                 </div>
 
                 {/* 2. Metadata Grid */}
                 {/* 2a. Tech Stack */}
                 <div className="pb-5 border-b border-border">
                     <h3 className="text-xs font-mono uppercase text-muted-foreground mb-4 flex items-center gap-1.5">
-                        <FiCpu /> 
+                        <FiCpu />
                         Tech Stack
                         <div className="flex-1 h-px bg-muted-foreground/50" />
                     </h3>
@@ -219,11 +214,11 @@ export default function ArticleLayout({ projectId, markdownContent }: ArticleLay
 
                                     return (
                                         <div className={`my-8 p-2 md:p-4 border-l-4 ${style.classes} flex flex-col gap-2 md:gap-4 items-start`}>
-                                            <div className="w-full flex items-center gap-2 text-sm">
-                                                <Icon className="flex-shrink-0" />
-                                                <p className="font-bold opacity-90 uppercase tracking-wide">{style.title}</p>
+                                            <div className="w-full flex items-start gap-2 text-xl">
+                                                <Icon className="flex-shrink-0 mt-0.75" />
+                                                <p className="uppercase tracking-wide text-inherit dark:text-inherit">{style.title}</p>
                                             </div>
-                                            <div className="opacity-90 [&>p]:my-0">{children}</div>
+                                            <div className="[&>p]:my-0 text-inherit dark:text-inherit">{children}</div>
                                         </div>
                                     );
                                 }
@@ -250,8 +245,8 @@ export default function ArticleLayout({ projectId, markdownContent }: ArticleLay
                             th: ({ node, ...props }) => <th className="p-2 md:p-4 border-b border-r border-border/50 font-semibold text-left" {...props} />,
 
                             // --- LISTS ---
-                            ul: ({ node, ...props }) => <ul className={`list-disc pl-4 md:pl-6 space-y-2 my-4 md:my-6 marker:text-primary ${base_font_size}`} {...props} />,
-                            ol: ({ node, ...props }) => <ol className={`list-decimal pl-6 space-y-2 my-4 md:my-6 marker:text-primary ${base_font_size}`} {...props} />,
+                            ul: ({ node, ...props }) => <ul className={`list-disc pl-4 md:pl-8 space-y-2 my-4 md:my-6 marker:text-primary ${base_font_size}`} {...props} />,
+                            ol: ({ node, ...props }) => <ol className={`list-decimal pl-7 md:pl-8 space-y-2 my-4 md:my-6 marker:text-primary ${base_font_size}`} {...props} />,
                             li: ({ node, ...props }) => <li className="md:pl-2" {...props} />,
 
                             // --- CODE BLOCKS ---

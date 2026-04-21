@@ -20,6 +20,13 @@
     --color-muted-foreground-subtle: var(--muted-foreground-subtle);
 
     --color-border: var(--border);
+
+    /* ALERT COLOR VARIABLES */
+    --color-alert-note: var(--alert-note);
+    --color-alert-tip: var(--alert-tip);
+    --color-alert-important: var(--alert-important);
+    --color-alert-warning: var(--alert-warning);
+    --color-alert-caution: var(--alert-caution);
 }
 
 /* 2. ROOT VARIABLES (Dark Mode Default) */
@@ -52,6 +59,13 @@
 
     /* Border: Same as muted for subtle lines */
     --border: #3f3f46;
+
+    /* ALERT COLOR VARIABLES */
+    --alert-note: #60a5fa;        /* blue-400 */
+    --alert-tip: #4ade80;         /* green-400 */
+    --alert-important: #a78bfa;   /* purple-400 */
+    --alert-warning: #fbbf24;     /* amber-400 */
+    --alert-caution: #f87171;     /* red-400 */
 }
 
 /* 3. LIGHT MODE OVERRIDES */
@@ -83,6 +97,13 @@
 
     /* Border: Orange-300 */
     --border: #fdba74;
+
+    /* ALERT COLOR VARIABLES */
+    --alert-note: #1e40af;        /* blue-900 */
+    --alert-tip: #166534;         /* green-900 */
+    --alert-important: #6d28d9;   /* purple-900 */
+    --alert-warning: #92400e;     /* amber-900 */
+    --alert-caution: #991b1b;     /* red-900 */
 }
 
 /* 4. BASE STYLES */
