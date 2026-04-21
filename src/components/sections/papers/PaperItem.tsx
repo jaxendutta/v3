@@ -123,7 +123,7 @@ export const PaperItem = ({
                 <StatusBadge status={data.status} />
             </div>
             {data.venue && (
-                <span className={`${sansFont} font-thin text-sm md:text-base text-muted-foreground-subtle md:tracking-wide`}>
+                <span className={`${sansFont} font-thin text-xs md:text-base text-muted-foreground-subtle md:tracking-wide`}>
                     {data.venue.join(" ✧ ")}
                 </span>
             )}
