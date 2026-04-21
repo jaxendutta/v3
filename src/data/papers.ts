@@ -58,7 +58,7 @@ export const papersData: PapersData = {
         title: "SolarWinds Confronts SUNBURST: A Post-Mortem Analysis",
         abstract:
             "The SUNBURST campaign, attributed to the APT29 group, represents a watershed moment in cybersecurity, exposing critical vulnerabilities in software supply chains. This paper provides a comprehensive post-mortem analysis of the attack, detailing the sophisticated techniques employed by the adversary, including novel code obfuscation and multi-stage payload delivery. We evaluate the attack's impact on national security, industry practices, and public awareness, and analyze the response strategies deployed by SolarWinds and affected organizations. The paper concludes with actionable recommendations for enhancing software supply chain security, emphasizing the need for proactive threat intelligence sharing, robust code integrity verification, and comprehensive incident response planning.",
-        venue: ["Research Report", "University of Ottawa"],
+        venue: ["Case Study", "University of Ottawa"],
         duration: {
             start: new Date("2025-12-02"),
             end: new Date("2025-12-12")
