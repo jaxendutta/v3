@@ -101,7 +101,7 @@ export default function NotFound() {
             <div className="absolute inset-0 z-50 flex flex-col justify-between p-6 md:p-12 pointer-events-none">
 
                 {/* Top Status Bar */}
-                <div className="flex justify-between items-start w-full uppercase font-mono text-xs tracking-[0.2em] opacity-50">
+                <div className="flex justify-between items-start w-full uppercase font-mono text-xs tracking-[0.2em] text-muted-foreground-subtle">
                     <span>404</span>
                     <span>NOT FOUND</span>
                 </div>
@@ -114,7 +114,7 @@ export default function NotFound() {
                         <h2 className="text-sm md:text-base font-sans font-bold uppercase tracking-widest flex items-center justify-center md:justify-start gap-3">
                             Page Not Found
                         </h2>
-                        <p className="text-xs md:text-sm font-sans opacity-60 max-w-[280px] leading-relaxed">
+                        <p className="text-xs md:text-sm font-sans text-muted-foreground-subtle max-w-[280px] leading-relaxed">
                             The document you are looking for does not exist, has been moved, or is currently unavailable.
                             <br />
                             Let&apos;s get you back to safety.

@@ -3,7 +3,7 @@
 import { useEffect, useState, useMemo } from "react";
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import { motion } from "framer-motion";
-import { googleSansFlex } from "@/lib/fonts";
+import { googleSansFlex, serifFont } from "@/lib/fonts";
 import { fadeIn, staggerContainer, slideUp } from "@/lib/motionVariants";
 import { projectsData } from "@/data/projects";
 import RotatingButton from "@/components/ui/RotatingButton";
@@ -178,7 +178,7 @@ export default function ProjectsPage() {
         selectedYears.length > 0;
 
     return (
-        <div className="min-h-screen flex flex-col gap-4 p-4 md:p-6 lg:p-8 xl:p-12 2xl:p-16 text-xs md:text-sm lg:text-base">
+        <div className="min-h-screen flex flex-col gap-4 p-4 md:p-6 lg:p-8 xl:p-12 2xl:p-16 text-[13px] md:text-sm lg:text-base">
             <motion.header
                 className="sticky top-4 z-50 flex justify-between items-center"
                 initial={{ y: -100 }}
@@ -209,8 +209,8 @@ export default function ProjectsPage() {
                 initial="hidden"
                 animate="visible"
             >
-                <motion.div className={`text-5xl md:text-7xl text-center ${googleSansFlex.className} pb-8 md:pb-10 lg:pb-12`}>
-                    Projects
+                <motion.div className={`text-5xl md:text-7xl text-center ${serifFont} italic pb-8 md:pb-10 lg:pb-12`}>
+                    Projects.
                 </motion.div>
 
                 {/* Results count and filter controls */}
@@ -218,7 +218,7 @@ export default function ProjectsPage() {
                     {/* Results count with detailed filter information */}
                     <div className="w-full text-center items-center justify-center flex flex-wrap">
                         <span className="whitespace-nowrap">
-                            <span className="font-bold">
+                            <span className="font-semibold">
                                 {filteredProjects.length} / {projectIds.length}
                             </span>
                             <span>{" projects found "}</span>
@@ -391,8 +391,8 @@ export default function ProjectsPage() {
                         initial="hidden"
                         animate="visible"
                     >
-                        <p className="text-2xl mb-8 opacity-70">
-                            No projects found matching your criteria
+                        <p className="mb-8 text-accent">
+                            No projects found matching your criteria!
                         </p>
                         <button
                             type="button"

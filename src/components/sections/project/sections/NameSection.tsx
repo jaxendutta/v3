@@ -5,6 +5,7 @@ import { motion, useMotionValue, useSpring, useMotionTemplate } from "framer-mot
 import Link from "next/link";
 import { Project } from "@/types/project";
 import { RandomIconsLoader } from "@/components/ui/RandomIcons";
+import { serifFont } from "@/lib/fonts";
 
 interface NameSectionProps {
     project: Project;
@@ -68,46 +69,75 @@ export default function NameSection({ project }: NameSectionProps) {
                 }}
             />
 
-            <div className={`inset-0 flex flex-col justify-between z-0 flex-1 ${hasMouse ? "absolute p-12 pb-8" : "relative p-6 pb-12"}`}>
-                <div className={`flex-1 flex flex-col items-end justify-start w-full h-fit! ${hasMouse ? "my-0" : "my-4"}`}>
-                    <h1 className={`leading-[0.85] h-fit! max-h-[calc(100%-400px)] max-w-[95vw] uppercase ${hasMouse
-                        ? "text-[clamp(4rem,20vw,7rem)] tracking-tighter [writing-mode:horizontal-tb] text-center text-transparent font-mono [-webkit-text-stroke:2px_currentColor]"
-                        : "text-[clamp(3.5rem,24vw,5rem)] [writing-mode:vertical-rl] text-foreground font-bold text-left"
-                        }`}>
-
-                        {!hasMouse && (
-                            <div className="absolute top-2 left-2 flex flex-row gap-2 px-6 py-2 md:py-4 max-h-[40vh]">
-                                <RandomIconsLoader count={3} />
-                                <project.icon />
+            {/* Responsive layout: desktop = column, mobile = row with label right, meta left */}
+            {hasMouse ? (
+                <div className="inset-0 flex flex-col justify-between z-0 flex-1 absolute p-12 pb-8">
+                    <div className="flex-1 flex flex-col items-end justify-start w-full h-fit! my-0">
+                        <h1 className={`leading-[1.1] h-fit! max-h-[calc(100%-400px)] max-w-[90vw] text-[clamp(4rem,20vw,7rem)] tracking-tighter [writing-mode:horizontal-tb] text-center text-transparent ${serifFont} [-webkit-text-stroke:2px_currentColor]`}>
+                            {project.label}
+                        </h1>
+                    </div>
+                    {/* Metadata Grid */}
+                    <div className="grid text-xs font-mono uppercase tracking-widest relative z-50 pb-10 grid-cols-3 gap-8 opacity-60">
+                        <div className="flex flex-col gap-2">
+                            <span className="opacity-50">Type</span>
+                            <span className="leading-relaxed uppercase text-xs">{project.type}</span>
+                        </div>
+                        <div className="flex flex-col gap-2 items-center">
+                            <span className="opacity-50">Timestamp</span>
+                            <span className="text-xs">{project.date.toDateString()}</span>
+                        </div>
+                        <div className="flex flex-col gap-2 items-end">
+                            <span className="opacity-50">Links</span>
+                            <div className="flex gap-4">
+                                {project.links?.map((link: any, i: number) => (
+                                    <Link key={i} href={link.url} target="_blank" className="underline underline-offset-4 hover:text-accent transition-colors">{link.platform}</Link>
+                                ))}
                             </div>
-                        )}
-                        {project.name}
-                    </h1>
-                </div>
-
-                {/* Metadata Grid */}
-                <div className={`grid text-xs font-mono uppercase tracking-widest relative z-50 pb-10 ${hasMouse ? "grid-cols-3 gap-8 opacity-60" : "grid-cols-1 gap-4"}`}>
-                    <div className="flex flex-col gap-2">
-                        <span className="opacity-50">Type</span>
-                        <span className={`leading-relaxed uppercase ${hasMouse ? "text-xs" : "text-sm"}`}>{project.type}</span>
-                    </div>
-
-                    <div className={`flex flex-col gap-2 ${hasMouse ? "items-center" : ""}`}>
-                        <span className="opacity-50">Timestamp</span>
-                        <span className={hasMouse ? "text-xs" : "text-sm"}>{project.date.toDateString()}</span>
-                    </div>
-
-                    {/* Links */}
-                    <div className={`flex flex-col gap-2 ${hasMouse ? "items-end" : ""}`}>
-                        <span className="opacity-50">Links</span>
-                        <div className={`flex gap-4 ${hasMouse ? "" : "flex-wrap"}`}>
-                            {project.links?.map((link: any, i: number) => (
-                                <Link key={i} href={link.url} target="_blank" className="underline underline-offset-4 hover:text-accent transition-colors">{link.platform}</Link>
-                            ))}
                         </div>
                     </div>
                 </div>
-            </div>
+            ) : (
+                <div className="relative flex flex-row justify-between items-stretch w-full h-full pl-6 pr-8 pt-6 pb-24 gap-2">
+                    {/* Left: Icons + Meta */}
+                    <div className="flex flex-col justify-between items-start flex-1 min-w-0 max-w-[50vw]">
+                        <div className="flex flex-col items-start gap-6 px-2 py-2 md:py-4 
+                        justify-between max-h-[calc(100vh-200px)]">
+                            <div className="flex flex-col items-center gap-4">
+                                {/* Make all random icons large by wrapping in a container with text size */}
+                                <div className="flex flex-col items-center gap-4 text-6xl md:text-7xl lg:text-8xl">
+                                    <RandomIconsLoader count={3} />
+                                </div>
+                                <project.icon className="text-6xl md:text-7xl lg:text-8xl" />
+                            </div>
+                        </div>
+                        <div className="mt-8 grid text-xs font-mono uppercase tracking-widest z-50 grid-cols-1 gap-4">
+                            <div className="flex flex-col gap-2">
+                                <span className="opacity-50">Type</span>
+                                <span className="leading-relaxed uppercase text-sm">{project.type}</span>
+                            </div>
+                            <div className="flex flex-col gap-2">
+                                <span className="opacity-50">Timestamp</span>
+                                <span className="text-sm">{project.date.toDateString()}</span>
+                            </div>
+                            <div className="flex flex-col gap-2">
+                                <span className="opacity-50">Links</span>
+                                <div className="flex gap-4 flex-wrap">
+                                    {project.links?.map((link: any, i: number) => (
+                                        <Link key={i} href={link.url} target="_blank" className="underline underline-offset-4 hover:text-accent transition-colors">{link.platform}</Link>
+                                    ))}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {/* Right: Vertical Label */}
+                    <div className="flex flex-col justify-center items-end min-h-0 max-h-full">
+                        <h1 className={`leading-[1.1] h-fit! max-h-[calc(100vh-200px)] max-w-[40vw] text-[clamp(3.5rem,24vw,5rem)] [writing-mode:vertical-rl] text-foreground ${serifFont} italic text-left`}>
+                            {project.label}
+                        </h1>
+                    </div>
+                </div>
+            )}
 
             {/* --- LAYER 2: THE X-RAY LENS (DESKTOP ONLY) --- */}
             {/* The Lens only renders if `hasMouse` is true, keeping touchscreens safe */}
@@ -118,13 +148,12 @@ export default function NameSection({ project }: NameSectionProps) {
                 >
                     <div className="absolute inset-0 opacity-10 mix-blend-overlay" style={{ backgroundImage: noiseBackground }} />
                     <div className="flex-1 flex flex-row items-center justify-center w-full relative z-10">
-                        <div className="inline-flex text-[clamp(3.5rem,24vw,12rem)] leading-[0.85] font-sans uppercase font-bold text-center max-w-[95vw] break-words hyphens-auto">
+                        <div className={`inline-flex text-[clamp(3.5rem,24vw,12rem)] leading-[0.85] font-sans uppercase font-bold text-center max-w-[95vw] break-words hyphens-auto`}>
                             <span className="overflow-hidden block">
                                 {project.name}<project.icon className="ml-4 mb-8 inline-block align-middle text-[0.8em]" />
-                            </span>                            
+                            </span>
                         </div>
                     </div>
-
                     <div className="grid grid-cols-3 gap-8 text-xs font-sans font-bold uppercase tracking-widest relative z-10 pb-10">
                         <div className="flex flex-col gap-2">
                             <span className="opacity-50">Type</span>

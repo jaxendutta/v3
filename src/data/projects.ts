@@ -604,7 +604,7 @@ export const projectsData: ProjectsData = {
                 url: "https://www.figma.com/proto/OgAWcQHH2BAl2djJTCnHII/Hivemind?scaling=scale-down",
             },
             {
-                platform: "Case Study",
+                platform: "Design Notebook",
                 url: "https://docs.google.com/document/d/1mqnpwIP3gOAwz9jm2UrgXZnNPSO40aCmM-wA7pEuu2Q/view",
             },
         ],
@@ -789,7 +789,7 @@ export const projectsData: ProjectsData = {
 
     lightbox: {
         name: "liGHtboX",
-        label: "Lightbox",
+        label: "LightBox",
         icon: PiCodesandboxLogoLight,
         type: "development",
         layoutType: "showcase",

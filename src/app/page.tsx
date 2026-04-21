@@ -11,7 +11,7 @@ import Navbar from "@/components/layout/Navbar";
 
 function SectionFallback({ label }: { label: string }) {
     return (
-        <div className="w-full h-[50vh] flex items-center justify-center opacity-40 font-mono text-sm">
+        <div className="w-full h-[50vh] flex items-center justify-center text-muted-foreground font-mono text-sm">
             Loading {label}…
         </div>
     );
