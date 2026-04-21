@@ -122,7 +122,12 @@ export const PaperItem = ({
                 <StatusBadge status={data.status} />
             </div>
             {data.venue && (
-                <span className={`${sansFont} font-thin text-[13px] md:text-base text-muted-foreground-subtle md:tracking-wide`}>
+                <span
+                    className={
+                        `${sansFont} font-thin text-[13px] md:text-base text-muted-foreground-subtle md:tracking-wide` +
+                        (!isActive ? " group-hover:text-highlight-text" : "")
+                    }
+                >
                     {data.venue.join(" ✧ ")}
                 </span>
             )}
@@ -281,6 +286,7 @@ export const PaperItemWithHover = (props: {
                     }
                     : {}
             }
+            className="group"
         >
             <PaperItem {...props} />
         </motion.div>

@@ -5,33 +5,6 @@ const config: Config = {
     darkMode: "class",
     theme: {
         extend: {
-            colors: {
-                // Direct colors that match your CSS variables
-                theme: {
-                    background: {
-                        dark: "#18181b",
-                        light: "#fff7ed",
-                    },
-                    text: {
-                        dark: "#fff7ed",
-                        light: "#1d4ed8",
-                    },
-                    accent: {
-                        dark: "#e11d48",
-                        light: "#f43f5e",
-                    },
-                    highlight: {
-                        bg: {
-                            dark: "#1e3a8a",
-                            light: "#1d4ed8",
-                        },
-                        text: {
-                            dark: "#bef264",
-                            light: "#bef264",
-                        },
-                    },
-                },
-            },
             animation: {
                 marquee: "marquee var(--duration) linear infinite",
                 "marquee-vertical":

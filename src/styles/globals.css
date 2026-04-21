@@ -12,6 +12,9 @@
     --color-secondary: var(--secondary);
     --color-secondary-foreground: var(--secondary-foreground);
 
+    --color-highlight-bg: var(--highlight-bg);
+    --color-highlight-text: var(--highlight-text);
+
     --color-muted: var(--muted);
     --color-muted-foreground: var(--muted-foreground);
     --color-muted-foreground-subtle: var(--muted-foreground-subtle);
@@ -28,7 +31,7 @@
     --color-highlight-bg: #1e3a8a;
     --color-highlight-text: #bef264;
 
-    /* --- NEW STANDARD VARIABLES (Mapped to your colors) --- */
+    /* --- STANDARD VARIABLES --- */
     /* Background: Zinc-950 (#18181b) */
     --background: #18181b;
     /* Foreground: Orange-50 (#fff7ed) */
@@ -63,7 +66,7 @@
     /* Background: Orange-50 */
     --background: #fff7ed;
     /* Foreground: Blue-700 */
-    --foreground: #1d4ed8;
+    --foreground: #0039d4;
 
     /* Primary: Rose-500 */
     --primary: #f43f5e;
@@ -75,8 +78,8 @@
 
     /* Muted: shades of blue with contrast! */
     --muted: #fed7aa;
-    --muted-foreground: #386DFF;
-    --muted-foreground-subtle: #308DFF;
+    --muted-foreground: #0044ff;
+    --muted-foreground-subtle: #0073ff;
 
     /* Border: Orange-300 */
     --border: #fdba74;
@@ -142,11 +145,11 @@ a:hover {
 }
 
 .bg-highlight {
-    background-color: var(--color-highlight-bg-legacy);
+    background-color: var(--color-highlight-bg);
 }
 
 .text-highlight {
-    color: var(--color-highlight-text-legacy);
+    color: var(--color-highlight-text);
 }
 
 @layer base {
