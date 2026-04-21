@@ -71,9 +71,9 @@
     --secondary: #ffffff;
     --secondary-foreground: #1d4ed8;
 
-    /* Muted: Orange-200/Orange-600 */
+    /* Muted: Orange-200/Blue with Contrast! */
     --muted: #fed7aa;
-    --muted-foreground: #ea580c;
+    --muted-foreground: #60a5fa;
 
     /* Border: Orange-300 */
     --border: #fdba74;
