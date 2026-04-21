@@ -110,6 +110,7 @@ export const PaperItem = ({
     isActive: boolean;
     onToggle: () => void;
 }) => {
+    const [isTextExpanded, setIsTextExpanded] = useState(false);
     const docEntries = Object.entries(data.links);
 
     const header = (
@@ -175,16 +176,32 @@ export const PaperItem = ({
 
                     {/* Abstract */}
                     <div>
-                        <p className="text-[10px] md:text-xs font-mono uppercase tracking-widest opacity-50 mb-2">
-                            Abstract
-                        </p>
+                        <div className="flex items-center justify-between mb-2">
+                            <p className="text-[10px] md:text-xs font-mono uppercase tracking-widest opacity-50">
+                                Abstract
+                            </p>
+                            {/* Toggle button - only visible on smaller screens */}
+                            <button
+                                onClick={(e) => {
+                                    e.stopPropagation(); // Prevents CollapsibleItem from closing
+                                    setIsTextExpanded(!isTextExpanded);
+                                }}
+                                className="md:hidden text-[9px] font-mono uppercase tracking-widest border-b border-current opacity-60 hover:opacity-100 transition-opacity"
+                            >
+                                {isTextExpanded ? "Read Less" : "Read More"}
+                            </button>
+                        </div>
                         <motion.div
                             className="w-full h-0.5 origin-left bg-current mb-3"
                             initial={{ scaleX: 0 }}
                             animate={{ scaleX: 1 }}
                             transition={{ duration: 0.4, ease: "easeOut", delay: 0.05 }}
                         />
-                        <p className="text-xs md:text-sm leading-relaxed text-justify opacity-80">
+                        <p 
+                            className={`text-xs md:text-sm leading-relaxed text-justify opacity-80 transition-all duration-300 ${
+                                !isTextExpanded ? "line-clamp-4 md:line-clamp-none" : ""
+                            }`}
+                        >
                             {data.abstract}
                         </p>
                     </div>
