@@ -10,17 +10,17 @@
         \toprule
         \# & Category & Property & Attack Element & Control Failure Exploited & Evidence \\
         \midrule
-        1 & Spoofing & Authentication & Legitimate digital signature abuse; SAML token forgery & Code signing validated artifacts, not build integrity & Valid signatures on malicious updates \cite{fireeye2020} \\
+        1 & Spoofing & Authentication & Legitimate digital signature abuse; SAML token forgery & Code signing validated artifacts, not build integrity & Valid signatures on malicious updates \cite{fireeye_highly_2020} \\
         
-        2 & Tampering & Integrity & SUNSPOT injected code during compilation after code reviews & No build integrity verification (PR.DS-06) & ``More portable than just at SolarWinds'' \cite{openhearing2021} \\
+        2 & Tampering & Integrity & SUNSPOT injected code during compilation after code reviews & No build integrity verification (PR.DS-06) & ``More portable than just at SolarWinds'' \cite{us_open_2021} \\
         
-        3 & Repudiation & Non-repudiation & Memory-only execution; file replacement; artifact deletion & No dev environment logging (DE.CM-01) & Anti-forensic techniques prevented attribution \cite{fireeye2020} \\
+        3 & Repudiation & Non-repudiation & Memory-only execution; file replacement; artifact deletion & No dev environment logging (DE.CM-01) & Anti-forensic techniques prevented attribution \cite{fireeye_highly_2020} \\
         
-        4 & Info Disclosure & Confidentiality & 9 federal agencies' email monitoring; credential harvesting & 7-month detection gap (DE.CM-01, DE.AE-02) & Treasury, Commerce emails compromised \cite{nagle2023} \\
+        4 & Info Disclosure & Confidentiality & 9 federal agencies' email monitoring; credential harvesting & 7-month detection gap (DE.CM-01, DE.AE-02) & Treasury, Commerce emails compromised \cite{nagle_solarwinds_2023} \\
         
-        5 & Denial of Service & Availability & Registry-based security tool disablement & No behavioral analytics (DE.AE-02) & 100+ security tools blocklisted \cite{eckels2020} \\
+        5 & Denial of Service & Availability & Registry-based security tool disablement & No behavioral analytics (DE.AE-02) & 100+ security tools blocklisted \cite{eckels_sunburst_2020} \\
         
-        6 & Elevation of Privilege & Authorization & Execution via trusted process & Zero Trust principles violated \cite{rose2020} & Supply chain trust exploitation \cite{fireeye2020} \\
+        6 & Elevation of Privilege & Authorization & Execution via trusted process & Zero Trust principles violated \cite{rose_zero_2020} & Supply chain trust exploitation \cite{fireeye_highly_2020} \\
         \bottomrule
     \end{tabularx}
 \end{table}
