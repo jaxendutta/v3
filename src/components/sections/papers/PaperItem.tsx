@@ -123,7 +123,7 @@ export const PaperItem = ({
                 <StatusBadge status={data.status} />
             </div>
             {data.venue && (
-                <span className={`${sansFont} font-thin text-sm md:text-base text-theme-muted md:tracking-wide`}>
+                <span className={`${sansFont} font-thin text-sm md:text-base text-muted md:tracking-wide`}>
                     {data.venue.join(" ✧ ")}
                 </span>
             )}
@@ -179,7 +179,7 @@ export const PaperItem = ({
                 {/* Abstract */}
                 <div>
                     <div className="flex items-center justify-between mb-2">
-                        <p className="text-[10px] md:text-xs font-mono uppercase tracking-widest text-theme-muted">
+                        <p className="text-[10px] md:text-xs font-mono uppercase tracking-widest text-muted-foreground">
                             Abstract
                         </p>
                         {/* Toggle button - only visible on smaller screens */}
@@ -195,7 +195,7 @@ export const PaperItem = ({
                                     setIsTextExpanded(false); 
                                 }
                             }}
-                            className="md:hidden text-[9px] font-mono uppercase tracking-widest border-b border-current text-theme-muted hover:opacity-100 transition-opacity"
+                            className="md:hidden text-[9px] font-mono uppercase tracking-widest border-b border-current text-muted hover:opacity-100 transition-opacity"
                         >
                             {isTextExpanded ? "Read Less" : "Read More"}
                         </button>
