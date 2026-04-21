@@ -14,17 +14,16 @@ export const papersData: PapersData = {
         tags: [
             "NLP",
             "RAG",
+            "AI",
             "BERTopic",
             "FAISS",
+            "LLM",
             "Medical AI",
+            "NER",
             "HuggingFace",
             "Ollama",
-            "LLM",
-            "NER",
+            "Embedding",
             "Collocation",
-            "Embeddings",
-            "Fine-Tuning",
-            "AI",
             "Recommender",
             "Conversational Agent",
         ],
@@ -47,12 +46,11 @@ export const papersData: PapersData = {
         },
         tags: [
             "Affective Computing",
-            "AI Safety",
+            "Persuasive Computing",
+            "HCI",
             "AI Ethics",
             "AI Governance",
             "Virtual Agents",
-            "Parasocial Relationships",
-            "HCI",
             "Human-AI Interaction"
         ],
         projectId: "beyond-helpful",
@@ -73,16 +71,13 @@ export const papersData: PapersData = {
         tags: [
             "Cybersecurity",
             "Software Supply Chain",
-            "APT29",
-            "Incident Response",
-            "Threat Intelligence",
-            "Security Analysis",
-            "NIST CSF",
-            "MITRE ATT&CK",
-            "Microsoft STRIDE",
-            "Microsoft Threat Modeling",
+            "STRIDE", 
             "SolarWinds",
             "SUNBURST",
+            "NIST CSF",
+            "MITRE ATT&CK",
+            "Threat Modelling",
+            "Security Analysis",
         ],
         links: {
             ieee: { label: "IEEE Format", type: "paper" }
@@ -101,10 +96,10 @@ export const papersData: PapersData = {
             "NLP",
             "API Design",
             "Web Services",
-            "AWS Bedrock",
-            "Prompt Engineering",
+            "AI",
             "LLM",
-            "Security",
+            "AWS",
+            "Prompt Engineering",
         ],
         links: {
             acm: { label: "ACM Format", type: "paper" },
@@ -123,12 +118,10 @@ export const papersData: PapersData = {
         },
         tags: [
             "Human-Centered Design",
-            "User Experience",
             "Design Thinking",
-            "Organizational Resistance",
+            "HCI", "UX",
             "Change Management",
-            "Planned Obsolescence",
-            "HCI"
+            "Organizational Resistance",
         ],
         links: {
             essay: {
@@ -150,7 +143,6 @@ export const papersData: PapersData = {
         tags: [
             "Operations Research",
             "MILP",
-            "Gurobi",
             "GIS",
             "Optimization",
             "Electric Vehicle",
@@ -181,12 +173,10 @@ export const papersData: PapersData = {
         tags: [
             "Mathematical Biology",
             "Delay Differential Equations",
-            "Ordinary Differential Equations",
-            "Tumor Growth",
+            "Cancer", "Tumor Growth",
             "Immune Response",
             "Hopf Bifurcation",
             "Stability Analysis",
-            "Cancer",
             "Quiescent Cancer Cells",
             "Computational Modelling",
             "Cellular Systems"
@@ -218,14 +208,12 @@ export const papersData: PapersData = {
             end: new Date("2024-03-30")
         },
         tags: [
-            "Ethics",
+            "HCI",
+            "AI Ethics",
             "AI Regulation",
             "AI Governance",
-            "Transparency",
-            "Accountability",
             "Risk Stratification",
             "Human Control",
-            "HCI",
             "Human-AI Interaction",
         ],
         links: {
@@ -246,13 +234,13 @@ export const papersData: PapersData = {
             end: new Date("2024-03-18")
         },
         tags: [
-            "Ethics",
+            "HCI",
+            "AI Ethics",
             "Data Governance",
             "Global Development",
             "Informed Consent",
             "Data Colonialism",
             "Privacy",
-            "HCI",
         ],
         links: {
             essay: {
@@ -272,13 +260,13 @@ export const papersData: PapersData = {
             end: new Date("2024-03-04")
         },
         tags: [
-            "Ethics",
+            "HCI",
+            "AI Ethics",
             "Mental Health",
             "Conversational AI",
             "Digital Health",
             "AI Safety",
             "Accessibility",
-            "HCI",
             "Human-AI Interaction",
         ],
         links: {
@@ -299,13 +287,12 @@ export const papersData: PapersData = {
             end: new Date("2024-02-05")
         },
         tags: [
-            "Ethics",
+            "HCI", "Tech Ethics",
             "Indigenous Knowledge",
             "Participatory Design",
             "Cultural Sensitivity",
             "Decolonial Technology",
             "Navigation",
-            "HCI",
         ],
         links: {
             essay: {
@@ -325,14 +312,12 @@ export const papersData: PapersData = {
             end: new Date("2024-01-29")
         },
         tags: [
-            "Ethics",
+            "HCI", "AI Ethics",
             "Algorithmic Bias",
             "Health Equity",
             "Explainable AI",
             "Machine Learning",
-            "Auditing",
-            "Risk Stratification",
-            "HCI",
+            "Risk Stratification",            
             "Human-AI Interaction",
         ],
         links: {
