@@ -17,9 +17,16 @@ export const papersData: PapersData = {
             "BERTopic",
             "FAISS",
             "Medical AI",
-            "Python",
+            "HuggingFace",
+            "Ollama",
             "LLM",
             "NER",
+            "Collocation",
+            "Embeddings",
+            "Fine-Tuning",
+            "AI",
+            "Recommender",
+            "Conversational Agent",
         ],
         projectId: "emma",
         links: {
@@ -45,8 +52,8 @@ export const papersData: PapersData = {
             "AI Governance",
             "Virtual Agents",
             "Parasocial Relationships",
-            "AI Governance",
             "HCI",
+            "Human-AI Interaction"
         ],
         projectId: "beyond-helpful",
         links: {
@@ -119,11 +126,10 @@ export const papersData: PapersData = {
             "Operations Research",
             "MILP",
             "Gurobi",
-            "Python",
             "GIS",
-            "EV Infrastructure",
             "Optimization",
-            "Waterloo Region",
+            "Electric Vehicle",
+            "Supply Equipment"
         ],
         projectId: "evse-opt",
         links: {
@@ -150,11 +156,15 @@ export const papersData: PapersData = {
         tags: [
             "Mathematical Biology",
             "Delay Differential Equations",
+            "Ordinary Differential Equations",
             "Tumor Growth",
             "Immune Response",
             "Hopf Bifurcation",
             "Stability Analysis",
-            "Python",
+            "Cancer",
+            "Quiescent Cancer Cells",
+            "Computational Modelling",
+            "Cellular Systems"
         ],
         projectId: "qqc-dde",
         links: {
@@ -311,7 +321,7 @@ export const papersData: PapersData = {
     "holistic-fairness": {
         title: "Holistic Fairness: Why Neither Equality Nor Process Is Enough",
         abstract:
-            "Fairness is among the most contested yet consequential concepts in moral and political philosophy. This essay initiated its exploration by arguing whether neither egalitarian fairness, which prioritizes equal distribution of outcomes, nor procedural fairness, which emphasizes just processes, is independently sufficient to achieve justice. Eventually, it advances a synthesized account called \"holistic fairness\": a framework that treats equitable starting conditions and transparent, inclusive processes as mutually necessary and jointly constitutive of a just society. Drawing on philosophical, legal, and empirical literature, the essay evaluates the internal limitations of each traditional definition before defending holistic fairness as a more adaptable, culturally sensitive, and practically applicable standard for contemporary governance and social organization.",
+            "Fairness is among the most contested yet consequential concepts in moral and political philosophy. This essay initiates by arguing that neither egalitarian fairness, which prioritizes equal distribution of outcomes, nor procedural fairness, which emphasizes just processes, is independently sufficient to achieve justice. Eventually, it advances a synthesized account called \"holistic fairness\": a framework that treats equitable starting conditions and transparent, inclusive processes as mutually necessary and jointly constitutive of a just society. Drawing on philosophical, legal, and empirical literature, the essay evaluates the internal limitations of each traditional definition before defending holistic fairness as a more adaptable, culturally sensitive, and practically applicable standard for contemporary governance and social organization.",
         venue: ["Academic Essay", "University of Waterloo"],
         duration: {
             start: new Date("2024-01-12"),
