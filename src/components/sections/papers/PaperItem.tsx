@@ -114,7 +114,7 @@ export const PaperItem = ({
     const docEntries = Object.entries(data.links);
 
     const header = (
-        <div className="flex flex-col justify-center gap-0.5 md:pr-8">
+        <div className="flex flex-col justify-center gap-0.5 pr-2 md:pr-8">
             <div className="flex flex-wrap items-center gap-2 mb-0.5">
                 <span className={`${serifFont} italic text-[15px] md:text-2xl`}>
                     {data.title}
