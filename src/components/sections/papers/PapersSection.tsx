@@ -1,19 +1,27 @@
 // src/components/sections/papers/PapersSection.tsx
 "use client";
 
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { GiLockedChest, GiOpenTreasureChest } from "react-icons/gi";
 import Section from "@/components/ui/Section";
 import { PaperItems } from "@/components/sections/papers/PaperItem";
 import { papersData } from "@/data/papers";
+import Link from "next/link";
 
-export default function PapersSection() {
-    const [expandedItems, setExpandedItems] = useState<Record<string, boolean>>(
-        {}
-    );
-    const paperIds = Object.keys(papersData);
-    const allExpanded =
-        paperIds.length > 0 && paperIds.every((id) => expandedItems[id]);
+export default function PapersSection({ limit, showLink }: { limit?: number, showLink?: boolean }) {
+    const [expandedItems, setExpandedItems] = useState<Record<string, boolean>>({});
+
+    // Sort papers chronologically (newest first)
+    const allPaperIds = useMemo(() => {
+        return Object.entries(papersData)
+            .sort((a, b) => b[1].duration.end.getTime() - a[1].duration.end.getTime())
+            .map(([id]) => id);
+    }, []);
+
+    // Apply the limit if provided
+    const paperIds = limit ? allPaperIds.slice(0, limit) : allPaperIds;
+
+    const allExpanded = paperIds.length > 0 && paperIds.every((id) => expandedItems[id]);
 
     const toggleItem = (id: string) => {
         setExpandedItems((prev) => ({
@@ -51,7 +59,18 @@ export default function PapersSection() {
                 },
             }}
         >
-            <PaperItems expandedItems={expandedItems} toggleItem={toggleItem} />
+            <PaperItems expandedItems={expandedItems} toggleItem={toggleItem} paperIds={paperIds} />
+
+            {showLink && (
+                <div className="flex justify-center mt-8 mb-4">
+                    <Link
+                        href="/papers"
+                        className="px-6 py-3 border border-current hover:bg-[var(--color-text)] hover:text-[var(--color-background)] transition-colors text-xs md:text-sm font-mono uppercase tracking-widest"
+                    >
+                        View Full Research Archive ➔
+                    </Link>
+                </div>
+            )}
         </Section>
     );
 }

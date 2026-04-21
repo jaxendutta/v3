@@ -15,17 +15,13 @@ export const papersData: PapersData = {
             "NLP",
             "RAG",
             "AI",
-            "BERTopic",
-            "FAISS",
             "LLM",
-            "Medical AI",
+            "ML",
             "NER",
             "HuggingFace",
             "Ollama",
-            "Embedding",
-            "Collocation",
             "Recommender",
-            "Conversational Agent",
+            "Computational Biology",
         ],
         projectId: "emma",
         links: {
@@ -48,7 +44,7 @@ export const papersData: PapersData = {
             "Affective Computing",
             "Persuasive Computing",
             "HCI",
-            "AI Ethics",
+            "AI", "Ethics",
             "AI Governance",
             "Virtual Agents",
             "Human-AI Interaction"
@@ -71,9 +67,7 @@ export const papersData: PapersData = {
         tags: [
             "Cybersecurity",
             "Software Supply Chain",
-            "STRIDE", 
-            "SolarWinds",
-            "SUNBURST",
+            "STRIDE",
             "NIST CSF",
             "MITRE ATT&CK",
             "Threat Modelling",
@@ -94,11 +88,9 @@ export const papersData: PapersData = {
         },
         tags: [
             "NLP",
-            "API Design",
-            "Web Services",
             "AI",
             "LLM",
-            "AWS",
+            "API + Web Services",
             "Prompt Engineering",
         ],
         links: {
@@ -171,11 +163,10 @@ export const papersData: PapersData = {
             end: new Date("2024-04-24")
         },
         tags: [
-            "Mathematical Biology",
+            "Computational Biology",
             "Delay Differential Equations",
             "Cancer", "Tumor Growth",
             "Immune Response",
-            "Hopf Bifurcation",
             "Stability Analysis",
             "Quiescent Cancer Cells",
             "Computational Modelling",
@@ -209,7 +200,7 @@ export const papersData: PapersData = {
         },
         tags: [
             "HCI",
-            "AI Ethics",
+            "AI", "Ethics",
             "AI Regulation",
             "AI Governance",
             "Risk Stratification",
@@ -235,7 +226,7 @@ export const papersData: PapersData = {
         },
         tags: [
             "HCI",
-            "AI Ethics",
+            "AI", "Ethics",
             "Data Governance",
             "Global Development",
             "Informed Consent",
@@ -261,11 +252,10 @@ export const papersData: PapersData = {
         },
         tags: [
             "HCI",
-            "AI Ethics",
+            "AI", "Ethics",
             "Mental Health",
             "Conversational AI",
             "Digital Health",
-            "AI Safety",
             "Accessibility",
             "Human-AI Interaction",
         ],
@@ -287,7 +277,7 @@ export const papersData: PapersData = {
             end: new Date("2024-02-05")
         },
         tags: [
-            "HCI", "Tech Ethics",
+            "HCI", "Ethics",
             "Indigenous Knowledge",
             "Participatory Design",
             "Cultural Sensitivity",
@@ -312,7 +302,7 @@ export const papersData: PapersData = {
             end: new Date("2024-01-29")
         },
         tags: [
-            "HCI", "AI Ethics",
+            "HCI", "AI", "Ethics",
             "Algorithmic Bias",
             "Health Equity",
             "Explainable AI",

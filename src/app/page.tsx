@@ -33,7 +33,7 @@ export default function Home() {
                 </Suspense>
 
                 <Suspense fallback={<SectionFallback label="papers" />}>
-                    <PapersSection />
+                    <PapersSection limit={3} showLink={true} />
                 </Suspense>
 
                 <ContactSection />

@@ -298,15 +298,20 @@ export const PaperItemWithHover = (props: {
 export const PaperItems = ({
     expandedItems,
     toggleItem,
+    paperIds,
 }: {
     expandedItems: Record<string, boolean>;
     toggleItem: (id: string) => void;
+    paperIds?: string[];
 }) => {
-    return Object.entries(papersData).map(([id, paper], index) => (
+    // If no specific IDs are provided, map over all of them.
+    const idsToRender = paperIds || Object.keys(papersData);
+
+    return idsToRender.map((id, index) => (
         <PaperItemWithHover
             key={id}
             paperId={id}
-            data={paper}
+            data={papersData[id]}
             index={index}
             isActive={!!expandedItems[id]}
             onToggle={() => toggleItem(id)}
