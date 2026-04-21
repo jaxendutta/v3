@@ -175,45 +175,53 @@ export const PaperItem = ({
                     )}
 
                     {/* Abstract */}
-                    <div>
-                        <div className="flex items-center justify-between mb-2">
-                            <p className="text-[10px] md:text-xs font-mono uppercase tracking-widest opacity-50">
-                                Abstract
-                            </p>
-                            {/* Toggle button - only visible on smaller screens */}
-                            <button
-                                onClick={(e) => {
-                                    e.stopPropagation(); // Prevents CollapsibleItem from closing
-                                    setIsTextExpanded(!isTextExpanded);
-                                }}
-                                className="md:hidden text-[9px] font-mono uppercase tracking-widest border-b border-current opacity-60 hover:opacity-100 transition-opacity"
-                            >
-                                {isTextExpanded ? "Read Less" : "Read More"}
-                            </button>
-                        </div>
-                        
-                        <motion.div
-                            className="w-full h-0.5 origin-left bg-current mb-3"
-                            initial={{ scaleX: 0 }}
-                            animate={{ scaleX: 1 }}
-                            transition={{ duration: 0.4, ease: "easeOut", delay: 0.05 }}
-                        />
-                        
+                <div>
+                    <div className="flex items-center justify-between mb-2">
+                        <p className="text-[10px] md:text-xs font-mono uppercase tracking-widest opacity-50">
+                            Abstract
+                        </p>
+                        {/* Toggle button - only visible on smaller screens */}
+                        <button
+                            onClick={(e) => {
+                                e.stopPropagation(); // Prevents CollapsibleItem from closing
+                                setIsTextExpanded(!isTextExpanded);
+                            }}
+                            className="md:hidden text-[9px] font-mono uppercase tracking-widest border-b border-current opacity-60 hover:opacity-100 transition-opacity"
+                        >
+                            {isTextExpanded ? "Read Less" : "Read More"}
+                        </button>
+                    </div>
+                    
+                    <motion.div
+                        className="w-full h-0.5 origin-left bg-current mb-3"
+                        initial={{ scaleX: 0 }}
+                        animate={{ scaleX: 1 }}
+                        transition={{ duration: 0.4, ease: "easeOut", delay: 0.05 }}
+                    />
+                    
+                    {/* The smooth slide-down wrapper */}
+                    <motion.div
+                        initial={false}
+                        animate={{ 
+                            // 4.875rem is exactly the height of 4 lines of text-xs with leading-relaxed
+                            height: isTextExpanded ? "auto" : "4.875rem" 
+                        }}
+                        // md:!h-auto uses tailwind's !important to override framer-motion's inline style on desktop
+                        className="overflow-hidden md:!h-auto"
+                        transition={{ duration: 0.35, ease: "easeInOut" }}
+                    >
                         <p 
-                            className={`text-xs md:text-sm leading-relaxed text-justify opacity-80 transition-all duration-300 ${
-                                !isTextExpanded ? "line-clamp-4 md:line-clamp-none overflow-hidden" : ""
+                            className={`text-xs md:text-sm leading-relaxed opacity-80 ${
+                                !isTextExpanded 
+                                    // When clamped: left-align to fix the Safari bug. Force none/justify on desktop.
+                                    ? "line-clamp-4 text-left md:line-clamp-none md:text-justify" 
+                                    // When expanded: Justify everywhere.
+                                    : "text-justify"
                             }`}
                         >
                             {data.abstract}
                         </p>
-                    </div>
-
-                    {/* Links inline BELOW abstract, tablet/desktop (up to xl) */}
-                    {inlineLinksSection && (
-                        <div className="hidden md:flex flex-col gap-2 2xl:hidden">
-                            {inlineLinksSection}
-                        </div>
-                    )}
+                    </motion.div>
                 </div>
 
                 {/* ── Right: links column, only on very wide screens ───── */}
