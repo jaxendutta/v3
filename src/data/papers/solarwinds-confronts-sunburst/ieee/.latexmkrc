@@ -2,11 +2,11 @@
 $out_dir = 'out';
 $pdf_mode = 1;
 
-# Point to the bibliography database and image folders
-ensure_path('BIBINPUTS', '../');
-ensure_path('TEXINPUTS', '../figures//');
+# Define paths explicitly so MiKTeX/BibTeX can find them from inside 'out/'
+$ENV{'BIBINPUTS'} = '../;' . $ENV{'BIBINPUTS'};
+$ENV{'TEXINPUTS'} = '../figures//;../../../shared//;' . $ENV{'TEXINPUTS'};
 
-# Keep glossary compilation if you are using glossaries-extra
+# Glossaries compilation
 add_cus_dep('glo', 'gls', 0, 'run_makeglossaries');
 add_cus_dep('acn', 'acr', 0, 'run_makeglossaries');
 
