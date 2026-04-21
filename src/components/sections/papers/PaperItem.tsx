@@ -163,7 +163,7 @@ export const PaperItem = ({
                     {/* Tags */}
                     <div className="flex flex-wrap gap-1.5 md:gap-2.5">
                         {data.tags.map((tag) => (
-                            <Tag key={tag} text={tag} />
+                            <Tag key={`${paperId}-${tag}`} text={tag} />
                         ))}
                     </div>
 
@@ -224,10 +224,10 @@ export const PaperItem = ({
                     >
                         <p
                             className={`text-xs md:text-sm leading-relaxed text-muted-foreground ${isClamped
-                                    // When fully clamped: left-align to fix Safari bug. Force none/justify on desktop.
-                                    ? "line-clamp-4 text-left md:line-clamp-none md:text-justify"
-                                    // When expanding, fully expanded, or shrinking: Justify everywhere, no clamp!
-                                    : "text-justify"
+                                // When fully clamped: left-align to fix Safari bug. Force none/justify on desktop.
+                                ? "line-clamp-4 text-left md:line-clamp-none md:text-justify"
+                                // When expanding, fully expanded, or shrinking: Justify everywhere, no clamp!
+                                : "text-justify"
                                 }`}
                         >
                             {data.abstract}
