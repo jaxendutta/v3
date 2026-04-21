@@ -111,6 +111,7 @@ export const PaperItem = ({
     onToggle: () => void;
 }) => {
     const [isTextExpanded, setIsTextExpanded] = useState(false);
+    const [isClamped, setIsClamped] = useState(true); // Tracks the CSS class separately
     const docEntries = Object.entries(data.links);
 
     const header = (
@@ -185,7 +186,14 @@ export const PaperItem = ({
                         <button
                             onClick={(e) => {
                                 e.stopPropagation(); // Prevents CollapsibleItem from closing
-                                setIsTextExpanded(!isTextExpanded);
+                                if (!isTextExpanded) {
+                                    // EXPANDING: Remove the clamp immediately so the text can stretch, then animate open
+                                    setIsClamped(false); 
+                                    setIsTextExpanded(true);
+                                } else {
+                                    // COLLAPSING: Animate closed, but DO NOT apply the clamp yet
+                                    setIsTextExpanded(false); 
+                                }
                             }}
                             className="md:hidden text-[9px] font-mono uppercase tracking-widest border-b border-current opacity-60 hover:opacity-100 transition-opacity"
                         >
@@ -204,19 +212,23 @@ export const PaperItem = ({
                     <motion.div
                         initial={false}
                         animate={{ 
-                            // 4.875rem is exactly the height of 4 lines of text-xs with leading-relaxed
                             height: isTextExpanded ? "auto" : "4.875rem" 
                         }}
-                        // md:!h-auto uses tailwind's !important to override framer-motion's inline style on desktop
+                        // NEW: Wait for Framer Motion to finish shrinking before applying the clamp
+                        onAnimationComplete={(target) => {
+                            if (target.height === "4.875rem") {
+                                setIsClamped(true);
+                            }
+                        }}
                         className="overflow-hidden md:!h-auto"
                         transition={{ duration: 0.35, ease: "easeInOut" }}
                     >
                         <p 
                             className={`text-xs md:text-sm leading-relaxed opacity-80 ${
-                                !isTextExpanded 
-                                    // When clamped: left-align to fix the Safari bug. Force none/justify on desktop.
+                                isClamped 
+                                    // When fully clamped: left-align to fix Safari bug. Force none/justify on desktop.
                                     ? "line-clamp-4 text-left md:line-clamp-none md:text-justify" 
-                                    // When expanded: Justify everywhere.
+                                    // When expanding, fully expanded, or shrinking: Justify everywhere, no clamp!
                                     : "text-justify"
                             }`}
                         >
