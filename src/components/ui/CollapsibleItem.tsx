@@ -85,7 +85,7 @@ export default function CollapsibleItem({
                             {duration && (
                                 <div className="absolute pb-6 md:pb-8 right-2 md:right-6 lg:right-8 top-0 bottom-0 flex flex-col items-center justify-between pointer-events-none">
                                     {duration.start && (
-                                        <span className="[writing-mode:vertical-rl] text-orientation-mixed text-sm whitespace-nowrap">
+                                        <span className="[writing-mode:vertical-rl] text-orientation-mixed text-xs md:text-sm whitespace-nowrap">
                                             {formatDate(duration.start, "Mon YYYY").toUpperCase()}
                                         </span>)}
 
@@ -101,7 +101,7 @@ export default function CollapsibleItem({
                                         }}
                                     />
 
-                                    <span className="[writing-mode:vertical-rl] text-orientation-mixed text-sm whitespace-nowrap">
+                                    <span className="[writing-mode:vertical-rl] text-orientation-mixed text-xs md:text-sm whitespace-nowrap">
                                         {duration.end ? formatDate(duration.end, "Mon YYYY").toUpperCase() : "ONGOING"}
                                     </span>
 

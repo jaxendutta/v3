@@ -160,108 +160,88 @@ export const PaperItem = ({
             onToggle={onToggle}
             duration={data.duration}
         >
-            <div className="flex flex-col gap-6 px-2 pt-4 pb-6 md:py-8 md:px-4 pr-12 md:pr-20 lg:pr-24 2xl:flex-row">
+            <div className="flex flex-col gap-6 px-2 pt-4 pb-6 md:pt-2 md:pb-8 md:px-4 pr-12 md:pr-20 lg:pr-24">
+                {/* Tags always on top */}
+                <div className="flex flex-wrap gap-1.5 md:gap-2.5">
+                    {data.tags.map((tag) => (
+                        <Tag key={`${paperId}-${tag}`} text={tag} />
+                    ))}
+                </div>
 
-                {/* ── Left: tags + abstract ─────────────────────────────── */}
-                <div className="flex-1 flex flex-col gap-4">
-
-                    {/* Tags */}
-                    <div className="flex flex-wrap gap-1.5 md:gap-2.5">
-                        {data.tags.map((tag) => (
-                            <Tag key={`${paperId}-${tag}`} text={tag} />
-                        ))}
-                    </div>
-
-                    {/* Links inline ABOVE abstract, mobile only */}
-                    {inlineLinksSection && (
-                        <div className="flex flex-col gap-2 md:hidden">
-                            {inlineLinksSection}
+                {/* Abstract + Links combined layout */}
+                <div
+                    className="flex flex-col lg:flex-row gap-2 lg:gap-4 w-full"
+                >
+                    {/* Links panel: only one, above on small, right on lg+ */}
+                    {docEntries.length > 0 && (
+                        <div className="flex flex-col gap-2 w-full items-start mb-2 lg:mb-0 lg:w-auto lg:items-end lg:order-2 lg:justify-start lg:min-w-0 lg:max-w-[25%] lg:flex-grow-0 lg:flex-shrink-0 lg:basis-auto">
+                            <p className="text-[10px] md:text-xs font-mono uppercase tracking-widest text-muted-foreground-subtle mb-1 lg:mb-0">
+                                Links
+                            </p>
+                            <div className="flex flex-wrap gap-2 w-full justify-start lg:justify-end">
+                                {docEntries.map(([key, doc]) => (
+                                    <DocLink
+                                        key={key}
+                                        paperId={paperId}
+                                        formatKey={key}
+                                        doc={doc}
+                                    />
+                                ))}
+                            </div>
                         </div>
                     )}
-                </div>
-
-                {/* Abstract */}
-                <div>
-                    <div className="flex items-center justify-between mb-2">
-                        <p className="text-[10px] md:text-xs font-mono uppercase tracking-widest text-muted-foreground-subtle">
-                            Abstract
-                        </p>
-                        {/* Toggle button - only visible on smaller screens */}
-                        <button
-                            onClick={(e) => {
-                                e.stopPropagation(); // Prevents CollapsibleItem from closing
-                                if (!isTextExpanded) {
-                                    // EXPANDING: Remove the clamp immediately so the text can stretch, then animate open
-                                    setIsClamped(false);
-                                    setIsTextExpanded(true);
-                                } else {
-                                    // COLLAPSING: Animate closed, but DO NOT apply the clamp yet
-                                    setIsTextExpanded(false);
-                                }
-                            }}
-                            className="md:hidden text-[9px] font-mono uppercase tracking-widest border-b border-current text-muted-foreground-subtle hover:opacity-100 transition-opacity"
-                        >
-                            {isTextExpanded ? "Read Less" : "Read More"}
-                        </button>
-                    </div>
-
-                    <motion.div
-                        className="w-full h-0.5 origin-left bg-current mb-3"
-                        initial={{ scaleX: 0 }}
-                        animate={{ scaleX: 1 }}
-                        transition={{ duration: 0.4, ease: "easeOut", delay: 0.05 }}
-                    />
-
-                    {/* The smooth slide-down wrapper */}
-                    <motion.div
-                        initial={false}
-                        animate={{
-                            height: isTextExpanded ? "auto" : "4.875rem"
-                        }}
-                        // Rely on React state instead of Framer Motion's target object
-                        onAnimationComplete={() => {
-                            if (!isTextExpanded) {
-                                setIsClamped(true);
-                            }
-                        }}
-                        className="overflow-hidden md:!h-auto"
-                        transition={{ duration: 0.35, ease: "easeInOut" }}
-                    >
-                        <p
-                            className={`text-xs md:text-sm leading-relaxed text-muted-foreground ${isClamped
-                                // When fully clamped: left-align to fix Safari bug. Force none/justify on desktop.
-                                ? "line-clamp-4 text-left md:line-clamp-none md:text-justify"
-                                // When expanding, fully expanded, or shrinking: Justify everywhere, no clamp!
-                                : "text-justify"
-                                }`}
-                        >
-                            {data.abstract}
-                        </p>
-                    </motion.div>
-                </div>
-
-                {/* ── Right: links column, only on very wide screens ───── */}
-                {docEntries.length > 0 && (
-                    <div className="hidden 2xl:flex flex-col gap-2 w-52 flex-shrink-0">
-                        <p className="text-[10px] md:text-xs font-mono uppercase tracking-widest opacity-50 mb-1">
-                            Links
-                        </p>
+                    {/* Abstract (below links on small, left on lg+) */}
+                    <div className="flex-grow min-w-0 max-w-full lg:max-w-[75%] lg:order-1">
+                        <div className="flex items-center justify-between mb-2">
+                            <p className="text-[10px] md:text-xs font-mono uppercase tracking-widest text-muted-foreground-subtle">
+                                Abstract
+                            </p>
+                            {/* Toggle button - only visible on smaller screens */}
+                            <button
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                    if (!isTextExpanded) {
+                                        setIsClamped(false);
+                                        setIsTextExpanded(true);
+                                    } else {
+                                        setIsTextExpanded(false);
+                                    }
+                                }}
+                                className="md:hidden text-[9px] font-mono uppercase tracking-widest border-b border-current text-muted-foreground-subtle hover:opacity-100 transition-opacity"
+                            >
+                                {isTextExpanded ? "Read Less" : "Read More"}
+                            </button>
+                        </div>
                         <motion.div
-                            className="w-full h-0.5 origin-left bg-current mb-1"
+                            className="w-full h-0.5 origin-left bg-current mb-3"
                             initial={{ scaleX: 0 }}
                             animate={{ scaleX: 1 }}
-                            transition={{ duration: 0.4, ease: "easeOut", delay: 0.08 }}
+                            transition={{ duration: 0.4, ease: "easeOut", delay: 0.05 }}
                         />
-                        {docEntries.map(([key, doc]) => (
-                            <DocLink
-                                key={key}
-                                paperId={paperId}
-                                formatKey={key}
-                                doc={doc}
-                            />
-                        ))}
+                        <motion.div
+                            initial={false}
+                            animate={{
+                                height: isTextExpanded ? "auto" : "4.875rem"
+                            }}
+                            onAnimationComplete={() => {
+                                if (!isTextExpanded) {
+                                    setIsClamped(true);
+                                }
+                            }}
+                            className="overflow-hidden md:!h-auto"
+                            transition={{ duration: 0.35, ease: "easeInOut" }}
+                        >
+                            <p
+                                className={`text-xs md:text-sm leading-relaxed text-muted-foreground ${isClamped
+                                    ? "line-clamp-4 text-left md:line-clamp-none md:text-justify"
+                                    : "text-justify"
+                                    }`}
+                            >
+                                {data.abstract}
+                            </p>
+                        </motion.div>
                     </div>
-                )}
+                </div>
             </div>
         </CollapsibleItem>
     );
