@@ -51,10 +51,12 @@
 %% -----------------------------------------------------------
 %% Geometry & Spacing Adjustments
 %% -----------------------------------------------------------
-\setlength{\headheight}{6pt}
-\setlength{\headsep}{24pt}
-\addtolength{\topmargin}{42pt}
-\addtolength{\textheight}{-54pt}
+\AtBeginDocument{
+    \setlength{\headheight}{6pt}
+    \setlength{\headsep}{24pt}
+    \addtolength{\topmargin}{42pt}
+    \addtolength{\textheight}{-54pt}
+}
 
 %% -----------------------------------------------------------
 %% Header and Footer Configurations

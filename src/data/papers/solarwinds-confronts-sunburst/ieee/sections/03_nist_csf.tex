@@ -1,11 +1,12 @@
 \section{\gls{nist} \gls{csf} 2.0 Assessment}
+\label{sec:nist_csf}
 
 \subsection{Maturity Evaluation}
 SolarWinds' pre-breach cybersecurity posture is assessed using \gls{nist} \gls{csf} 2.0 \cite{pascoe2024}, revealing systematic governance and control failures. The organization operated at Tier 1 (Partial) across most Functions, with critical gaps in supply chain risk management despite significant security investments.
 
-\tinypara{Current Profile:} Tier 1 (Partial) - Cybersecurity risk management informal, reactive, and inconsistently implemented.
+\tinypara{Current Profile---Tier 1 (Partial).} Cybersecurity risk management informal, reactive, and inconsistently implemented.
 
-\tinypara{Target Profile:} Tier 3 (Repeatable) - Risk-informed processes, integrated cybersecurity, regularly updated based on threat intelligence.
+\tinypara{Target Profile---Tier 3 (Repeatable).} Risk-informed processes, integrated cybersecurity, regularly updated based on threat intelligence.
 
 \subsection{GOVERN Function Assessment}
 SolarWinds exhibited catastrophic governance failures that cascaded systematically through all other \gls{csf} Functions.
@@ -13,7 +14,7 @@ SolarWinds exhibited catastrophic governance failures that cascaded systematical
 \begin{enumerate}
     \item \tinypara{GV.OC (Organizational Context) [Inadequate]:} SolarWinds classified build systems as ``non-production'' infrastructure receiving lower security prioritization, a fundamental misunderstanding of the software vendor threat model \cite{boyens2024}.
     \item \tinypara{GV.RM (Risk Management Strategy) [Inadequate]:} Despite ``above industry average'' security spending \cite{nagle2023}, investments were strategically misdirected toward perimeter defenses and compliance requirements.
-    \item \tinypara{GV.SC (Cybersecurity Supply Chain Risk Management) [Absent]:} The most critical governance failure. SolarWinds operated without a formal C-SCRM program per \gls{nist} SP 800-161r1, resulting in no SBOM tracking, no supplier risk assessment, and no ongoing supply chain monitoring \cite{boyens2024}.
+    \item \tinypara{GV.SC (Cybersecurity Supply Chain Risk Management) [Absent]:} The most critical governance failure. SolarWinds operated without a formal \gls{c-scrm} program per \gls{nist} \gls{sp} \href{https://csrc.nist.gov/pubs/sp/800/161/r1/upd1/final}{800-161 Rev. 1} \cite{boyens2024}, resulting in no \gls{sbom} tracking, no supplier risk assessment, and no ongoing supply chain monitoring \cite{boyens2024}.
     \item \tinypara{GV.RR, GV.PO \& GV.OV [Inadequate]:} Organizational structure did not provide adequate authority for security leadership over engineering efficiency. Board-level cybersecurity oversight did not include supply chain risk as a regular agenda item \cite{nagle2023}.
 \end{enumerate}
 
