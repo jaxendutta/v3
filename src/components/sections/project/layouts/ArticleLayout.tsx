@@ -214,7 +214,7 @@ export default function ArticleLayout({ projectId, markdownContent }: ArticleLay
 
                                     return (
                                         <div className={`my-8 p-2 md:p-4 border-l-4 ${style.classes} flex flex-col gap-2 md:gap-4 items-start`}>
-                                            <div className="w-full flex items-start gap-2 text-xl">
+                                            <div className="w-full flex items-start gap-2 text-base md:text-xl">
                                                 <Icon className="flex-shrink-0 mt-0.75" />
                                                 <p className="uppercase tracking-wide text-inherit dark:text-inherit">{style.title}</p>
                                             </div>
