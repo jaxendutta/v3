@@ -112,6 +112,31 @@ export const papersData: PapersData = {
         },
     },
 
+    "human-centered-theater": {
+        title: "Human-Centered Theater: Overcoming Organizational Resistance to Authentic UX",
+        abstract:
+            "Despite twenty-five years of advocacy for human-centered design principles, organizational adoption remains paradoxically limited across industries. This essay challenges conventional narratives that attribute slow implementation to organizational ignorance. Instead, it proposes that resistance reflects rational calculations about cultural transformation costs and the disruption of entrenched power structures. Through a systematic examination of design thinking's benefits, adoption barriers, and implementation strategies, this critique argues that authentic human-centered approaches face resistance due to their intensive implementation requirements rather than methodological shortcomings. While superficial 'human-centered theater' allows organizations to claim user-centricity without meaningful change, authentic implementation requires fundamental shifts in organizational values and measurement systems that many leadership teams are unwilling to undertake.",
+        venue: ["Academic Essay", "University of Ottawa"],
+        duration: {
+            start: new Date("2025-09-16"),
+            end: new Date("2025-09-21")
+        },
+        tags: [
+            "Human-Centered Design",
+            "User Experience",
+            "Design Thinking",
+            "Organizational Resistance",
+            "Change Management",
+            "Planned Obsolescence",
+            "HCI"
+        ],
+        links: {
+            essay: {
+                label: "PDF",
+                type: "paper",
+            },
+        },
+    },
 
     "evse-opt": {
         title: "EVSE Network Optimization in the KWC CMA",

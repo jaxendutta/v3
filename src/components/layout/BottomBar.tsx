@@ -8,9 +8,7 @@ import { useTheme } from "@/components/theme/ThemeProvider";
 export default function BottomBar() {
     const { theme } = useTheme();
     return (
-        <div
-            className={`w-full fixed bottom-0 z-100 flex items-center justify-between mix-blend-difference p-2 ${theme === "dark" ? "opacity-50" : "opacity-90 text-yellow-300"}`}
-        >
+        <div className={`w-full fixed bottom-0 z-100 flex items-center justify-between p-2 text-muted-foreground-subtle`}>
             <DateTimePlace />
             <ThemeSwitch />
         </div>
