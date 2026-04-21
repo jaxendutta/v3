@@ -173,8 +173,9 @@ export const PaperItem = ({
                             {inlineLinksSection}
                         </div>
                     )}
+                </div>
 
-                    {/* Abstract */}
+                {/* Abstract */}
                 <div>
                     <div className="flex items-center justify-between mb-2">
                         <p className="text-[10px] md:text-xs font-mono uppercase tracking-widest opacity-50">
