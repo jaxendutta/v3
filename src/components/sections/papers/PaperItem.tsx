@@ -123,7 +123,7 @@ export const PaperItem = ({
                 <StatusBadge status={data.status} />
             </div>
             {data.venue && (
-                <span className={`${sansFont} font-thin text-sm md:text-base opacity-70 md:tracking-wide`}>
+                <span className={`${sansFont} font-thin text-sm md:text-base text-theme-muted md:tracking-wide`}>
                     {data.venue.join(" ✧ ")}
                 </span>
             )}
@@ -179,7 +179,7 @@ export const PaperItem = ({
                 {/* Abstract */}
                 <div>
                     <div className="flex items-center justify-between mb-2">
-                        <p className="text-[10px] md:text-xs font-mono uppercase tracking-widest opacity-50">
+                        <p className="text-[10px] md:text-xs font-mono uppercase tracking-widest text-theme-muted">
                             Abstract
                         </p>
                         {/* Toggle button - only visible on smaller screens */}
@@ -195,7 +195,7 @@ export const PaperItem = ({
                                     setIsTextExpanded(false); 
                                 }
                             }}
-                            className="md:hidden text-[9px] font-mono uppercase tracking-widest border-b border-current opacity-60 hover:opacity-100 transition-opacity"
+                            className="md:hidden text-[9px] font-mono uppercase tracking-widest border-b border-current text-theme-muted hover:opacity-100 transition-opacity"
                         >
                             {isTextExpanded ? "Read Less" : "Read More"}
                         </button>
@@ -224,7 +224,7 @@ export const PaperItem = ({
                         transition={{ duration: 0.35, ease: "easeInOut" }}
                     >
                         <p 
-                            className={`text-xs md:text-sm leading-relaxed opacity-80 ${
+                            className={`text-xs md:text-sm leading-relaxed text-foreground ${
                                 isClamped 
                                     // When fully clamped: left-align to fix Safari bug. Force none/justify on desktop.
                                     ? "line-clamp-4 text-left md:line-clamp-none md:text-justify" 
