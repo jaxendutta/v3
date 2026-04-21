@@ -37,7 +37,7 @@ export default function CollapsibleItem({
                     }`}
                 onClick={() => !isActive && onToggle()}
             >
-                <div className="flex items-start md:items-center gap-3 md:gap-5 flex-1 min-w-0">
+                <div className="flex items-start md:items-center gap-2.5 md:gap-5 flex-1 min-w-0">
                     {/* Index number */}
                     <div className="flex-shrink-0 flex items-center text-2xl md:text-4xl lg:text-5xl font-thin">
                         {(index + 1).toString().padStart(2, "0")}.
