@@ -34,7 +34,7 @@ const STATUS_STYLES: Record<string, string> = {
     published:  "border-green-500 text-green-500",
     submitted:  "border-blue-500 text-blue-500",
     "in-review":"border-yellow-500 text-yellow-500",
-    draft:      "border-current opacity-40",
+    draft:      "border-current text-muted-foreground-subtle",
 };
 
 function StatusBadge({ status }: { status: Paper["status"] }) {
@@ -123,7 +123,7 @@ export const PaperItem = ({
                 <StatusBadge status={data.status} />
             </div>
             {data.venue && (
-                <span className={`${sansFont} font-thin text-sm md:text-base text-muted md:tracking-wide`}>
+                <span className={`${sansFont} font-thin text-sm md:text-base text-muted-foreground-subtle md:tracking-wide`}>
                     {data.venue.join(" ✧ ")}
                 </span>
             )}
@@ -132,7 +132,7 @@ export const PaperItem = ({
 
     const inlineLinksSection = docEntries.length > 0 ? (
         <>
-            <p className="text-[10px] md:text-xs font-mono uppercase tracking-widest opacity-50">
+            <p className="text-[10px] md:text-xs font-mono uppercase tracking-widest text-muted-foreground-subtle">
                 Links
             </p>
             <div className="flex flex-wrap gap-2">
@@ -179,7 +179,7 @@ export const PaperItem = ({
                 {/* Abstract */}
                 <div>
                     <div className="flex items-center justify-between mb-2">
-                        <p className="text-[10px] md:text-xs font-mono uppercase tracking-widest text-muted-foreground">
+                        <p className="text-[10px] md:text-xs font-mono uppercase tracking-widest text-muted-foreground-subtle">
                             Abstract
                         </p>
                         {/* Toggle button - only visible on smaller screens */}
@@ -195,7 +195,7 @@ export const PaperItem = ({
                                     setIsTextExpanded(false); 
                                 }
                             }}
-                            className="md:hidden text-[9px] font-mono uppercase tracking-widest border-b border-current text-muted hover:opacity-100 transition-opacity"
+                            className="md:hidden text-[9px] font-mono uppercase tracking-widest border-b border-current text-muted-foreground-subtle hover:opacity-100 transition-opacity"
                         >
                             {isTextExpanded ? "Read Less" : "Read More"}
                         </button>
@@ -224,7 +224,7 @@ export const PaperItem = ({
                         transition={{ duration: 0.35, ease: "easeInOut" }}
                     >
                         <p 
-                            className={`text-xs md:text-sm leading-relaxed text-foreground ${
+                            className={`text-xs md:text-sm leading-relaxed text-muted-foreground ${
                                 isClamped 
                                     // When fully clamped: left-align to fix Safari bug. Force none/justify on desktop.
                                     ? "line-clamp-4 text-left md:line-clamp-none md:text-justify" 
