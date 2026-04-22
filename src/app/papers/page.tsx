@@ -9,7 +9,7 @@ import { fadeIn } from "@/lib/motionVariants";
 import { papersData } from "@/data/papers";
 import RotatingButton from "@/components/ui/RotatingButton";
 import { CiSearch } from "react-icons/ci";
-import { GiBookmark, GiCalendar } from "react-icons/gi";
+import { GiCalendar } from "react-icons/gi";
 import { HiOutlineArrowLongLeft, HiOutlineArrowLongUp } from "react-icons/hi2";
 import { PaperItems } from "@/components/sections/papers/PaperItem";
 import Footer from "@/components/layout/Footer";
@@ -18,6 +18,7 @@ import FilterContainer, {
     FilterSection,
 } from "@/components/ui/FilterContainer";
 import { TbFilterX, TbFilterDown, TbFilterUp } from "react-icons/tb";
+import { LuSwatchBook } from "react-icons/lu";
 
 export default function PapersPage() {
     const router = useRouter();
@@ -240,7 +241,7 @@ export default function PapersPage() {
                         </div>
                     </div>
                     <div className="w-full flex flex-col md:grid md:grid-cols-4 md:gap-4 gap-8">
-                        <FilterSection title="Topic Tag Filter" icon={<GiBookmark />} className="md:col-span-3">
+                        <FilterSection title="Theme Tag Filter" icon={<LuSwatchBook />} className="md:col-span-3">
                             {allTags.map((tag) => (
                                 <FilterTag
                                     key={tag}

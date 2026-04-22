@@ -102,7 +102,7 @@ interface FilterSectionProps {
 export function FilterSection({ title, icon, children, className = "" }: FilterSectionProps) {
     return (
         <div className={`w-full ${className}`}>
-            <h2 className="text-sm md:text-lg mb-2 md:mb-4 flex items-center gap-2 font-semibold">
+            <h2 className="text-sm md:text-lg mb-2 md:mb-4 flex items-center gap-2">
                 {icon} {title}
             </h2>
             <div className="flex flex-wrap gap-2">{children}</div>
