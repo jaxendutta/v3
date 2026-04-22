@@ -8,8 +8,6 @@ import { serifFont } from "@/lib/fonts";
 import { fadeIn } from "@/lib/motionVariants";
 import { papersData } from "@/data/papers";
 import RotatingButton from "@/components/ui/RotatingButton";
-import { CiSearch } from "react-icons/ci";
-import { GiCalendar } from "react-icons/gi";
 import { HiOutlineArrowLongLeft, HiOutlineArrowLongUp } from "react-icons/hi2";
 import { PaperItems } from "@/components/sections/papers/PaperItem";
 import Footer from "@/components/layout/Footer";
@@ -18,7 +16,7 @@ import FilterContainer, {
     FilterSection,
 } from "@/components/ui/FilterContainer";
 import { TbFilterX, TbFilterDown, TbFilterUp } from "react-icons/tb";
-import { LuSwatchBook } from "react-icons/lu";
+import { LuCalendarRange, LuSearch, LuSwatchBook } from "react-icons/lu";
 
 export default function PapersPage() {
     const router = useRouter();
@@ -230,7 +228,7 @@ export default function PapersPage() {
                 <div className="flex flex-col gap-6">
                     <div className="w-full">
                         <div className="relative">
-                            <CiSearch className="absolute left-3 top-1/2 -translate-y-1/2" />
+                            <LuSearch className="absolute left-3 top-1/2 -translate-y-1/2" />
                             <input
                                 type="text"
                                 placeholder="Search abstracts and titles..."
@@ -252,7 +250,7 @@ export default function PapersPage() {
                             ))}
                         </FilterSection>
                         {allYears.length > 0 && (
-                            <FilterSection title="Year Filter" icon={<GiCalendar />} className="md:col-span-1">
+                            <FilterSection title="Year Filter" icon={<LuCalendarRange />} className="md:col-span-1">
                                 {allYears.map((year) => (
                                     <FilterTag
                                         key={year}
