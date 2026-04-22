@@ -2,24 +2,34 @@
 
 import { OverviewItem } from "@/types/project";
 import { Social } from "@/types/contact";
-import { motion } from "framer-motion";
+import {
+    motion,
+    useMotionValue,
+    useSpring,
+    useTransform,
+    useAnimationFrame
+} from "framer-motion";
 import TextBorderAnimation from "@/components/ui/TextBorder";
 import ProjectButton from "@/components/ui/ProjectButton";
-import { useMemo } from "react";
+import { useMemo, useRef, useState } from "react";
 import { serifFont } from "@/lib/fonts";
+import Image from "next/image";
 
 interface OverviewSectionProps {
+    projectId: keyof typeof import("@/data/projects").projectsData;
     overview: OverviewItem[][];
     links?: Social[];
     isLandscape?: boolean;
 }
 
-export default function OverviewSection({ overview, links, isLandscape = true }: OverviewSectionProps) {
+export default function OverviewSection({ projectId, overview, links, isLandscape = true }: OverviewSectionProps) {
     return (
         <>
             {overview.map((column, index) => (
                 <OverviewSlide
                     key={index}
+                    index={index}
+                    projectId={projectId}
                     items={column}
                     links={links}
                     isLandscape={isLandscape}
@@ -29,27 +39,72 @@ export default function OverviewSection({ overview, links, isLandscape = true }:
     );
 }
 
-function OverviewSlide({ items, links, isLandscape }: { items: OverviewItem[], links?: Social[], isLandscape: boolean }) {
+function OverviewSlide({ items, links, isLandscape, index, projectId }: { items: OverviewItem[], links?: Social[], isLandscape: boolean, index: number, projectId: keyof typeof import("@/data/projects").projectsData }) {
+    const slideRef = useRef<HTMLElement>(null);
 
-    const { calloutText, bodyContent, titleContent } = useMemo(() => {
+    const { calloutText, bodyContent } = useMemo(() => {
         const calloutItem = items.find(item => item.className);
         const bodyItem = items.find(item => !item.className);
-
-        const rawCallout = calloutItem ? calloutItem.content : "PROJECT OVERVIEW";
-
         return {
-            calloutText: rawCallout,
-            titleContent: rawCallout,
+            calloutText: calloutItem ? calloutItem.content : "OVERVIEW",
             bodyContent: bodyItem ? bodyItem.content : "",
         };
     }, [items]);
 
+    const sentences = useMemo(() => {
+        // Split only on ". " so abbreviations like "Next.js" remain intact.
+        const parts = bodyContent.match(/.*?(?:\. |$)/g)?.map(part => part.trim()).filter(Boolean);
+        return parts && parts.length > 0 ? parts : [bodyContent];
+    }, [bodyContent]);
+
+    const isEven = index % 2 === 0;
+
+    // Calculate if image is longer in height than width (for portrait vs landscape styling)
+    const [isImageVertical, setIsImageVertical] = useState(false);
+
+    // --- SCROLL SCRUB LOGIC ---
+    const rawProgress = useMotionValue(0);
+    const smoothProgress = useSpring(rawProgress, {
+        stiffness: 70,
+        damping: 20,
+        restDelta: 0.001
+    });
+
+    useAnimationFrame(() => {
+        if (!slideRef.current) return;
+        const rect = slideRef.current.getBoundingClientRect();
+
+        if (isLandscape) {
+            const windowWidth = window.innerWidth;
+            const totalScrollDistance = windowWidth + rect.width;
+            const currentScroll = windowWidth - rect.left;
+            const progress = Math.max(0, Math.min(1, currentScroll / totalScrollDistance));
+            rawProgress.set(progress);
+        } else {
+            const windowHeight = window.innerHeight;
+            const totalScrollDistance = windowHeight + rect.height;
+            const currentScroll = windowHeight - rect.top;
+            const progress = Math.max(0, Math.min(1, currentScroll / totalScrollDistance));
+            rawProgress.set(progress);
+        }
+    });
+
+    // --- RESPONSIVE PARALLAX KINEMATICS ---
+    const phoneY = useTransform(smoothProgress, [0, 1], isLandscape ? [150, -150] : [60, -60]);
+    const textY = useTransform(smoothProgress, [0, 1], isLandscape ? [-40, 40] : [-15, 15]);
+
+    const phoneRotate = useTransform(
+        smoothProgress,
+        [0, 1],
+        [isEven ? 12 : -12, isEven ? -4 : 4]
+    );
+
     return (
         <section
+            ref={slideRef}
             className={`
                 relative bg-background text-foreground
-                snap-center shrink-0 overflow-hidden 
-                w-screen flex items-center justify-center
+                snap-center shrink-0 w-screen flex items-center justify-center
                 ${isLandscape ? "h-full" : "h-[calc(100vh-120px)]"}
             `}
         >
@@ -57,31 +112,117 @@ function OverviewSlide({ items, links, isLandscape }: { items: OverviewItem[], l
                 text={calloutText}
                 fontSize={20}
                 speed={60}
-                className="w-full h-full p-6 md:p-12"
+                className="w-full h-full relative overflow-hidden"
             >
-                <motion.div
-                    className="flex flex-col items-center text-center gap-6 md:gap-10 p-4 md:p-12 max-w-4xl"
-                    initial={{ opacity: 0, scale: 0.95 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.6 }}
-                >
-                    <p className={`text-lg md:text-2xl ${serifFont} italic leading-relaxed text-muted-foreground max-w-[60vw] md:max-w-2xl`}>
-                        {bodyContent}
-                    </p>
+                <div className={`
+                    w-full h-full flex items-center justify-evenly max-w-[1600px] mx-auto
+                    p-6 sm:p-8 md:p-16 lg:p-24
+                    ${isLandscape
+                        ? (isEven ? "flex-row" : "flex-row-reverse")
+                        : "flex-col gap-8 pt-12"
+                    }
+                `}>
 
-                    {links && links.length > 0 && (
-                        <div className="flex flex-wrap justify-evenly gap-4 pt-8 border-t border-border w-full">
-                            {links.map((link, linkIndex) => (
-                                <ProjectButton
-                                    key={linkIndex}
-                                    link={link}
-                                    index={linkIndex}
-                                />
-                            ))}
+                    {/* --- TEXT HALF --- */}
+                    <motion.div
+                        style={{ y: textY }}
+                        className={`
+                            ${isLandscape ? "w-1/2 h-full" : "w-full"} 
+                            px-6 sm:px-0 pt-2 sm:pt-0
+                            flex flex-col justify-center relative z-10
+                            ${!isEven ? "items-end text-right" : "items-start text-left"}
+                        `}
+                    >
+                        <div className="flex flex-col gap-3 md:gap-8 w-full px-2 sm:px-0 pt-4 sm:pt-0">
+                            {sentences.map((sentence, i) => {
+                                const cascadeStep = isLandscape ? 2.5 : 0.75;
+
+                                return (
+                                    <p
+                                        key={i}
+                                        className={`text-sm sm:text-base md:text-xl lg:text-3xl ${serifFont} italic leading-relaxed text-foreground tracking-tight`}
+                                        style={{
+                                            marginLeft: !isEven ? 0 : `${i * cascadeStep}rem`,
+                                            marginRight: !isEven ? `${i * cascadeStep}rem` : 0,
+                                        }}
+                                    >
+                                        {sentence.trim()}
+                                    </p>
+                                );
+                            })}
                         </div>
-                    )}
-                </motion.div>
+
+                        {links && links.length > 0 && (
+                            <div className={`
+                                flex flex-wrap w-full mt-6 md:mt-12
+                                ${!isEven ? "justify-end" : "justify-start"}
+                                gap-2 md:gap-6
+                                [&>*]:scale-[0.8] md:[&>*]:scale-100
+                                ${!isEven ? "[&>*]:origin-right" : "[&>*]:origin-left"} md:[&>*]:origin-center
+                            `}>
+                                {links.map((link, linkIndex) => (
+                                    <ProjectButton
+                                        key={linkIndex}
+                                        link={link}
+                                        index={linkIndex}
+                                    />
+                                ))}
+                            </div>
+                        )}
+                    </motion.div>
+
+                    {/* --- INTERACTIVE IMAGE HALF --- */}
+                    <div className={`${isLandscape ? "w-5/12 h-full" : "w-full min-h-1/2"} flex items-center justify-center perspective-[1200px] z-20`}>
+
+                        {/* 1. SCROLL & DRAG CONTAINER */}
+                        {/* Handles the scroll-based movement and the physics for dragging */}
+                        <motion.div
+                            drag
+                            dragConstraints={{ top: 0, bottom: 0, left: 0, right: 0 }}
+                            dragElastic={0.4}
+                            whileDrag={{ scale: 1.05, cursor: "grabbing" }}
+                            style={{
+                                y: phoneY,
+                                rotateZ: phoneRotate,
+                                rotateX: isLandscape ? 5 : 0,
+                                cursor: "grab"
+                            }}
+                            className={`relative w-full h-full`}
+                        >
+
+                            {/* 2. CONTINUOUS HOVER & SHADOW CONTAINER */}
+                            {/* Handles the endless floating bob and dynamic shadow casting */}
+                            <motion.div
+                                animate={{
+                                    y: [-12, 12, -12], // Floating up, sinking down, floating up
+                                }}
+                                transition={{
+                                    duration: 4, // 4 seconds for a full bob cycle
+                                    repeat: Infinity,
+                                    ease: "easeInOut",
+                                    // Slight delay based on index so the phones aren't bobbing in identical unison
+                                    delay: index * 0.4
+                                }}
+                                className="w-full h-full relative flex items-center justify-center"
+                            >
+                                <Image
+                                    src={`/${projectId}.png`}
+                                    alt={`${calloutText} interface`}
+                                    width={1200}
+                                    height={1200}
+                                    className={`object-contain pointer-events-none w-auto h-auto max-w-full max-h-full ${!isImageVertical ? "border border-foreground rounded-lg" : ""}`}
+                                    onLoadingComplete={(img) => {
+                                        setIsImageVertical(img.naturalHeight > img.naturalWidth);
+                                    }}
+                                    priority
+                                />
+                            </motion.div>
+
+                        </motion.div>
+
+                    </div>
+
+                </div>
             </TextBorderAnimation>
         </section>
     );

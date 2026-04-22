@@ -17,7 +17,7 @@ const FooterSection = dynamic(() => import("@/components/sections/project/sectio
 // Utility for smooth animation
 const lerp = (start: number, end: number, factor: number) => start + (end - start) * factor;
 
-export default function ShowcaseLayout({ projectId }: { projectId: string }) {
+export default function ShowcaseLayout({ projectId }: { projectId: keyof typeof projectsData }) {
     const project = projectsData[projectId];
     if (!project) return null;
 
@@ -174,7 +174,7 @@ export default function ShowcaseLayout({ projectId }: { projectId: string }) {
                 `}
             >
                 <NameSection project={project} />
-                {project.overview && <OverviewSection overview={project.overview} links={project.links} isLandscape={isLandscape} />}
+                {project.overview && <OverviewSection projectId={projectId} overview={project.overview} links={project.links} isLandscape={isLandscape} />}
                 {project.typography && <TypographySection typography={project.typography} />}
                 {project.colors && <ColorSection colors={project.colors} />}
                 {project.techStack && <TechStackSection techStack={project.techStack} />}
