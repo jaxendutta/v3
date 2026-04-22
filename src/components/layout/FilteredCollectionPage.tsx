@@ -2,7 +2,7 @@
 
 import { ReactNode } from "react";
 import { motion } from "framer-motion";
-import { HiOutlineArrowLongLeft, HiOutlineArrowLongUp } from "react-icons/hi2";
+import { HiOutlineArrowLeft, HiOutlineArrowUp } from "react-icons/hi2";
 import { TbFilterDown, TbFilterUp, TbFilterX } from "react-icons/tb";
 import { serifFont } from "@/lib/fonts";
 import { fadeIn } from "@/lib/motionVariants";
@@ -52,7 +52,7 @@ export default function FilteredCollectionPage({
                 <RotatingButton
                     href={backHref}
                     texts={backTexts}
-                    centerIcon={HiOutlineArrowLongLeft}
+                    centerIcon={HiOutlineArrowLeft}
                     size={80}
                     fontSize={12}
                     variant="glow"
@@ -60,7 +60,7 @@ export default function FilteredCollectionPage({
                 <RotatingButton
                     href="#top"
                     texts={["Back to top", "Scroll up"]}
-                    centerIcon={HiOutlineArrowLongUp}
+                    centerIcon={HiOutlineArrowUp}
                     size={80}
                     fontSize={12}
                     variant="glow"

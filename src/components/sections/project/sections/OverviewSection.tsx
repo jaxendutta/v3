@@ -11,9 +11,9 @@ import {
 } from "framer-motion";
 import TextBorderAnimation from "@/components/ui/TextBorder";
 import ProjectButton from "@/components/ui/ProjectButton";
+import FloatingDraggableImage from "@/components/ui/FloatingDraggableImage";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { serifFont } from "@/lib/fonts";
-import Image from "next/image";
 
 interface OverviewSectionProps {
     projectId: keyof typeof import("@/data/projects").projectsData;
@@ -82,9 +82,6 @@ function OverviewSlide({ items, links, isLandscape, index, projectId }: { items:
         restDelta: 0.001
     });
 
-    // Shared hover bob value used by both the image and its shadow.
-    const hoverOffset = useMotionValue(0);
-
     useAnimationFrame((t) => {
         if (!slideRef.current) return;
         const rect = slideRef.current.getBoundingClientRect();
@@ -103,9 +100,6 @@ function OverviewSlide({ items, links, isLandscape, index, projectId }: { items:
             rawProgress.set(progress);
         }
 
-        const bobDurationInSeconds = 4;
-        const phase = (t / 1000) * ((Math.PI * 2) / bobDurationInSeconds) + index * 0.4;
-        hoverOffset.set(Math.sin(phase) * 12);
     });
 
     // --- RESPONSIVE PARALLAX KINEMATICS ---
@@ -118,19 +112,6 @@ function OverviewSlide({ items, links, isLandscape, index, projectId }: { items:
         [isEven ? 12 : -12, isEven ? -4 : 4]
     );
 
-    const shadowOpacity = useTransform(hoverOffset, [-12, 12], [0.3, 0.5]);
-    const shadowBlur = useTransform(hoverOffset, [-12, 12], [34, 16]);
-    const shadowScaleX = useTransform(hoverOffset, [-12, 12], [0.82, 1.04]);
-    const shadowScaleY = useTransform(hoverOffset, [-12, 12], [0.7, 0.95]);
-    const shadowX = useTransform(phoneRotate, [-12, 12], [-14, 14]);
-    const sideShadowOpacity = useTransform(hoverOffset, [-12, 12], [0.42, 0.68]);
-    const sideShadowBlur = useTransform(hoverOffset, [-12, 12], [26, 10]);
-    const sideShadowScaleX = useTransform(hoverOffset, [-12, 12], [0.92, 1.08]);
-    const sideShadowScaleY = useTransform(hoverOffset, [-12, 12], [0.88, 1.04]);
-    const sideShadowX = useTransform(phoneRotate, [-12, 12], [-1, 2]);
-    const sideShadowY = useTransform(hoverOffset, [-12, 12], [8, -8]);
-    const shadowFilter = useTransform(shadowBlur, (v) => `blur(${v}px)`);
-    const sideShadowFilter = useTransform(sideShadowBlur, (v) => `blur(${v}px)`);
     const imageMaxWidthPx = (isImageVertical
         ? (isLandscape ? 0.34 : 0.72)
         : (isLandscape ? 0.48 : 0.92)) * viewport.width;
@@ -221,71 +202,25 @@ function OverviewSlide({ items, links, isLandscape, index, projectId }: { items:
                     {/* --- INTERACTIVE IMAGE HALF --- */}
                     <div className={`${isLandscape ? "w-5/12 h-full" : "w-full min-h-1/2"} flex items-center justify-center perspective-[1200px] z-20`}>
 
-                        {/* 1. SCROLL & DRAG CONTAINER */}
-                        {/* Handles the scroll-based movement and the physics for dragging */}
-                        <motion.div
-                            drag
-                            dragConstraints={{ top: 0, bottom: 0, left: 0, right: 0 }}
-                            dragElastic={0.4}
-                            whileDrag={{ scale: 1.05, cursor: "grabbing" }}
+                        <FloatingDraggableImage
+                            src={`/${projectId}.png`}
+                            alt={`${calloutText} interface`}
+                            className="relative w-full h-full touch-auto"
                             style={{
                                 y: phoneY,
                                 rotateZ: phoneRotate,
                                 rotateX: isLandscape ? 5 : 0,
-                                cursor: "grab"
                             }}
-                            className={`relative w-full h-full touch-auto`}
-                        >
-
-                            {/* 2. CONTINUOUS HOVER & SHADOW CONTAINER */}
-                            {/* Handles the endless floating bob and dynamic shadow casting */}
-                            <motion.div
-                                style={{ y: hoverOffset }}
-                                className="w-full h-full relative flex items-center justify-center"
-                            >
-                                <div
-                                    className="relative z-30 flex shrink-0 items-center justify-center"
-                                    style={{ width: `${renderedImageWidth}px`, height: `${renderedImageHeight}px` }}
-                                >
-                                    <motion.div
-                                        aria-hidden
-                                        style={{
-                                            opacity: isImageVertical ? sideShadowOpacity : shadowOpacity,
-                                            filter: isImageVertical ? sideShadowFilter : shadowFilter,
-                                            scaleX: isImageVertical ? sideShadowScaleX : shadowScaleX,
-                                            scaleY: isImageVertical ? sideShadowScaleY : shadowScaleY,
-                                            x: isImageVertical ? sideShadowX : shadowX,
-                                            y: isImageVertical ? sideShadowY : 0,
-                                        }}
-                                        className={isImageVertical
-                                            ? "absolute top-[58%] left-[84%] z-0 h-[68%] w-[30%] -translate-y-1/2 rounded-[999px] bg-gradient-to-r from-black/90 via-black/55 to-transparent pointer-events-none"
-                                            : "absolute bottom-[-7%] left-1/2 z-0 h-[15%] w-[62%] -translate-x-1/2 rounded-[999px] bg-black/90 pointer-events-none"
-                                        }
-                                    />
-                                    <Image
-                                        src={`/${projectId}.png`}
-                                        alt={`${calloutText} interface`}
-                                        width={imageSize.width}
-                                        height={imageSize.height}
-                                        draggable={false}
-                                        className={`object-contain relative z-10 h-full w-full cursor-grab active:cursor-grabbing touch-none ${!isImageVertical ? "border border-foreground rounded-lg" : ""}`}
-                                        style={{
-                                            width: "100%",
-                                            height: "100%",
-                                        }}
-                                        onDragStart={(event) => event.preventDefault()}
-                                        onLoadingComplete={(img) => {
-                                            setIsImageVertical(img.naturalHeight > img.naturalWidth);
-                                            if (img.naturalWidth > 0 && img.naturalHeight > 0) {
-                                                setImageSize({ width: img.naturalWidth, height: img.naturalHeight });
-                                            }
-                                        }}
-                                        priority
-                                    />
-                                </div>
-                            </motion.div>
-
-                        </motion.div>
+                            tilt={phoneRotate}
+                            bobPhase={index * 0.4}
+                            frameStyle={{ width: `${renderedImageWidth}px`, height: `${renderedImageHeight}px` }}
+                            imageClassName="h-full w-full"
+                            onImageLoad={({ width, height, isVertical }) => {
+                                setIsImageVertical(isVertical);
+                                setImageSize({ width, height });
+                            }}
+                            priority
+                        />
 
                     </div>
 

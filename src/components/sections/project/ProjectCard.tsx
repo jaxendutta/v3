@@ -1,7 +1,6 @@
 // src/components/sections/project/ProjectCard.tsx
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { Project } from "@/types/project";
@@ -9,6 +8,7 @@ import { displayFont } from "@/lib/fonts";
 import { fadeIn } from "@/lib/motionVariants";
 import Tag, { SkillTag } from "@/components/ui/Tag";
 import RotatingButton from "@/components/ui/RotatingButton";
+import FloatingDraggableImage from "@/components/ui/FloatingDraggableImage";
 
 interface ProjectCardProps {
     id: string;
@@ -86,17 +86,26 @@ export default function ProjectCard({
                 {/* Project Image */}
                 <Link
                     href={projectLink}
-                    className={`w-full md:w-2/5 relative ${isMobileProject ? (reversed ? "-rotate-5" : "rotate-5") : ""}`}
+                    className="w-full md:w-2/5 relative"
                 >
-                    <Image
+                    <FloatingDraggableImage
                         src={`/${id}.png`}
                         alt={project.name}
                         width={isMobileProject ? 280 : 800}
                         height={isMobileProject ? 600 : 450}
-                        className={`relative mx-auto w-full h-auto ${isMobileProject ? "max-w-[200px] md:max-w-[280px]" : "max-w-[800px] border border-[var(--color-text)] rounded-sm"}`}
+                        baseCursor="pointer"
+                        className={`relative mx-auto w-full touch-auto ${isMobileProject ? (reversed ? "-rotate-5" : "rotate-5") : ""}`}
+                        frameClassName={`mx-auto ${isMobileProject
+                            ? "w-full max-w-[200px] md:max-w-[280px] aspect-[280/600]"
+                            : "w-full max-w-[800px] aspect-[16/9]"
+                            }`}
+                        imageClassName="h-full w-full"
                         style={{
-                            objectFit: "contain",
+                            rotateX: 4,
                         }}
+                        tilt={isMobileProject ? (reversed ? -8 : 8) : 0}
+                        bobPhase={reversed ? 0.8 : 0}
+                        borderOnLandscape={!isMobileProject}
                         priority
                     />
                 </Link>

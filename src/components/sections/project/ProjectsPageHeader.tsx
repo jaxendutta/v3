@@ -2,8 +2,7 @@
 
 import { AnimatePresence, motion, LayoutGroup, type Transition } from "framer-motion";
 import RotatingButton from "@/components/ui/RotatingButton";
-import { HiArrowLeft, HiArrowRight, HiArrowUp } from "react-icons/hi";
-import { HiArrowUpLeft } from "react-icons/hi2";
+import { HiArrowUpLeft, HiArrowLeft, HiArrowRight, HiArrowUp } from "react-icons/hi2";
 import { GrChapterNext, GrChapterPrevious } from "react-icons/gr";
 import { headingFont } from "@/lib/fonts";
 import { useParams } from "next/navigation";
