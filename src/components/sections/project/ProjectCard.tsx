@@ -94,10 +94,10 @@ export default function ProjectCard({
                         width={isMobileProject ? 280 : 800}
                         height={isMobileProject ? 600 : 450}
                         baseCursor="pointer"
-                        className={`relative mx-auto w-full touch-auto ${isMobileProject ? (reversed ? "-rotate-5" : "rotate-5") : ""}`}
+                        className={`relative mx-auto w-full touch-auto ${isMobileProject ? (reversed ? "-rotate-5" : "rotate-5") : (reversed ? "-rotate-3" : "rotate-3")}`}
                         frameClassName={`mx-auto ${isMobileProject
                             ? "w-full max-w-[200px] md:max-w-[280px] aspect-[280/600]"
-                            : "w-full max-w-[800px] aspect-[16/9]"
+                            : "w-full max-w-[800px]"
                             }`}
                         imageClassName="h-full w-full"
                         style={{

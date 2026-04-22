@@ -179,8 +179,10 @@ export default function FloatingDraggableImage({
                         draggable={false}
                         className={`object-contain relative z-10 ${drag ? `${cursorClass} active:cursor-grabbing touch-none` : ""} ${borderOnLandscape && !isImageVertical ? "border border-foreground rounded-lg" : ""} ${imageClassName ?? ""}`}
                         style={{
-                            width: "100%",
-                            height: "100%",
+                            width: borderOnLandscape && !isImageVertical ? "auto" : "100%",
+                            height: borderOnLandscape && !isImageVertical ? "auto" : "100%",
+                            maxWidth: "100%",
+                            maxHeight: "100%",
                             filter: isImageVertical
                                 ? "drop-shadow(10px 18px 24px var(--float-shadow-core)) drop-shadow(0 0 18px var(--float-shadow-rim))"
                                 : "drop-shadow(0 20px 30px var(--float-shadow-core)) drop-shadow(0 0 14px var(--float-shadow-rim))",
