@@ -28,7 +28,9 @@ export interface Paper {
     title: string;
     /** Optional subtitle or venue tagline */
     abstract: string;
-    /** Publication venue or degree program, e.g. "MMath Thesis · University of Waterloo" */
+    /** Type of paper, e.g. Research Report, Literature Survey, Case Study, Academic Essay */
+    paperType: string;
+    /** Publication venue or degree program, e.g. "University of Waterloo" */
     venue?: string[];
     /** Date of submission / publication / last revision */
     duration: Duration;

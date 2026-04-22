@@ -32,12 +32,16 @@ export default function PapersPage() {
     const [selectedYears, setSelectedYears] = useState<number[]>(
         searchParams.get("year")?.split(",").map(Number).filter(n => !isNaN(n)) || []
     );
+    const [selectedPaperTypes, setSelectedPaperTypes] = useState<string[]>(
+        searchParams.get("type")?.split(",").filter(Boolean) || []
+    );
 
     // Sync state to URL 
     useEffect(() => {
         const params = new URLSearchParams(searchParams.toString());
         const currentTag = selectedTags.join(",");
         const currentYear = selectedYears.join(",");
+        const currentType = selectedPaperTypes.join(",");
         let needsUpdate = false;
 
         if (searchQuery !== (searchParams.get("search") || "")) {
@@ -52,17 +56,22 @@ export default function PapersPage() {
             currentYear ? params.set("year", currentYear) : params.delete("year");
             needsUpdate = true;
         }
+        if (currentType !== (searchParams.get("type") || "")) {
+            currentType ? params.set("type", currentType) : params.delete("type");
+            needsUpdate = true;
+        }
         if (needsUpdate) {
             const newQuery = params.toString();
             const url = newQuery ? `${pathname}?${newQuery}` : pathname;
             router.replace(url, { scroll: false });
         }
-    }, [searchQuery, selectedTags, selectedYears, pathname, router, searchParams]);
+    }, [searchQuery, selectedTags, selectedYears, selectedPaperTypes, pathname, router, searchParams]);
 
     useEffect(() => {
         setSearchQuery(searchParams.get("search") || "");
         setSelectedTags(searchParams.get("tag")?.split(",").filter(Boolean) || []);
         setSelectedYears(searchParams.get("year")?.split(",").map(Number).filter(n => !isNaN(n)) || []);
+        setSelectedPaperTypes(searchParams.get("type")?.split(",").filter(Boolean) || []);
     }, [searchParams]);
 
     // Chronologically sorted IDs
@@ -92,6 +101,17 @@ export default function PapersPage() {
         return Array.from(years).sort((a, b) => b - a);
     }, [allPaperIds]);
 
+    // Extract all unique paper types
+    const allPaperTypes = useMemo(() => {
+        const types = new Set<string>();
+        allPaperIds.forEach((id) => {
+            if (papersData[id].paperType) {
+                types.add(papersData[id].paperType);
+            }
+        });
+        return Array.from(types).sort();
+    }, [allPaperIds]);
+
     // Filter projects 
     const filteredPapers = useMemo(() => {
         return allPaperIds.filter((id) => {
@@ -109,9 +129,13 @@ export default function PapersPage() {
                 selectedYears.length === 0 ||
                 (paper.duration?.end && selectedYears.includes(paper.duration.end.getFullYear()));
 
-            return matchesSearch && matchesTags && matchesYear;
+            const matchesType =
+                selectedPaperTypes.length === 0 ||
+                selectedPaperTypes.includes(paper.paperType);
+
+            return matchesSearch && matchesTags && matchesYear && matchesType;
         });
-    }, [allPaperIds, searchQuery, selectedTags, selectedYears]);
+    }, [allPaperIds, searchQuery, selectedTags, selectedYears, selectedPaperTypes]);
 
     const toggleItem = (id: string) => {
         setExpandedItems((prev) => ({ ...prev, [id]: !prev[id] }));
@@ -129,13 +153,20 @@ export default function PapersPage() {
         );
     };
 
+    const togglePaperType = (type: string) => {
+        setSelectedPaperTypes((prev) =>
+            prev.includes(type) ? prev.filter((t) => t !== type) : [...prev, type]
+        );
+    };
+
     const clearFilters = () => {
         setSearchQuery("");
         setSelectedTags([]);
         setSelectedYears([]);
+        setSelectedPaperTypes([]);
     };
 
-    const hasActiveFilters = searchQuery !== "" || selectedTags.length > 0 || selectedYears.length > 0;
+    const hasActiveFilters = searchQuery !== "" || selectedTags.length > 0 || selectedYears.length > 0 || selectedPaperTypes.length > 0;
 
     return (
         <div className="min-h-screen flex flex-col gap-4 p-4 md:p-6 lg:p-8 xl:p-12 2xl:p-16 text-[13px] md:text-sm lg:text-base">
@@ -249,18 +280,32 @@ export default function PapersPage() {
                                 />
                             ))}
                         </FilterSection>
-                        {allYears.length > 0 && (
-                            <FilterSection title="Year Filter" icon={<LuCalendarRange />} className="md:col-span-1">
-                                {allYears.map((year) => (
-                                    <FilterTag
-                                        key={year}
-                                        label={year.toString()}
-                                        isActive={selectedYears.includes(year)}
-                                        onClick={() => toggleYear(year)}
-                                    />
-                                ))}
-                            </FilterSection>
-                        )}
+                        <div className="flex flex-col gap-4 md:gap-0 md:flex-col md:col-span-1">
+                            {allYears.length > 0 && (
+                                <FilterSection title="Year Filter" icon={<LuCalendarRange />} className="mb-4">
+                                    {allYears.map((year) => (
+                                        <FilterTag
+                                            key={year}
+                                            label={year.toString()}
+                                            isActive={selectedYears.includes(year)}
+                                            onClick={() => toggleYear(year)}
+                                        />
+                                    ))}
+                                </FilterSection>
+                            )}
+                            {allPaperTypes.length > 0 && (
+                                <FilterSection title="Type Filter" icon={<TbFilterDown />} className="">
+                                    {allPaperTypes.map((type) => (
+                                        <FilterTag
+                                            key={type}
+                                            label={type}
+                                            isActive={selectedPaperTypes.includes(type)}
+                                            onClick={() => togglePaperType(type)}
+                                        />
+                                    ))}
+                                </FilterSection>
+                            )}
+                        </div>
                     </div>
                 </div>
             </FilterContainer>

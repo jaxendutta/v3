@@ -121,16 +121,17 @@ export const PaperItem = ({
                 </span>
                 <StatusBadge status={data.status} />
             </div>
-            {data.venue && (
-                <span
-                    className={
-                        `${sansFont} font-thin text-[13px] md:text-base text-muted-foreground-subtle md:tracking-wide` +
-                        (!isActive ? " group-hover:text-highlight-text" : "")
-                    }
-                >
-                    {data.venue.join(" ✧ ")}
-                </span>
-            )}
+            <span
+                className={
+                    `${sansFont} font-thin text-[13px] md:text-base text-muted-foreground-subtle md:tracking-wide` +
+                    (!isActive ? " group-hover:text-highlight-text" : "")
+                }
+            >
+                {data.paperType}
+                {data.venue && data.venue.length > 0 && (
+                    <> ✧ {data.venue.join(" ✧ ")}</>
+                )}
+            </span>
         </div>
     );
 
