@@ -73,7 +73,7 @@ export default function FilteredCollectionPage({
                 </motion.div>
 
                 <div className="flex justify-between items-center gap-4 md:gap-8 border-b border-current pb-4">
-                    <div className="w-full min-w-0 text-center items-center text-[13px] xl:text-[15px] leading-[1] justify-center flex flex-wrap">
+                    <div className="w-full min-w-0 text-center items-center text-[13px] xl:text-base leading-[1] justify-center flex flex-wrap">
                         <span className="max-w-full break-words text-left leading-relaxed">{summary}</span>
                     </div>
 

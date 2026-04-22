@@ -181,7 +181,7 @@ export default function PapersPage() {
 
     const summary = (
         <>
-            <span className="font-semibold">
+            <span className="font-medium text-accent">
                 {filteredPapers.length} / {allPaperIds.length}
             </span>
             <span>{" papers found "}</span>

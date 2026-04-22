@@ -164,7 +164,7 @@ export default function ProjectsPage() {
 
     const summary = (
         <>
-            <span className="font-semibold">
+            <span className="font-medium text-accent">
                 {filteredProjects.length} / {projectIds.length}
             </span>
             <span>{" projects found "}</span>

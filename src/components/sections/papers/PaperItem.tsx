@@ -9,6 +9,7 @@ import { papersData } from "@/data/papers";
 import Tag from "@/components/ui/Tag";
 import CollapsibleItem from "@/components/ui/CollapsibleItem";
 import { sansFont, serifFont, serifSCFont } from "@/lib/fonts";
+import { formatDate } from "@/lib/format";
 import {
     HiOutlineDocumentText,
 } from "react-icons/hi";
@@ -123,7 +124,7 @@ export const PaperItem = ({
             </div>
             <span
                 className={
-                    `${sansFont} font-thin text-[13px] md:text-base text-muted-foreground-subtle md:tracking-wide` +
+                    `${sansFont} font-thin text-[13px] md:text-base text-muted-foreground md:tracking-wide` +
                     (!isActive ? " group-hover:text-highlight-text" : "")
                 }
             >
@@ -131,6 +132,10 @@ export const PaperItem = ({
                 {data.venue && data.venue.length > 0 && (
                     <> ✧ {data.venue.join(" ✧ ")}</>
                 )}
+                <span className="hidden lg:inline">
+                    {(data.venue && data.venue.length > 0) && " ✧ "}
+                    {formatDate(data.duration.end, "DD Month YYYY")}
+                </span>
             </span>
         </div>
     );
