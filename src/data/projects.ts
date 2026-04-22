@@ -927,12 +927,12 @@ export const projectsData: ProjectsData = {
     },
 
     "minimax-tic-tac-toe": {
-        name: "MiniMAX tic-tAc-toe",
-        label: "Minimax Tic-Tac-Toe",
+        name: "tic-tAc-toe + MiniMAX",
+        label: "Tic-Tac-Toe + MiniMax",
         icon: GiTicTacToe,
         type: "ai",
         layoutType: "showcase",
-        date: new Date("2019-08-15"),
+        date: new Date("2019-06-29"),
         screenshotDevice: "mobile",
         overview: [
             [
@@ -991,8 +991,8 @@ export const projectsData: ProjectsData = {
         ],
         techStack: {
             "Core Logic": [
-                { name: "Python", version: "3.8" },
-                { name: "Minimax Algorithm" }
+                { name: "Python", version: "3.10" },
+                { name: "MiniMax" }
             ],
             "Frontend": [
                 { name: "Tkinter" }
