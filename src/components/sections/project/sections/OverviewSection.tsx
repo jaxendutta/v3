@@ -147,7 +147,7 @@ function OverviewSlide({ items, links, isLandscape, index, projectId }: { items:
                     p-6 sm:p-8 md:p-16 lg:p-24
                     ${isLandscape
                         ? (isEven ? "flex-row" : "flex-row-reverse")
-                        : "flex-col gap-8 md:pt-12"
+                        : "flex-col md:pt-12"
                     }
                 `}>
 
@@ -161,7 +161,7 @@ function OverviewSlide({ items, links, isLandscape, index, projectId }: { items:
                             ${!isEven ? "items-end text-right" : "items-start text-left"}
                         `}
                     >
-                        <div className="flex flex-col gap-3 md:gap-8 w-full px-2 sm:px-0 pt-4 md:pt-0">
+                        <div className="flex flex-col gap-3 md:gap-8 w-full px-2 sm:px-0">
                             {sentences.map((sentence, i) => {
                                 const cascadeStep = isLandscape ? 2.5 : 0.75;
 
@@ -182,7 +182,7 @@ function OverviewSlide({ items, links, isLandscape, index, projectId }: { items:
 
                         {links && links.length > 0 && (
                             <div className={`
-                                flex flex-wrap w-full mt-6 md:mt-12
+                                flex flex-wrap w-full mt-2 md:mt-12
                                 ${!isEven ? "justify-end" : "justify-start"}
                                 gap-2 md:gap-6
                                 [&>*]:scale-[0.8] md:[&>*]:scale-100
