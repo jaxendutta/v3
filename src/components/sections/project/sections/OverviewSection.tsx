@@ -205,12 +205,11 @@ function OverviewSlide({ items, links, isLandscape, index, projectId }: { items:
                             dragControls={dragControls}
                             dragConstraints={{ top: 0, bottom: 0, left: 0, right: 0 }}
                             dragElastic={0.4}
-                            whileDrag={{ scale: 1.05, cursor: "grabbing" }}
+                            whileDrag={{ scale: 1.05 }}
                             style={{
                                 y: phoneY,
                                 rotateZ: phoneRotate,
                                 rotateX: isLandscape ? 5 : 0,
-                                cursor: "grab"
                             }}
                             className={`relative w-full h-full touch-auto`}
                         >
@@ -242,7 +241,9 @@ function OverviewSlide({ items, links, isLandscape, index, projectId }: { items:
                                         alt={`${calloutText} interface`}
                                         width={1200}
                                         height={1200}
+                                        draggable={false}
                                         className={`object-contain relative z-10 w-auto h-auto max-w-full max-h-full cursor-grab active:cursor-grabbing touch-none ${!isImageVertical ? "border border-foreground rounded-lg" : ""}`}
+                                        onDragStart={(event) => event.preventDefault()}
                                         onPointerDown={(event) => dragControls.start(event)}
                                         onLoadingComplete={(img) => {
                                             setIsImageVertical(img.naturalHeight > img.naturalWidth);
