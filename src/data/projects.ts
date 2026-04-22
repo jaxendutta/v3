@@ -249,7 +249,7 @@ export const projectsData: ProjectsData = {
                 },
                 {
                     content:
-                        "A comprehensive digital platform for Park View Centre, a premier polyclinic in Kolkata. The site serves as a bridge between patients and specialized care, featuring Dr. Chanda Chowdhury and Dr. Sumon Dutta.",
+                        "A comprehensive digital platform for Park View Centre, a premier polyclinic in Kolkata. The site serves as a bridge between patients and specialized care, featuring Dr Chanda Chowdhury and Dr Sumon Dutta.",
                 },
             ],
             [
