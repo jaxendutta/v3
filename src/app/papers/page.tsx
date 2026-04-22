@@ -1,12 +1,12 @@
 // src/app/papers/page.tsx
 "use client";
 
-import { useEffect, useState, useMemo } from "react";
-import { useSearchParams, useRouter, usePathname } from "next/navigation";
+import { useState, useMemo } from "react";
 import { motion } from "framer-motion";
 import { serifFont } from "@/lib/fonts";
 import { fadeIn } from "@/lib/motionVariants";
 import { papersData } from "@/data/papers";
+import { computeFacetCounts, parseCsvNumberList, parseCsvStringList, useSyncedFilters } from "@/lib/filtering";
 import RotatingButton from "@/components/ui/RotatingButton";
 import { HiOutlineArrowLongLeft, HiOutlineArrowLongUp } from "react-icons/hi2";
 import { PaperItems } from "@/components/sections/papers/PaperItem";
@@ -19,60 +19,35 @@ import { TbFilterX, TbFilterDown, TbFilterUp } from "react-icons/tb";
 import { LuCalendarRange, LuSearch, LuSwatchBook } from "react-icons/lu";
 
 export default function PapersPage() {
-    const router = useRouter();
-    const pathname = usePathname();
-    const searchParams = useSearchParams();
-
     const [expandedItems, setExpandedItems] = useState<Record<string, boolean>>({});
     const [showFilters, setShowFilters] = useState(false);
-    const [searchQuery, setSearchQuery] = useState(searchParams.get("search") || "");
-    const [selectedTags, setSelectedTags] = useState<string[]>(
-        searchParams.get("tag")?.split(",").filter(Boolean) || []
-    );
-    const [selectedYears, setSelectedYears] = useState<number[]>(
-        searchParams.get("year")?.split(",").map(Number).filter(n => !isNaN(n)) || []
-    );
-    const [selectedPaperTypes, setSelectedPaperTypes] = useState<string[]>(
-        searchParams.get("type")?.split(",").filter(Boolean) || []
-    );
+    const {
+        searchQuery,
+        setSearchQuery,
+        filters,
+        toggleFilterValue,
+        clearFilters,
+        hasActiveFilters,
+    } = useSyncedFilters<{
+        tags: string[];
+        years: number[];
+        paperTypes: string[];
+    }>({
+        filterParams: {
+            tags: "tag",
+            years: "year",
+            paperTypes: "type",
+        },
+        parseFilter: {
+            tags: parseCsvStringList,
+            years: parseCsvNumberList,
+            paperTypes: parseCsvStringList,
+        },
+    });
 
-    // Sync state to URL 
-    useEffect(() => {
-        const params = new URLSearchParams(searchParams.toString());
-        const currentTag = selectedTags.join(",");
-        const currentYear = selectedYears.join(",");
-        const currentType = selectedPaperTypes.join(",");
-        let needsUpdate = false;
-
-        if (searchQuery !== (searchParams.get("search") || "")) {
-            searchQuery ? params.set("search", searchQuery) : params.delete("search");
-            needsUpdate = true;
-        }
-        if (currentTag !== (searchParams.get("tag") || "")) {
-            currentTag ? params.set("tag", currentTag) : params.delete("tag");
-            needsUpdate = true;
-        }
-        if (currentYear !== (searchParams.get("year") || "")) {
-            currentYear ? params.set("year", currentYear) : params.delete("year");
-            needsUpdate = true;
-        }
-        if (currentType !== (searchParams.get("type") || "")) {
-            currentType ? params.set("type", currentType) : params.delete("type");
-            needsUpdate = true;
-        }
-        if (needsUpdate) {
-            const newQuery = params.toString();
-            const url = newQuery ? `${pathname}?${newQuery}` : pathname;
-            router.replace(url, { scroll: false });
-        }
-    }, [searchQuery, selectedTags, selectedYears, selectedPaperTypes, pathname, router, searchParams]);
-
-    useEffect(() => {
-        setSearchQuery(searchParams.get("search") || "");
-        setSelectedTags(searchParams.get("tag")?.split(",").filter(Boolean) || []);
-        setSelectedYears(searchParams.get("year")?.split(",").map(Number).filter(n => !isNaN(n)) || []);
-        setSelectedPaperTypes(searchParams.get("type")?.split(",").filter(Boolean) || []);
-    }, [searchParams]);
+    const selectedTags = filters.tags;
+    const selectedYears = filters.years;
+    const selectedPaperTypes = filters.paperTypes;
 
     // Chronologically sorted IDs
     const allPaperIds = useMemo(() => {
@@ -132,62 +107,62 @@ export default function PapersPage() {
         return types.length === 0 || types.includes(paper.paperType);
     };
 
-    const paperTagCounts = useMemo(() => {
-        const counts: Record<string, number> = {};
+    const paperTagCounts = useMemo(
+        () =>
+            computeFacetCounts({
+                items: allPaperIds,
+                values: allTags,
+                selectedValues: selectedTags,
+                isMatch: (id, nextTags) => {
+                    const paper = papersData[id];
+                    return (
+                        paperMatchesSearch(paper) &&
+                        paperMatchesTags(paper, nextTags) &&
+                        paperMatchesYear(paper, selectedYears) &&
+                        paperMatchesType(paper, selectedPaperTypes)
+                    );
+                },
+            }),
+        [allPaperIds, allTags, selectedPaperTypes, selectedTags, selectedYears, searchQuery]
+    );
 
-        allTags.forEach((tag) => {
-            const nextTags = selectedTags.includes(tag) ? selectedTags : [...selectedTags, tag];
-            counts[tag] = allPaperIds.filter((id) => {
-                const paper = papersData[id];
-                return (
-                    paperMatchesSearch(paper) &&
-                    paperMatchesTags(paper, nextTags) &&
-                    paperMatchesYear(paper, selectedYears) &&
-                    paperMatchesType(paper, selectedPaperTypes)
-                );
-            }).length;
-        });
+    const paperYearCounts = useMemo(
+        () =>
+            computeFacetCounts({
+                items: allPaperIds,
+                values: allYears,
+                selectedValues: selectedYears,
+                isMatch: (id, nextYears) => {
+                    const paper = papersData[id];
+                    return (
+                        paperMatchesSearch(paper) &&
+                        paperMatchesTags(paper, selectedTags) &&
+                        paperMatchesYear(paper, nextYears) &&
+                        paperMatchesType(paper, selectedPaperTypes)
+                    );
+                },
+            }),
+        [allPaperIds, allYears, selectedPaperTypes, selectedTags, selectedYears, searchQuery]
+    );
 
-        return counts;
-    }, [allPaperIds, allTags, selectedPaperTypes, selectedTags, selectedYears, searchQuery]);
-
-    const paperYearCounts = useMemo(() => {
-        const counts: Record<number, number> = {};
-
-        allYears.forEach((year) => {
-            const nextYears = selectedYears.includes(year) ? selectedYears : [...selectedYears, year];
-            counts[year] = allPaperIds.filter((id) => {
-                const paper = papersData[id];
-                return (
-                    paperMatchesSearch(paper) &&
-                    paperMatchesTags(paper, selectedTags) &&
-                    paperMatchesYear(paper, nextYears) &&
-                    paperMatchesType(paper, selectedPaperTypes)
-                );
-            }).length;
-        });
-
-        return counts;
-    }, [allPaperIds, allYears, selectedPaperTypes, selectedTags, selectedYears, searchQuery]);
-
-    const paperTypeCounts = useMemo(() => {
-        const counts: Record<string, number> = {};
-
-        allPaperTypes.forEach((type) => {
-            const nextTypes = selectedPaperTypes.includes(type) ? selectedPaperTypes : [...selectedPaperTypes, type];
-            counts[type] = allPaperIds.filter((id) => {
-                const paper = papersData[id];
-                return (
-                    paperMatchesSearch(paper) &&
-                    paperMatchesTags(paper, selectedTags) &&
-                    paperMatchesYear(paper, selectedYears) &&
-                    paperMatchesType(paper, nextTypes)
-                );
-            }).length;
-        });
-
-        return counts;
-    }, [allPaperIds, allPaperTypes, selectedPaperTypes, selectedTags, selectedYears, searchQuery]);
+    const paperTypeCounts = useMemo(
+        () =>
+            computeFacetCounts({
+                items: allPaperIds,
+                values: allPaperTypes,
+                selectedValues: selectedPaperTypes,
+                isMatch: (id, nextTypes) => {
+                    const paper = papersData[id];
+                    return (
+                        paperMatchesSearch(paper) &&
+                        paperMatchesTags(paper, selectedTags) &&
+                        paperMatchesYear(paper, selectedYears) &&
+                        paperMatchesType(paper, nextTypes)
+                    );
+                },
+            }),
+        [allPaperIds, allPaperTypes, selectedPaperTypes, selectedTags, selectedYears, searchQuery]
+    );
 
     // Filter projects 
     const filteredPapers = useMemo(() => {
@@ -207,31 +182,21 @@ export default function PapersPage() {
     };
 
     const toggleTag = (tag: string) => {
-        setSelectedTags((prev) =>
-            prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag]
-        );
+        toggleFilterValue("tags", tag);
     };
 
     const toggleYear = (year: number) => {
-        setSelectedYears((prev) =>
-            prev.includes(year) ? prev.filter((y) => y !== year) : [...prev, year]
-        );
+        toggleFilterValue("years", year);
     };
 
     const togglePaperType = (type: string) => {
-        setSelectedPaperTypes((prev) =>
-            prev.includes(type) ? prev.filter((t) => t !== type) : [...prev, type]
-        );
+        toggleFilterValue("paperTypes", type);
     };
 
-    const clearFilters = () => {
-        setSearchQuery("");
-        setSelectedTags([]);
-        setSelectedYears([]);
-        setSelectedPaperTypes([]);
-    };
-
-    const hasActiveFilters = searchQuery !== "" || selectedTags.length > 0 || selectedYears.length > 0 || selectedPaperTypes.length > 0;
+    const selectedPaperTypeLabel =
+        selectedPaperTypes.length === 1 ? "paper category" : "paper categories";
+    const selectedThemeLabel = selectedTags.length === 1 ? "theme" : "themes";
+    const selectedYearLabel = selectedYears.length === 1 ? "year" : "years";
 
     return (
         <div className="min-h-screen flex flex-col gap-4 p-4 md:p-6 lg:p-8 xl:p-12 2xl:p-16 text-[13px] md:text-sm lg:text-base">
@@ -264,27 +229,35 @@ export default function PapersPage() {
                     Papers & Written Records.
                 </motion.div>
 
-                <div className="flex justify-between items-center gap-4 border-b border-current pb-4">
-                    <div className="w-full text-center items-center justify-center flex flex-wrap">
-                        <span className="whitespace-nowrap">
+                <div className="flex justify-between items-center gap-4 md:gap-8 border-b border-current pb-4">
+                    <div className="w-full min-w-0 text-center items-center text-[13px] leading-[1] justify-center flex flex-wrap">
+                        <span className="max-w-full break-words text-left leading-relaxed">
                             <span className="font-semibold">
                                 {filteredPapers.length} / {allPaperIds.length}
                             </span>
                             <span>{" papers found "}</span>
 
+                            {selectedPaperTypes.length > 0 && (
+                                <>
+                                    {" filtered by "}
+                                    <span className="text-accent">
+                                        {selectedPaperTypes.length} {selectedPaperTypeLabel}
+                                    </span>
+                                </>
+                            )}
                             {selectedTags.length > 0 && (
                                 <>
-                                    <span>{" filtered by "}</span>
+                                    {" with "}
                                     <span className="text-accent">
-                                        {selectedTags.length} {selectedTags.length === 1 ? "tag" : "tags"}
+                                        {selectedTags.length} {selectedThemeLabel}
                                     </span>
                                 </>
                             )}
                             {selectedYears.length > 0 && (
                                 <>
-                                    {" from "}
+                                    {" from the "}
                                     <span className="text-accent">
-                                        {selectedYears.length === 1 ? "year" : "years"} {selectedYears.join(", ")}
+                                        {selectedYearLabel} {selectedYears.join(", ")}
                                     </span>
                                 </>
                             )}
@@ -297,7 +270,7 @@ export default function PapersPage() {
                         </span>
                     </div>
 
-                    <div className="flex items-center gap-2 md:gap-4">
+                    <div className="flex items-center gap-2 md:gap-4 shrink-0">
                         {hasActiveFilters && (
                             <motion.button
                                 onClick={clearFilters}
@@ -335,7 +308,7 @@ export default function PapersPage() {
                         </div>
                     </div>
                     <div className="w-full flex flex-col md:grid md:grid-cols-4 md:gap-4 gap-8">
-                        <FilterSection title="Theme Tag Filter" icon={<LuSwatchBook />} className="md:col-span-3">
+                        <FilterSection title="Theme Filter" icon={<LuSwatchBook />} className="md:col-span-3">
                             {allTags.map((tag) => (
                                 <FilterTag
                                     key={tag}
@@ -361,7 +334,7 @@ export default function PapersPage() {
                                 </FilterSection>
                             )}
                             {allPaperTypes.length > 0 && (
-                                <FilterSection title="Type Filter" icon={<TbFilterDown />} className="">
+                                <FilterSection title="Paper Category Filter" icon={<TbFilterDown />} className="">
                                     {allPaperTypes.map((type) => (
                                         <FilterTag
                                             key={type}

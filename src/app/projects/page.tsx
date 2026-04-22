@@ -1,11 +1,11 @@
 "use client";
 
-import { useEffect, useState, useMemo } from "react";
-import { useSearchParams, useRouter, usePathname } from "next/navigation";
+import { useState, useMemo } from "react";
 import { motion } from "framer-motion";
 import { serifFont } from "@/lib/fonts";
 import { fadeIn, staggerContainer, slideUp } from "@/lib/motionVariants";
 import { projectsData } from "@/data/projects";
+import { computeFacetCounts, parseCsvNumberList, parseCsvStringList, useSyncedFilters } from "@/lib/filtering";
 import RotatingButton from "@/components/ui/RotatingButton";
 import { LuSearch, LuSwatchBook, LuCalendarRange } from "react-icons/lu";
 import { HiOutlineArrowLongLeft, HiOutlineArrowLongUp } from "react-icons/hi2";
@@ -18,58 +18,32 @@ import FilterContainer, {
 import { TbFilterX, TbFilterDown, TbFilterUp } from "react-icons/tb";
 
 export default function ProjectsPage() {
-    const router = useRouter();
-    const pathname = usePathname();
-    const searchParams = useSearchParams();
-
     const projects = projectsData;
     const projectIds = Object.keys(projects);
     const [showFilters, setShowFilters] = useState(false);
-    const [searchQuery, setSearchQuery] = useState(searchParams.get("search") || "");
-    const [selectedTechStack, setSelectedTechStack] = useState<string[]>(
-        searchParams.get("tech")?.split(",").filter(Boolean) || []
-    );
-    const [selectedYears, setSelectedYears] = useState<number[]>(
-        searchParams.get("year")?.split(",").map(Number).filter(n => !isNaN(n)) || []
-    );
+    const {
+        searchQuery,
+        setSearchQuery,
+        filters,
+        toggleFilterValue,
+        clearFilters,
+        hasActiveFilters,
+    } = useSyncedFilters<{
+        techStack: string[];
+        years: number[];
+    }>({
+        filterParams: {
+            techStack: "tech",
+            years: "year",
+        },
+        parseFilter: {
+            techStack: parseCsvStringList,
+            years: parseCsvNumberList,
+        },
+    });
 
-    useEffect(() => {
-        const params = new URLSearchParams(searchParams.toString());
-
-        // Create the "desired" query string based on current state
-        const currentTech = selectedTechStack.join(",");
-        const currentYear = selectedYears.join(",");
-
-        // Only update params if they differ from what is currently in the URL
-        let needsUpdate = false;
-
-        if (searchQuery !== (searchParams.get("search") || "")) {
-            searchQuery ? params.set("search", searchQuery) : params.delete("search");
-            needsUpdate = true;
-        }
-
-        if (currentTech !== (searchParams.get("tech") || "")) {
-            currentTech ? params.set("tech", currentTech) : params.delete("tech");
-            needsUpdate = true;
-        }
-
-        if (currentYear !== (searchParams.get("year") || "")) {
-            currentYear ? params.set("year", currentYear) : params.delete("year");
-            needsUpdate = true;
-        }
-
-        if (needsUpdate) {
-            const newQuery = params.toString();
-            const url = newQuery ? `${pathname}?${newQuery}` : pathname;
-            router.replace(url, { scroll: false });
-        }
-    }, [searchQuery, selectedTechStack, selectedYears, pathname, router, searchParams]);
-
-    useEffect(() => {
-        setSearchQuery(searchParams.get("search") || "");
-        setSelectedTechStack(searchParams.get("tech")?.split(",").filter(Boolean) || []);
-        setSelectedYears(searchParams.get("year")?.split(",").map(Number).filter(n => !isNaN(n)) || []);
-    }, [searchParams]);
+    const selectedTechStack = filters.techStack;
+    const selectedYears = filters.years;
 
     // Extract all unique tech stacks from all projects
     const allTechStacks = useMemo(() => {
@@ -107,67 +81,70 @@ export default function ProjectsPage() {
         return (
             searchQuery === "" ||
             project.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            (project.subtitle && project.subtitle.toLowerCase().includes(searchQuery.toLowerCase())) ||
-            (project.overview &&
-                project.overview.some((paragraph) =>
-                    paragraph.some((item) => item.content.toLowerCase().includes(searchQuery.toLowerCase()))
-                ))
+            (project.subtitle?.toLowerCase().includes(searchQuery.toLowerCase()) ?? false) ||
+            (project.overview?.some((paragraph) =>
+                paragraph.some((item) => item.content.toLowerCase().includes(searchQuery.toLowerCase()))
+            ) ?? false)
         );
     };
 
     const projectMatchesTechStack = (project: (typeof projectsData)[string], techStack: string[]) => {
-        return (
-            techStack.length === 0 ||
-            (project.techStack &&
-                techStack.every(
-                    (tech) =>
-                        project.techStack &&
-                        Object.values(project.techStack)
-                            .flat()
-                            .some((techObj) => techObj.name.toLowerCase() === tech.toLowerCase())
-                ))
+        if (techStack.length === 0) {
+            return true;
+        }
+
+        if (!project.techStack) {
+            return false;
+        }
+
+        const projectTechStack = project.techStack;
+
+        return techStack.every((tech) =>
+            Object.values(projectTechStack)
+                .flat()
+                .some((techObj) => techObj.name.toLowerCase() === tech.toLowerCase())
         );
     };
 
     const projectMatchesYear = (project: (typeof projectsData)[string], years: number[]) => {
-        return years.length === 0 || (project.date && years.includes(project.date.getFullYear()));
+        return years.length === 0 || years.includes(project.date.getFullYear());
     };
 
-    const techStackCounts = useMemo(() => {
-        const counts: Record<string, number> = {};
+    const techStackCounts = useMemo(
+        () =>
+            computeFacetCounts({
+                items: projectIds,
+                values: allTechStacks,
+                selectedValues: selectedTechStack,
+                isMatch: (id, nextTechStack) => {
+                    const project = projects[id];
+                    return (
+                        projectMatchesSearch(project) &&
+                        projectMatchesTechStack(project, nextTechStack) &&
+                        projectMatchesYear(project, selectedYears)
+                    );
+                },
+            }),
+        [allTechStacks, projectIds, selectedTechStack, selectedYears, searchQuery]
+    );
 
-        allTechStacks.forEach((tech) => {
-            const nextTechStack = selectedTechStack.includes(tech) ? selectedTechStack : [...selectedTechStack, tech];
-            counts[tech] = projectIds.filter((id) => {
-                const project = projects[id];
-                return (
-                    projectMatchesSearch(project) &&
-                    projectMatchesTechStack(project, nextTechStack) &&
-                    projectMatchesYear(project, selectedYears)
-                );
-            }).length;
-        });
-
-        return counts;
-    }, [allTechStacks, projectIds, selectedTechStack, selectedYears, searchQuery]);
-
-    const yearCounts = useMemo(() => {
-        const counts: Record<number, number> = {};
-
-        allYears.forEach((year) => {
-            const nextYears = selectedYears.includes(year) ? selectedYears : [...selectedYears, year];
-            counts[year] = projectIds.filter((id) => {
-                const project = projects[id];
-                return (
-                    projectMatchesSearch(project) &&
-                    projectMatchesTechStack(project, selectedTechStack) &&
-                    projectMatchesYear(project, nextYears)
-                );
-            }).length;
-        });
-
-        return counts;
-    }, [allYears, projectIds, selectedTechStack, selectedYears, searchQuery]);
+    const yearCounts = useMemo(
+        () =>
+            computeFacetCounts({
+                items: projectIds,
+                values: allYears,
+                selectedValues: selectedYears,
+                isMatch: (id, nextYears) => {
+                    const project = projects[id];
+                    return (
+                        projectMatchesSearch(project) &&
+                        projectMatchesTechStack(project, selectedTechStack) &&
+                        projectMatchesYear(project, nextYears)
+                    );
+                },
+            }),
+        [allYears, projectIds, selectedTechStack, selectedYears, searchQuery]
+    );
 
     // Filter projects based on search query, selected tech stacks, and years
     const filteredProjects = useMemo(() => {
@@ -181,36 +158,13 @@ export default function ProjectsPage() {
         });
     }, [projectIds, projects, searchQuery, selectedTechStack, selectedYears]);
 
-    // Toggle tech stack selection
     const toggleTechStack = (tech: string) => {
-        setSelectedTechStack((prev) =>
-            prev.includes(tech)
-                ? prev.filter((t) => t !== tech)
-                : [...prev, tech]
-        );
+        toggleFilterValue("techStack", tech);
     };
 
-    // Toggle year selection
     const toggleYear = (year: number) => {
-        setSelectedYears((prev) =>
-            prev.includes(year)
-                ? prev.filter((y) => y !== year)
-                : [...prev, year]
-        );
+        toggleFilterValue("years", year);
     };
-
-    // Clear all filters
-    const clearFilters = () => {
-        setSearchQuery("");
-        setSelectedTechStack([]);
-        setSelectedYears([]);
-    };
-
-    // Check if any filters are active
-    const hasActiveFilters =
-        searchQuery !== "" ||
-        selectedTechStack.length > 0 ||
-        selectedYears.length > 0;
 
     return (
         <div className="min-h-screen flex flex-col gap-4 p-4 md:p-6 lg:p-8 xl:p-12 2xl:p-16 text-[13px] md:text-sm lg:text-base">
@@ -249,10 +203,10 @@ export default function ProjectsPage() {
                 </motion.div>
 
                 {/* Results count and filter controls */}
-                <div className="flex justify-between items-center gap-4 border-b border-current pb-4 ">
+                <div className="flex justify-between items-center gap-2 md:gap-4 border-b border-current pb-4 ">
                     {/* Results count with detailed filter information */}
-                    <div className="w-full text-center items-center justify-center flex flex-wrap">
-                        <span className="whitespace-nowrap">
+                    <div className="w-full min-w-0 text-center items-center text-[13px] leading-[1] justify-center flex flex-wrap">
+                        <span className="max-w-full break-words text-left leading-relaxed">
                             <span className="font-semibold">
                                 {filteredProjects.length} / {projectIds.length}
                             </span>
@@ -271,7 +225,7 @@ export default function ProjectsPage() {
                             )}
                             {selectedYears.length > 0 && (
                                 <>
-                                    {" from "}
+                                    {" from the "}
                                     <span className="text-accent">
                                         {selectedYears.length === 1
                                             ? "year"
@@ -292,7 +246,7 @@ export default function ProjectsPage() {
                     </div>
 
                     {/* Filter controls */}
-                    <div className="flex items-center gap-2 md:gap-4">
+                    <div className="flex items-center gap-2 md:gap-4 shrink-0">
                         {hasActiveFilters && (
                             <motion.button
                                 title="Clear filters"
