@@ -112,28 +112,93 @@ export default function PapersPage() {
         return Array.from(types).sort();
     }, [allPaperIds]);
 
+    const paperMatchesSearch = (paper: (typeof papersData)[string]) => {
+        return (
+            searchQuery === "" ||
+            paper.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            paper.abstract.toLowerCase().includes(searchQuery.toLowerCase())
+        );
+    };
+
+    const paperMatchesTags = (paper: (typeof papersData)[string], tags: string[]) => {
+        return tags.length === 0 || tags.every((tag) => paper.tags?.includes(tag));
+    };
+
+    const paperMatchesYear = (paper: (typeof papersData)[string], years: number[]) => {
+        return years.length === 0 || (paper.duration?.end && years.includes(paper.duration.end.getFullYear()));
+    };
+
+    const paperMatchesType = (paper: (typeof papersData)[string], types: string[]) => {
+        return types.length === 0 || types.includes(paper.paperType);
+    };
+
+    const paperTagCounts = useMemo(() => {
+        const counts: Record<string, number> = {};
+
+        allTags.forEach((tag) => {
+            const nextTags = selectedTags.includes(tag) ? selectedTags : [...selectedTags, tag];
+            counts[tag] = allPaperIds.filter((id) => {
+                const paper = papersData[id];
+                return (
+                    paperMatchesSearch(paper) &&
+                    paperMatchesTags(paper, nextTags) &&
+                    paperMatchesYear(paper, selectedYears) &&
+                    paperMatchesType(paper, selectedPaperTypes)
+                );
+            }).length;
+        });
+
+        return counts;
+    }, [allPaperIds, allTags, selectedPaperTypes, selectedTags, selectedYears, searchQuery]);
+
+    const paperYearCounts = useMemo(() => {
+        const counts: Record<number, number> = {};
+
+        allYears.forEach((year) => {
+            const nextYears = selectedYears.includes(year) ? selectedYears : [...selectedYears, year];
+            counts[year] = allPaperIds.filter((id) => {
+                const paper = papersData[id];
+                return (
+                    paperMatchesSearch(paper) &&
+                    paperMatchesTags(paper, selectedTags) &&
+                    paperMatchesYear(paper, nextYears) &&
+                    paperMatchesType(paper, selectedPaperTypes)
+                );
+            }).length;
+        });
+
+        return counts;
+    }, [allPaperIds, allYears, selectedPaperTypes, selectedTags, selectedYears, searchQuery]);
+
+    const paperTypeCounts = useMemo(() => {
+        const counts: Record<string, number> = {};
+
+        allPaperTypes.forEach((type) => {
+            const nextTypes = selectedPaperTypes.includes(type) ? selectedPaperTypes : [...selectedPaperTypes, type];
+            counts[type] = allPaperIds.filter((id) => {
+                const paper = papersData[id];
+                return (
+                    paperMatchesSearch(paper) &&
+                    paperMatchesTags(paper, selectedTags) &&
+                    paperMatchesYear(paper, selectedYears) &&
+                    paperMatchesType(paper, nextTypes)
+                );
+            }).length;
+        });
+
+        return counts;
+    }, [allPaperIds, allPaperTypes, selectedPaperTypes, selectedTags, selectedYears, searchQuery]);
+
     // Filter projects 
     const filteredPapers = useMemo(() => {
         return allPaperIds.filter((id) => {
             const paper = papersData[id];
-            const matchesSearch =
-                searchQuery === "" ||
-                paper.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                paper.abstract.toLowerCase().includes(searchQuery.toLowerCase());
-
-            const matchesTags =
-                selectedTags.length === 0 ||
-                selectedTags.every((t) => paper.tags?.includes(t));
-
-            const matchesYear =
-                selectedYears.length === 0 ||
-                (paper.duration?.end && selectedYears.includes(paper.duration.end.getFullYear()));
-
-            const matchesType =
-                selectedPaperTypes.length === 0 ||
-                selectedPaperTypes.includes(paper.paperType);
-
-            return matchesSearch && matchesTags && matchesYear && matchesType;
+            return (
+                paperMatchesSearch(paper) &&
+                paperMatchesTags(paper, selectedTags) &&
+                paperMatchesYear(paper, selectedYears) &&
+                paperMatchesType(paper, selectedPaperTypes)
+            );
         });
     }, [allPaperIds, searchQuery, selectedTags, selectedYears, selectedPaperTypes]);
 
@@ -275,6 +340,7 @@ export default function PapersPage() {
                                 <FilterTag
                                     key={tag}
                                     label={tag}
+                                    count={paperTagCounts[tag] ?? 0}
                                     isActive={selectedTags.includes(tag)}
                                     onClick={() => toggleTag(tag)}
                                 />
@@ -287,6 +353,7 @@ export default function PapersPage() {
                                         <FilterTag
                                             key={year}
                                             label={year.toString()}
+                                            count={paperYearCounts[year] ?? 0}
                                             isActive={selectedYears.includes(year)}
                                             onClick={() => toggleYear(year)}
                                         />
@@ -299,6 +366,7 @@ export default function PapersPage() {
                                         <FilterTag
                                             key={type}
                                             label={type}
+                                            count={paperTypeCounts[type] ?? 0}
                                             isActive={selectedPaperTypes.includes(type)}
                                             onClick={() => togglePaperType(type)}
                                         />

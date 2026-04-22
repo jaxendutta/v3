@@ -71,22 +71,28 @@ export default function FilterContainer({
 // FilterTag component for consistent tag styling
 interface FilterTagProps {
     label: string;
+    count?: number;
     isActive: boolean;
     onClick: () => void;
 }
 
-export function FilterTag({ label, isActive, onClick }: FilterTagProps) {
+export function FilterTag({ label, count, isActive, onClick }: FilterTagProps) {
     return (
         <motion.button
             onClick={onClick}
             className={`px-2 md:px-3 py-0.75 md:py-1 border rounded-full text-[11px] md:text-sm transition-colors ${isActive
-                    ? "bg-[var(--color-text)] text-[var(--color-background)]"
-                    : "border-current hover:bg-[var(--color-text)] hover:text-[var(--color-background)]"
+                ? "bg-[var(--color-text)] text-[var(--color-background)]"
+                : "border-current hover:bg-[var(--color-text)] hover:text-[var(--color-background)]"
                 }`}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
         >
-            {label}
+            <span>{label}</span>
+            {typeof count === "number" && (
+                <span className="ml-2 pl-1.5 border-l border-current text-[10px] md:text-xs font-semibold opacity-85 leading-none">
+                    {count}
+                </span>
+            )}
         </motion.button>
     );
 }

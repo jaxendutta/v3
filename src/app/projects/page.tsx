@@ -3,12 +3,11 @@
 import { useEffect, useState, useMemo } from "react";
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import { motion } from "framer-motion";
-import { googleSansFlex, serifFont } from "@/lib/fonts";
+import { serifFont } from "@/lib/fonts";
 import { fadeIn, staggerContainer, slideUp } from "@/lib/motionVariants";
 import { projectsData } from "@/data/projects";
 import RotatingButton from "@/components/ui/RotatingButton";
-import { CiSearch } from "react-icons/ci";
-import { GiTechnoHeart, GiCalendar } from "react-icons/gi";
+import { LuSearch, LuSwatchBook, LuCalendarRange } from "react-icons/lu";
 import { HiOutlineArrowLongLeft, HiOutlineArrowLongUp } from "react-icons/hi2";
 import ProjectCard from "@/components/sections/project/ProjectCard";
 import Footer from "@/components/layout/Footer";
@@ -104,45 +103,81 @@ export default function ProjectsPage() {
         return Array.from(years).sort((a, b) => b - a); // Sort descending (newest first)
     }, [projectIds, projects]);
 
+    const projectMatchesSearch = (project: (typeof projectsData)[string]) => {
+        return (
+            searchQuery === "" ||
+            project.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            (project.subtitle && project.subtitle.toLowerCase().includes(searchQuery.toLowerCase())) ||
+            (project.overview &&
+                project.overview.some((paragraph) =>
+                    paragraph.some((item) => item.content.toLowerCase().includes(searchQuery.toLowerCase()))
+                ))
+        );
+    };
+
+    const projectMatchesTechStack = (project: (typeof projectsData)[string], techStack: string[]) => {
+        return (
+            techStack.length === 0 ||
+            (project.techStack &&
+                techStack.every(
+                    (tech) =>
+                        project.techStack &&
+                        Object.values(project.techStack)
+                            .flat()
+                            .some((techObj) => techObj.name.toLowerCase() === tech.toLowerCase())
+                ))
+        );
+    };
+
+    const projectMatchesYear = (project: (typeof projectsData)[string], years: number[]) => {
+        return years.length === 0 || (project.date && years.includes(project.date.getFullYear()));
+    };
+
+    const techStackCounts = useMemo(() => {
+        const counts: Record<string, number> = {};
+
+        allTechStacks.forEach((tech) => {
+            const nextTechStack = selectedTechStack.includes(tech) ? selectedTechStack : [...selectedTechStack, tech];
+            counts[tech] = projectIds.filter((id) => {
+                const project = projects[id];
+                return (
+                    projectMatchesSearch(project) &&
+                    projectMatchesTechStack(project, nextTechStack) &&
+                    projectMatchesYear(project, selectedYears)
+                );
+            }).length;
+        });
+
+        return counts;
+    }, [allTechStacks, projectIds, selectedTechStack, selectedYears, searchQuery]);
+
+    const yearCounts = useMemo(() => {
+        const counts: Record<number, number> = {};
+
+        allYears.forEach((year) => {
+            const nextYears = selectedYears.includes(year) ? selectedYears : [...selectedYears, year];
+            counts[year] = projectIds.filter((id) => {
+                const project = projects[id];
+                return (
+                    projectMatchesSearch(project) &&
+                    projectMatchesTechStack(project, selectedTechStack) &&
+                    projectMatchesYear(project, nextYears)
+                );
+            }).length;
+        });
+
+        return counts;
+    }, [allYears, projectIds, selectedTechStack, selectedYears, searchQuery]);
+
     // Filter projects based on search query, selected tech stacks, and years
     const filteredProjects = useMemo(() => {
         return projectIds.filter((id) => {
             const project = projects[id];
-            const matchesSearch =
-                searchQuery === "" ||
-                project.name
-                    .toLowerCase()
-                    .includes(searchQuery.toLowerCase()) ||
-                (project.subtitle &&
-                    project.subtitle
-                        .toLowerCase()
-                        .includes(searchQuery.toLowerCase())) ||
-                (project.overview &&
-                    project.overview.some((paragraph) =>
-                        paragraph.some((item) =>
-                            item.content
-                                .toLowerCase()
-                                .includes(searchQuery.toLowerCase())
-                        )
-                    ));
-
-            const matchesTechStack =
-                selectedTechStack.length === 0 ||
-                (project.techStack &&
-                    selectedTechStack.every(
-                        (tech) =>
-                            project.techStack &&
-                            Object.values(project.techStack)
-                                .flat()
-                                .some((techObj) => techObj.name.toLowerCase() === tech.toLowerCase())
-                    ));
-
-            const matchesYear =
-                selectedYears.length === 0 ||
-                (project.date &&
-                    selectedYears.includes(project.date.getFullYear()));
-
-            return matchesSearch && matchesTechStack && matchesYear;
+            return (
+                projectMatchesSearch(project) &&
+                projectMatchesTechStack(project, selectedTechStack) &&
+                projectMatchesYear(project, selectedYears)
+            );
         });
     }, [projectIds, projects, searchQuery, selectedTechStack, selectedYears]);
 
@@ -312,7 +347,7 @@ export default function ProjectsPage() {
                     {/* Search Box */}
                     <div className="w-full">
                         <div className="relative">
-                            <CiSearch className="absolute left-3 top-1/2 -translate-y-1/2" />
+                            <LuSearch className="absolute left-3 top-1/2 -translate-y-1/2" />
                             <input
                                 type="text"
                                 placeholder="Search projects..."
@@ -327,13 +362,14 @@ export default function ProjectsPage() {
                         {/* Tech Stack Filter */}
                         <FilterSection
                             title="Tech Stack Filter"
-                            icon={<GiTechnoHeart />}
+                            icon={<LuSwatchBook />}
                             className="md:col-span-3"
                         >
                             {allTechStacks.map((tech) => (
                                 <FilterTag
                                     key={tech}
                                     label={tech}
+                                    count={techStackCounts[tech] ?? 0}
                                     isActive={selectedTechStack.includes(tech)}
                                     onClick={() => toggleTechStack(tech)}
                                 />
@@ -344,13 +380,14 @@ export default function ProjectsPage() {
                         {allYears.length > 0 && (
                             <FilterSection
                                 title="Year Filter"
-                                icon={<GiCalendar />}
+                                icon={<LuCalendarRange />}
                                 className="md:col-span-1"
                             >
                                 {allYears.map((year) => (
                                     <FilterTag
                                         key={year}
                                         label={year.toString()}
+                                        count={yearCounts[year] ?? 0}
                                         isActive={selectedYears.includes(year)}
                                         onClick={() => toggleYear(year)}
                                     />
