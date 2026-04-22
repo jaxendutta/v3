@@ -7,7 +7,8 @@ import {
     useMotionValue,
     useSpring,
     useTransform,
-    useAnimationFrame
+    useAnimationFrame,
+    useDragControls
 } from "framer-motion";
 import TextBorderAnimation from "@/components/ui/TextBorder";
 import ProjectButton from "@/components/ui/ProjectButton";
@@ -41,6 +42,7 @@ export default function OverviewSection({ projectId, overview, links, isLandscap
 
 function OverviewSlide({ items, links, isLandscape, index, projectId }: { items: OverviewItem[], links?: Social[], isLandscape: boolean, index: number, projectId: keyof typeof import("@/data/projects").projectsData }) {
     const slideRef = useRef<HTMLElement>(null);
+    const dragControls = useDragControls();
 
     const { calloutText, bodyContent } = useMemo(() => {
         const calloutItem = items.find(item => item.className);
@@ -192,6 +194,8 @@ function OverviewSlide({ items, links, isLandscape, index, projectId }: { items:
                         {/* Handles the scroll-based movement and the physics for dragging */}
                         <motion.div
                             drag
+                            dragListener={false}
+                            dragControls={dragControls}
                             dragConstraints={{ top: 0, bottom: 0, left: 0, right: 0 }}
                             dragElastic={0.4}
                             whileDrag={{ scale: 1.05, cursor: "grabbing" }}
@@ -201,7 +205,7 @@ function OverviewSlide({ items, links, isLandscape, index, projectId }: { items:
                                 rotateX: isLandscape ? 5 : 0,
                                 cursor: "grab"
                             }}
-                            className={`relative w-full h-full`}
+                            className={`relative w-full h-full touch-auto`}
                         >
 
                             {/* 2. CONTINUOUS HOVER & SHADOW CONTAINER */}
@@ -227,7 +231,8 @@ function OverviewSlide({ items, links, isLandscape, index, projectId }: { items:
                                         alt={`${calloutText} interface`}
                                         width={1200}
                                         height={1200}
-                                        className={`object-contain pointer-events-none relative z-10 w-auto h-auto max-w-full max-h-full ${!isImageVertical ? "border border-foreground rounded-lg" : ""}`}
+                                        className={`object-contain relative z-10 w-auto h-auto max-w-full max-h-full cursor-grab active:cursor-grabbing touch-none ${!isImageVertical ? "border border-foreground rounded-lg" : ""}`}
+                                        onPointerDown={(event) => dragControls.start(event)}
                                         onLoadingComplete={(img) => {
                                             setIsImageVertical(img.naturalHeight > img.naturalWidth);
                                         }}
