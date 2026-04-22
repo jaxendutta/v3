@@ -7,6 +7,7 @@ import {
     MotionValue,
     motion,
     useAnimationFrame,
+    useDragControls,
     useMotionValue,
     useTransform,
 } from "framer-motion";
@@ -60,6 +61,7 @@ export default function FloatingDraggableImage({
     const [isImageVertical, setIsImageVertical] = useState(false);
     const hoverOffset = useMotionValue(0);
     const staticTilt = useMotionValue(0);
+    const dragControls = useDragControls();
 
     useEffect(() => {
         setImageSize({ width, height });
@@ -111,12 +113,13 @@ export default function FloatingDraggableImage({
     return (
         <motion.div
             drag={drag}
+            dragControls={dragControls}
+            dragListener={false}
             dragConstraints={{ top: 0, bottom: 0, left: 0, right: 0 }}
             dragElastic={dragElastic}
             whileDrag={drag ? { scale: whileDragScale, cursor: "grabbing" } : undefined}
             style={{
                 ...style,
-                cursor: drag ? cursorStyle : "default",
             }}
             className={className}
         >
@@ -153,6 +156,10 @@ export default function FloatingDraggableImage({
                         style={{
                             width: "100%",
                             height: "100%",
+                        }}
+                        onPointerDown={(event) => {
+                            if (!drag) return;
+                            dragControls.start(event);
                         }}
                         onDragStart={(event) => event.preventDefault()}
                         onLoadingComplete={(img) => {
