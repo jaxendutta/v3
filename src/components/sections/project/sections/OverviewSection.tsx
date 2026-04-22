@@ -140,7 +140,7 @@ function OverviewSlide({ items, links, isLandscape, index, projectId }: { items:
                 fontSize={20}
                 speed={60}
                 borderOnTop={false}
-                className="w-full h-full relative overflow-hidden"
+                className="w-full h-full relative overflow-visible"
             >
                 <div className={`
                     w-full h-full flex items-center justify-evenly max-w-[1600px] mx-auto
