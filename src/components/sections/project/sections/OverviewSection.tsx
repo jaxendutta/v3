@@ -166,7 +166,7 @@ function OverviewSlide({ items, links, isLandscape, index, projectId }: { items:
                     p-6 sm:p-8 md:p-16 lg:p-24
                     ${isLandscape
                         ? (isEven ? "flex-row" : "flex-row-reverse")
-                        : "flex-col gap-8 pt-12"
+                        : "flex-col gap-8 md:pt-12"
                     }
                 `}>
 
@@ -175,7 +175,7 @@ function OverviewSlide({ items, links, isLandscape, index, projectId }: { items:
                         style={{ y: textY }}
                         className={`
                             ${isLandscape ? "w-1/2 h-full" : "w-full"} 
-                            px-6 sm:px-0 pt-2 sm:pt-0
+                            px-6 sm:px-0
                             flex flex-col justify-center relative z-10
                             ${!isEven ? "items-end text-right" : "items-start text-left"}
                         `}
@@ -187,7 +187,7 @@ function OverviewSlide({ items, links, isLandscape, index, projectId }: { items:
                                 return (
                                     <p
                                         key={i}
-                                        className={`text-sm sm:text-base md:text-xl lg:text-3xl ${serifFont} italic leading-relaxed text-foreground tracking-tight`}
+                                        className={`text-[13px] sm:text-base md:text-xl lg:text-3xl ${serifFont} italic leading-relaxed text-foreground tracking-tight`}
                                         style={{
                                             marginLeft: !isEven ? 0 : `${i * cascadeStep}rem`,
                                             marginRight: !isEven ? `${i * cascadeStep}rem` : 0,

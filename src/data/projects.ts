@@ -169,7 +169,7 @@ export const projectsData: ProjectsData = {
                 },
                 {
                     content:
-                        "A powerful analytics platform that aggregates over 193,000 research grants from Canada's major funding agencies (NSERC, CIHR, SSHRC). It transforms raw data into actionable insights, helping researchers and institutions track funding trends and discover opportunities.",
+                        "A powerful analytics platform that aggregates over 193,000 research grants funded by the Canadian Tri-Agency (NSERC, CIHR, SSHRC). It transforms raw data into actionable insights, helping researchers and institutions track funding trends and discover opportunities.",
                 },
             ],
             [
@@ -179,7 +179,7 @@ export const projectsData: ProjectsData = {
                 },
                 {
                     content:
-                        "Rebuilt from the ground up using Next.js 16 and PostgreSQL 17 (initially MySQL) to deliver sub-second search speeds across millions of records. Features a robust user system with bookmarking, search history, and personalized analytics.",
+                        "Rebuilt from the ground up using Next.js 16 and PostgreSQL 17 (previously MySQL) to deliver sub-second search speeds across all records. Features a robust user system with bookmarking, search history, and personalized analytics.",
                 },
             ],
         ],
