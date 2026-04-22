@@ -9,6 +9,7 @@ interface TextBorderAnimationProps {
     className?: string;
     speed?: number;
     fontSize?: number;
+    borderOnTop?: boolean;
 }
 
 export default function TextBorderAnimation({
@@ -17,6 +18,7 @@ export default function TextBorderAnimation({
     className = "",
     speed = 50,
     fontSize = 12,
+    borderOnTop = true,
 }: TextBorderAnimationProps) {
     const containerRef = useRef<HTMLDivElement>(null);
     const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
@@ -125,12 +127,12 @@ export default function TextBorderAnimation({
         >
             {totalPerimeter > 0 && <style>{keyframes}</style>}
 
-            <div className="relative z-10 w-full h-full flex flex-col items-center justify-center">
+            <div className={`relative ${borderOnTop ? "z-10" : "z-20"} w-full h-full flex flex-col items-center justify-center`}>
                 {children}
             </div>
 
             {totalPerimeter > 0 && (
-                <div className="absolute inset-0 pointer-events-none select-none z-20">
+                <div className={`absolute inset-0 pointer-events-none select-none ${borderOnTop ? "z-20" : "z-10"}`}>
                     {items.map((item, i) => {
                         const delay = (duration / items.length) * i * -1;
                         const animName = `border-travel-${Math.floor(dimensions.width)}-${Math.floor(dimensions.height)}`;
