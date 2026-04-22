@@ -163,7 +163,7 @@ function OverviewSlide({ items, links, isLandscape, index, projectId }: { items:
                                 return (
                                     <p
                                         key={i}
-                                        className={`text-sm sm:text-base md:text-xl lg:text-3xl ${serifFont} italic leading-relaxed text-foreground tracking-tight`}
+                                        className={`text-[13px] sm:text-base md:text-xl lg:text-3xl ${serifFont} italic leading-relaxed text-foreground tracking-tight`}
                                         style={{
                                             marginLeft: !isEven ? 0 : `${i * cascadeStep}rem`,
                                             marginRight: !isEven ? `${i * cascadeStep}rem` : 0,

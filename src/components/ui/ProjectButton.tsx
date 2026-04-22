@@ -55,7 +55,7 @@ export default function ProjectButton({ link, index }: ProjectButtonProps) {
                 />
 
                 {/* Button text */}
-                <span>{link.platform.toUpperCase()}</span>
+                <span className="text-sm sm:text-base">{link.platform.toUpperCase()}</span>
             </div>
         </motion.a>
     );
