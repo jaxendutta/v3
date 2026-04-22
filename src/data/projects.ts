@@ -12,6 +12,7 @@ import {
     GiPlagueDoctorProfile,
     GiJumpingDog,
     GiLifeInTheBalance,
+    GiTicTacToe,
 } from "react-icons/gi";
 import { AiOutlineFolderView } from "react-icons/ai";
 import { PiCodesandboxLogoLight } from "react-icons/pi";
@@ -923,5 +924,80 @@ export const projectsData: ProjectsData = {
                 { name: "JavaScript" }],
         },
         footer: "Straights showcases the seamless integration of C++ and web technologies. The core game logic, originally written in C++, has been recompiled to WebAssembly using Emscripten. This WebAssembly module is then integrated into a modern web application, with HTML, CSS, and JavaScript working in harmony to render the game state and provide an interactive user interface.",
+    },
+
+    "minimax-tic-tac-toe": {
+        name: "MiniMAX tic-tAc-toe",
+        label: "Minimax Tic-Tac-Toe",
+        icon: GiTicTacToe,
+        type: "ai",
+        layoutType: "showcase",
+        date: new Date("2019-08-15"),
+        screenshotDevice: "mobile",
+        overview: [
+            [
+                {
+                    className: calloutStyle,
+                    content: "Foundational Algorithms",
+                },
+                {
+                    content:
+                        "An early exploration into game theory and artificial intelligence. This project utilizes the Minimax algorithm to evaluate all possible future board states, creating an unbeatable computer opponent.",
+                },
+            ],
+            [
+                {
+                    className: calloutStyle,
+                    content: "Classic Desktop Architecture",
+                },
+                {
+                    content:
+                        "Built entirely with Python, utilizing Tkinter for the graphical interface. Packaged as a standalone executable to provide immediate, dependency-free play on Windows environments.",
+                },
+            ],
+        ],
+        links: [
+            {
+                platform: "GitHub",
+                url: "https://github.com/jaxendutta/tictactoe-minimax",
+            },
+            {
+                platform: "Download",
+                url: "https://github.com/jaxendutta/tictactoe-minimax/releases", 
+            },
+        ],
+        typography: [
+            {
+                name: "OCR A Extended",
+                fontFamily: '"OCR A Extended", monospace',
+                url: "", 
+                description:
+                    "A classic monospaced font that provides a retro, terminal-like aesthetic for the scoreboard and informational readouts, perfectly complementing the early-computing vibe of a Minimax AI.",
+            },
+            {
+                name: "Bradley Hand ITC",
+                fontFamily: '"Bradley Hand ITC", cursive',
+                url: "",
+                description:
+                    "Used specifically for the game board pieces (X and O) to simulate the handwritten nature of a real Tic-Tac-Toe game against paper.",
+            },
+        ],
+        colors: [
+            {
+                palette: ["#36454F", "#FFFFFF", "#008000", "#FFFF00", "#FF0000"],
+                description:
+                    "The UI uses a deep charcoal slate (#36454F) for the application background to reduce eye strain, allowing the bright green victory highlights and yellow/red tie-game alerts to immediately capture the player's attention.",
+            },
+        ],
+        techStack: {
+            "Core Logic": [
+                { name: "Python", version: "3.8" },
+                { name: "Minimax Algorithm" }
+            ],
+            "Frontend": [
+                { name: "Tkinter" }
+            ]
+        },
+        footer: "One of my early algorithmic projects, this application serves as a practical exploration of the Minimax algorithm in a zero-sum game environment. The Python backend recursively evaluates board states to maximize the AI's advantage while minimizing the player's potential score. The graphical interface was constructed using Tkinter, providing a responsive grid, real-time score tracking, and visual feedback for win/tie states. It stands as a foundational piece of my programming journey, demonstrating an early focus on complex logic and standalone software delivery.",
     },
 };
