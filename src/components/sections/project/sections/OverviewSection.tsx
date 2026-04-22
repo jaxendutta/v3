@@ -219,19 +219,21 @@ function OverviewSlide({ items, links, isLandscape, index, projectId }: { items:
                                         scaleY: shadowScaleY,
                                         x: shadowX,
                                     }}
-                                    className="absolute bottom-[6%] left-1/2 h-[11%] w-[55%] -translate-x-1/2 rounded-[999px] bg-black/70"
+                                    className="absolute bottom-[6%] left-1/2 z-0 h-[11%] w-[55%] -translate-x-1/2 rounded-[999px] bg-black/70 pointer-events-none"
                                 />
-                                <Image
-                                    src={`/${projectId}.png`}
-                                    alt={`${calloutText} interface`}
-                                    width={1200}
-                                    height={1200}
-                                    className={`object-contain pointer-events-none w-auto h-auto max-w-full max-h-full ${!isImageVertical ? "border border-foreground rounded-lg" : ""}`}
-                                    onLoadingComplete={(img) => {
-                                        setIsImageVertical(img.naturalHeight > img.naturalWidth);
-                                    }}
-                                    priority
-                                />
+                                <div className="relative z-10 w-full h-full flex items-center justify-center">
+                                    <Image
+                                        src={`/${projectId}.png`}
+                                        alt={`${calloutText} interface`}
+                                        width={1200}
+                                        height={1200}
+                                        className={`object-contain pointer-events-none relative z-10 w-auto h-auto max-w-full max-h-full ${!isImageVertical ? "border border-foreground rounded-lg" : ""}`}
+                                        onLoadingComplete={(img) => {
+                                            setIsImageVertical(img.naturalHeight > img.naturalWidth);
+                                        }}
+                                        priority
+                                    />
+                                </div>
                             </motion.div>
 
                         </motion.div>
