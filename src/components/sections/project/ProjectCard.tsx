@@ -86,7 +86,7 @@ export default function ProjectCard({
                 {/* Project Image */}
                 <Link
                     href={projectLink}
-                    className="w-full md:w-2/5 relative"
+                    className={`w-full ${isMobileProject ? "md:w-2/5" : "md:w-3/5"} relative`}
                 >
                     <FloatingDraggableImage
                         src={`/${id}.png`}
@@ -96,7 +96,7 @@ export default function ProjectCard({
                         baseCursor="pointer"
                         className={`relative mx-auto w-full touch-auto ${isMobileProject ? (reversed ? "-rotate-5" : "rotate-5") : (reversed ? "-rotate-3" : "rotate-3")}`}
                         frameClassName={`mx-auto ${isMobileProject
-                            ? "w-full max-w-[200px] md:max-w-[280px] aspect-[280/600]"
+                            ? "w-full max-w-[200px] md:max-w-[280px]"
                             : "w-full max-w-[800px]"
                             }`}
                         imageClassName="h-full w-full"

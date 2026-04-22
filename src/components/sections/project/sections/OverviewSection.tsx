@@ -112,6 +112,14 @@ function OverviewSlide({ items, links, isLandscape, index, projectId }: { items:
         [isEven ? 12 : -12, isEven ? -4 : 4]
     );
 
+    // Pre-calculate transforms to avoid conditional hook calls
+    const invertedPhoneRotate = useTransform(phoneRotate, (v) => -v);
+    const finalRotate = isImageVertical ? 
+        phoneRotate 
+        : isLandscape 
+            ? invertedPhoneRotate
+            : phoneRotate;
+
     const imageMaxWidthPx = (isImageVertical
         ? (isLandscape ? 0.34 : 0.72)
         : (isLandscape ? 0.48 : 0.92)) * viewport.width;
@@ -155,13 +163,13 @@ function OverviewSlide({ items, links, isLandscape, index, projectId }: { items:
                     <motion.div
                         style={{ y: textY }}
                         className={`
-                            ${isLandscape ? "w-1/2 h-full" : "w-full"} 
+                            ${isLandscape ? "w-1/2 h-full" : "max-w-5/6"} 
                             px-6 sm:px-0
                             flex flex-col justify-center relative z-10
                             ${!isEven ? "items-end text-right" : "items-start text-left"}
                         `}
                     >
-                        <div className="flex flex-col gap-3 md:gap-8 w-full px-2 sm:px-0">
+                        <div className="flex flex-col gap-3 md:gap-4 lg:gap-6 w-full px-2 sm:px-0 md:pt-4">
                             {sentences.map((sentence, i) => {
                                 const cascadeStep = isLandscape ? 2.5 : 0.75;
 
@@ -208,10 +216,10 @@ function OverviewSlide({ items, links, isLandscape, index, projectId }: { items:
                             className="relative w-full h-full touch-auto"
                             style={{
                                 y: phoneY,
-                                rotateZ: phoneRotate,
+                                rotateZ: finalRotate,
                                 rotateX: isLandscape ? 5 : 0,
                             }}
-                            tilt={phoneRotate}
+                            tilt={finalRotate}
                             bobPhase={index * 0.4}
                             frameStyle={{ width: `${renderedImageWidth}px`, height: `${renderedImageHeight}px` }}
                             imageClassName="h-full w-full"
