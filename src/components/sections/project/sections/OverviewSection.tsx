@@ -70,7 +70,10 @@ function OverviewSlide({ items, links, isLandscape, index, projectId }: { items:
         restDelta: 0.001
     });
 
-    useAnimationFrame(() => {
+    // Shared hover bob value used by both the image and its shadow.
+    const hoverOffset = useMotionValue(0);
+
+    useAnimationFrame((t) => {
         if (!slideRef.current) return;
         const rect = slideRef.current.getBoundingClientRect();
 
@@ -87,6 +90,10 @@ function OverviewSlide({ items, links, isLandscape, index, projectId }: { items:
             const progress = Math.max(0, Math.min(1, currentScroll / totalScrollDistance));
             rawProgress.set(progress);
         }
+
+        const bobDurationInSeconds = 4;
+        const phase = (t / 1000) * ((Math.PI * 2) / bobDurationInSeconds) + index * 0.4;
+        hoverOffset.set(Math.sin(phase) * 12);
     });
 
     // --- RESPONSIVE PARALLAX KINEMATICS ---
@@ -98,6 +105,13 @@ function OverviewSlide({ items, links, isLandscape, index, projectId }: { items:
         [0, 1],
         [isEven ? 12 : -12, isEven ? -4 : 4]
     );
+
+    const shadowOpacity = useTransform(hoverOffset, [-12, 12], [0.16, 0.34]);
+    const shadowBlur = useTransform(hoverOffset, [-12, 12], [26, 10]);
+    const shadowScaleX = useTransform(hoverOffset, [-12, 12], [0.78, 1.06]);
+    const shadowScaleY = useTransform(hoverOffset, [-12, 12], [0.62, 0.9]);
+    const shadowX = useTransform(phoneRotate, [-12, 12], [-16, 16]);
+    const shadowFilter = useTransform(shadowBlur, (v) => `blur(${v}px)`);
 
     return (
         <section
@@ -193,18 +207,20 @@ function OverviewSlide({ items, links, isLandscape, index, projectId }: { items:
                             {/* 2. CONTINUOUS HOVER & SHADOW CONTAINER */}
                             {/* Handles the endless floating bob and dynamic shadow casting */}
                             <motion.div
-                                animate={{
-                                    y: [-12, 12, -12], // Floating up, sinking down, floating up
-                                }}
-                                transition={{
-                                    duration: 4, // 4 seconds for a full bob cycle
-                                    repeat: Infinity,
-                                    ease: "easeInOut",
-                                    // Slight delay based on index so the phones aren't bobbing in identical unison
-                                    delay: index * 0.4
-                                }}
+                                style={{ y: hoverOffset }}
                                 className="w-full h-full relative flex items-center justify-center"
                             >
+                                <motion.div
+                                    aria-hidden
+                                    style={{
+                                        opacity: shadowOpacity,
+                                        filter: shadowFilter,
+                                        scaleX: shadowScaleX,
+                                        scaleY: shadowScaleY,
+                                        x: shadowX,
+                                    }}
+                                    className="absolute bottom-[6%] left-1/2 h-[11%] w-[55%] -translate-x-1/2 rounded-[999px] bg-black/70"
+                                />
                                 <Image
                                     src={`/${projectId}.png`}
                                     alt={`${calloutText} interface`}
