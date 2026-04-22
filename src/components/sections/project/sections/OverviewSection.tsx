@@ -113,7 +113,14 @@ function OverviewSlide({ items, links, isLandscape, index, projectId }: { items:
     const shadowScaleX = useTransform(hoverOffset, [-12, 12], [0.78, 1.06]);
     const shadowScaleY = useTransform(hoverOffset, [-12, 12], [0.62, 0.9]);
     const shadowX = useTransform(phoneRotate, [-12, 12], [-16, 16]);
+    const sideShadowOpacity = useTransform(hoverOffset, [-12, 12], [0.42, 0.68]);
+    const sideShadowBlur = useTransform(hoverOffset, [-12, 12], [26, 10]);
+    const sideShadowScaleX = useTransform(hoverOffset, [-12, 12], [0.92, 1.08]);
+    const sideShadowScaleY = useTransform(hoverOffset, [-12, 12], [0.88, 1.04]);
+    const sideShadowX = useTransform(phoneRotate, [-12, 12], [-6, 8]);
+    const sideShadowY = useTransform(hoverOffset, [-12, 12], [8, -8]);
     const shadowFilter = useTransform(shadowBlur, (v) => `blur(${v}px)`);
+    const sideShadowFilter = useTransform(sideShadowBlur, (v) => `blur(${v}px)`);
 
     return (
         <section
@@ -144,12 +151,12 @@ function OverviewSlide({ items, links, isLandscape, index, projectId }: { items:
                         style={{ y: textY }}
                         className={`
                             ${isLandscape ? "w-1/2 h-full" : "w-full"} 
-                            px-6 sm:px-0 pt-2 sm:pt-0
+                            px-6 md:px-8 lg:px-0 pt-2 md:pt-0
                             flex flex-col justify-center relative z-10
                             ${!isEven ? "items-end text-right" : "items-start text-left"}
                         `}
                     >
-                        <div className="flex flex-col gap-3 md:gap-8 w-full px-2 sm:px-0 pt-4 sm:pt-0">
+                        <div className="flex flex-col gap-3 md:gap-8 w-full px-2 md:px-4 lg:px-0 pt-4 md:pt-0">
                             {sentences.map((sentence, i) => {
                                 const cascadeStep = isLandscape ? 2.5 : 0.75;
 
@@ -217,13 +224,17 @@ function OverviewSlide({ items, links, isLandscape, index, projectId }: { items:
                                 <motion.div
                                     aria-hidden
                                     style={{
-                                        opacity: shadowOpacity,
-                                        filter: shadowFilter,
-                                        scaleX: shadowScaleX,
-                                        scaleY: shadowScaleY,
-                                        x: shadowX,
+                                        opacity: isImageVertical ? sideShadowOpacity : shadowOpacity,
+                                        filter: isImageVertical ? sideShadowFilter : shadowFilter,
+                                        scaleX: isImageVertical ? sideShadowScaleX : shadowScaleX,
+                                        scaleY: isImageVertical ? sideShadowScaleY : shadowScaleY,
+                                        x: isImageVertical ? sideShadowX : shadowX,
+                                        y: isImageVertical ? sideShadowY : 0,
                                     }}
-                                    className="absolute bottom-[6%] left-1/2 z-0 h-[11%] w-[55%] -translate-x-1/2 rounded-[999px] bg-black/70 pointer-events-none"
+                                    className={isImageVertical
+                                        ? "absolute top-[60%] left-1/2 z-0 h-[72%] w-[26%] -translate-y-2/5 translate-x-[40%] rounded-[999px] bg-gradient-to-r from-black/90 via-black/55 to-transparent pointer-events-none"
+                                        : "absolute bottom-[6%] left-1/2 z-0 h-[11%] w-[55%] -translate-x-1/2 rounded-[999px] bg-black/70 pointer-events-none"
+                                    }
                                 />
                                 <div className="relative z-10 w-full h-full flex items-center justify-center">
                                     <Image
