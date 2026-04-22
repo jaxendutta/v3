@@ -94,6 +94,9 @@ export default function FloatingDraggableImage({
     const sideShadowScaleY = useTransform(hoverOffset, [-bobAmplitude, bobAmplitude], [0.88, 1.04]);
     const sideShadowX = useTransform(tiltValue, [-12, 12], [-1, 2]);
     const sideShadowY = useTransform(hoverOffset, [-bobAmplitude, bobAmplitude], [8, -8]);
+    const rimOpacity = useTransform(hoverOffset, [-bobAmplitude, bobAmplitude], [0.14, 0.24]);
+    const rimScaleX = useTransform(hoverOffset, [-bobAmplitude, bobAmplitude], [0.94, 1.08]);
+    const rimScaleY = useTransform(hoverOffset, [-bobAmplitude, bobAmplitude], [0.86, 1.02]);
 
     const shadowFilter = useTransform(shadowBlur, (value) => `blur(${value}px)`);
     const sideShadowFilter = useTransform(sideShadowBlur, (value) => `blur(${value}px)`);
@@ -104,11 +107,25 @@ export default function FloatingDraggableImage({
             ? "cursor-grab"
             : "cursor-default";
 
-    const cursorStyle = baseCursor === "pointer"
-        ? "pointer"
-        : baseCursor === "grab"
-            ? "grab"
-            : "default";
+    const floatingShadowStyle = isImageVertical
+        ? {
+            opacity: sideShadowOpacity,
+            filter: sideShadowFilter,
+            scaleX: sideShadowScaleX,
+            scaleY: sideShadowScaleY,
+            x: sideShadowX,
+            y: sideShadowY,
+            backgroundImage: "linear-gradient(to right, var(--float-shadow-core), var(--float-shadow-mid), var(--float-shadow-edge))",
+        }
+        : {
+            opacity: shadowOpacity,
+            filter: shadowFilter,
+            scaleX: shadowScaleX,
+            scaleY: shadowScaleY,
+            x: shadowX,
+            y: 0,
+            backgroundImage: "radial-gradient(ellipse at center, var(--float-shadow-core) 0%, var(--float-shadow-mid) 55%, var(--float-shadow-edge) 100%)",
+        };
 
     return (
         <motion.div
@@ -133,17 +150,25 @@ export default function FloatingDraggableImage({
                 >
                     <motion.div
                         aria-hidden
+                        style={floatingShadowStyle}
+                        className={isImageVertical
+                            ? "absolute top-[58%] left-[84%] z-0 h-[68%] w-[30%] -translate-y-1/2 rounded-[999px] pointer-events-none"
+                            : "absolute bottom-[-7%] left-1/2 z-0 h-[15%] w-[62%] -translate-x-1/2 rounded-[999px] pointer-events-none"
+                        }
+                    />
+                    <motion.div
+                        aria-hidden
                         style={{
-                            opacity: isImageVertical ? sideShadowOpacity : shadowOpacity,
-                            filter: isImageVertical ? sideShadowFilter : shadowFilter,
-                            scaleX: isImageVertical ? sideShadowScaleX : shadowScaleX,
-                            scaleY: isImageVertical ? sideShadowScaleY : shadowScaleY,
+                            opacity: rimOpacity,
+                            scaleX: rimScaleX,
+                            scaleY: rimScaleY,
                             x: isImageVertical ? sideShadowX : shadowX,
                             y: isImageVertical ? sideShadowY : 0,
+                            backgroundImage: "radial-gradient(ellipse at center, var(--float-shadow-rim) 0%, transparent 70%)",
                         }}
                         className={isImageVertical
-                            ? "absolute top-[58%] left-[84%] z-0 h-[68%] w-[30%] -translate-y-1/2 rounded-[999px] bg-gradient-to-r from-black/90 via-black/55 to-transparent pointer-events-none"
-                            : "absolute bottom-[-7%] left-1/2 z-0 h-[15%] w-[62%] -translate-x-1/2 rounded-[999px] bg-black/90 pointer-events-none"
+                            ? "absolute top-[56%] left-[80%] z-[1] h-[64%] w-[26%] -translate-y-1/2 rounded-[999px] pointer-events-none"
+                            : "absolute bottom-[-5%] left-1/2 z-[1] h-[12%] w-[56%] -translate-x-1/2 rounded-[999px] pointer-events-none"
                         }
                     />
                     <Image
@@ -156,6 +181,9 @@ export default function FloatingDraggableImage({
                         style={{
                             width: "100%",
                             height: "100%",
+                            filter: isImageVertical
+                                ? "drop-shadow(10px 18px 24px var(--float-shadow-core)) drop-shadow(0 0 18px var(--float-shadow-rim))"
+                                : "drop-shadow(0 20px 30px var(--float-shadow-core)) drop-shadow(0 0 14px var(--float-shadow-rim))",
                         }}
                         onPointerDown={(event) => {
                             if (!drag) return;
