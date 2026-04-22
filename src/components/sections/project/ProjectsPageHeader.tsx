@@ -42,36 +42,45 @@ export default function ProjectsPageHeader({
         document.querySelector("main") || document.documentElement;
 
     const scrollToStart = () => {
+        const mainElement = document.querySelector("main");
+
         if (mainElement) {
-            // For landscape showcase, scroll the internal container to the far left
+            // Scrolls the main container to the top-left regardless of orientation
             mainElement.scrollTo({ top: 0, left: 0, behavior: "smooth" });
-        } else {
-            // For vertical articles, scroll the window to the top
-            window.scrollTo({ top: 0, behavior: "smooth" });
         }
+
+        // Safety fallback for standard vertical articles
+        window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
     };
 
     const scrollNext = () => {
-        if (mainElement) {
-            const scrollAmount = isLandscape
-                ? window.innerWidth
-                : window.innerHeight;
+        const mainElement = document.querySelector("main");
 
-            // Use mainElement.scrollBy for landscape containers
-            // Use window.scrollBy for standard vertical articles
-            if (isLandscape) {
+        if (mainElement && isLandscape) {
+            // Find all the individual snap-start sections inside the main container
+            const sections = Array.from(mainElement.querySelectorAll("section"));
+
+            // Find the first section that is currently sitting off-screen to the right.
+            // (The > 50 check acts as a buffer so we don't accidentally select the section we are already looking at).
+            const nextSection = sections.find(
+                (section) => section.getBoundingClientRect().left > 50
+            );
+
+            if (nextSection) {
+                // Scroll by the exact pixel distance between the viewport's left edge and the next section
                 mainElement.scrollBy({
-                    left: scrollAmount,
+                    left: nextSection.getBoundingClientRect().left,
                     top: 0,
                     behavior: "smooth",
                 });
-            } else {
-                window.scrollBy({
-                    left: 0,
-                    top: scrollAmount,
-                    behavior: "smooth",
-                });
             }
+        } else {
+            // Safety fallback for standard vertical articles
+            window.scrollBy({
+                left: 0,
+                top: window.innerHeight,
+                behavior: "smooth",
+            });
         }
     };
 
@@ -147,7 +156,7 @@ export default function ProjectsPageHeader({
                                 {...getMotionProps("scale")}
                             >
                                 <RotatingButton
-                                    texts={["SCROLL RIGHT", "SCROLL NEXT"]}
+                                    texts={["SCROLL RIGHT", "NEXT SLIDE"]}
                                     centerIcon={HiArrowRight}
                                     {...buttonProps}
                                     onClick={scrollNext}
