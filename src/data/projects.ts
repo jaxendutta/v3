@@ -962,6 +962,10 @@ export const projectsData: ProjectsData = {
                 url: "https://github.com/jaxendutta/tictactoe-minimax",
             },
             {
+                platform: "Play",
+                url: "https://tictactoe-minimax--jxnd.replit.app",
+            },
+            {
                 platform: "Download",
                 url: "https://github.com/jaxendutta/tictactoe-minimax/releases", 
             },
@@ -996,7 +1000,10 @@ export const projectsData: ProjectsData = {
             ],
             "Frontend": [
                 { name: "Tkinter" }
-            ]
+            ],
+            "Deployment": [
+                { name: "Replit" }
+            ],
         },
         footer: "One of my early algorithmic projects, this application serves as a practical exploration of the Minimax algorithm in a zero-sum game environment. The Python backend recursively evaluates board states to maximize the AI's advantage while minimizing the player's potential score. The graphical interface was constructed using Tkinter, providing a responsive grid, real-time score tracking, and visual feedback for win/tie states. It stands as a foundational piece of my programming journey, demonstrating an early focus on complex logic and standalone software delivery.",
     },
