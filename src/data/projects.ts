@@ -186,7 +186,7 @@ export const projectsData: ProjectsData = {
         links: [
             {
                 platform: "GitHub",
-                url: "https://github.com/jaxendutta/rgap-v2",
+                url: "https://github.com/jaxendutta/rgap",
             },
             {
                 platform: "Live Site",
