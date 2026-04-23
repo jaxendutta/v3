@@ -334,7 +334,7 @@ export const projectsData: ProjectsData = {
         links: [
             {
                 platform: "GitHub",
-                url: "https://github.com/jaxendutta/portfolio-v2",
+                url: "https://github.com/jaxendutta/v2",
             },
             {
                 platform: "Live Site",
@@ -532,7 +532,7 @@ export const projectsData: ProjectsData = {
         links: [
             {
                 platform: "GitHub",
-                url: "https://github.com/jaxendutta/portfolio",
+                url: "https://github.com/jaxendutta/v1",
             },
             {
                 platform: "Live Site",
