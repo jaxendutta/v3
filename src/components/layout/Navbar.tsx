@@ -18,10 +18,10 @@ type NavLinkType = {
 // Navigation data
 const navLinks: NavLinkType[] = [
     { name: "HOME", href: "#main", section: "main" },
-    { name: "PROJECTS", href: "#projects", section: "projects" },
-    { name: "PAPERS", href: "#papers", section: "papers" },
-    { name: "WORK", href: "#work", section: "work" },
-    { name: "CONTACT", href: "#contact", section: "contact" },
+    { name: "PROJECTS", href: "/projects", section: "projects" },
+    { name: "PAPERS", href: "/papers", section: "papers" },
+    { name: "WORK", href: "/#work", section: "work" },
+    { name: "CONTACT", href: "/#contact", section: "contact" },
 ];
 
 // NavLink component with proper hover effects

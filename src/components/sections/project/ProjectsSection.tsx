@@ -4,7 +4,7 @@ import { projectsData } from "@/data/projects";
 import Section from "@/components/ui/Section";
 import ProjectCard from "@/components/sections/project/ProjectCard";
 import { GiStrongbox } from "react-icons/gi";
-import RotatingButton from "@/components/ui/RotatingButton";
+import Link from "next/link";
 
 export default function ProjectsSection() {
     const projectIds = Object.keys(projectsData);
@@ -41,13 +41,9 @@ export default function ProjectsSection() {
                     ))}
             </div>
 
-            <RotatingButton
-                texts={["See the rest", "Access the vault"]}
-                href="/projects"
-                centerIcon={GiStrongbox}
-                variant="glow"
-                className="-translate-y-[50%]"
-            />
+            <Link href="/projects" className={`flex justify-center no-underline! border-b border-foreground hover:bg-foreground hover:text-background! py-3 mb-8 transition-all duration-500 uppercase text-[13px] md:text-base`}>
+                view all projects
+            </Link>
         </Section>
     );
 }

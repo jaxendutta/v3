@@ -62,14 +62,9 @@ export default function PapersSection({ limit, showLink }: { limit?: number, sho
             <PaperItems expandedItems={expandedItems} toggleItem={toggleItem} paperIds={paperIds} />
 
             {showLink && (
-                <div className="flex justify-center mt-8 mb-4">
-                    <Link
-                        href="/papers"
-                        className="px-6 py-3 border border-current hover:bg-foreground hover:text-background! transition-colors text-xs md:text-sm font-mono uppercase tracking-widest no-underline!"
-                    >
-                        View ALL Papers + Written Records
-                    </Link>
-                </div>
+                <Link href="/papers" className={`flex justify-center no-underline! border-b border-foreground hover:bg-foreground hover:text-background! py-3 mb-8 transition-all duration-500 uppercase text-[13px] md:text-base`}>
+                    view all papers + written records
+                </Link>
             )}
         </Section>
     );
