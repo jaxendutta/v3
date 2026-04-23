@@ -114,9 +114,9 @@ function OverviewSlide({ items, links, isLandscape, index, projectId }: { items:
 
     // Pre-calculate transforms to avoid conditional hook calls
     const invertedPhoneRotate = useTransform(phoneRotate, (v) => -v);
-    const finalRotate = isImageVertical ? 
-        phoneRotate 
-        : isLandscape 
+    const finalRotate = isImageVertical ?
+        phoneRotate
+        : isLandscape
             ? invertedPhoneRotate
             : phoneRotate;
 
@@ -163,7 +163,7 @@ function OverviewSlide({ items, links, isLandscape, index, projectId }: { items:
                     <motion.div
                         style={{ y: textY }}
                         className={`
-                            ${isLandscape ? "w-1/2 h-full" : "max-w-5/6"} 
+                            ${isLandscape && "w-1/2 h-full"} 
                             px-6 sm:px-0
                             flex flex-col justify-center relative z-10
                             ${!isEven ? "items-end text-right" : "items-start text-left"}
