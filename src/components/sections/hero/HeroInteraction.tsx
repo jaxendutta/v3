@@ -2,9 +2,9 @@
 "use client";
 
 import { useState, useEffect, useCallback, useRef } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { useTheme } from "@/components/theme/ThemeProvider";
-import { googleSansFlex } from "@/lib/fonts";
+import { sansFont } from "@/lib/fonts";
 
 /**
  * Glyph Typewriter
@@ -219,7 +219,7 @@ export default function HeroInteraction() {
 
     return (
         <div
-            className={`w-full flex flex-col text-7xl md:text-9xl px-4 text-center select-none ${googleSansFlex.className}`}
+            className={`w-full flex flex-col text-7xl md:text-9xl px-4 text-center select-none ${sansFont}`}
         >
             {NAME_WORDS.map((word, wordIndex) => (
                 <span key={wordIndex} className="flex justify-center">
