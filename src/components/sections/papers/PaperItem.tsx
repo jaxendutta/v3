@@ -219,7 +219,7 @@ export const PaperItem = ({
                             </button>
                         </div>
                         <motion.div
-                            className="w-full h-0.5 origin-left bg-current mb-3"
+                            className="w-full h-0.25 origin-left bg-current mb-3"
                             initial={{ scaleX: 0 }}
                             animate={{ scaleX: 1 }}
                             transition={{ duration: 0.4, ease: "easeOut", delay: 0.05 }}
