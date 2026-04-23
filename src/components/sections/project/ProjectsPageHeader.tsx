@@ -3,7 +3,7 @@
 import { AnimatePresence, motion, LayoutGroup, type Transition } from "framer-motion";
 import RotatingButton from "@/components/ui/RotatingButton";
 import { HiArrowUpLeft, HiArrowLeft, HiArrowRight, HiArrowUp } from "react-icons/hi2";
-import { GrChapterNext, GrChapterPrevious } from "react-icons/gr";
+import { LuStepBack, LuStepForward } from "react-icons/lu";
 import { headingFont } from "@/lib/fonts";
 import { useParams } from "next/navigation";
 import { projectsData } from "@/data/projects";
@@ -37,8 +37,6 @@ export default function ProjectsPageHeader({
     const id = typeof projectId === "string" ? projectId : projectId?.[0] || "";
     const project = projectsData[id];
     const adjacentProjects = project ? getAdjacentProjects(id) : null;
-    const mainElement =
-        document.querySelector("main") || document.documentElement;
 
     const scrollToStart = () => {
         const mainElement = document.querySelector("main");
@@ -187,7 +185,7 @@ export default function ProjectsPageHeader({
                             >
                                 <RotatingButton
                                     texts={["PREV PROJECT", "PREV PROJECT"]}
-                                    centerIcon={GrChapterPrevious}
+                                    centerIcon={LuStepBack}
                                     {...buttonProps}
                                     href={`/projects/${adjacentProjects.prev}`}
                                 />
@@ -204,7 +202,7 @@ export default function ProjectsPageHeader({
                             >
                                 <RotatingButton
                                     texts={["NEXT PROJECT", "NEXT PROJECT"]}
-                                    centerIcon={GrChapterNext}
+                                    centerIcon={LuStepForward}
                                     {...buttonProps}
                                     href={`/projects/${adjacentProjects.next}`}
                                 />
