@@ -88,6 +88,29 @@ export const papersData: PapersData = {
         },
     },
 
+    "designed-to-deceive": {
+        title: "Designed to Deceive: Social Failure Modes and the Metaphors That Enable Them in Domestic Social Robots",
+        abstract:
+            "Domestic social robots are designed to enter the most private spaces in human life while carrying surveillance capabilities systematically concealed by the companion metaphors through which they are framed. This paper argues, through complementary analyses of Jibo and NEO, that the companion metaphor is not merely a marketing choice but the functional mechanism that enables a specific and predictable social failure mode: the norm transgression failure that occurs when a technology's embedded design norms violate the privacy expectations of users. Drawing on Millar's social failure mode framework and the Metaphor Hacking methodology of Jones and Millar, the paper demonstrates that companion framing suppresses the privacy vigilance that would otherwise protect users, and removes the conceptual resources needed to recognize violations. Remedying this requires reconceiving the fundamental framing of the technology, not merely adding privacy features to existing designs.",
+        venue: ["University of Ottawa"],
+        paperType: "Case Study",
+        duration: {
+            start: new Date("2025-11-06"),
+            end: new Date("2025-11-13")
+        },
+        tags: [
+            "Ethics",
+            "HCI",
+            "Privacy + Security",
+        ],
+        links: {
+            essay: {
+                label: "PDF",
+                type: "paper",
+            },
+        },
+    },
+
     "human-centered-theater": {
         title: "Human-Centered Theater: Overcoming Organizational Resistance to Authentic UX",
         abstract:

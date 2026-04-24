@@ -103,6 +103,7 @@
 
 
 % Safe, expandable versions of title/author/date for headers/footers
+\RequirePackage{orcidlink}
 \newcommand{\essaysafedtitle}{}
 \newcommand{\essaysafedauthor}{}
 \newcommand{\essaysafeddate}{}
@@ -112,6 +113,8 @@
 \renewcommand{\author}[1]{\oldauthor{#1}\renewcommand{\essaysafedauthor}{#1}}
 \let\olddatecmd\date
 \renewcommand{\date}[1]{\olddatecmd{#1}\renewcommand{\essaysafeddate}{#1}}
+\newcommand{\@shorttitle}{}
+\newcommand{\shorttitle}[1]{\renewcommand{\@shorttitle}{#1}}
 
 % Macro to remove \\ and \newline from a string (for header/footer only)
 \newcommand{\removenewlines}[1]{%
@@ -125,7 +128,13 @@
 \fancypagestyle{essay}{%
   \fancyhf{}% clear all fields
   % Top left: Title (\small, newlines removed)
-  \fancyhead[L]{\small\nouppercase{\removenewlines{\essaysafedtitle}}}
+  \fancyhead[L]{%
+    \small\nouppercase{%
+      \removenewlines{%
+        \ifx\@shorttitle\@empty\essaysafedtitle\else\@shorttitle\fi%
+      }%
+    }%
+  }
   % Top right: Author (\small, newlines removed)
   \fancyhead[R]{\small\nouppercase{\removenewlines{\essaysafedauthor}}}
   % Bottom left: Date (\small, italics, newlines removed)

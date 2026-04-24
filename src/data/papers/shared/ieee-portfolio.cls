@@ -66,7 +66,7 @@
 
 % Page 2+ Headers & Footers
 \fancyhead[L]{\textit{\@shorttitle}}
-\fancyhead[R]{\@headerauthor}
+\fancyhead[R]{\@headerauthor\, \orcidlink{0009-0002-5088-4679}}
 \fancyfoot[L]{\textit{\@date}}
 \fancyfoot[R]{\thepage}
 \renewcommand{\headrulewidth}{0pt}

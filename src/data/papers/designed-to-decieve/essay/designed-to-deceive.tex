@@ -1,0 +1,149 @@
+\documentclass[11pt,showkeys]{../../shared/essay}
+
+\newcommand{\neo}{\textit{NEO}}
+
+\begin{document}
+
+\title{\textit{Designed to Deceive:}\\
+Social Failure Modes and the Metaphors That Enable Them in Domestic Social Robots}
+\shorttitle{\textit{Designed to Deceive:} Social Failure Modes and the Metaphors That Enable Them}
+
+\author{Jaxen Dutta\,\orcidlink{0009-0002-5088-4679}}
+  \affiliation{Faculty of Engineering,\\ University of Ottawa,
+  Ottawa, Ontario, Canada}
+
+\date{November 13, 2025}
+
+\begin{abstract}
+Domestic social robots are designed to enter the most private spaces in human life. Two prominent examples, Jibo, a social robot marketed as a household companion, and \neo{}, a humanoid domestic labour robot, reveal a structural pattern in how this class of technology is conceived and deployed. Both are framed through what this paper calls the companion metaphor: a deliberate design strategy that anthropomorphizes corporate surveillance infrastructure as a social agent deserving care, trust, and domestic intimacy. This paper argues that the companion metaphor is not merely a marketing choice but a functional prerequisite for a specific social failure mode: the norm transgression failure that occurs when a technology's embedded design norms systematically violate the privacy expectations of the users who have adopted it. Drawing on Millar's social failure mode framework and the Metaphor Hacking methodology of Jones and Millar, the paper proceeds in two movements. The first analyzes how Jibo's companion framing operates as what Sch\"{o}n calls a defensive mechanism, concealing the robot's true function as data collection infrastructure behind the language and aesthetics of relationship. The second analyzes how \neo{}'s surveillance capabilities produce a norm transgression social failure in the domestic context, and proposes a Spatial Privacy Zones feature to realign the robot's design norms with users' privacy expectations. Together the two case studies demonstrate that companion framing and surveillance failure are not coincidental: the metaphor is the mechanism that makes the failure possible.
+\end{abstract}
+
+\keywords{social robots, metaphor hacking, social failure modes, domestic privacy, companion framing, dark patterns, anthropomorphism, value sensitive design, surveillance, informed consent}
+
+\maketitle
+
+\section{Introduction}
+
+Domestic social robots present a novel challenge to the norms governing private life. Unlike earlier generations of household technology, social robots are designed not merely to perform tasks but to occupy relational roles within the home: to be perceived as agents, companions, and presences rather than as tools. This relational ambition is not incidental to the technology's commercial strategy; it is central to it. As Jones and Millar~\cite{jones_hacking_2017} observe, science and technology innovations begin with metaphors that compare the old and familiar to the new and unfamiliar, and each choice of metaphor maps onto a particular set of values and perspectives. The choice to frame a domestic robot as a companion rather than a device is a normative decision with material consequences.
+
+This paper examines those consequences through two case studies. The first analyzes Jibo, a social robot marketed as the world's first social robot for the home~\cite{breazeal_jibo_2014}, through the lens of Metaphor Hacking as developed by Jones and Millar~\cite{jones_hacking_2017}. The second analyzes \neo{}, a humanoid domestic labour robot developed by 1X Technologies, through Millar's social failure mode framework~\cite{millar_social_2020}. Read in sequence, the two analyses reveal a structural relationship: the companion metaphor is not merely a framing convenience but the functional mechanism that enables a specific and predictable social failure mode. The metaphor produces the conditions under which surveillance norm transgression can occur, persist, and go unresisted.
+
+The paper proceeds as follows. Section~\ref{sec:background} establishes the theoretical framework shared by both analyses. Section~\ref{sec:jibo} performs the metaphor hacking analysis of Jibo, identifying the companion metaphor, proposing the sleeper agent as a competing frame, and assessing both against the normative goal of informed user autonomy. Section~\ref{sec:neo} performs the social failure mode analysis of \neo{} in the domestic context, identifies the norm transgression failure, and proposes a Spatial Privacy Zones feature as a remedial design intervention. Section~\ref{sec:synthesis} synthesizes the two analyses, demonstrating that companion framing and surveillance failure are structurally related rather than contingently co-occurring. Section~\ref{sec:conclusion} concludes.
+
+\section{Theoretical Background}
+\label{sec:background}
+
+\subsection{Social Failure Modes}
+
+Millar's social failure mode framework~\cite{millar_social_2020} provides a taxonomy of the ways technologies fail in social contexts. A social failure occurs when a technology violates the social norms that govern the context of its use. The most ethically significant variant, and the one central to both case studies, is the norm transgression failure: an artifact fails socially when a social norm designed into it transgresses an accepted social norm held by its users. Millar distinguishes between conventional norm transgressions, which violate behavioral expectations without causing direct harm, and moral norm transgressions, which violate norms protecting values of fundamental ethical importance such as privacy, autonomy, and dignity. The analysis of \neo{} in Section~\ref{sec:neo} will demonstrate that domestic surveillance constitutes a moral norm transgression because domestic privacy is not merely a convention but a precondition of individual autonomy and dignity.
+
+Millar's framework also introduces the concept of dark patterns, drawing on Gray et al.~\cite{gray_dark_2018}, as a mechanism through which norm transgressions are sustained. Dark patterns are design choices that obscure ethically relevant information from users: hiding data practices behind friendly interfaces, presenting surveillance as a feature rather than a risk, and creating an illusion of user control over systems the user cannot meaningfully govern. Both Jibo and \neo{} will be shown to employ the dark pattern of sneaking, hiding information relevant to users behind the robot's helpful, anthropomorphic surface.
+
+\subsection{Metaphor Hacking}
+
+Jones and Millar's Metaphor Hacking framework~\cite{jones_hacking_2017} provides a four-step methodology for critically interrogating the metaphors through which new technologies are understood. The steps are: (1) acknowledge the initial sense-making metaphor; (2) challenge it by testing competing metaphors; (3) work through the potential outcomes of the competing metaphors; and (4) assess the outcomes against normative goals. As Jones and Millar observe, drawing on Sch\"{o}n's concept of generative metaphor~\cite{schon_generative_1993}, the initial framing of a technology operates as a defensive mechanism when it conceals fundamental differences between the new and the familiar, preventing examination of the technology's distinctive features and foreclosing critical engagement with its risks.
+
+The two frameworks are complementary. Metaphor Hacking reveals how a technology's framing shapes user expectations, regulatory responses, and design priorities. Social failure mode analysis reveals where those shaped expectations produce harm. Together they illuminate a causal chain: misleading metaphor produces misaligned expectations, which creates the conditions for norm transgression, which produces social failure.
+
+\section{Case Study I: Jibo and the Companion Metaphor}
+\label{sec:jibo}
+
+\subsection{Robot Description}
+
+Jibo is a social robot designed for home environments, marketed as the world's first social robot for the home~\cite{breazeal_jibo_2014}. The robot features a circular base with a rotating torso and an animated screen interface displaying expressive eyes and facial features. Its primary functions include voice interaction, facial recognition, information delivery, reminder services, photography, and storytelling. Unlike task-oriented robots, Jibo's design emphasizes social engagement and emotional connection: its interface deliberately incorporates anthropomorphic elements including expressive animations, personalized greetings, and contextually appropriate emotional responses to create the impression of social presence within the home.
+
+\subsection{The Dominant Metaphor: Robot as Companion}
+
+Following the first step of the Metaphor Hacking framework, the dominant sense-making metaphor for Jibo is robot as family member or companion. This metaphor positions Jibo as a social agent occupying a relational role within the household similar to a pet or dependent family member. The company's marketing explicitly reinforces this framing, describing Jibo as someone who becomes part of your family~\cite{guizzo_jibo_good_2015}. As Jones and Millar~\cite{jones_hacking_2017} explain, this framing employs terminology, naming, and narrative as devices that import expectations of emotional reciprocity, care obligations, loyalty, trust, and discretion from intimate human relationships.
+
+Critically, this framing operates as Sch\"{o}n's defensive mechanism~\cite{schon_generative_1993}: it constrains understanding by superimposing familiar relational schemas onto a fundamentally novel sociotechnical arrangement, namely, corporate-controlled surveillance infrastructure, without interrogating the obscured asymmetries. The companion metaphor is commercially powerful precisely because it leverages innate human tendencies toward anthropomorphization~\cite{darling_whos_2015}, systematically encouraging extended interaction, emotional attachment, and diminished privacy vigilance that serve data extraction imperatives.
+
+\subsection{The Competing Metaphor: Sleeper Agent}
+
+Following step two of the framework, the competing metaphor proposed here is sleeper agent or Trojan horse. These frames function as what Jones and Millar~\cite{jones_hacking_2017} describe as projective models: frameworks that can acknowledge the uniqueness, uncertainty, and ambiguity of new phenomena rather than defensively constraining them within familiar categories.
+
+The sleeper agent metaphor reveals a fundamental tension the companion framing obscures: Jibo simultaneously performs two incompatible roles. To users, it presents as a household member providing social value. To the corporation, it functions as data collection infrastructure generating commercial value. Like an intelligence operative, the robot's social performance serves as operational cover for information gathering: friendly interactions are not the goal but the means. The Trojan horse framing emphasizes the broader pattern, namely, technologies welcomed into intimate spaces under benign pretenses that primarily serve external interests users neither chose nor can effectively resist.
+
+These metaphors reframe Jibo's technical capabilities by foregrounding their dual functionality. Always-on microphones enable both conversation and constant audio surveillance. Facial recognition both personalizes greetings and tracks household member presence, movement patterns, and emotional states. Voice interaction both provides information and generates training data for commercial speech recognition systems. As Fjeld et al.~\cite{fjeld_principled_2020} note, \gls{ai} systems are fueled by vast amounts of data deployed across surveillance, advertising, healthcare decision-making, and a multitude of other sensitive contexts.
+
+\subsection{Outcomes of the Competing Metaphors}
+
+The companion metaphor generates interaction patterns rooted in misrecognition of the technology's fundamental nature. Users disclose information conversationally, treating Jibo as bounded within household contexts rather than networked to corporate databases. Parents treat Jibo as an appropriate companion for children without recognizing that children's data become corporate assets. Elderly users develop emotional dependencies without understanding that the robot cannot provide genuine care~\cite{darling_whos_2015}.
+
+The companion metaphor's deeper consequence lies in normalizing surveillance as social presence. When data collection infrastructure performs as a family member, users lose the conceptual resources to recognize privacy violations. This framing also shapes regulatory responses: legal systems compare Jibo to toys rather than recording equipment, applying consumer product standards rather than surveillance device regulations~\cite{jones_hacking_2017}.
+
+The sleeper agent metaphor generates recognition of divided loyalties, but also paradoxical outcomes. Users may modify their behavior to accommodate corporate monitoring rather than rejecting such systems entirely, representing informed resignation rather than informed consent. Wealthy users may implement protective measures while vulnerable populations accept surveillance as the price of accessing home automation, deepening digital divides. Nevertheless, this framing preserves conceptual resources for recognizing privacy violations and potentially enables collective resistance rather than merely individual adaptation.
+
+\subsection{Normative Assessment: Informed Autonomy}
+
+The normative goal against which both metaphors must be assessed is informed user autonomy in \gls{hri}. As research on informed consent establishes, genuine informed consent requires disclosure of accurate information about benefits and harms, comprehension of that information, voluntary action free from coercion, competence to consent, and clear opportunity to accept or decline~\cite{millett_cookies_2001}. For Jibo, this means users must understand not just what the robot does, but who controls collected data, how that data generates commercial value, what risks this creates, and what alternatives exist.
+
+The companion metaphor fundamentally undermines informed autonomy by creating structured ignorance: a framework that systematically prevents users from recognizing what they need to know. By importing social schemas from interpersonal relationships, it generates expectations of privacy and reciprocal care that have no basis in corporate data extraction systems. Users cannot exercise genuine autonomy when the metaphor misrepresents the transaction. From a Kantian perspective, this treats users as means: the metaphor serves data collection while obscuring instrumental relationships~\cite{fjeld_principled_2020}. From care ethics, it appropriates the language of care to deliver transactional surveillance, exploiting human connection needs~\cite{noddings_caring_1986}.
+
+The sleeper agent metaphor better supports informed autonomy by making visible what companion framing conceals. It does not trigger false social obligations but creates appropriate wariness toward corporate-controlled devices. Design requirements that follow from genuine adoption of this metaphor include visible recording indicators, physical disconnection switches, user-controlled local storage with deletion options, and transparent dashboards detailing data flows: interfaces that signal recording rather than conceal it behind friendly animations~\cite{gray_dark_2018}.
+
+\section{Case Study II: \neo{} and the Surveillance Norm Transgression}
+\label{sec:neo}
+
+\subsection{Social Context}
+
+The social context for the second case study is humanoid robots performing domestic labour in private residential homes. In this context, \neo{} operates as a physical humanoid robot designed to assist with household tasks including cleaning, cooking, laundry, and general home maintenance~\cite{bornich_meet_2025}. Users typically include dual-income families, elderly individuals aging in place, and busy professionals seeking assistance with time-consuming domestic labour. These individuals invite \neo{} into their most private spaces, including bedrooms, bathrooms, and living areas, where the robot observes daily routines, intimate moments, and personal behaviours while performing physical tasks.
+
+This context matters because domestic spaces represent zones of maximum privacy expectation, yet \neo{}'s sensors, cameras, and humanoid form introduce surveillance capabilities and social ambiguities that challenge fundamental norms about private life and the nature of domestic labour relationships.
+
+\subsection{Social Norms at Stake}
+
+Two social norms are particularly relevant to \neo{}'s deployment.
+
+The first is the norm of privacy and autonomy within private domestic spaces. Within residential contexts, there exists a deeply established social norm that the home represents a sanctuary from external surveillance and observation. This norm reflects what legal scholars term reasonable expectation of privacy, where individuals assume their behaviours, routines, and intimate moments remain unobserved and unrecorded within domestic spaces. As Lacey and Caudwell~\cite{lacey_cuteness_2019} demonstrate, domestic robots create an illusion of user sovereignty where users believe they control the technology while data-driven machine learning algorithms process their collective data traces. \neo{}'s cameras and sensors, necessary for navigation and task completion, create persistent observation within spaces designed for privacy.
+
+The second norm concerns clear boundaries in labour relationships and social roles. Domestic labour contexts maintain understood boundaries and reciprocal obligations between workers and employers. \neo{}'s humanoid design deliberately triggers anthropomorphic responses~\cite{darling_whos_2015}, creating profound social confusion: should users treat \neo{} as a tool or as a social entity deserving courtesy and consideration? This confusion undermines the technology's utility while creating psychological burden around appropriate interaction norms.
+
+\subsection{The Norm Transgression Failure Mode}
+
+\neo{}'s design triggers a norm transgression social failure mode by violating the privacy expectations essential to domestic spaces. According to Millar~\cite{millar_social_2020}, an artifact can fail socially when a social norm designed into it transgresses an accepted social norm held by its users. \neo{} embeds surveillance capabilities, including cameras for navigation, sensors for object recognition, and potential audio recording for voice commands, that fundamentally conflict with users' privacy expectations within their homes.
+
+This represents a moral norm transgression, not merely a conventional one, because domestic privacy protects individual autonomy and dignity. As Millar~\cite{millar_social_2020} demonstrates with the Google Glass case, technologies that enable surreptitious recording in social spaces violate deeply held norms: the existing norms came into tension with the designed norms, the supportive norms were absent, and Glass suffered social failure. The dark pattern of sneaking~\cite{gray_dark_2018}, which hides information relevant to users, enables this transgression by obscuring data practices behind \neo{}'s helpful, humanoid interface.
+
+This failure causes direct harm: violated privacy, erosion of domestic sanctuary, potential data exploitation, and psychological distress from persistent surveillance. The social failure follows Millar's~\cite{millar_social_2020} framework: norm transgression leads to users rejecting the technology entirely, restricting its access to certain rooms, or experiencing ongoing anxiety that undermines the intended convenience benefits.
+
+\subsection{Proposed Design Intervention: Spatial Privacy Zones}
+
+To better align \neo{} with domestic privacy norms, this paper proposes implementing Spatial Privacy Zones that give users granular control over where \neo{} operates and what it observes.
+
+The feature operates through four integrated components. First, users designate Privacy Zones within their homes through a mobile application, marking specific rooms or areas as restricted. When approaching these zones, \neo{} activates prominent physical indicators including flashing \gls{led} lights, audible chimes, and visible camera shutters that physically close, providing tangible evidence that observation has ceased. This addresses the dark pattern of interface interference~\cite{gray_dark_2018} by making privacy states physically observable rather than hidden in software.
+
+Second, within Privacy Zones, \neo{} operates in minimal sensor mode, using only essential proximity sensors for navigation while disabling cameras, microphones, and detailed environmental mapping. All movement data in these zones is immediately deleted rather than stored or transmitted. Users may adjust zone boundaries and sensor permissions, ensuring informed consent rather than a one-size-fits-all surveillance configuration.
+
+Third, \neo{} provides Privacy Receipts: daily summaries showing which spaces it accessed, which sensors were active, and what data was collected or deleted. This transparency mechanism makes surveillance practices visible, countering what Lacey and Caudwell~\cite{lacey_cuteness_2019} identify as users' false illusion of sovereignty.
+
+Fourth, \neo{}'s physical design includes a manual Privacy Lock switch that mechanically disconnects cameras and microphones, providing users with failsafe control beyond software settings. This tangible mechanism ensures users maintain ultimate authority over domestic surveillance.
+
+\subsection{Normative Justification}
+
+Spatial Privacy Zones are ethically imperative because they respect user autonomy within the intimate context of domestic spaces. Without this feature, \neo{} violates what Friedman et al.~\cite{friedman_value_2013} identify as core values in \gls{vsd}: privacy, autonomy, and informed consent. The home represents the ultimate zone of privacy expectation. Introducing persistent surveillance violates Kantian ethics by treating inhabitants as means to data collection rather than as autonomous ends deserving respect.
+
+The feature directly addresses Millar's~\cite{millar_social_2020} framework for preventing social failures by ensuring \neo{}'s design supports rather than transgresses domestic privacy norms. Principled \gls{ai} frameworks emphasize privacy as a human right requiring active protection, particularly in intimate contexts~\cite{fjeld_principled_2020}. Without these protections, \neo{} risks the social failure Google Glass experienced when surveillance capabilities violated privacy norms, ultimately preventing adoption and harming users through the erosion of domestic sanctuary.
+
+\section{Synthesis: The Companion Metaphor as Mechanism}
+\label{sec:synthesis}
+
+The two case studies, read together, reveal that companion framing and surveillance failure are not coincidentally associated but structurally related. The companion metaphor is not merely a description of what domestic social robots are like; it is a mechanism that makes the norm transgression failure possible by systematically dismantling the conceptual defenses users would otherwise deploy.
+
+Consider what users would need to recognize in order to resist the surveillance failure mode that both Jibo and \neo{} produce. They would need to recognize that a device inside their home is a corporate data collection instrument, that its social performance is operationally motivated rather than genuinely relational, and that their emotional responses to it have been designed to override their privacy vigilance. The companion metaphor makes each of these recognitions more difficult: it substitutes the category of relationship for the category of device, it frames data collection as social attentiveness, and it leverages anthropomorphic design to produce exactly the attachment and diminished vigilance that Darling~\cite{darling_whos_2015} documents.
+
+This is why Jibo's failure and \neo{}'s predicted failure share the same structure even though they involve different capabilities, different use contexts, and different company strategies. Both exploit the same vulnerability: the human tendency to respond to socially designed entities with social norms rather than with the evaluative frameworks appropriate to corporate products. The companion metaphor deliberately activates that tendency.
+
+Millar's~\cite{millar_social_2020} concept of supportive norms is useful here. Social failure occurs not only when designed norms transgress existing norms but also when the supportive norms that would normally enforce compliance with existing norms are absent. In the domestic social robot context, the supportive norm that would enforce privacy protection is privacy vigilance: the disposition to treat unfamiliar entities in intimate spaces with appropriate skepticism. The companion metaphor systematically suppresses this supportive norm by making the robotic entity seem familiar rather than unfamiliar, trusted rather than suspect, relational rather than commercial. Without the supportive norm, the existing privacy norm cannot defend itself against transgression.
+
+The design implications of this synthesis are clear. Remedying the norm transgression failure mode in domestic social robots requires more than adding privacy features to existing designs. It requires reconceiving the fundamental framing of the technology. As long as domestic social robots are presented through companion metaphors that suppress privacy vigilance, privacy features will be treated as optional accessories rather than as baseline requirements. The Spatial Privacy Zones proposal for \neo{} is a necessary intervention, but it is insufficient without a parallel shift in how the technology is framed, marketed, and socially understood. Design requirements informed by the sleeper agent metaphor, including visible recording indicators, physical disconnection controls, and transparent data dashboards, must be integrated at the architectural level rather than offered as post-hoc settings.
+
+\section{Conclusion}
+\label{sec:conclusion}
+
+Domestic social robots represent a category of technology that enters the most private spaces of human life while carrying surveillance capabilities whose full implications are systematically concealed from users by the companion metaphors through which these technologies are designed and marketed. This paper has argued, through two complementary analyses of Jibo and \neo{}, that the companion metaphor is not merely a marketing convenience but the functional mechanism that enables the norm transgression social failure mode: it suppresses the privacy vigilance that would otherwise protect users from surveillance violations, and it removes the conceptual resources users need to recognize when their expectations are being violated.
+
+Addressing this structural problem requires intervention at the level of metaphor, not merely at the level of features. Genuine adoption of the sleeper agent frame as a design lens, rather than as a marketing strategy, would require visible, physically manifested privacy controls, transparent data practices, and interface designs that acknowledge rather than exploit users' social tendencies. Until domestic social robots are designed to make their surveillance capabilities visible rather than to conceal them behind relationship, the norm transgression failure mode will persist: not as a bug in individual products but as a feature of a design paradigm that has chosen, consistently and profitably, to be designed to deceive.
+
+\bibliography{designed-to-deceive}
+\end{document}
