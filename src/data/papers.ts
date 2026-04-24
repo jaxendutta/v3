@@ -88,6 +88,32 @@ export const papersData: PapersData = {
         },
     },
 
+    "not-your-trolleys-problem": {
+        title: "Not Your Trolley's Problem: A Multi-Domain Ethics Framework for Autonomous Vehicles",
+        abstract:
+            "The trolley problem has a problem. Public and scholarly discourse on the ethics of autonomous vehicles has been dominated by the collision-scenario paradigm: the question of how a vehicle should be programmed to allocate harm when an accident is unavoidable. This framing, inherited from the philosophical trolley problem, has generated extensive debate but systematically obscures three equally consequential ethical domains that receive far less attention: in-cabin surveillance and data privacy, algorithmic accountability and liability, and the welfare implications for vulnerable road users and third parties. This paper argues that this narrow focus is not merely incomplete but actively distorting, because it frames the ethics of Autonomous Vehicle (AV) design as a problem of exceptional crisis decision-making rather than as a pervasive set of design choices embedded in every feature of the technology. Drawing on Millar's ethics settings framework, the Moral Machine experiment, and the emerging literature on AV data collection and in-cabin wellness systems, the paper proposes a multi-domain ethics framework that treats collision algorithms as one ethics setting among many, and argues that the non-collision domains carry greater aggregate ethical weight because they affect every trip rather than only the rare catastrophic accident.",
+        venue: ["University of Ottawa"],
+        paperType: "Academic Essay",
+        duration: {
+            start: new Date("2025-12-20"),
+            end: new Date("2025-12-23")
+        },
+        tags: [
+            "Ethics",
+            "Privacy + Security",
+            "AI + LLM",
+            "Robotics",
+            "HCI",
+            "Policy",
+        ],
+        links: {
+            ieee: {
+                label: "IEEE Format",
+                type: "paper",
+            },
+        },
+    },
+
     "designed-to-deceive": {
         title: "Designed to Deceive: Social Failure Modes and the Metaphors That Enable Them in Domestic Social Robots",
         abstract:
