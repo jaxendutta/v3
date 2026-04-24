@@ -15,7 +15,7 @@ export async function GET(_: Request, { params }: RouteParams) {
 
     const bibPath = path.join(
         process.cwd(),
-        "src", "data", "papers", paperId, `${paperId}.bib`
+        "papers", paperId, `${paperId}.bib`
     );
 
     try {
