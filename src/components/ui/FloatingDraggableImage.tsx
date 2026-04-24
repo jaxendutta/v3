@@ -156,14 +156,15 @@ export default function FloatingDraggableImage({
                         className={`object-contain relative z-10 ${drag ? `${cursorClass} active:cursor-grabbing touch-none` : ""} ${borderOnLandscape && !isImageVertical ? "border border-foreground rounded-lg" : ""} ${imageClassName ?? ""}`}
                         style={{
                             width: "100%",
-                            height: "100%",
+                            height: "auto",
                         }}
                         onPointerDown={(event) => {
                             if (!drag) return;
                             dragControls.start(event);
                         }}
                         onDragStart={(event) => event.preventDefault()}
-                        onLoadingComplete={(img) => {
+                       onLoad={(event) => {
+                            const img = event.currentTarget as HTMLImageElement;
                             const nextIsVertical = img.naturalHeight > img.naturalWidth;
                             setIsImageVertical(nextIsVertical);
 
