@@ -104,8 +104,8 @@ export const papersData: PapersData = {
             "Privacy + Security",
         ],
         links: {
-            essay: {
-                label: "PDF",
+            ieee: {
+                label: "IEEE Format",
                 type: "paper",
             },
         },
