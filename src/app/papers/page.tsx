@@ -293,7 +293,7 @@ export default function PapersPage() {
             mainClassName="containerd border-t border-current"
         >
             {filteredPapers.length > 0 ? (
-                <motion.div variants={fadeIn} initial="hidden" animate="visible">
+                <motion.div variants={fadeIn} initial="hidden" animate="visible" className="max-w-[1440px] mx-auto">
                     <PaperItems expandedItems={expandedItems} toggleItem={toggleItem} paperIds={filteredPapers} />
                 </motion.div>
             ) : (
