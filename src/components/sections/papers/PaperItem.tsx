@@ -66,7 +66,7 @@ function DocLink({
     const url =
         doc.type === "project"
             ? `/projects/${paperId}`
-            : `/papers/${paperId}/${paperId}-${formatKey}.pdf`;
+            : `/papers/${paperId}/${formatKey}`;
 
     const Icon = DOC_ICONS[doc.type] ?? HiOutlineDocumentText;
 
