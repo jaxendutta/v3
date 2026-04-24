@@ -1,164 +1,66 @@
-\documentclass[11pt,showkeys]{../../shared/essay}
+\documentclass[11pt,showkeys]{essay}
 
 \begin{document}
 
 \title{\textit{Handle With Care:}\\
 The Conditional Case for Mental Health Chatbots in Personal Treatment}
 
-\author{Jaxen Dutta}
-  \email[]{jaxen.dutta@uwaterloo.ca}
-  \affiliation{David R. Cheriton School of Computer Science,\\ University of Waterloo,
-  Waterloo, Ontario, Canada}
+\author{Jaxen Dutta\, \orcidlink{0009-0002-5088-4679}}
+\email[]{jaxen.dutta@uwaterloo.ca}
+\affiliation{David R. Cheriton School of Computer Science,\\ 
+University of Waterloo, Waterloo, Ontario, Canada}
 
 \date{March 4, 2024}
 
 \begin{abstract}
-Mental health chatbots have emerged as a scalable and accessible complement to
-traditional care in a landscape defined by chronic provider shortages and persistent
-stigma. Randomized controlled trials and scoping reviews demonstrate that purpose-built
-\gls{ai} chatbots can produce clinically meaningful reductions in depression and
-anxiety, primarily through delivery of \gls{cbt}-informed interventions. Yet serious
-concerns remain: the risk of over-reliance, uneven platform quality, privacy
-vulnerabilities, and the danger of substituting rather than supplementing professional
-care. This essay takes a conditional position: if a family member were experiencing
-a mental health issue, I would encourage them to use a chatbot as a structured adjunct
-to, not a replacement for, professional treatment. That encouragement would be
-accompanied by careful guidance about which tools to choose, how to use them, and
-when to seek human help. The case for cautious adoption rests not on technological
-enthusiasm but on the practical realities of access, stigma, and the demonstrable
-efficacy of the best clinical chatbot implementations.
+Mental health chatbots have emerged as a scalable and accessible complement to traditional care in a landscape defined by chronic provider shortages and persistent stigma. Randomized controlled trials and scoping reviews demonstrate that purpose-built \gls{ai} chatbots can produce clinically meaningful reductions in depression and anxiety, primarily through delivery of \gls{cbt}-informed interventions. Yet serious concerns remain: the risk of over-reliance, uneven platform quality, privacy vulnerabilities, and the danger of substituting rather than supplementing professional care. This essay takes a conditional position: if a family member were experiencing a mental health issue, I would encourage them to use a chatbot as a structured adjunct to, not a replacement for, professional treatment. That encouragement would be accompanied by careful guidance about which tools to choose, how to use them, and when to seek human help. The case for cautious adoption rests not on technological enthusiasm but on the practical realities of access, stigma, and the demonstrable efficacy of the best clinical chatbot implementations.
 \end{abstract}
 
-\keywords{mental health chatbot, conversational AI, cognitive behavioural therapy,
-digital mental health, AI ethics, accessibility, therapeutic alliance, privacy}
+\keywords{mental health chatbot, conversational AI, cognitive behavioural therapy, digital mental health, AI ethics, accessibility, therapeutic alliance, privacy}
 
 \maketitle
 
 \section{Introduction}
 
-Mental health conditions are among the leading causes of disability worldwide, yet
-access to professional care remains severely constrained. Scheduling conflicts,
-transportation difficulties, cost, and the persistent stigma surrounding mental illness
-create overlapping barriers that leave many individuals without support during periods
-when they need it most~\cite{vanderschyff_robot_2023}. Into this gap, \gls{ai}-powered chatbots have emerged as
-potentially scalable complements to standard care: available at any hour, requiring no
-appointment, and allowing users to engage without disclosing to anyone that they are
-doing so.
+Mental health conditions are among the leading causes of disability worldwide, yet access to professional care remains severely constrained. Scheduling conflicts, transportation difficulties, cost, and the persistent stigma surrounding mental illness create overlapping barriers that leave many individuals without support during periods when they need it most~\cite{vanderschyff_robot_2023}. Into this gap, \gls{ai}-powered chatbots have emerged as potentially scalable complements to standard care: available at any hour, requiring no appointment, and allowing users to engage without disclosing to anyone that they are doing so.
 
-The question of whether to encourage a family member to use one is not a hypothetical
-abstraction. It is a practical, personal decision that requires weighing genuine
-evidence of benefit against genuine evidence of risk. This essay answers that question
-with a conditional yes, and explains precisely what that condition requires.
+The question of whether to encourage a family member to use one is not a hypotheticalabstraction. It is a practical, personal decision that requires weighing genuineevidence of benefit against genuine evidence of risk. This essay answers that questionwith a conditional yes, and explains precisely what that condition requires.
 
 \section{The Evidence for Efficacy}
 
-The empirical case for mental health chatbots has grown substantially. A meta-analysis
-of 35 eligible studies found that \gls{ai}-based conversational agents significantly
-reduce symptoms of depression (Hedges' $g = 0.64$) and psychological distress
-(Hedges' $g = 0.70$), with stronger effects observed in studies using active rather
-than passive control conditions~\cite{lim_systematic_2023}. These are not trivial
-effect sizes: they are comparable to those reported for many pharmacological and
-face-to-face psychological interventions in short-term treatment contexts.
+The empirical case for mental health chatbots has grown substantially. A meta-analysis of 35 eligible studies found that \gls{ai}-based conversational agents significantly reduce symptoms of depression (Hedges' $g = 0.64$) and psychological distress (Hedges' $g = 0.70$), with stronger effects observed in studies using active rather than passive control conditions~\cite{lim_systematic_2023}. These are not trivial effect sizes: they are comparable to those reported for many pharmacological and face-to-face psychological interventions in short-term treatment contexts.
 
-The most studied platforms illustrate what well-designed implementation can achieve.
-Fitzpatrick et al.~\cite{fitzpatrick_woebot_2017} conducted a randomized controlled
-trial of Woebot, a fully automated conversational agent delivering \gls{cbt}-informed
-interventions to young adults with symptoms of depression and anxiety, finding
-significant reductions in depressive symptoms over two weeks alongside high rates of
-engagement. Romanovskyi et al.~\cite{romanovskyi_elomia_2021} similarly report that
-users of Elomia, another \gls{ai}-powered mental health chatbot, demonstrate improved
-mood and symptom management following interactions. A scoping review by Jabir et
-al.~\cite{jabir_evaluating_2022} confirms measurable improvements across a range of
-mental health outcomes including depression, anxiety, and general well-being, while
-identifying methodological inconsistencies across platforms that limit direct
-comparison.
+The most studied platforms illustrate what well-designed implementation can achieve. Fitzpatrick et al.~\cite{fitzpatrick_woebot_2017} conducted a randomized controlled trial of Woebot, a fully automated conversational agent delivering \gls{cbt}-informed interventions to young adults with symptoms of depression and anxiety, finding significant reductions in depressive symptoms over two weeks alongside high rates of engagement. Romanovskyi et al.~\cite{romanovskyi_elomia_2021} similarly report that users of Elomia, another \gls{ai}-powered mental health chatbot, demonstrate improved mood and symptom management following interactions. A scoping review by Jabir et al.~\cite{jabir_evaluating_2022} confirms measurable improvements across a range of mental health outcomes including depression, anxiety, and general well-being, while identifying methodological inconsistencies across platforms that limit direct comparison.
 
-The therapeutic mechanism appears to be real: structured \gls{cbt} exercises,
-psychoeducation, and consistent availability combine to produce symptom relief even
-in the absence of a human clinician. This finding matters practically. For a family
-member on a waiting list, between appointments, or in a community where in-person
-help-seeking carries social costs, these effects represent meaningful support.
+The therapeutic mechanism appears to be real: structured \gls{cbt} exercises, psychoeducation, and consistent availability combine to produce symptom relief even in the absence of a human clinician. This finding matters practically. For a family member on a waiting list, between appointments, or in a community where in-person help-seeking carries social costs, these effects represent meaningful support.
 
 \section{The Conditions for Encouragement}
 
-Despite this evidence, I would not encourage a family member to use any chatbot
-indiscriminately. The market is uneven: platforms vary enormously in their clinical
-grounding, quality of design, and transparency about data practices. My encouragement
-would therefore be governed by three explicit conditions.
+Despite this evidence, I would not encourage a family member to use any chatbot indiscriminately. The market is uneven: platforms vary enormously in their clinical grounding, quality of design, and transparency about data practices. My encouragement would therefore be governed by three explicit conditions.
 
 \subsection{Condition One: Adjunct, Not Replacement}
 
-The most important condition is structural. A chatbot should supplement professional
-treatment, not substitute for it. Current chatbots lack the nuanced understanding,
-empathic attunement, and contextual judgment of a human therapist. They operate on
-pre-programmed or statistically learned response patterns that cannot replicate the
-relational depth of a sustained therapeutic relationship, nor can they reliably
-identify when a user's presentation warrants urgent clinical intervention. Complex
-mental health challenges, including those involving trauma, psychosis, or acute
-suicidality, require a personalized approach that goes beyond what any algorithm can
-currently provide. A chatbot can deliver structured \gls{cbt} exercises between
-therapy appointments; it cannot replace the judgment of a clinician who observes a
-patient's affect, context, and history over time.
+The most important condition is structural. A chatbot should supplement professional treatment, not substitute for it. Current chatbots lack the nuanced understanding, empathic attunement, and contextual judgment of a human therapist. They operate on pre-programmed or statistically learned response patterns that cannot replicate the relational depth of a sustained therapeutic relationship, nor can they reliably identify when a user's presentation warrants urgent clinical intervention. Complex mental health challenges, including those involving trauma, psychosis, or acute suicidality, require a personalized approach that goes beyond what any algorithm can currently provide. A chatbot can deliver structured \gls{cbt} exercises between therapy appointments; it cannot replace the judgment of a clinician who observes a patient's affect, context, and history over time.
 
 \subsection{Condition Two: Vetted Platforms Only}
 
-Not all chatbots are created equal. I would direct a family member only toward
-platforms with documented clinical evidence, such as those evaluated in the randomized
-controlled trials and scoping reviews cited here. The distinction between a chatbot
-grounded in psychological research and one that simply simulates empathetic dialogue
-is consequential: the former has evidence of efficacy and at least some clinical
-oversight in its design; the latter may provide comfort without therapeutic benefit,
-or worse, may provide harmful guidance in crisis situations~\cite{vanderschyff_robot_2023}. Selection of the platform
-is itself a clinical-adjacent decision and should be made with care.
+Not all chatbots are created equal. I would direct a family member only toward platforms with documented clinical evidence, such as those evaluated in the randomized controlled trials and scoping reviews cited here. The distinction between a chatbot grounded in psychological research and one that simply simulates empathetic dialogue is consequential: the former has evidence of efficacy and at least some clinical oversight in its design; the latter may provide comfort without therapeutic benefit, or worse, may provide harmful guidance in crisis situations~\cite{vanderschyff_robot_2023}. Selection of the platform is itself a clinical-adjacent decision and should be made with care.
 
 \subsection{Condition Three: Privacy and Transparency Awareness}
 
-Mental health disclosures are among the most sensitive categories of personal
-information. A family member should understand before beginning that interactions with
-a chatbot are not necessarily protected by the same confidentiality obligations that
-govern disclosures to a licensed therapist. Platforms should clearly outline their
-data collection practices and how user information is stored, used, and potentially
-shared. Transparency in this regard is not a secondary concern: it is a precondition
-for informed consent. I would encourage use only of platforms that make these
-practices explicit and that give users meaningful control over their data.
+Mental health disclosures are among the most sensitive categories of personal information. A family member should understand before beginning that interactions with a chatbot are not necessarily protected by the same confidentiality obligations that govern disclosures to a licensed therapist. Platforms should clearly outline their data collection practices and how user information is stored, used, and potentially shared. Transparency in this regard is not a secondary concern: it is a precondition for informed consent. I would encourage use only of platforms that make these practices explicit and that give users meaningful control over their data.
 
-\section{Why I Would Still Encourage Use}
+\section{Why Use Might Be Still Encourageable}
 
-Given these conditions, one might ask why I would encourage use at all rather than
-simply recommending professional care. The answer is grounded in the practical
-realities of access. For many individuals, professional care is not immediately
-available: they are on waiting lists, in regions with provider shortages, or facing
-financial and logistical barriers that make traditional therapy genuinely inaccessible.
-For others, stigma makes in-person help-seeking prohibitive in ways that chatbot
-engagement, which is private, asynchronous, and requires no social exposure, does not.
+Given these conditions, one might ask why I would encourage use at all rather than simply recommending professional care. The answer is grounded in the practical realities of access. For many individuals, professional care is not immediately available: they are on waiting lists, in regions with provider shortages, or facing financial and logistical barriers that make traditional therapy genuinely inaccessible. For others, stigma makes in-person help-seeking prohibitive in ways that chatbot engagement, which is private, asynchronous, and requires no social exposure, does not.
 
-The evidence confirms that chatbot support under these conditions produces real symptom
-reduction, not merely comfort~\cite{fitzpatrick_woebot_2017,jabir_evaluating_2022}. To
-withhold encouragement on grounds of imperfection, when the alternative for a given
-family member may be no support at all, would itself be a failure of care. The goal
-is not to advocate for chatbots as superior to human therapy: it is to recognize them
-as a genuinely useful tool within a realistic understanding of what is available.
+The evidence confirms that chatbot support under these conditions produces real symptom reduction, not merely comfort~\cite{fitzpatrick_woebot_2017,jabir_evaluating_2022}. To withhold encouragement on grounds of imperfection, when the alternative for a given family member may be no support at all, would itself be a failure of care. The goal is not to advocate for chatbots as superior to human therapy: it is to recognize them as a genuinely useful tool within a realistic understanding of what is available.
 
-Furthermore, chatbots can empower individuals to take an active role in their mental
-well-being between professional appointments. Self-monitoring features, mood tracking,
-and psychoeducational content equip users with skills and vocabulary that enhance
-rather than replace their engagement with professional care. Used collaboratively within
-a comprehensive treatment plan, with the therapist helping to guide appropriate chatbot
-use, the technology becomes an extension of treatment rather than a substitute for it.
+Furthermore, chatbots can empower individuals to take an active role in their mental well-being between professional appointments. Self-monitoring features, mood tracking, and psychoeducational content equip users with skills and vocabulary that enhance rather than replace their engagement with professional care. Used collaboratively within a comprehensive treatment plan, with the therapist helping to guide appropriate chatbot use, the technology becomes an extension of treatment rather than a substitute for it.
 
 \section{Conclusion}
 
-If a family member were experiencing a mental health issue, I would encourage them to
-use a mental health chatbot, with care. That care means choosing a clinically validated
-platform, understanding the privacy implications, and treating the tool as a structured
-complement to professional treatment rather than a self-sufficient solution. The
-empirical evidence for efficacy under these conditions is real: Woebot, Elomia, and
-comparable platforms have demonstrated measurable symptom relief in controlled
-settings~\cite{fitzpatrick_woebot_2017,romanovskyi_elomia_2021}. The risks under
-conditions of uncritical, unguided use are equally real. The difference between benefit
-and harm lies not in the technology itself but in how it is introduced, understood, and
-embedded within a broader support structure. Handle with care: that is both the
-precaution and the permission.
+If a family member were experiencing a mental health issue, I would encourage them to use a mental health chatbot, with care. That care means choosing a clinically validated platform, understanding the privacy implications, and treating the tool as a structured complement to professional treatment rather than a self-sufficient solution. The empirical evidence for efficacy under these conditions is real: Woebot, Elomia, and comparable platforms have demonstrated measurable symptom relief in controlled settings~\cite{fitzpatrick_woebot_2017,romanovskyi_elomia_2021}. The risks under conditions of uncritical, unguided use are equally real. The difference between benefit and harm lies not in the technology itself but in how it is introduced, understood, and embedded within a broader support structure. Handle with care: that is both the precaution and the permission.
 
 \bibliography{handle-with-care}
 \end{document}
