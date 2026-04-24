@@ -33,7 +33,7 @@ export async function GET(_: Request, { params }: RouteParams) {
     try {
         // LaTeX output lives in out/; uploaded files (presentations etc.) sit directly in the format dir
         const searchDirs = [path.join(formatDir, "out"), formatDir];
-        let pdfData: Uint8Array | null = null;
+        let pdfBlob: Blob | null = null;
 
         for (const dir of searchDirs) {
             try {
@@ -41,7 +41,7 @@ export async function GET(_: Request, { params }: RouteParams) {
                 const pdfEntry = entries.find(f => f.endsWith(".pdf"));
                 if (pdfEntry) {
                     const buf = await fs.readFile(path.join(dir, pdfEntry));
-                    pdfData = new Uint8Array(buf.buffer, buf.byteOffset, buf.byteLength);
+                    pdfBlob = new Blob([buf], { type: "application/pdf" });
                     break;
                 }
             } catch {
@@ -49,14 +49,13 @@ export async function GET(_: Request, { params }: RouteParams) {
             }
         }
 
-        if (!pdfData) return new NextResponse("Not Found", { status: 404 });
+        if (!pdfBlob) return new NextResponse("Not Found", { status: 404 });
 
         const titleSlug = slugify(paper.title);
         const downloadName = `jaxen-dutta_${titleSlug}_${formatKey}.pdf`;
 
-        return new NextResponse(pdfData, {
+        return new NextResponse(pdfBlob, {
             headers: {
-                "Content-Type": "application/pdf",
                 "Content-Disposition": `inline; filename=\"${downloadName}\"`,
                 "Cache-Control": "public, max-age=31536000, immutable",
             },
