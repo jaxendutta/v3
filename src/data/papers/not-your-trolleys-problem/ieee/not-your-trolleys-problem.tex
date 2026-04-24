@@ -1,0 +1,112 @@
+\documentclass{ieee-portfolio}
+
+%% -----------------------------------------------------------
+%% Meta-Data Configuration
+%% -----------------------------------------------------------
+\title{\textit{Not Your Trolley's Problem:}\\
+A Multi-Domain Ethics Framework for Autonomous Vehicles}
+
+% Custom tags for the headers/footers
+\shorttitle{Not Your Trolley's Problem}
+\headerauthor{Jaxen Anirban Dutta}
+\date{December 23, 2025}
+
+% Standard IEEE author block
+\author{
+    \IEEEauthorblockN{Jaxen Anirban Dutta\,\orcidlink{0009-0002-5088-4679}}
+    \IEEEauthorblockA{\textit{School of Engineering Design and Teaching Innovation} \\
+    \textit{University of Ottawa, Ottawa, Ontario, Canada} \\
+    adutt042@uottawa.ca}
+}
+
+%% -----------------------------------------------------------
+%% Glossaries Configuration
+%% -----------------------------------------------------------
+\usepackage[acronym,nomain,nogroupskip]{glossaries-extra}
+\setabbreviationstyle[acronym]{long-short}
+\input{../glossaries}
+\makeglossaries
+
+\graphicspath{{../figures/}}
+
+%% -----------------------------------------------------------
+%% Document Body
+%% -----------------------------------------------------------
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+The trolley problem has a problem. Public and scholarly discourse on the ethics of autonomous vehicles has been dominated by the collision-scenario paradigm: the question of how a vehicle should be programmed to allocate harm when an accident is unavoidable. This framing, inherited from the philosophical trolley problem, has generated extensive debate but systematically obscures three equally consequential ethical domains that receive far less attention: in-cabin surveillance and data privacy, algorithmic accountability and liability, and the welfare implications for vulnerable road users and third parties. This paper argues that this narrow focus is not merely incomplete but actively distorting, because it frames the ethics of \gls{av} design as a problem of exceptional crisis decision-making rather than as a pervasive set of design choices embedded in every feature of the technology. Drawing on Millar's ethics settings framework, the Moral Machine experiment, and the emerging literature on \gls{av} data collection and in-cabin wellness systems, the paper proposes a multi-domain ethics framework that treats collision algorithms as one ethics setting among many, and argues that the non-collision domains carry greater aggregate ethical weight because they affect every trip rather than only the rare catastrophic accident.
+\end{abstract}
+
+\begin{IEEEkeywords}
+autonomous vehicles, trolley problem, ethics settings, collision algorithms, data privacy, in-cabin surveillance, algorithmic accountability, vulnerable road users, moral machine, robot ethics
+\end{IEEEkeywords}
+
+\section{Introduction}
+ 
+The ethics of autonomous vehicles has a trolley problem. Not in the sense that collision scenarios present a genuine ethical challenge, which they do, but in the sense that the trolley problem has come to dominate the field so completely that it crowds out consideration of the ethical issues that will affect far more people, far more often, and with far more aggregate consequence.
+ 
+The canonical debate was crystallized in two Wired pieces published weeks apart in 2014. Patrick Lin argued that designing adjustable ethics settings into autonomous vehicles was a terrible idea, because allowing individuals to customize their vehicle's collision behavior would privatize a decision that ought to be made collectively and would create a market in moral exemptions~\cite{lin_terrible_2014}. Jason Millar responded that users should have a say in their robot car's code of ethics, because delegating moral choice entirely to manufacturers would be a form of paternalism that treats drivers as incapable of making decisions about the values that govern actions taken on their behalf~\cite{millar_say_2014}. Both positions are coherent. Both assume, implicitly, that the defining ethical challenge of autonomous vehicles is the collision algorithm.
+ 
+This paper challenges that assumption. Using Millar's broader ethics settings framework~\cite{millar_ethics_2017} as its organizing tool, the paper argues that \gls{av} ethics spans at least four distinct domains: collision decision-making, in-cabin data collection and surveillance, algorithmic accountability and liability, and welfare implications for vulnerable road users. The collision domain receives perhaps 80\% of scholarly and public attention while representing a fraction of the ethical decisions that autonomous vehicle systems make on every trip. Addressing this imbalance is not merely an academic exercise: it determines which harms get designed against and which get normalized through inattention.
+ 
+\section{The Trolley Problem and Its Limits}
+ 
+The trolley problem's appeal in the \gls{av} context is understandable. It presents a stark, tractable version of a genuine challenge: when an accident is unavoidable, how should a vehicle's algorithm allocate harm between passengers, pedestrians, and third parties? The Moral Machine experiment demonstrated the scale of public interest in this question: Awad et al.~\cite{awad_moral_2018} gathered 40 million decisions from over two million people in 233 countries and territories, revealing consistent global preferences for sparing humans over animals, sparing more lives over fewer, and sparing the young over the old, alongside significant cross-cultural variation in how these preferences are weighted.
+ 
+The Moral Machine findings are valuable precisely because they demonstrate that there is no universal ethical consensus that could justify any single collision algorithm as globally legitimate. As Awad et al.~\cite{awad_moral_2018} observe, decisions about the ethical principles that will guide autonomous vehicles cannot be left solely to either engineers or ethicists: consumers must understand the origins of the ethical principles programmed into these vehicles, or they will opt out of the technology entirely. This insight supports Millar's~\cite{millar_ethics_2017} case for variable ethics settings in the collision domain: if there is no culturally universal answer to the trolley problem, then hardwiring a single answer is itself a political act that privileges the moral preferences of developers over those of users and affected communities.
+ 
+However, the trolley problem has significant structural limitations as a framework for \gls{av} ethics. First, it represents a genuinely exceptional scenario: the vast majority of autonomous vehicle trips do not involve unavoidable accidents. The ethical architecture of the collision algorithm governs a vanishingly rare event while the ethical architecture of data collection, in-cabin monitoring, and route optimization governs every trip. Second, the trolley problem frames the vehicle's ethical challenge as a moment of crisis decision-making, when in fact most ethically significant \gls{av} design choices are made long before any specific trip begins, in the form of hardwired or variable ethics settings that shape the vehicle's behavior across all situations~\cite{millar_ethics_2017}. Third, by focusing attention on life-or-death scenarios, the trolley paradigm implicitly treats all other ethical issues as less serious, when privacy violations, surveillance, and algorithmic bias may produce greater aggregate harm precisely because they are ongoing and pervasive rather than exceptional.
+ 
+\section{In-Cabin Surveillance and Data Privacy}
+ 
+Modern autonomous and semi-autonomous vehicles are sophisticated data collection platforms. External sensors collect location, speed, and environmental data continuously. In-cabin systems, including the biometric sensors, emotion recognition cameras, and microphones deployed in emerging wellness vehicle designs, collect behavioral, physiological, and emotional data about occupants on every trip. This data has significant commercial value and significant privacy implications.
+ 
+The ethical issues here are structural rather than exceptional. Unlike a collision scenario, which an individual vehicle may never encounter, in-cabin data collection occurs on every journey taken by every occupant, including children and other vulnerable individuals who cannot meaningfully consent to their monitoring. As Bloom et al.~\cite{bloom_self_2017} document, public concerns about \gls{av} data collection focus disproportionately on safety rather than privacy, even though privacy risks are both more pervasive and more difficult to remedy after the fact.
+ 
+Millar's ethics settings framework~\cite{millar_ethics_2017} is directly applicable here. The data collection scope of a vehicle's sensor systems is an ethics setting: it encodes a value judgment about which data is necessary and who has the right to collect it. Currently, this setting is substantially hardwired by manufacturers and platform operators, with users given nominal access through software settings that typically require navigating complex menus and that impose functional trade-offs between privacy and the vehicle's core services. The hardwiring of maximum data collection as the default configuration is a moral choice, one that privileges commercial data interests over occupant privacy and that transfers moral responsibility for the outcome to designers rather than to users.
+ 
+Consider a family using a vehicle equipped with emotion recognition cameras, biometric seat sensors, and cloud-connected wellness systems. Mid-journey, they discover that their children's facial expressions and physiological states have been continuously captured, analyzed, and shared with third-party health partners. The vehicle's wellness features provided genuine benefit: detecting motion sickness before the parents noticed it and enabling a timely stop. But the family had not meaningfully consented to the scope of data collection. The relevant disclosures were buried in a purchase agreement read in the excitement of acquisition, and the in-cabin monitoring infrastructure was presented as a safety feature rather than as a data collection instrument. This scenario illustrates how the ethical failure is not located in any single exceptional event but in the structural design of the ethics setting itself, which defaults to maximum collection and delegates disclosure to a document rather than to an interface.
+ 
+\section{Algorithmic Accountability and Liability}
+ 
+The question of who bears moral and legal responsibility when an autonomous vehicle causes harm is a third ethical domain that the collision scenario framing inadequately addresses. The trolley problem assumes a scenario in which the algorithm is functioning as designed: the ethical question is what the algorithm should be designed to do. But in practice, many \gls{av} accidents will involve systems functioning in ways their designers did not anticipate, or functioning as designed in contexts their designers did not adequately specify.
+ 
+Millar~\cite{millar_ethics_2017} frames this as the question of what ethics settings should be hardwired and who should have access to variable settings. When a manufacturer hardwires a collision algorithm, the manufacturer accepts moral responsibility for the outcomes that algorithm produces. When a user adjusts a variable ethics setting, responsibility shifts toward the user, provided the user genuinely understood what they were choosing. Lin's~\cite{lin_terrible_2014} concern about adjustable ethics settings is precisely that users may not have this understanding, creating a situation in which responsibility is formally delegated to users who lack the capacity to exercise it meaningfully.
+ 
+This accountability gap is compounded by the broader data architecture of autonomous vehicles. The behavioral and sensor data collected on every trip creates a detailed evidentiary record that could be accessed by insurers, law enforcement, and corporate actors in ways that users neither anticipated nor authorized. The same data that enables a vehicle's wellness system to detect a child's motion sickness could enable an insurer to argue that the family's driving patterns or the children's physiological responses constitute evidence of driver behavior warranting premium adjustment. These downstream uses of in-cabin data represent ethics settings decisions made at design time, with consequences that extend far beyond the individual trip and that users are structurally unable to anticipate when they make their nominal consent decisions.
+ 
+\section{Vulnerable Road Users and Distributional Ethics}
+ 
+A fourth ethical domain concerns the welfare of those who are not inside the vehicle at all: pedestrians, cyclists, children, elderly individuals, and others who share road space with autonomous vehicles but have no contractual relationship with their operators and no access to their ethics settings.
+ 
+The Moral Machine experiment~\cite{awad_moral_2018} touched on this domain by asking respondents how vehicles should allocate harm between passengers and bystanders, and between different categories of bystander. But the distributional ethics of autonomous vehicles extends beyond crisis scenarios. Route optimization algorithms that direct vehicles through residential neighborhoods to avoid congestion impose noise, pollution, and safety risks on residents who have made no choice about the technology. Speed calibration settings that optimize for passenger comfort at the expense of pedestrian safety represent ethics settings decisions made for third parties who have no voice in their design. The aggregate effect of millions of autonomous vehicles making these micro-decisions continuously is a distributional consequence of considerable ethical magnitude that receives almost no attention in a literature focused on the collision scenario.
+ 
+Lin~\cite{lin_terrible_2014} gestures at this concern when he argues that adjustable ethics settings would allow vehicle owners to exert moral preferences that affect others who have not consented to those preferences. A vehicle calibrated to prioritize passenger safety at the expense of pedestrian safety imposes a moral choice on pedestrians. But Lin's solution, rejecting adjustable settings in favor of a collectively determined standard, does not resolve the problem: it merely relocates the distributional decision from individual users to manufacturers and regulators, who also have interests that may not align with those of vulnerable road users.
+ 
+\section{Toward a Multi-Domain Ethics Framework}
+ 
+The preceding analysis suggests that a comprehensive ethics framework for autonomous vehicles must address four domains simultaneously: collision decision-making, in-cabin data collection and surveillance, algorithmic accountability and liability, and distributional welfare for vulnerable road users. The collision domain is the most extensively theorized but the least frequently instantiated. The other three domains affect every trip and every occupant, and they are currently governed by ethics settings that are largely hardwired by manufacturers with minimal user input and minimal regulatory oversight.
+ 
+Millar's~\cite{millar_ethics_2017} framework suggests that the appropriate governance approach differs across domains. In the collision domain, the case for variable user settings is complicated by the cross-cultural variation documented in the Moral Machine experiment~\cite{awad_moral_2018}: any variable setting creates the possibility of a market in moral exemptions of the kind Lin~\cite{lin_terrible_2014} warns against. A more defensible approach may be to establish a regulatory floor, a collectively determined minimum standard that cannot be varied below, while permitting variation within a bounded range.
+ 
+In the data collection domain, the case for hardwired protective defaults is stronger. Users cannot meaningfully consent to data collection they do not understand, and the commercial incentives of manufacturers consistently favor maximum collection. A hardwired data minimization default, analogous to the privacy-by-default requirements of data protection regulation, would transfer moral responsibility for data collection scope back to manufacturers rather than delegating it to users through nominal consent mechanisms.
+ 
+In the accountability domain, the key ethics setting is transparency: the data practices, algorithmic decision rules, and liability frameworks governing vehicle behavior must be legible to users, regulators, and affected third parties. A vehicle whose collision algorithm and data collection practices are opaque cannot be held accountable for the outcomes it produces, and the responsibility for this opacity lies with designers rather than users.
+ 
+In the distributional domain, the key reform is structural inclusion: vulnerable road users and community representatives must have voice in the design of the ethics settings that govern vehicles operating in their environments. Route optimization algorithms and speed calibration settings that affect communities cannot be ethically designed without input from those communities.
+ 
+\section{Conclusion}
+ 
+The ethics of autonomous vehicles is wider and deeper than the trolley problem suggests. Collision algorithms matter, and the debate between Lin and Millar about who should control them is genuine and unresolved. But the ethical decisions that shape the daily reality of autonomous vehicle deployment, the scope of data collection, the architecture of accountability, and the distributional effects on vulnerable road users, are currently made largely without ethical scrutiny, because the dominant framing of \gls{av} ethics as a crisis decision-making problem directs attention away from them.
+ 
+A multi-domain ethics framework, organized around Millar's distinction between hardwired and variable ethics settings and asking consistently who has access to each setting and who bears responsibility for its outcomes, provides the tools needed to address all four domains systematically. The trolley problem will remain a useful thought experiment for clarifying values in the collision domain. But it should be one chapter in the ethics of autonomous vehicles, not the whole book.
+ 
+\glsaddall
+\printglossary[type=\acronymtype,title=List of Acronyms]
+
+\bibliographystyle{IEEEtran}
+\bibliography{not-your-trolleys-problem}
+\end{document}
