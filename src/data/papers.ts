@@ -23,6 +23,7 @@ export const papersData: PapersData = {
             thesis: { label: "Thesis Format", type: "paper" },
             acm: { label: "ACM Format", type: "paper" },
             project: { label: "Linked Project", type: "project" },
+            bib: { label: "BibTeX", type: "bib" },
         },
     },
 
@@ -45,7 +46,8 @@ export const papersData: PapersData = {
         ],
         projectId: "beyond-helpful",
         links: {
-            acm: { label: "ACM Format", type: "paper" }
+            acm: { label: "ACM Format", type: "paper" },
+            bib: { label: "BibTeX", type: "bib" },
         },
     },
 
@@ -64,7 +66,8 @@ export const papersData: PapersData = {
             "Supply Chain + Organization",
         ],
         links: {
-            ieee: { label: "IEEE Format", type: "paper" }
+            ieee: { label: "IEEE Format", type: "paper" },
+            bib: { label: "BibTeX", type: "bib" },
         },
     },
 
@@ -85,6 +88,7 @@ export const papersData: PapersData = {
         links: {
             acm: { label: "ACM Format", type: "paper" },
             presentation: { label: "Presentation", type: "slides" },
+            bib: { label: "BibTeX", type: "bib" },
         },
     },
 
@@ -107,10 +111,8 @@ export const papersData: PapersData = {
             "Policy",
         ],
         links: {
-            ieee: {
-                label: "IEEE Format",
-                type: "paper",
-            },
+            ieee: { label: "IEEE Format", type: "paper" },
+            bib: { label: "BibTeX", type: "bib" },
         },
     },
 
@@ -130,10 +132,8 @@ export const papersData: PapersData = {
             "Privacy + Security",
         ],
         links: {
-            ieee: {
-                label: "IEEE Format",
-                type: "paper",
-            },
+            ieee: { label: "IEEE Format", type: "paper" },
+            bib: { label: "BibTeX", type: "bib" },
         },
     },
 
@@ -153,10 +153,8 @@ export const papersData: PapersData = {
             "Supply Chain + Organization",
         ],
         links: {
-            essay: {
-                label: "PDF",
-                type: "paper",
-            },
+            essay: { label: "PDF", type: "paper" },
+            bib: { label: "BibTeX", type: "bib" },
         },
     },
 
@@ -177,14 +175,9 @@ export const papersData: PapersData = {
         ],
         projectId: "evse-opt",
         links: {
-            thesis: {
-                label: "Thesis Format",
-                type: "paper",
-            },
-            project: {
-                label: "Linked Project",
-                type: "project",
-            },
+            thesis: { label: "Thesis Format", type: "paper" },
+            project: { label: "Linked Project", type: "project" },
+            bib: { label: "BibTeX", type: "bib" },
         },
     },
 
@@ -203,18 +196,10 @@ export const papersData: PapersData = {
         ],
         projectId: "qqc-dde",
         links: {
-            acm: {
-                label: "ACM Format",
-                type: "paper",
-            },
-            thesis: {
-                label: "Thesis Format",
-                type: "paper",
-            },
-            presentation: {
-                label: "Presentation",
-                type: "slides",
-            },
+            acm: { label: "ACM Format", type: "paper" },
+            thesis: { label: "Thesis Format", type: "paper" },
+            presentation: { label: "Presentation", type: "slides" },
+            bib: { label: "BibTeX", type: "bib" },
         },
     },
 
@@ -235,10 +220,8 @@ export const papersData: PapersData = {
             "Human-AI Interaction",
         ],
         links: {
-            essay: {
-                label: "PDF",
-                type: "paper",
-            },
+            essay: { label: "PDF", type: "paper" },
+            bib: { label: "BibTeX", type: "bib" },
         },
     },
 
@@ -259,10 +242,8 @@ export const papersData: PapersData = {
             "Cybersecurity",
         ],
         links: {
-            essay: {
-                label: "PDF",
-                type: "paper",
-            },
+            essay: { label: "PDF", type: "paper" },
+            bib: { label: "BibTeX", type: "bib" },
         },
     },
 
@@ -283,10 +264,8 @@ export const papersData: PapersData = {
             "Human-AI Interaction",
         ],
         links: {
-            essay: {
-                label: "PDF",
-                type: "paper",
-            },
+            essay: { label: "PDF", type: "paper" },
+            bib: { label: "BibTeX", type: "bib" },
         },
     },
 
@@ -306,10 +285,8 @@ export const papersData: PapersData = {
             "Geomatics",
         ],
         links: {
-            essay: {
-                label: "PDF",
-                type: "paper",
-            },
+            essay: { label: "PDF", type: "paper" },
+            bib: { label: "BibTeX", type: "bib" },
         },
     },
 
@@ -328,10 +305,8 @@ export const papersData: PapersData = {
             "Human-AI Interaction",
         ],
         links: {
-            essay: {
-                label: "PDF",
-                type: "paper",
-            },
+            essay: { label: "PDF", type: "paper" },
+            bib: { label: "BibTeX", type: "bib" },
         },
     },
 
@@ -349,10 +324,8 @@ export const papersData: PapersData = {
             "Ethics"
         ],
         links: {
-            essay: {
-                label: "PDF",
-                type: "paper",
-            },
+            essay: { label: "PDF", type: "paper" },
+            bib: { label: "BibTeX", type: "bib" },
         },
     },
 };

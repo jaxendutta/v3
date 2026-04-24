@@ -159,7 +159,7 @@
 \let\cleardoublepage\clearemptydoublepage
 
 % Define Glossary terms (This is properly done here, in the preamble and could also be \input{} from a separate file...)
-\input{glossaries}
+\input{../glossaries}
 \makeglossaries
 
 %======================================================================
@@ -174,7 +174,7 @@
 % title page, examining committee membership (for PhD Thesis only), declaration, borrowers' page, abstract, acknowledgements,
 % dedication, table of contents, list of tables, list of figures, nomenclature, etc.
 %----------------------------------------------------------------------
-\input{uw-ethesis-frontpgs} 
+\input{frontpgs} 
 
 %----------------------------------------------------------------------
 % MAIN BODY
@@ -213,7 +213,7 @@
 % Add the References to the Table of Contents
 \addcontentsline{toc}{chapter}{\textbf{References}}
 
-\bibliography{uw-ethesis.bib}
+\bibliography{evse-opt}
 % Tip: You can create multiple .bib files to organize your references. 
 % Just list them all in the \bibliogaphy command, separated by commas (no spaces).
 

@@ -18,7 +18,16 @@ import {
     HiOutlinePresentationChartBar,
 } from "react-icons/hi2";
 import { RiFile3Line } from "react-icons/ri";
-import { TbGridDots } from "react-icons/tb";
+import { TbGridDots, TbBraces } from "react-icons/tb";
+
+function slugify(title: string): string {
+    return title
+        .toLowerCase()
+        .replace(/[^a-z0-9\s-]/g, "")
+        .replace(/\s+/g, "-")
+        .replace(/-+/g, "-")
+        .replace(/^-|-$/g, "");
+}
 
 // ── Document type → icon ──────────────────────────────────────────────────────
 
@@ -27,6 +36,7 @@ const DOC_ICONS: Record<DocumentType, React.ElementType> = {
     poster: HiOutlinePhoto,
     slides: HiOutlinePresentationChartBar,
     project: TbGridDots,
+    bib: TbBraces,
 };
 
 // ── Status badge ──────────────────────────────────────────────────────────────
@@ -63,10 +73,11 @@ function DocLink({
 }) {
     const [isHovered, setIsHovered] = useState(false);
 
+    const bibFilename = `jaxen-dutta_${slugify(papersData[paperId]?.title ?? paperId)}.bib`;
     const url =
-        doc.type === "project"
-            ? `/projects/${paperId}`
-            : `/papers/${paperId}/${formatKey}`;
+        doc.type === "project" ? `/projects/${paperId}`
+        : doc.type === "bib"   ? `/papers/${paperId}/bib/${bibFilename}`
+        : `/papers/${paperId}/${formatKey}`;
 
     const Icon = DOC_ICONS[doc.type] ?? HiOutlineDocumentText;
 

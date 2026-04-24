@@ -2,7 +2,7 @@
 
 import { Duration } from ".";
 
-export type DocumentType = "paper" | "poster" | "slides" | "project";
+export type DocumentType = "paper" | "poster" | "slides" | "project" | "bib";
 
 /**
  * A single compiled document artifact (PDF) associated with a written work.

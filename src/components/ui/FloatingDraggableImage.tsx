@@ -104,12 +104,6 @@ export default function FloatingDraggableImage({
             ? "cursor-grab"
             : "cursor-default";
 
-    const cursorStyle = baseCursor === "pointer"
-        ? "pointer"
-        : baseCursor === "grab"
-            ? "grab"
-            : "default";
-
     return (
         <motion.div
             drag={drag}
