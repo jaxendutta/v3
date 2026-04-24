@@ -197,7 +197,7 @@ export const PaperItem = ({
                         </div>
                     )}
                     {/* Abstract (below links on small, left on lg+) */}
-                    <div className="flex-grow min-w-0 max-w-full lg:max-w-[75%] lg:order-1">
+                    <div className="flex-grow min-w-0 max-w-full lg:min-w-[75%] lg:order-1">
                         <div className="flex items-center justify-between mb-2">
                             <p className="text-[10px] md:text-xs font-mono uppercase tracking-widest text-muted-foreground-subtle">
                                 Abstract
