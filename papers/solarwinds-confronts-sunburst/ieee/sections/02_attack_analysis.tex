@@ -2,18 +2,18 @@
 \label{sec:attack_analysis}
 
 \subsection{Attack Overview}
-Between March and June 2020, \gls{apt}29 compromised SolarWinds' build environment, injecting SUNBURST into legitimately signed Orion updates affecting 18,000 customers \cite{mandiant_highly_2020, nagle_solarwinds_2023}. The seven-month detection gap, from March to December 2020, enabled sustained strategic intelligence collection from Treasury, Commerce, State, \gls{dhs}, and other federal entities \cite{intelligence_open_2021}.
+Between March and June 2020, \gls{apt}29 compromised SolarWinds' build environment, injecting SUNBURST into legitimately signed Orion updates affecting 18,000 customers \cite{agency_russian_2021, mandiant_highly_2020, nagle_solarwinds_2023}. The seven-month detection gap, from March to December 2020, enabled sustained strategic intelligence collection from Treasury, Commerce, State, \gls{dhs}, and other federal entities \cite{us_open_2021}.
 
 \subsection{Cyber Kill Chain Analysis}
 The attack demonstrates sophisticated application of the Cyber Kill Chain framework \cite{hutchins_intelligencedriven_2011} with unprecedented operational security, including a fourteen-month reconnaissance phase before operational deployment.
 
 \begin{enumerate}
-    \item \tinypara{Reconnaissance (Oct 2019):} \gls{apt}29 conducted a dry run, injecting innocuous code into the Orion build process to verify their compromise successfully propagated into production releases distributed to customers \cite{intelligence_open_2021}. This validation phase fourteen months before operational deployment demonstrates exceptional patience and operational security.
-    \item \tinypara{Weaponization (Oct 2019 -- Mar 2020):} Following successful validation, \gls{apt}29 developed SUNSPOT, a stealth implant embedded into SolarWinds' automated build processes that monitored compilations and dynamically injected malicious code during the final compilation stage, after code reviews but before digital signing \cite{crowdstrike_sunspot_2021, intelligence_open_2021}. Concurrently, the adversary developed SUNBURST, requiring an estimated 1,000+ engineers \cite{intelligence_analyzing_2020, nagle_solarwinds_2023}, incorporating custom \gls{fnv}-1A+XOR obfuscation, hash-based blocklists of 100+ security tools, and 12-14 day dormancy periods \cite{eckels_sunburst_2020}.
-    \item \tinypara{Delivery (March--June 2020):} SUNSPOT injected SUNBURST into multiple Orion updates distributed via official channels with valid digital signatures \cite{mandiant_highly_2020}. Approximately 18,000 customers downloaded compromised updates, including nine federal agencies \cite{intelligence_open_2021}.
+    \item \tinypara{Reconnaissance (Oct 2019):} \gls{apt}29 conducted a dry run, injecting innocuous code into the Orion build process to verify their compromise successfully propagated into production releases distributed to customers \cite{us_open_2021}. This validation phase fourteen months before operational deployment demonstrates exceptional patience and operational security.
+    \item \tinypara{Weaponization (Oct 2019 -- Mar 2020):} Following successful validation, \gls{apt}29 developed SUNSPOT, a stealth implant embedded into SolarWinds' automated build processes that monitored compilations and dynamically injected malicious code during the final compilation stage, after code reviews but before digital signing \cite{crowdstrike_sunspot_2021, us_open_2021}. Concurrently, the adversary developed SUNBURST, requiring an estimated 1,000+ engineers \cite{ms_analyzing_2020, nagle_solarwinds_2023}, incorporating custom \gls{fnv}-1A+XOR obfuscation, hash-based blocklists of 100+ security tools, and 12-14 day dormancy periods \cite{eckels_sunburst_2020}.
+    \item \tinypara{Delivery (March--June 2020):} SUNSPOT injected SUNBURST into multiple Orion updates distributed via official channels with valid digital signatures \cite{mandiant_highly_2020}. Approximately 18,000 customers downloaded compromised updates, including nine federal agencies \cite{us_open_2021}.
     \item \tinypara{Exploitation \& Installation:} SUNBURST executed multi-stage validation: process name verification, Azure AD (now known as Microsoft Entra ID) membership confirmation, domain blocklist checking, and security tool scanning. Detected security services were disabled via Registry modification \cite{eckels_sunburst_2020}. Persistence was achieved through legitimate integration into Orion processes, storing configuration in repurposed \gls{xml} appSettings keys \cite{mandiant_highly_2020}.
     \item \tinypara{Command \& Control:} Two-stage architecture: (1) \gls{dns}-based coordination using \gls{dga} with \textit{avsvmcloud.com} subdomains encoding victim information; (2) \gls{https}-based communication mimicking legitimate Orion telemetry \cite{eckels_sunburst_2020, mandiant_highly_2020}.
-    \item \tinypara{Actions on Objectives:} At high-value targets, \gls{apt}29 deployed TEARDROP, a memory-only dropper loading Cobalt Strike BEACON, avoiding disk artifacts \cite{mandiant_highly_2020}. The adversary targeted Microsoft Office 365 environments, compromising Treasury and Commerce \gls{ntia} email systems for months \cite{nagle_solarwinds_2023}. Microsoft identified 60 customers where attackers obtained IT administrator credentials through password spray attacks \cite{intelligence_open_2021}.
+    \item \tinypara{Actions on Objectives:} At high-value targets, \gls{apt}29 deployed TEARDROP, a memory-only dropper loading Cobalt Strike BEACON, avoiding disk artifacts \cite{mandiant_highly_2020}. The adversary targeted Microsoft Office 365 environments, compromising Treasury and Commerce \gls{ntia} email systems for months \cite{nagle_solarwinds_2023}. Microsoft identified 60 customers where attackers obtained IT administrator credentials through password spray attacks \cite{us_open_2021}.
 \end{enumerate}
 
 \subsection{STRIDE Threat Modelling Framework Analysis}
@@ -24,19 +24,19 @@ The attack demonstrates sophisticated application of the Cyber Kill Chain framew
     \item \tinypara{Spoofing:} Abuse of legitimate digital signature and \gls{saml} token forgery for Azure AD access.
     \item \tinypara{Tampering:} Build system injection enabled malicious code insertion without source code changes, exploiting the gap that code signing validates final artifacts, not build process integrity \cite{eckels_sunburst_2020}. This represents the most critical violation.
     \item \tinypara{Repudiation:} Anti-forensic techniques including memory-only tool execution (TEARDROP), temporary file replacement, and systematic artifact deletion.
-    \item \tinypara{Information Disclosure:} Multi-month federal agency email monitoring, credential harvesting, and network topology reconnaissance via \gls{dga} subdomain encoding \cite{intelligence_open_2021}.
+    \item \tinypara{Information Disclosure:} Multi-month federal agency email monitoring, credential harvesting, and network topology reconnaissance via \gls{dga} subdomain encoding \cite{us_open_2021}.
     \item \tinypara{Denial of Service:} Registry-based security service disablement and process termination capabilities.
     \item \tinypara{Elevation of Privilege:} Execution within trusted \texttt{solarwinds.businesslayerhost} process context exploited supply chain trust for privileged access, violating Zero Trust principles requiring continuous verification \cite{rose_zero_2020}.
 \end{enumerate}
 
 \subsection{MITRE ATT\&CK \gls{ttp}s}
-\gls{apt}29 employed 45+ techniques across 12 tactics \cite{corporation_apt29_2025, corporation_solarwinds_2025} including supply chain compromise (T1195.002), execution guardrails (T1480.001), code signing abuse (T1553.002), \gls{dga}-based C2 (T1568.002), and steganographic encoding (T1001.002). The custom \gls{fnv}-1A+XOR obfuscation and multi-stage environmental validation created defensive layers preventing analysis \cite{eckels_sunburst_2020, mandiant_highly_2020}.
+\gls{apt}29 employed 45+ techniques across 12 tactics \cite{mitre_apt29_2025, mitre_solarwinds_2025} including supply chain compromise (T1195.002), execution guardrails (T1480.001), code signing abuse (T1553.002), \gls{dga}-based C2 (T1568.002), and steganographic encoding (T1001.002). The custom \gls{fnv}-1A+XOR obfuscation and multi-stage environmental validation created defensive layers preventing analysis \cite{eckels_sunburst_2020, mandiant_highly_2020}.
 
 \subsection{Critical Technical Vulnerabilities Exploited}
 Four critical technical control failures enabled the SUNBURST campaign's success:
 
 \begin{enumerate}
-    \item \tinypara{Build Integrity Verification Absence:} No cryptographic verification ensured compiled binaries matched source code. \gls{apt}29 deployed SUNSPOT, targeting build processes universally present across software vendors \cite{intelligence_open_2021}. Post-breach addition of checks confirms this fundamental control's absence \cite{nagle_solarwinds_2023}.
+    \item \tinypara{Build Integrity Verification Absence:} No cryptographic verification ensured compiled binaries matched source code. \gls{apt}29 deployed SUNSPOT, targeting build processes universally present across software vendors \cite{us_open_2021}. Post-breach addition of checks confirms this fundamental control's absence \cite{nagle_solarwinds_2023}.
     \item \tinypara{\gls{mfa} Absence:} Privileged build accounts lacked \gls{mfa}, enabling persistent credential-based access \cite{nagle_solarwinds_2023}.
     \item \tinypara{Network Segmentation Insufficiency:} Build environments were accessible from corporate networks without adequate isolation, enabling lateral movement.
     \item \tinypara{Development Environment Monitoring Gaps:} No \gls{edr} on build servers, no SIEM integration of development environment logs, and no behavioral analytics for privileged accounts \cite{nagle_solarwinds_2023}.
@@ -47,7 +47,7 @@ The compromise generated cascading consequences across multiple dimensions:
 
 \begin{enumerate}
     \item \tinypara{Financial Impact:} Immediate 23\% stock price decline, \$15M insurance claim, and deployment of 1,200+ employees to incident response \cite{nagle_solarwinds_2023}.
-    \item \tinypara{National Security Impact:} Sustained adversary access to nine federal agencies' communications systems enabled strategic intelligence collection during the presidential transition period \cite{nagle_solarwinds_2023, intelligence_open_2021}.
-    \item \tinypara{Systemic Impact:} Catalyzed Executive Order 14028 mandating SBOM requirements and Zero Trust architecture \cite{president_executive_2021}.
-    \item \tinypara{Reputational Impact:} Severe damage to SolarWinds' brand reputation necessitating the comprehensive ``Secure by Design'' program \cite{nagle_solarwinds_2023}.
+    \item \tinypara{National Security Impact:} Sustained adversary access to nine federal agencies' communications systems enabled strategic intelligence collection during the presidential transition period \cite{nagle_solarwinds_2023, us_open_2021}.
+    \item \tinypara{Systemic Impact:} Catalyzed Executive Order 14028 mandating SBOM requirements and Zero Trust architecture \cite{us_eo_2021}.
+    \item \tinypara{Reputational Impact:} Severe damage to SolarWinds' brand reputation necessitating the comprehensive ``Secure by Design'' program \cite{nagle_solarwinds_2023, ramakrishna_our_2021}.
 \end{enumerate}

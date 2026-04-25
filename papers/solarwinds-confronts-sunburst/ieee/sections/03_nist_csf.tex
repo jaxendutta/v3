@@ -12,15 +12,15 @@ SolarWinds' pre-breach cybersecurity posture is assessed using \gls{nist} \gls{c
 SolarWinds exhibited catastrophic governance failures that cascaded systematically through all other \gls{csf} Functions.
 
 \begin{enumerate}
-    \item \tinypara{GV.OC (Organizational Context) [Inadequate]:} SolarWinds classified build systems as ``non-production'' infrastructure receiving lower security prioritization, a fundamental misunderstanding of the software vendor threat model \cite{boyens_cybersecurity_2024}.
+    \item \tinypara{GV.OC (Organizational Context) [Inadequate]:} SolarWinds classified build systems as ``non-production'' infrastructure receiving lower security prioritization, a fundamental misunderstanding of the software vendor threat model \cite{boyens_cybersecurity_2022}.
     \item \tinypara{GV.RM (Risk Management Strategy) [Inadequate]:} Despite ``above industry average'' security spending \cite{nagle_solarwinds_2023}, investments were strategically misdirected toward perimeter defenses and compliance requirements.
-    \item \tinypara{GV.SC (Cybersecurity Supply Chain Risk Management) [Absent]:} The most critical governance failure. SolarWinds operated without a formal \gls{c-scrm} program per \gls{nist} \gls{sp} \href{https://csrc.nist.gov/pubs/sp/800/161/r1/upd1/final}{800-161 Rev. 1} \cite{boyens_cybersecurity_2024}, resulting in no \gls{sbom} tracking, no supplier risk assessment, and no ongoing supply chain monitoring \cite{boyens_cybersecurity_2024}.
+    \item \tinypara{GV.SC (Cybersecurity Supply Chain Risk Management) [Absent]:} The most critical governance failure. SolarWinds operated without a formal \gls{c-scrm} program per \gls{nist} \gls{sp} \href{https://csrc.nist.gov/pubs/sp/800/161/r1/upd1/final}{800-161 Rev. 1} \cite{boyens_cybersecurity_2022}, resulting in no \gls{sbom} tracking, no supplier risk assessment, and no ongoing supply chain monitoring \cite{boyens_cybersecurity_2022}.
     \item \tinypara{GV.RR, GV.PO \& GV.OV [Inadequate]:} Organizational structure did not provide adequate authority for security leadership over engineering efficiency. Board-level cybersecurity oversight did not include supply chain risk as a regular agenda item \cite{nagle_solarwinds_2023}.
 \end{enumerate}
 
 \subsection{IDENTIFY Function Assessment}
 \begin{enumerate}
-    \item \tinypara{ID.AM (Asset Management) [Inadequate]:} Build tools and infrastructure not comprehensively inventoried \cite{intelligence_open_2021}.
+    \item \tinypara{ID.AM (Asset Management) [Inadequate]:} Build tools and infrastructure not comprehensively inventoried \cite{us_open_2021}.
     \item \tinypara{ID.RA (Risk Assessment) [Inadequate]:} Supply chain compromise scenarios not included in threat modeling despite being the primary attack vector for nation-state adversaries.
 \end{enumerate}
 
