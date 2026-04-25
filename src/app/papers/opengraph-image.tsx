@@ -3,10 +3,14 @@ import { ImageResponse } from 'next/og';
 export const size = { width: 1200, height: 630 };
 export const contentType = 'image/png';
 
-async function loadMajorMono(): Promise<ArrayBuffer | undefined> {
+const UA = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36';
+
+async function loadLibreBaskerville(italic: boolean): Promise<ArrayBuffer | undefined> {
     try {
+        const variant = italic ? 'ital,wght@1,400' : 'wght@400';
         const css = await fetch(
-            'https://fonts.googleapis.com/css2?family=Major+Mono+Display'
+            `https://fonts.googleapis.com/css2?family=Libre+Baskerville:${variant}`,
+            { headers: { 'User-Agent': UA } }
         ).then((r) => r.text());
         const url = css.match(/src: url\(([^)]+)\) format\('woff2'\)/)?.[1];
         if (!url) return undefined;
@@ -17,8 +21,15 @@ async function loadMajorMono(): Promise<ArrayBuffer | undefined> {
 }
 
 export default async function Image() {
-    const fontData = await loadMajorMono();
-    const fontFamily = fontData ? 'MajorMono' : 'serif';
+    const [italicFont, regularFont] = await Promise.all([
+        loadLibreBaskerville(true),
+        loadLibreBaskerville(false),
+    ]);
+
+    const fontFamily = italicFont || regularFont ? 'LibreBaskerville' : 'serif';
+    const fonts = [];
+    if (italicFont) fonts.push({ name: 'LibreBaskerville', data: italicFont, style: 'italic' as const, weight: 400 as const });
+    if (regularFont) fonts.push({ name: 'LibreBaskerville', data: regularFont, style: 'normal' as const, weight: 400 as const });
 
     return new ImageResponse(
         (
@@ -46,22 +57,16 @@ export default async function Image() {
                             color: '#fff7ed',
                             fontSize: 80,
                             fontFamily,
+                            fontStyle: 'italic',
                             fontWeight: 400,
                             lineHeight: 1.1,
                             whiteSpace: 'pre-line',
                         }}
                     >
-                        {"papers &\nwritten records."}
+                        {"Papers &\nWritten Records."}
                     </div>
                 </div>
-                <div
-                    style={{
-                        width: '100%',
-                        height: 2,
-                        background: '#e11d48',
-                        marginBottom: 28,
-                    }}
-                />
+                <div style={{ width: '100%', height: 2, background: '#e11d48', marginBottom: 28 }} />
                 <div
                     style={{
                         display: 'flex',
@@ -74,16 +79,18 @@ export default async function Image() {
                             color: '#fff7ed',
                             fontSize: 28,
                             fontFamily,
+                            fontStyle: 'normal',
                             opacity: 0.6,
                         }}
                     >
-                        jaxen dutta
+                        Jaxen Dutta
                     </div>
                     <div
                         style={{
                             color: '#e11d48',
                             fontSize: 22,
                             fontFamily,
+                            fontStyle: 'normal',
                         }}
                     >
                         anirban.ca/papers
@@ -91,20 +98,6 @@ export default async function Image() {
                 </div>
             </div>
         ),
-        {
-            ...size,
-            ...(fontData
-                ? {
-                      fonts: [
-                          {
-                              name: 'MajorMono',
-                              data: fontData,
-                              style: 'normal' as const,
-                              weight: 400 as const,
-                          },
-                      ],
-                  }
-                : {}),
-        }
+        { ...size, ...(fonts.length > 0 ? { fonts } : {}) }
     );
 }
