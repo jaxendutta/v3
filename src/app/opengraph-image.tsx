@@ -34,8 +34,10 @@ export default async function Image() {
                     style={{
                         flex: 1,
                         display: 'flex',
-                        alignItems: 'flex-end',
+                        flexDirection: 'column',
+                        justifyContent: 'flex-end',
                         paddingBottom: '40px',
+                        gap: 16,
                     }}
                 >
                     <div
@@ -48,27 +50,27 @@ export default async function Image() {
                             lineHeight: 1.1,
                         }}
                     >
-                        Projects.
+                        Jaxen Dutta.
+                    </div>
+                    <div
+                        style={{
+                            color: '#fff7ed',
+                            fontSize: 36,
+                            fontFamily: sansFamily,
+                            opacity: 0.5,
+                        }}
+                    >
+                        UX/UI Engineer · HCI Researcher · Web Designer
                     </div>
                 </div>
                 <div style={{ width: '100%', height: 2, background: '#e11d48', marginBottom: 28 }} />
                 <div
                     style={{
                         display: 'flex',
-                        justifyContent: 'space-between',
+                        justifyContent: 'flex-end',
                         alignItems: 'center',
                     }}
                 >
-                    <div
-                        style={{
-                            color: '#fff7ed',
-                            fontSize: 54,
-                            fontFamily: sansFamily,
-                            opacity: 0.6,
-                        }}
-                    >
-                        Jaxen Dutta
-                    </div>
                     <div
                         style={{
                             color: '#e11d48',
@@ -76,7 +78,7 @@ export default async function Image() {
                             fontFamily: sansFamily,
                         }}
                     >
-                        anirban.ca/projects
+                        anirban.ca
                     </div>
                 </div>
             </div>
