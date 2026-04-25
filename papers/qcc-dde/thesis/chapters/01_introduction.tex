@@ -2,7 +2,7 @@
 \chapter{Introduction}
 %======================================================================
 
-Cancer's relentless growth poses a constant challenge to human health. In Canada alone, projections estimate nearly 90,000 people aged 35 and above will lose their lives to this disease in 2024, with numbers expected to rise significantly ~\cite{Pader2021}. This grim reality underscores the critical need for advancements in cancer research, particularly in understanding the growth dynamics of solid tumors.
+Cancer's relentless growth poses a constant challenge to human health. In Canada alone, projections estimate nearly 90,000 people aged 35 and above will lose their lives to this disease in 2024, with numbers expected to rise significantly ~\cite{pader_estimates_2021}. This grim reality underscores the critical need for advancements in cancer research, particularly in understanding the growth dynamics of solid tumors.
 
 Our report addresses this need by delving into the world of mathematical modelling.  We will focus on a \gls{dde} model to examine how tumor cell populations interact with \gls{cytotoxic} drugs.  By analyzing this interaction, we hope to gain valuable insights into developing effective treatment strategies and identifying thresholds for cancer cell \gls{relapse}.
 
@@ -13,11 +13,11 @@ Our report addresses this need by delving into the world of mathematical modelli
 This section provides a foundational understanding of three key areas relevant to our study.
 
 \begin{enumerate}
-    \item \textbf{\textit{The Cell Cycle:}} Cells undergo a tightly regulated cycle of growth, replication, and division. The cell cycle comprises four main phases: \gls{g1}, \gls{s}, \gls{g2}, and \gls{m}. The \gls{g0} represents a temporary resting state cells can enter and exit. Disruptions in cell cycle regulation can lead to uncontrolled cell proliferation, a hallmark of cancer.
+    \item \textbf{\textit{The Cell Cycle:}} Cells undergo a tightly regulated cycle of growth, replication, and division. The cell cycle comprises four main phases: \gls{g1}, \gls{s}, \gls{g2}, and \gls{m}. The \gls{g0} represents a temporary resting state cells can enter and exit. Disruptions in cell cycle regulation can lead to uncontrolled cell proliferation, a hallmark of cancer~\cite{alberts_molecular_2002}.
     %
-    \item \textbf{\textit{Tumor Growth:}} Tumors arise from abnormal cell growth and division. Understanding the dynamics of tumor growth, including cell proliferation, death, and interaction with the immune system, is essential for modelling treatment effectiveness. Mathematical models offer valuable insights into these complex dynamics~\cite{Busenberg2012}.
+    \item \textbf{\textit{Tumor Growth:}} Tumors arise from abnormal cell growth and division. Understanding the dynamics of tumor growth, including cell proliferation, death, and interaction with the immune system, is essential for modelling treatment effectiveness. Mathematical models offer valuable insights into these complex dynamics~\cite{busenberg_differential_1981}.
     %
-    \item \textbf{\textit{\gls{dde}:}} \gls{dde}s are a specific class of differential equations that incorporate time delays into the model. These delays represent the time it takes for a process to occur, such as the time it takes a cell to transition from \gls{g1} to mitosis~\cite{Niculescu2021}. \gls{dde}s are particularly well-suited for modelling biological systems with inherent time delays, such as tumor growth where cell division takes time.
+    \item \textbf{\textit{\gls{dde}:}} \gls{dde}s are a specific class of differential equations that incorporate time delays into the model. These delays represent the time it takes for a process to occur, such as the time it takes a cell to transition from \gls{g1} to mitosis~\cite{niculescu_stability_2021}. \gls{dde}s are particularly well-suited for modelling biological systems with inherent time delays, such as tumor growth where cell division takes time.
 \end{enumerate}
 
 By integrating these concepts, we establish the foundation for developing a delay differential equation model that captures the dynamics of tumor growth and treatment response. This model can be used to analyze treatment strategies and predict their impact on tumor progression.
@@ -29,9 +29,9 @@ Conventional mathematical models of tumor growth often use \gls{ode}s that captu
 \begin{enumerate}
     \item \textbf{\textit{Incorporating Cell Cycle Dynamics:}} The cell cycle, a tightly regulated process of growth and division, plays a crucial role in tumor development. \gls{dde}s can explicitly account for the time it takes for cells to transition between different phases within the cell cycle, allowing for a more realistic representation of tumor growth compared to \gls{ode} models.
 
-    \item \textbf{\textit{Modeling Drug Effects:}} Certain anti-cancer drugs target specific stages of the cell cycle. \gls{dde}s can capture the time delay between drug administration and its impact on cell proliferation. This allows for a more accurate assessment of treatment efficacy and the potential emergence of drug resistance due to time-dependent effects~\cite{Zaccagnino2017}.
+    \item \textbf{\textit{Modeling Drug Effects:}} Certain anti-cancer drugs target specific stages of the cell cycle. \gls{dde}s can capture the time delay between drug administration and its impact on cell proliferation. This allows for a more accurate assessment of treatment efficacy and the potential emergence of drug resistance due to time-dependent effects~\cite{zaccagnino_tumorreducing_2017}.
 
-    \item \textbf{\textit{Understanding Immune System Response:}} The immune system plays a critical role in controlling tumor growth. \gls{dde}s can be used to model the time delays associated with immune cell activation, recognition, and attack on tumor cells. This allows for a more comprehensive analysis of the interplay between tumor dynamics and the immune response~\cite{Butner2022}.
+    \item \textbf{\textit{Understanding Immune System Response:}} The immune system plays a critical role in controlling tumor growth. \gls{dde}s can be used to model the time delays associated with immune cell activation, recognition, and attack on tumor cells. This allows for a more comprehensive analysis of the interplay between tumor dynamics and the immune response~\cite{butner_mathematical_2022}.
 \end{enumerate}
 
 By incorporating time delays, \gls{dde} models provide a more nuanced and realistic representation of tumor growth compared to simpler \gls{ode} models. These models have the potential to be valuable tools for researchers and clinicians studying tumor biology, treatment strategies, and personalized medicine approaches.

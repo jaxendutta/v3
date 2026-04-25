@@ -14,7 +14,7 @@ Among representations tested, \gls{tfidf} with bigrams proved strongest. Local l
 
 \subsection{Model Selection and Results}
 
-Model selection uses stratified 10-fold cross-validation on a 20k sample of MedMCQA, then retrains the champion on the full 179,777-question corpus. The champion configuration, \gls{tfidf} Bigrams + \gls{lsvc}~\cite{fan2008}, achieves:
+Model selection uses stratified 10-fold cross-validation on a 20k sample of MedMCQA, then retrains the champion on the full 179,777-question corpus. The champion configuration, \gls{tfidf} Bigrams + \gls{lsvc}~\cite{fan_liblinear_2008}, achieves:
 
 \begin{itemize}
   \item CV weighted F1: $0.5424 \pm 0.0086$; Cohen's $\kappa$: $0.5089 \pm 0.0096$
@@ -31,4 +31,4 @@ Model selection uses stratified 10-fold cross-validation on a 20k sample of MedM
 
 Competing baselines performed substantially worse: \gls{bow} + \gls{lsvc} achieved F1 = 0.50, all-MiniLM-L12-v2 + \gls{lsvc} achieved F1 = 0.46, and \gls{bow} + \gls{mnb} achieved F1 = 0.46. The full comparison is shown in Figure~\ref{fig:f1_kappa}.
 
-The superiority of linear margin-based models over probabilistic baselines is consistent with prior findings on medical text classification~\cite{pedregosa2011}, suggesting it is not corpus-specific. For \gls{emma}, the routing module must be computationally efficient, deterministic, and easy to retrain --- \gls{lsvc} satisfies all three requirements.
+The superiority of linear margin-based models over probabilistic baselines is consistent with prior findings on medical text classification~\cite{pedregosa_scikitlearn_2011}, suggesting it is not corpus-specific. For \gls{emma}, the routing module must be computationally efficient, deterministic, and easy to retrain --- \gls{lsvc} satisfies all three requirements.

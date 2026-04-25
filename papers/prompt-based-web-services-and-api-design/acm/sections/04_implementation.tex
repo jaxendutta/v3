@@ -3,7 +3,7 @@
 
 \subsection{System Architecture}
 
-Our implementation demonstrates prompt-based API design through a pizza ordering service using Amazon Nova Micro (\texttt{us.amazon.nova-micro-v1:0}), selected for optimal cost-performance balance \cite{AWS_BEDROCK}. Figure \ref{fig:architecture} illustrates the serverless architecture.
+Our implementation demonstrates prompt-based API design through a pizza ordering service using Amazon Nova Micro (\texttt{us.amazon.nova-micro-v1:0}), selected for optimal cost-performance balance \cite{aws_bedrock_2025}. Figure \ref{fig:architecture} illustrates the serverless architecture.
 
 \begin{figure}[h]
 \centering
@@ -35,13 +35,13 @@ User request: {user_prompt}
 """
 \end{lstlisting}
 
-This template explicitly constrains output structure. ``Respond ONLY with valid \gls{json}'' reduces hallucination \cite{SAHOO_2025}, \cite{CHEN_2025}. Response handling addresses non-determinism through three error categories: \gls{json} parsing, schema validation, and service errors, each triggering retry, rule-based extraction, or user notification. Token accounting via \texttt{inputTokens} and \texttt{outputTokens} enables cost monitoring.
+This template explicitly constrains output structure. ``Respond ONLY with valid \gls{json}'' reduces hallucination \cite{sahoo_systematic_2025}, \cite{chen_prompt_2025}. Response handling addresses non-determinism through three error categories: \gls{json} parsing, schema validation, and service errors, each triggering retry, rule-based extraction, or user notification. Token accounting via \texttt{inputTokens} and \texttt{outputTokens} enables cost monitoring.
 
 \subsection{Results and Analysis}
 
 \textbf{Testing Methodology:} We designed a stratified test suite: (1) Standard orders (50): typical configurations; (2) Edge cases (25): unusual combinations, dietary restrictions; (3) Invalid inputs (15): nonsensical requests, prompt injection; (4) Ambiguous queries (10): underspecified orders.
 
-\textbf{Results:} 98\% accuracy on standard orders, 88\% on edge cases, 93\% on invalid handling, 94\% on ambiguous queries. Overall first-pass: 94\%. Failures concentrate in edge cases. Latency: $847ms$ ($p50$), $1,340ms$ ($p95$), acceptable for interactive use \cite{AWS_BEDROCK}.
+\textbf{Results:} 98\% accuracy on standard orders, 88\% on edge cases, 93\% on invalid handling, 94\% on ambiguous queries. Overall first-pass: 94\%. Failures concentrate in edge cases. Latency: $847ms$ ($p50$), $1,340ms$ ($p95$), acceptable for interactive use \cite{aws_bedrock_2025}.
 
 \textbf{Cost Analysis:} Table \ref{tab:cost_comparison} compares models for structured extraction:
 
@@ -62,8 +62,8 @@ Claude Haiku & 96\% & $920ms$ & \$15 & High accuracy \\
 \end{tabular}
 \end{table}
 
-Nova Micro achieves 83\% cost reduction versus Llama 3 8B \cite{AWS_NOVA} while maintaining competitive accuracy (94\% vs. 95\%), validating our "smallest sufficient model" principle for simple structured extraction tasks.
+Nova Micro achieves 83\% cost reduction versus Llama 3 8B \cite{aws_nova_2025} while maintaining competitive accuracy (94\% vs. 95\%), validating our "smallest sufficient model" principle for simple structured extraction tasks.
 
 \textbf{Limitations \& Security:} Ambiguous requests require clarification through generic fallbacks. Multi-turn conversations need session management. Complex dietary restrictions occasionally produce invalid JSON requiring retry.
 
-Security testing evaluated five attack categories: (1) Instruction override (``Ignore previous instructions...''): \textbf{BLOCKED} by system prompt isolation; (2) Role manipulation: \textbf{BLOCKED} by role constraints; (3) Output format manipulation: \textbf{PARTIALLY} vulnerable, requires Bedrock Guardrails; (4) Context injection in toppings: \textbf{BLOCKED} by input sanitization; (5) Token exhaustion: \textbf{BLOCKED} by API Gateway limits. This validates layered security: template design, input validation, Bedrock Guardrails, and API-level controls \cite{OWASP_2025, AWS_BEDROCK}.
+Security testing across five attack vectors confirmed layered defence effectiveness: instruction override (e.g., ``Ignore previous instructions...''), role manipulation, context injection, and token exhaustion were all \textbf{BLOCKED} via system prompt isolation, role constraints, input sanitization, and API Gateway limits; output format manipulation remained \textbf{PARTIALLY} vulnerable, requiring Bedrock Guardrails. This validates layered security: template design, input validation, Bedrock Guardrails, and API-level controls \cite{owasp_top_2024, aws_bedrock_2025}.

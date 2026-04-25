@@ -1,7 +1,7 @@
 \chapter{Recommender System}
 \label{ch:crs}
 
-The recommender component personalises \gls{emma}'s quiz mode by directing students toward their weakest specialties based on accumulated session performance. \gls{cf} is used because it identifies latent co-weakness patterns across students: a student weak in Anatomy is systematically more likely to be weak in Surgery, even before being tested in Surgery directly. In the absence of real session data, a synthetic dataset of 200 students was constructed with Gaussian-distributed accuracy scores, each student assigned 1-2 weak specialties (mean accuracy $\approx$ 0.30) and stronger performance elsewhere (mean $\approx$ 0.75). Four algorithms from the Surprise library \cite{hug2020} were evaluated using 5-fold cross-validation with \gls{loo} evaluation for the ranking metrics: 
+The recommender component personalises \gls{emma}'s quiz mode by directing students toward their weakest specialties based on accumulated session performance. \gls{cf} is used because it identifies latent co-weakness patterns across students: a student weak in Anatomy is systematically more likely to be weak in Surgery, even before being tested in Surgery directly. In the absence of real session data, a synthetic dataset of 200 students was constructed with Gaussian-distributed accuracy scores, each student assigned 1-2 weak specialties (mean accuracy $\approx$ 0.30) and stronger performance elsewhere (mean $\approx$ 0.75). Four algorithms from the Surprise library \cite{hug_surprise_2020} were evaluated using 5-fold cross-validation with \gls{loo} evaluation for the ranking metrics: 
 
 \begin{enumerate}
     \item \gls{svd}: A matrix factorisation method that decomposes the student-specialty performance matrix into latent factors.

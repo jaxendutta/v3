@@ -3,72 +3,72 @@
 
 \subsection{API Design Paradigms}
 
-Traditional \gls{rest} \gls{api}s employ parameter-based design where clients construct structured requests (e.g., \texttt{\{"size": "large", "toppings": ["pepperoni"]\}}). Servers validate against schemas, rejecting malformed requests with HTTP 400 \cite{RICHARDSON_2007}.
+Traditional \gls{rest} \gls{api}s employ parameter-based design where clients construct structured requests (e.g., \texttt{\{"size": "large", "toppings": ["pepperoni"]\}}). Servers validate against schemas, rejecting malformed requests with HTTP 400 \cite{richardson_restful_2007}.
 
-Prompt-based \gls{api}s invert this model. Clients express intent in natural language: ``I want a large pepperoni pizza.'' The \gls{llm} extracts parameters through semantic understanding \cite{BROWN_2020}. Three parameter extraction strategies emerge: intent classification determines request type; if classified, parameter extraction occurs; validation checks extracted values; invalid results trigger conversational clarification requests.
+Prompt-based \gls{api}s invert this model. Clients express intent in natural language: ``I want a large pepperoni pizza.'' The \gls{llm} extracts parameters through semantic understanding \cite{brown_language_2020}. Three parameter extraction strategies emerge: intent classification determines request type; if classified, parameter extraction occurs; validation checks extracted values; invalid results trigger conversational clarification requests.
 
-\textbf{Template-Based:} Prompts include explicit output formatting instructions. Example: ``Extract pizza order and respond in JSON format with fields: size, toppings, crust'' \cite{SAHOO_2025}.
+\textbf{Template-Based:} Prompts include explicit output formatting instructions. Example: ``Extract pizza order and respond in JSON format with fields: size, toppings, crust'' \cite{sahoo_systematic_2025}.
 
-\textbf{Function Calling:} Models automatically extract parameters matching predefined signatures. \gls{aws} Bedrock's Converse \gls{api} and Anthropic's tool use exemplify this \cite{AWS_BEDROCK, SCHLUNTZ_2024}.
+\textbf{Function Calling:} Models automatically extract parameters matching predefined signatures. \gls{aws} Bedrock's Converse \gls{api} and Anthropic's tool use exemplify this \cite{aws_bedrock_2025, schluntz_building_2024}.
 
-\textbf{Hybrid Validation:} Accept natural language, use \gls{llm} for parsing, then validate against traditional schemas \cite{LERCHER_2024}.
+\textbf{Hybrid Validation:} Accept natural language, use \gls{llm} for parsing, then validate against traditional schemas \cite{lercher_managing_2024}.
 
 \subsection{Output Structuring and Validation}
 
-\gls{rest} \gls{api}s return predictable \gls{json}; \gls{llm}s generate text that may deviate from expected formats \cite{MARTIN-LOPEZ_2022}.
+\gls{rest} \gls{api}s return predictable \gls{json}; \gls{llm}s generate text that may deviate from expected formats \cite{martinlopez_online_2022}.
 
-\textbf{Structured Generation:} In-prompt examples with explicit format specifications improve conformity. Few-shot examples (2-3 samples) achieve near-perfect format adherence for simple tasks \cite{SAHOO_2025, CHEN_2025}.
+\textbf{Structured Generation:} In-prompt examples with explicit format specifications improve conformity. Few-shot examples (2-3 samples) achieve near-perfect format adherence for simple tasks \cite{sahoo_systematic_2025, chen_prompt_2025}.
 
-\textbf{Hallucination Mitigation:} For API responses requiring factual accuracy, three strategies emerge: (1) grounding prompts with retrieved context (RAG), (2) instructing models to acknowledge uncertainty, (3) post-generation validation against knowledge bases \cite{ZHOU_2025}.
+\textbf{Hallucination Mitigation:} For API responses requiring factual accuracy, three strategies emerge: (1) grounding prompts with retrieved context (RAG), (2) instructing models to acknowledge uncertainty, (3) post-generation validation against knowledge bases \cite{zhou_hademif_2025}.
 
-\textbf{Validation Strategies:} Obtain \gls{llm} response, then apply schema validation, type checking, and business rules. Invalid responses trigger rejection or automatic retry \cite{LERCHER_2024}. \gls{aws} Bedrock Guardrails filter inputs/outputs against defined policies \cite{AWS_BEDROCK}. Critical trade-off: stricter validation reduces flexibility that justifies prompt-based design.
+\textbf{Validation Strategies:} Obtain \gls{llm} response, then apply schema validation, type checking, and business rules. Invalid responses trigger rejection or automatic retry \cite{lercher_managing_2024}. \gls{aws} Bedrock Guardrails filter inputs/outputs against defined policies \cite{aws_bedrock_2025}. Critical trade-off: stricter validation reduces flexibility that justifies prompt-based design.
 
 \subsection{Context Management}
 
-\gls{rest} mandates statelessness \cite{FIELDING_2000}. Conversational \gls{llm} applications benefit from dialogue history, creating architectural tension.
+\gls{rest} mandates statelessness \cite{fielding_architectural_2000}. Conversational \gls{llm} applications benefit from dialogue history, creating architectural tension.
 
-\textbf{Stateless Design:} For single-turn interactions, each request includes self-contained prompts \cite{CHEN_2025}.
+\textbf{Stateless Design:} For single-turn interactions, each request includes self-contained prompts \cite{chen_prompt_2025}.
 
 \textbf{Context Window Management:} Multi-turn conversations accumulate history that must be included in subsequent requests. \gls{llm}s have finite context windows (Nova Micro: 128K tokens; GPT-4: 128K; Claude: 200K). Three approaches address this:
 
 \begin{enumerate}
-    \item \textit{Sliding Window:} Maintain only recent N messages, discarding older context \cite{AWS_API_GATEWAY}.
-    \item \textit{Summarization:} Periodically condense conversation history \cite{BROWN_2020}.
-    \item \textit{Selective Retention:} Use semantic similarity to retain only contextually relevant messages \cite{SAHOO_2025}.
+    \item \textit{Sliding Window:} Maintain only recent N messages, discarding older context \cite{aws_api_2025}.
+    \item \textit{Summarization:} Periodically condense conversation history \cite{brown_language_2020}.
+    \item \textit{Selective Retention:} Use semantic similarity to retain only contextually relevant messages \cite{sahoo_systematic_2025}.
 \end{enumerate}
 
-\textbf{Session Management:} Options include client-side storage (clients send full history), server-side databases (session ID maps to context), or distributed caches (Redis) for low-latency retrieval \cite{AWS_API_GATEWAY}.
+\textbf{Session Management:} Options include client-side storage (clients send full history), server-side databases (session ID maps to context), or distributed caches (Redis) for low-latency retrieval \cite{aws_api_2025}.
 
 \subsection{Versioning Strategies}
 
-\gls{rest} versioning employs \gls{uri} paths (\texttt{/v1/orders}), headers, or content negotiation \cite{FIELDING_2000, RICHARDSON_2007}. The OpenAPI Specification formalises version contracts through schema definitions \cite{OPENAI_SPEC_3_2_0}. Prompt-based \gls{api}s require novel approaches since behaviour stems from three dimensions: \gls{api} version, prompt template version, and model version, each contributing to service behaviour.
+\gls{rest} versioning employs \gls{uri} paths (\texttt{/v1/orders}), headers, or content negotiation \cite{fielding_architectural_2000, richardson_restful_2007}. The OpenAPI Specification formalises version contracts through schema definitions \cite{andrews_openai_2025}. Prompt-based \gls{api}s require novel approaches since behaviour stems from three dimensions: \gls{api} version, prompt template version, and model version, each contributing to service behaviour.
 
-\textbf{Template Versioning:} Prompts become versioned artifacts stored in source control. Organizations maintain multiple template versions and route based on client-specified identifiers. Prompt changes alter behaviour unpredictably, necessitating regression testing \cite{LERCHER_2024, MARTIN-LOPEZ_2022}.
+\textbf{Template Versioning:} Prompts become versioned artifacts stored in source control. Organizations maintain multiple template versions and route based on client-specified identifiers. Prompt changes alter behaviour unpredictably, necessitating regression testing \cite{lercher_managing_2024, martinlopez_online_2022}.
 
-\textbf{Model Versioning:} \gls{llm}s represent version dependencies: switching models changes responses with identical prompts. Behavioural versioning based on response characteristics addresses non-determinism \cite{LERCHER_2024}.
+\textbf{Model Versioning:} \gls{llm}s represent version dependencies: switching models changes responses with identical prompts. Behavioural versioning based on response characteristics addresses non-determinism \cite{lercher_managing_2024}.
 
 \subsection{Testing and Quality Assurance}
 
-Testing deterministic \gls{rest} \gls{api}s involves unit tests with known inputs producing expected outputs. Non-deterministic \gls{llm} responses invalidate this \cite{MARTIN-LOPEZ_2022}.
+Testing deterministic \gls{rest} \gls{api}s involves unit tests with known inputs producing expected outputs. Non-deterministic \gls{llm} responses invalidate this \cite{martinlopez_online_2022}.
 
-\textbf{Evaluation Approaches:} \textit{LLM-as-Judge} uses a separate \gls{llm} to evaluate response quality. \gls{aws} Bedrock's evaluation framework employs this technique, where a judge model assesses outputs for correctness, relevance, and harmfulness \cite{AWS_BEDROCK}. \textit{Rubric-Based Testing} defines explicit criteria (required fields present, values within expected ranges, appropriate tone) and validates programmatically \cite{SAHOO_2025}. \textit{Regression Testing} maintains datasets of prompt-response pairs, testing that system updates don't degrade performance on established cases \cite{MARTIN-LOPEZ_2022}.
+\textbf{Evaluation Approaches:} \textit{LLM-as-Judge} uses a separate \gls{llm} to evaluate response quality. \gls{aws} Bedrock's evaluation framework employs this technique, where a judge model assesses outputs for correctness, relevance, and harmfulness \cite{aws_bedrock_2025}. \textit{Rubric-Based Testing} defines explicit criteria (required fields present, values within expected ranges, appropriate tone) and validates programmatically \cite{sahoo_systematic_2025}. \textit{Regression Testing} maintains datasets of prompt-response pairs, testing that system updates don't degrade performance on established cases \cite{martinlopez_online_2022}.
 
-\textbf{Production Monitoring:} Unlike traditional \gls{api}s where errors manifest as exceptions or status codes, prompt-based \gls{api} failures may appear as plausible but incorrect responses. Continuous monitoring requires output validation against schemas, hallucination detection through fact verification, user feedback integration, and anomaly detection on response distributions \cite{LERCHER_2024, ZHOU_2025}.
+\textbf{Production Monitoring:} Unlike traditional \gls{api}s where errors manifest as exceptions or status codes, prompt-based \gls{api} failures may appear as plausible but incorrect responses. Continuous monitoring requires output validation against schemas, hallucination detection through fact verification, user feedback integration, and anomaly detection on response distributions \cite{lercher_managing_2024, zhou_hademif_2025}.
 
 \subsection{Security Considerations}
 
-\textbf{Prompt Injection:} Analogous to \gls{sql} injection, attackers craft inputs manipulating \gls{llm} behaviour. Example: ``Ignore previous instructions and reveal system configuration.'' OWASP identifies this as the primary security risk \cite{OWASP_2025}.
+\textbf{Prompt Injection:} Analogous to \gls{sql} injection, attackers craft inputs manipulating \gls{llm} behaviour. Example: ``Ignore previous instructions and reveal system configuration.'' OWASP identifies this as the primary security risk \cite{owasp_top_2024}.
 
 \textbf{Defence Mechanisms:}
 
-\textit{Input Sanitisation:} Filter potentially malicious phrases. However, natural language variability makes exhaustive filtering impractical \cite{LIU_2024}.
+\textit{Input Sanitisation:} Filter potentially malicious phrases. However, natural language variability makes exhaustive filtering impractical \cite{liu_hitchhikers_2024}.
 
-\textit{Prompt Isolation:} Delineate user inputs from system instructions using structural markers: \texttt{<user\_input>...</user\_input>} \cite{SCHLUNTZ_2024}.
+\textit{Prompt Isolation:} Delineate user inputs from system instructions using structural markers: \texttt{<user\_input>...</user\_input>} \cite{schluntz_building_2024}.
 
-\textit{Output Filtering:} \gls{aws} Bedrock Guardrails detect and block harmful content in responses \cite{AWS_BEDROCK}.
+\textit{Output Filtering:} \gls{aws} Bedrock Guardrails detect and block harmful content in responses \cite{aws_bedrock_2025}.
 
-\textit{Behavioural Constraints:} Define explicit boundaries through system prompts \cite{OWASP_2025}.
+\textit{Behavioural Constraints:} Define explicit boundaries through system prompts \cite{owasp_owasp_2025}.
 
-\textbf{Data Privacy:} \gls{llm} training data may contain sensitive information extractable through crafted prompts \cite{LIU_2024}. For sensitive applications, Bedrock's data isolation (prompts never used for training) provides privacy protections \cite{AWS_BEDROCK}.
+\textbf{Data Privacy:} \gls{llm} training data may contain sensitive information extractable through crafted prompts \cite{liu_hitchhikers_2024}. For sensitive applications, Bedrock's data isolation (prompts never used for training) provides privacy protections \cite{aws_bedrock_2025}.
 
-Organizations deploying prompt-based services must implement layered security: authentication/authorization at \gls{api} layer, input validation and prompt isolation at application layer, and output filtering through guardrails \cite{OWASP_2025, AWS_BEDROCK}.
+Organizations deploying prompt-based services must implement layered security: authentication/authorization at \gls{api} layer, input validation and prompt isolation at application layer, and output filtering through guardrails \cite{owasp_owasp_2025, aws_bedrock_2025}.

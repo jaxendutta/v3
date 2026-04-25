@@ -3,9 +3,9 @@
 
 \subsection{REST vs. Prompt-Based APIs}
 
-\gls{rest} defines architectural constraints for distributed systems: statelessness (requests contain all necessary information) and uniform interface (standard \gls{http} verbs with typed schemas) \cite{FIELDING_2000}. \gls{rest} \gls{api}s excel at \gls{crud} operations with deterministic, validated responses \cite{RICHARDSON_2007}.
+\gls{rest} defines architectural constraints for distributed systems: statelessness (requests contain all necessary information) and uniform interface (standard \gls{http} verbs with typed schemas) \cite{fielding_architectural_2000}. \gls{rest} \gls{api}s excel at \gls{crud} operations with deterministic, validated responses \cite{richardson_restful_2007}.
 
-Prompt-based \gls{api}s violate these principles fundamentally. Natural language lacks fixed schemas; the same intent can be expressed infinitely. Statelessness conflicts with conversational context. Yet this flexibility, enabled by transformer architectures \cite{VASWANI_2017}, provides unprecedented interface simplicity \cite{BROWN_2020}. Table \ref{tab:api_comparison} contrasts key properties.
+Prompt-based \gls{api}s violate these principles fundamentally. Natural language lacks fixed schemas; the same intent can be expressed infinitely. Statelessness conflicts with conversational context. Yet this flexibility, enabled by transformer architectures \cite{vaswani_attention_2017}, provides unprecedented interface simplicity \cite{brown_language_2020}. Table \ref{tab:api_comparison} contrasts key properties.
 
 \begin{table}[h]
 \centering
@@ -38,10 +38,10 @@ Cost & Compute/storage & Pay-per-token \\
 \begin{enumerate}
     \item \textbf{Direct Prompt:} Single-turn, stateless interactions for classification or extraction tasks.
     \item \textbf{Conversational:} Multi-turn interactions requiring context management, e.g., customer support.
-    \item \textbf{Agentic:} LLMs with tool access, necessitating secure function calling and sandboxing \cite{AWS_BEDROCK, SCHLUNTZ_2024}.
-    \item \textbf{Hybrid:} Combining REST for transactional operations with prompts for flexible tasks, e.g., using REST for order processing and prompts for customer queries \cite{LERCHER_2024, CHEN_2025}.
+    \item \textbf{Agentic:} LLMs with tool access, necessitating secure function calling and sandboxing \cite{aws_bedrock_2025, schluntz_building_2024}.
+    \item \textbf{Hybrid:} Combining REST for transactional operations with prompts for flexible tasks, e.g., using REST for order processing and prompts for customer queries \cite{lercher_managing_2024, chen_prompt_2025}.
 \end{enumerate}
 
 \subsection{AWS Bedrock Platform}
 
-Bedrock provides managed foundation model access via unified \gls{api} \cite{AWS_BEDROCK}. \textbf{No free tier; all inference is pay-per-use.} Nova Micro costs \$0.000035 per 1K input tokens, the lowest on Bedrock \cite{AWS_NOVA}. Bedrock's Converse \gls{api} normalizes provider-specific formatting, enabling model swapping without client changes, which is critical for flexible service design \cite{AWS_BEDROCK}.
+Bedrock provides managed foundation model access via unified \gls{api} \cite{aws_bedrock_2025}. \textbf{No free tier; all inference is pay-per-use.} Nova Micro costs \$0.000035 per 1K input tokens, the lowest on Bedrock \cite{aws_nova_2025}. Bedrock's Converse \gls{api} normalizes provider-specific formatting, enabling model swapping without client changes, which is critical for flexible service design \cite{aws_bedrock_2025}.

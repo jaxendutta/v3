@@ -2,11 +2,11 @@
 \section{The Delay Differential Equation Model}
 \label{sec:model}
 
-The model, originally proposed by Villasana and Radunskaya~\cite{villasana2003} and extended in~\cite{villasana2004}, tracks four coupled populations: $T_I(t)$ (tumor cells in interphase), $T_M(t)$ (tumor cells in mitosis), $I(t)$ (immune cells), and $u(t)$ (drug concentration).
+The model, originally proposed by Villasana and Radunskaya~\cite{villasana_delay_2003} and extended in~\cite{villasana_heuristic_2004}, tracks four coupled populations: $T_I(t)$ (tumor cells in interphase), $T_M(t)$ (tumor cells in mitosis), $I(t)$ (immune cells), and $u(t)$ (drug concentration).
 
 \subsection{Assumptions}
 
-All mathematical models of biological systems are simplifications. The key assumptions here are~\cite{villasana2003}: (1) mitosis is instantaneous relative to the overall cell cycle duration; (2) the drug specifically targets and arrests tumor cells during mitosis; (3) the drug is cytotoxic to both tumor and immune cells, reflecting the bone marrow toxicity common to many chemotherapy agents; (4) the quiescent $G_0$ phase is excluded from the base model, despite quiescent cells being estimated to comprise roughly 20\% of total tumor mass and are largely resistant to chemotherapy. This exclusion is addressed in Section~\ref{sec:extension}; (5) drug concentration decays exponentially, corresponding to a single-compartment pharmacokinetic model.
+All mathematical models of biological systems are simplifications. The key assumptions here are~\cite{villasana_delay_2003}: (1) mitosis is instantaneous relative to the overall cell cycle duration; (2) the drug specifically targets and arrests tumor cells during mitosis; (3) the drug is cytotoxic to both tumor and immune cells, reflecting the bone marrow toxicity common to many chemotherapy agents; (4) the quiescent $G_0$ phase is excluded from the base model, despite quiescent cells being estimated to comprise roughly 20\% of total tumor mass and are largely resistant to chemotherapy. This exclusion is addressed in Section~\ref{sec:extension}; (5) drug concentration decays exponentially, corresponding to a single-compartment pharmacokinetic model.
 
 \subsection{System of Equations}
 
@@ -38,9 +38,9 @@ In Equation~\ref{eq:I}, the Michaelis-Menten term models immune stimulation by t
 \subsection{Parameters}
 
 \begin{table}[H]
-  \caption{Parameter values from~\cite{villasana2004} (non-dimensional). We use
+  \caption{Parameter values from~\cite{villasana_heuristic_2004} (non-dimensional). We use
     $\gamma := \lambda_2 = 0.85$ following the single-drug-term base
-    model~\cite{villasana2003}.}
+    model~\cite{villasana_delay_2003}.}
   \label{tab:params}
   \small
   \begin{tabular}{llll}

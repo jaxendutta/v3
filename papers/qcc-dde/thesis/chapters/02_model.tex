@@ -2,7 +2,7 @@
 \chapter{The Existing Delay Differential Equation Model}
 %======================================================================
 
-This chapter details a mathematical model for tumor growth originally proposed by Villasana and Radunskaya (2003)~\cite{villasana2003}. The model incorporates delay differential equations to represent the time it takes for tumor cells to transition through different phases of the cell cycle.
+This chapter details a mathematical model for tumor growth originally proposed by Villasana and Radunskaya (2003)~\cite{villasana_delay_2003}. The model incorporates delay differential equations to represent the time it takes for tumor cells to transition through different phases of the cell cycle.
 
 \section{Defining the Model}
 
@@ -21,16 +21,16 @@ The model tracks four key populations:
 
 %Several assumptions about the biological system have been made by the authors:
 
-All mathematical models of biological phenomena are simplifications of real-world systems. Here, we outline the key assumptions underlying the model described in~\cite{villasana2003}:
+All mathematical models of biological phenomena are simplifications of real-world systems. Here, we outline the key assumptions underlying the model described in~\cite{villasana_delay_2003}:
 
 \begin{itemize}
     \item \textbf{\textit{Instantaneous Mitosis:}} Mitosis, the cell division process, is assumed to be instantaneous compared to the overall cell cycle duration.
     %
     \item \textbf{Drug Targeting Mitosis:} The drug is modelled to specifically target and arrest tumor cells during mitosis. This arrest ultimately leads to cell death. Note that the authors use \gls{growth arrest} and cytotoxicity interchangeably in this context.
     %
-    \item \textbf{Drug Impact on Both Cell Types:} The drug is assumed to affect both tumor cells and immune cells. This is because some \gls{chemotherapy} drugs can be cytotoxic to rapidly dividing cells, including those in the bone marrow where immune cells are produced.~\cite{villasana2003}
+    \item \textbf{Drug Impact on Both Cell Types:} The drug is assumed to affect both tumor cells and immune cells. This is because some \gls{chemotherapy} drugs can be cytotoxic to rapidly dividing cells, including those in the bone marrow where immune cells are produced.~\cite{villasana_delay_2003}
     %
-    \item \textbf{Exclusion of \gls{g0} Phase: } The model does not explicitly consider a subpopulation of tumor cells residing in a dormant state, known as the \gls{g0} phase. These quiescent cells are less susceptible to most chemotherapeutic agents and are estimated to comprise roughly 20\% of the total tumor cell population~\cite{villasana2003}. Excluding this phase is a simplification, and the authors acknowledge that its inclusion could be valuable for future exploration.
+    \item \textbf{Exclusion of \gls{g0} Phase: } The model does not explicitly consider a subpopulation of tumor cells residing in a dormant state, known as the \gls{g0} phase. These quiescent cells are less susceptible to most chemotherapeutic agents and are estimated to comprise roughly 20\% of the total tumor cell population~\cite{villasana_delay_2003}. Excluding this phase is a simplification, and the authors acknowledge that its inclusion could be valuable for future exploration.
     %
     \item \textbf{Exponential Drug Decay: } Drug concentration is assumed to decay exponentially over time, a common characteristic of many drugs with a single \gls{half-life} parameter. 
 \end{itemize}
@@ -59,13 +59,13 @@ $k=0.036$              & $n=3$                & $\lambda_1=126.12$     & $\lambd
 $k_1=0.47$             & $k_2=0.57$           & $k_3=0.49$             & $k_4 = 0.061$          \\ \hline
 $r_1 = 0.73$            & $r_2 = 0.27$         &                        &                        \\ \hline
 \end{tabular}
-\caption{Parameter values used in \cite{villasana2004} (non-dimensional)}
+\caption{Parameter values used in \cite{villasana_heuristic_2004} (non-dimensional)}
 \label{table:parameter values}
 \end{table}
 
-Table \ref{table:parameter values} shows the parameter values used in~\cite{villasana2004}. It is important to note that these values are non-dimensional.
+Table \ref{table:parameter values} shows the parameter values used in~\cite{villasana_heuristic_2004}. It is important to note that these values are non-dimensional.
 
-We are using the parameter values from Villasana and Ochoa's 2004 paper~\cite{villasana2004}, as Villasana and Radunskaya's 2003 paper did not include parameters related to drug interaction.~\cite{villasana2003}
+We are using the parameter values from Villasana and Ochoa's 2004 paper~\cite{villasana_heuristic_2004}, as Villasana and Radunskaya's 2003 paper did not include parameters related to drug interaction.~\cite{villasana_delay_2003}
 
 The table below provides a brief description of some key parameters used in the model:
 
@@ -89,7 +89,7 @@ The table below provides a brief description of some key parameters used in the 
 \label{table:parameter descriptions}
 \end{table}
 
-\textbf{Note:} The original model in~\cite{villasana2003} used a single drug term instead of $\lambda_i$ and $r_i$. This new set of parameters was used in~\cite{villasana2004} where the authors use a modified model with two drug terms. For our model \cite{villasana2003}, we elect to use $ \gamma := \lambda_2$.
+\textbf{Note:} The original model in~\cite{villasana_delay_2003} used a single drug term instead of $\lambda_i$ and $r_i$. This new set of parameters was used in~\cite{villasana_heuristic_2004} where the authors use a modified model with two drug terms. For our model \cite{villasana_delay_2003}, we elect to use $ \gamma := \lambda_2$.
 
 By analyzing these equations and parameter definitions, we can gain a deeper understanding of the biological processes. The following is a deconstruction of the model equations (\ref{the model}) to further clarify their biological meaning.
 

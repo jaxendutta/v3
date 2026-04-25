@@ -4,7 +4,7 @@
 
 \subsection{Motivation}
 
-The base model's exclusion of the \gls{g0} phase is a known simplification. \gls{qcc}s are a dormant subpopulation estimated to comprise roughly 20\% of the total tumor cell population~\cite{villasana_delay_2003}. Because the drug in the base model targets cells during mitosis, \gls{qcc}s are largely invisible to treatment. They survive the chemotherapy course and can reactivate to repopulate the tumor after treatment ends~\cite{rhim_tumor_2019}. This mechanism is linked directly to tumor dormancy and late relapse, motivating the extension.
+The base model's exclusion of the \gls{g0} phase is a known simplification. \gls{qcc}s are a dormant subpopulation estimated to comprise roughly 20\% of the total tumor cell population~\cite{villasana_delay_2003}. Because the drug in the base model targets cells during mitosis, \gls{qcc}s are largely invisible to treatment. They survive the chemotherapy course and can reactivate to repopulate the tumor after treatment ends~\cite{davis_tumor_2019}. This mechanism is linked directly to tumor dormancy and late relapse, motivating the extension.
 
 \subsection{Extended Model}
 
@@ -63,4 +63,4 @@ The tumor's ability to evade chemotherapy depends critically on $a_q$ and $d_q$,
   \label{fig:basin-extended}
 \end{figure}
 
-Figure~\ref{fig:basin-extended} reveals a clear threshold at approximately $a_q = d_q \approx 0.0025$. Below this boundary, the drug regimen successfully drives the system into the tumor-free basin. Above it, the quiescent subpopulation is sufficiently active to sustain tumor regrowth despite treatment. This threshold represents a practical relapse boundary: tumors with quiescence dynamics above this level require qualitatively different treatment strategies, specifically agents that can target and eliminate dormant cells in addition to proliferating ones.
+Figure~\ref{fig:basin-extended} reveals a clear threshold at approximately $a_q = d_q \approx 0.0025$. Below this boundary, the drug regimen successfully drives the system into the tumor-free basin. Above it, the quiescent subpopulation is sufficiently active to sustain tumor regrowth despite treatment. This threshold represents a practical relapse boundary: tumors with quiescence dynamics above this level require qualitatively different treatment strategies, specifically agents that can target and eliminate dormant cells in addition to proliferating ones~\cite{zaccagnino_tumorreducing_2017}.

@@ -6,4 +6,4 @@ This paper demonstrates that textbook-grounded \gls{rag} can improve small local
 
 The 30\gls{pp} gap to \gls{amg-rag} (74.1\%) reflects \gls{llm} parameter scale, static vs.\ dynamic retrieval, and the absence of task-specific fine-tuning(Section~\ref{sec:ablation}). Closing it would require scaling beyond the T4 \gls{vram} budget and replacing the static textbook corpus with live PubMed querying.
 
-The five pipeline components --- \gls{ner} (F1-improving for biomedical embeddings), classification (F1 = 0.69, 19 specialties), clustering (55 coherent topics), \gls{rag} ($+11$\gls{pp} under optimal conditions), and \gls{knnb} recommender (HR@10 = 0.740) --- constitute a functional, evaluated, and reproducible medical study agent.
+The five pipeline components of \gls{ner} (F1-improving for biomedical embeddings), classification (F1 = 0.69, 19 specialties), clustering (55 coherent topics), \gls{rag} ($+11$\gls{pp} under optimal conditions), and \gls{knnb} recommender (HR@10 = 0.740) constitute a functional, evaluated, and reproducible medical study agent.

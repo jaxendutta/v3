@@ -2,13 +2,13 @@
 
 Medical exam preparation is a laborious task requiring extensive rote practice to internalise clinical vocabulary, symptom presentations, conditions, risk thresholds, and pharmacological details. Independent study is difficult without feedback, peer interaction, or access to professional tutoring. These are resources that are unevenly distributed across the candidate population. \gls{emma} addresses this by providing an accessible, textbook-grounded conversational study agent capable of both answering clinical questions and administering adaptive quiz sessions. 
 
-This project builds directly on the \gls{amg-rag} methodology introduced by \citet{rezaei2025}, using the same MedQA-\gls{usmle} and MedMCQA datasets. The choice to frame \gls{emma} as a study agent rather than a triaging system reflects the nature of these datasets: their multiple-choice structure, specialty labels, and associated textbook corpus are ideally suited to exam preparation rather than clinical decision support.
+This project builds directly on the \gls{amg-rag} methodology introduced by \citet{rezaei_agentic_2025}, using the same MedQA-\gls{usmle} and MedMCQA datasets. The choice to frame \gls{emma} as a study agent rather than a triaging system reflects the nature of these datasets: their multiple-choice structure, specialty labels, and associated textbook corpus are ideally suited to exam preparation rather than clinical decision support.
 
 \section{Vocabulary and Term Definitions}
 
 Before any \gls{ml} component is applied, the input space must be anchored to clinically valid terminology. Patient and student queries may use lay language (``chest hurts'', ``can't breathe'') that must be mapped to accepted medical terms (e.g., chest pain, dyspnea).
 
-We define the accepted vocabulary $\Sigma$ as the set of clinical entity spans recognisable by the \texttt{en\_ner\_bc5cdr\_md} biomedical \gls{ner} model \cite{neumann2019}, specifically, spans labelled as \texttt{DISEASE} or \texttt{CHEMICAL} under the BC5CDR annotation schema. This model was trained on 1,500 PubMed articles and recognises 5,818 disease and 4,409 chemical entity types. \texttt{en\_core\_sci\_md} was replaced and not used for entity extraction since it outputs a single generic `ENTITY' label unsuitable for typed retrieval rewriting. 
+We define the accepted vocabulary $\Sigma$ as the set of clinical entity spans recognisable by the \texttt{en\_ner\_bc5cdr\_md} biomedical \gls{ner} model \cite{neumann_scispacy_2019}, specifically, spans labelled as \texttt{DISEASE} or \texttt{CHEMICAL} under the BC5CDR annotation schema. This model was trained on 1,500 PubMed articles and recognises 5,818 disease and 4,409 chemical entity types. \texttt{en\_core\_sci\_md} was replaced and not used for entity extraction since it outputs a single generic `ENTITY' label unsuitable for typed retrieval rewriting. 
 
 Vocabulary coverage is extended by a \gls{pmi}-derived thesaurus mapping lay terms to clinical co-occurrents, constructed from collocation analysis of the MedQA training corpus (Chapter \ref{ch:ner_collocation}). Only tokens belonging to $\Sigma$ are extracted and used for \gls{faiss} query rewriting. Input text is otherwise passed to the \gls{llm} in full. This design separates the retrieval query (entity-focused, precise) from the generation prompt (full context, natural language).
 
@@ -16,7 +16,7 @@ Vocabulary coverage is extended by a \gls{pmi}-derived thesaurus mapping lay ter
 
 The central research question is: does textbook-grounded \gls{rag} improve small, locally-run \gls{llm} accuracy on MedQA compared to a no-retrieval baseline, and under what conditions? 
 
-This question is addressed by a six-run ablation grid varying embedding model (Qwen3-Embedding-0.6B, Octen-Embedding-0.6B), \gls{llm} (Qwen3-4B, Qwen3-4B-Thinking-2507), and \gls{rag} condition (on/off), evaluated on 100 MedQA questions per run. Results are compared against the \gls{amg-rag} reference of 74.1\% F1 on MedQA using GPT-4o-mini and a dynamic PubMed knowledge graph \cite{rezaei2025}.
+This question is addressed by a six-run ablation grid varying embedding model (Qwen3-Embedding-0.6B, Octen-Embedding-0.6B), \gls{llm} (Qwen3-4B, Qwen3-4B-Thinking-2507), and \gls{rag} condition (on/off), evaluated on 100 MedQA questions per run. Results are compared against the \gls{amg-rag} reference of 74.1\% F1 on MedQA using GPT-4o-mini and a dynamic PubMed knowledge graph \cite{rezaei_agentic_2025}.
 
 \section{Architecture}
 

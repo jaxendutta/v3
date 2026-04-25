@@ -38,15 +38,15 @@ The optimization of charging infrastructure placement presents a complex multi-o
 
     \item \textbf{Coverage parameters} define service areas through radii $r^2$ and $r^3$ for \gls{l2} and \gls{l3} stations, with minimum coverage requirements $\alpha^2$ and $\alpha^3$ ensuring adequate service distribution. 
     
-    These values, detailed in Table \ref{tab:coverage-parameters} of the Appendix, were established based on standard urban mobility patterns and charging technology specifications from SparkCharge (2024). \cite{spark2024}
+    These values, detailed in Table \ref{tab:coverage-parameters} of the Appendix, were established based on standard urban mobility patterns and charging technology specifications from National Resources Canada. \cite{nrc_electric_2024}
 
-    \item \textbf{Cost parameters}, outlined in Table \ref{tab:cost-parameters} of the Appendix, encompass fixed costs $c_2^s$ and $c_3^s$ for new station installations, alongside per-port costs $c_2^p$ and $c_3^p$. The model incorporates a resale value factor $\beta$ for equipment recovery during \gls{l2} to \gls{l3} upgrades, with all expenditures constrained by the total available budget $B$. \cite{joyce2023}
+    \item \textbf{Cost parameters}, outlined in Table \ref{tab:cost-parameters} of the Appendix, encompass fixed costs $c_2^s$ and $c_3^s$ for new station installations, alongside per-port costs $c_2^p$ and $c_3^p$. The model incorporates a resale value factor $\beta$ for equipment recovery during \gls{l2} to \gls{l3} upgrades, with all expenditures constrained by the total available budget $B$. \cite{nrc_electric_2024}
     
-    These financial parameters were derived from current market data and industry cost analyses. \cite{future2022}
+    These financial parameters were derived from current market data and industry cost analyses. \cite{dinello_what_2022}
 
     \item \textbf{Infrastructure parameters} define technical specifications, including level-specific minimum charging port requirements $p_2$ and $p_3$, and power requirements $g_2$ and $g_3$ per charging port. These specifications must respect local grid capacity $G_i$ at each location, as detailed in Table \ref{tab:infrastructure-parameters} of the Appendix. 
     
-    The values align with grid capacity assessments from the IESO Kitchener-Waterloo-Cambridge-Guelph Region Integrated Regional Resource Plan \cite{ieso2021}.
+    The values align with grid capacity assessments from the IESO Kitchener-Waterloo-Cambridge-Guelph Region Integrated Regional Resource Plan \cite{ieso_kwc_2021}.
 \end{enumerate}
 
 \section{Decision Variables}
@@ -122,7 +122,7 @@ Four essential constraint categories ensure practical feasibility and operationa
         \label{eq:const-coverage-req-l3}
     \end{align}
 
-    \item \textbf{Grid capacity constraints} ensure that power requirements at each location remain within local electrical infrastructure limitations. These constraints consider both the base load of \gls{l2} ports and the additional demand from \gls{l3} charging capabilities, adhering to specifications from Hydro One's regional planning guidelines \cite{hydro2021} \cite{hydro2024}. See Inequality \ref{eq:const-grid}.
+    \item \textbf{Grid capacity constraints} ensure that power requirements at each location remain within local electrical infrastructure limitations. These constraints consider both the base load of \gls{l2} ports and the additional demand from \gls{l3} charging capabilities, adhering to specifications from Hydro One's regional planning guidelines \cite{hydro_kwcg_2021} \cite{hydro_kwcg_2024}. See Inequality \ref{eq:const-grid}.
 
     \begin{equation}
         g_2 \cdot p_2 \cdot x^2_i + g_3 \cdot p_3 \cdot (x^3_i + u_i) \leq G_i, \quad \forall i \in P

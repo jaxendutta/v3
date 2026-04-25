@@ -8,7 +8,7 @@ Formally, given a set of documents $D = \{d_1,\ldots,d_n\}$, the clustering mode
 
 \subsection{Methodology}
 
-The implementation uses BERTopic~\cite{grootendorst2022}, which combines transformer-based embeddings with density-based clustering and topic representation. Each MedQA question is first embedded using MiniLM-L12-v2, then reduced in dimensionality using \gls{umap}~\cite{mcinnes2018} and clustered with \gls{hdbscan}~\cite{campello2013} at \texttt{min\_cluster\_size=50} (approximately 0.4\% of the corpus), keeping topics clinically meaningful without over-splitting. This allows the model to auto-determine $K$ rather than requiring it to be specified a priori.
+The implementation uses BERTopic~\cite{grootendorst_bertopic_2022}, which combines transformer-based embeddings with density-based clustering and topic representation. Each MedQA question is first embedded using MiniLM-L12-v2, then reduced in dimensionality using \gls{umap}~\cite{mcinnes_umap_2020} and clustered with \gls{hdbscan}~\cite{campello_densitybased_2013} at \texttt{min\_cluster\_size=50} (approximately 0.4\% of the corpus), keeping topics clinically meaningful without over-splitting. This allows the model to auto-determine $K$ rather than requiring it to be specified a priori.
 
 BERTopic discovers 55 clusters, plus an outlier cluster (topic $= -1$) covering 34.7\% of questions that do not form sufficiently dense groups. These outliers retain their specialty label and fall back to specialty-only routing.
 
