@@ -48,9 +48,10 @@ export default async function Image() {
                             fontFamily,
                             fontWeight: 400,
                             lineHeight: 1.1,
+                            whiteSpace: 'pre-line',
                         }}
                     >
-                        papers &{'\n'}written records.
+                        {"papers &\nwritten records."}
                     </div>
                 </div>
                 <div
