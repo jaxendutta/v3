@@ -3,7 +3,8 @@ import { ImageResponse } from 'next/og';
 export const size = { width: 1200, height: 630 };
 export const contentType = 'image/png';
 
-const UA = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36';
+// Old UA forces Google Fonts to return TTF instead of WOFF2 — Satori only supports TTF/OTF
+const UA = 'Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_8; de-at) AppleWebKit/533.21.1 (KHTML, like Gecko) Version/5.0.5 Safari/533.21.1';
 
 async function loadLibreBaskerville(italic: boolean): Promise<ArrayBuffer | undefined> {
     try {
@@ -12,7 +13,21 @@ async function loadLibreBaskerville(italic: boolean): Promise<ArrayBuffer | unde
             `https://fonts.googleapis.com/css2?family=Libre+Baskerville:${variant}`,
             { headers: { 'User-Agent': UA } }
         ).then((r) => r.text());
-        const url = css.match(/src: url\(([^)]+)\) format\('woff2'\)/)?.[1];
+        const url = css.match(/src: url\(([^)]+)\) format\('truetype'\)/)?.[1];
+        if (!url) return undefined;
+        return fetch(url).then((r) => r.arrayBuffer());
+    } catch {
+        return undefined;
+    }
+}
+
+async function loadGoogleSansFlex(): Promise<ArrayBuffer | undefined> {
+    try {
+        const css = await fetch(
+            'https://fonts.googleapis.com/css2?family=Google+Sans+Flex:wght@400',
+            { headers: { 'User-Agent': UA } }
+        ).then((r) => r.text());
+        const url = css.match(/src: url\(([^)]+)\) format\('truetype'\)/)?.[1];
         if (!url) return undefined;
         return fetch(url).then((r) => r.arrayBuffer());
     } catch {
@@ -21,15 +36,18 @@ async function loadLibreBaskerville(italic: boolean): Promise<ArrayBuffer | unde
 }
 
 export default async function Image() {
-    const [italicFont, regularFont] = await Promise.all([
+    const [italicFont, regularFont, sansFont] = await Promise.all([
         loadLibreBaskerville(true),
         loadLibreBaskerville(false),
+        loadGoogleSansFlex(),
     ]);
 
-    const fontFamily = italicFont || regularFont ? 'LibreBaskerville' : 'serif';
+    const serifFamily = italicFont || regularFont ? 'LibreBaskerville' : 'serif';
+    const sansFamily = sansFont ? 'GoogleSansFlex' : 'sans-serif';
     const fonts = [];
     if (italicFont) fonts.push({ name: 'LibreBaskerville', data: italicFont, style: 'italic' as const, weight: 400 as const });
     if (regularFont) fonts.push({ name: 'LibreBaskerville', data: regularFont, style: 'normal' as const, weight: 400 as const });
+    if (sansFont) fonts.push({ name: 'GoogleSansFlex', data: sansFont, style: 'normal' as const, weight: 400 as const });
 
     return new ImageResponse(
         (
@@ -55,11 +73,11 @@ export default async function Image() {
                     <div
                         style={{
                             color: '#fff7ed',
-                            fontSize: 80,
-                            fontFamily,
+                            fontSize: 100,
+                            fontFamily: serifFamily,
                             fontStyle: 'italic',
                             fontWeight: 400,
-                            lineHeight: 1.1,
+                            lineHeight: 1.4,
                             whiteSpace: 'pre-line',
                         }}
                     >
@@ -77,9 +95,8 @@ export default async function Image() {
                     <div
                         style={{
                             color: '#fff7ed',
-                            fontSize: 28,
-                            fontFamily,
-                            fontStyle: 'normal',
+                            fontSize: 54,
+                            fontFamily: sansFamily,
                             opacity: 0.6,
                         }}
                     >
@@ -88,9 +105,8 @@ export default async function Image() {
                     <div
                         style={{
                             color: '#e11d48',
-                            fontSize: 22,
-                            fontFamily,
-                            fontStyle: 'normal',
+                            fontSize: 42,
+                            fontFamily: sansFamily,
                         }}
                     >
                         anirban.ca/papers
