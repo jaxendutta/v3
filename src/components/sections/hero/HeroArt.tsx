@@ -3,7 +3,8 @@
 
 import { motion } from "framer-motion";
 import { useTheme } from "@/components/theme/ThemeProvider";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
+import { getRandomIcons } from "@/components/ui/RandomIcons";
 
 function generateGreyNoiseDataURL(size = 256): string {
     const canvas = document.createElement("canvas");
@@ -29,200 +30,108 @@ function detectIOS(): boolean {
     );
 }
 
-// Sigil layout as normalised 0–1 fractions: converted to px at render time
-const SIGIL_LAYOUT = [
-    { nx: 0.12, ny: 0.18, r: 38, type: "eye", speed: 25, dir: 1 },
-    { nx: 0.82, ny: 0.12, r: 30, type: "triangle", speed: 35, dir: -1 },
-    { nx: 0.22, ny: 0.68, r: 34, type: "orbital", speed: 28, dir: 1 },
-    { nx: 0.80, ny: 0.65, r: 36, type: "diamond", speed: 32, dir: -1 },
-    { nx: 0.88, ny: 0.40, r: 24, type: "cross", speed: 40, dir: 1 },
-    { nx: 0.06, ny: 0.45, r: 28, type: "eye", speed: 22, dir: -1 },
-    { nx: 0.52, ny: 0.85, r: 32, type: "triangle", speed: 30, dir: 1 },
-    { nx: 0.48, ny: 0.10, r: 22, type: "cross", speed: 38, dir: -1 },
-] as const;
+// 1. The Autonomous "Glitch" Icon
+function GlitchIcon() {
+    const [IconComponent, setIconComponent] = useState(() => getRandomIcons(1)[0]);
+    const isMounted = useRef(true);
 
-type SigilType = "eye" | "triangle" | "orbital" | "diamond" | "cross";
+    useEffect(() => {
+        isMounted.current = true;
 
-interface SigilProps {
-    cx: number;
-    cy: number;
-    r: number;
-    type: SigilType;
-    speed: number;
-    dir: number;
-    color: string;
-}
+        const triggerGlitch = () => {
+            if (!isMounted.current) return;
 
-function SigilPaths({ r, type, color }: { r: number; type: SigilType; color: string }) {
-    const s = { stroke: color, strokeWidth: 0.8, fill: "none", opacity: 0.4 };
-    const d = { fill: color, opacity: 0.4 };
+            let count = 0;
+            // Randomly determine how many times this specific glitch will flash (3 to 8 times)
+            const maxShuffles = Math.floor(Math.random() * 6) + 3;
 
-    switch (type) {
-        case "eye":
-            return (
-                <>
-                    <circle r={r} {...s} />
-                    <circle r={r * 0.5} {...s} />
-                    <circle r={r * 0.12} {...d} />
-                    <line x1={-r} y1={0} x2={r} y2={0} {...s} />
-                    <line x1={0} y1={-r} x2={0} y2={r} {...s} />
-                    {[0, 90, 180, 270].map(a => {
-                        const rad = a * Math.PI / 180;
-                        return (
-                            <line key={a}
-                                x1={Math.cos(rad) * r * 0.75} y1={Math.sin(rad) * r * 0.75}
-                                x2={Math.cos(rad) * r * 0.55} y2={Math.sin(rad) * r * 0.55}
-                                {...s} strokeWidth={1.2}
-                            />
-                        );
-                    })}
-                </>
-            );
+            const flashInterval = setInterval(() => {
+                if (isMounted.current) {
+                    setIconComponent(() => getRandomIcons(1)[0]);
+                }
+                count++;
 
-        case "triangle": {
-            const outer = [0, 1, 2].map(i => {
-                const a = (i * 120 - 90) * Math.PI / 180;
-                return `${Math.cos(a) * r},${Math.sin(a) * r}`;
-            }).join(" ");
-            const inner = [0, 1, 2].map(i => {
-                const a = (i * 120 - 90) * Math.PI / 180;
-                return `${Math.cos(a) * r * 0.45},${Math.sin(a) * r * 0.45}`;
-            }).join(" ");
-            return (
-                <>
-                    <polygon points={outer} {...s} />
-                    <polygon points={inner} {...s} />
-                    <circle r={r * 0.15} {...s} />
-                    {[0, 1, 2].map(i => {
-                        const a = (i * 120 - 90) * Math.PI / 180;
-                        return (
-                            <circle key={i}
-                                cx={Math.cos(a) * r * 0.72}
-                                cy={Math.sin(a) * r * 0.72}
-                                r={r * 0.06} {...d}
-                            />
-                        );
-                    })}
-                </>
-            );
-        }
+                if (count >= maxShuffles) {
+                    clearInterval(flashInterval);
+                    // Schedule the next spontaneous glitch event (between 5 and 15 seconds from now)
+                    const nextGlitchDelay = Math.random() * 10000 + 5000;
+                    setTimeout(triggerGlitch, nextGlitchDelay);
+                }
+            }, 80); // Rapid 80ms flashes
+        };
 
-        case "orbital":
-            return (
-                <>
-                    <circle r={r} {...s} />
-                    <ellipse rx={r * 0.55} ry={r * 0.25} {...s} />
-                    <ellipse rx={r * 0.55} ry={r * 0.25} transform="rotate(60)" {...s} />
-                    <ellipse rx={r * 0.55} ry={r * 0.25} transform="rotate(120)" {...s} />
-                    <circle r={r * 0.1} {...d} />
-                </>
-            );
+        // Start the first glitch cycle at a random offset so they don't all flash at once
+        const initialDelay = Math.random() * 10000;
+        const initialTimeout = setTimeout(triggerGlitch, initialDelay);
 
-        case "diamond": {
-            const di = r * 0.72;
-            return (
-                <>
-                    <polygon points={`0,${-r} ${r},0 0,${r} ${-r},0`} {...s} />
-                    <polygon points={`0,${-di} ${di},0 0,${di} ${-di},0`} transform="rotate(45)" {...s} />
-                    <circle r={r * 0.18} {...s} />
-                    <circle r={r * 0.07} {...d} />
-                </>
-            );
-        }
+        return () => {
+            isMounted.current = false;
+            clearTimeout(initialTimeout);
+        };
+    }, []);
 
-        case "cross": {
-            const arm = r * 0.3;
-            return (
-                <>
-                    <circle r={r} {...s} />
-                    <rect x={-arm / 2} y={-r * 0.85} width={arm} height={r * 1.7} {...s} />
-                    <rect x={-r * 0.85} y={-arm / 2} width={r * 1.7} height={arm} {...s} />
-                    <circle r={r * 0.12} {...d} />
-                    {[45, 135, 225, 315].map(a => (
-                        <circle key={a}
-                            cx={Math.cos(a * Math.PI / 180) * r * 0.7}
-                            cy={Math.sin(a * Math.PI / 180) * r * 0.7}
-                            r={r * 0.05} {...d}
-                        />
-                    ))}
-                </>
-            );
-        }
-    }
-}
-
-function Sigil({ cx, cy, r, type, speed, dir, color }: SigilProps) {
     return (
-        // g at (cx, cy): all child paths drawn relative to (0,0)
-        // rotation is applied around (0,0) of the inner g, which is the sigil centre
-        <g transform={`translate(${cx}, ${cy})`}>
-            <motion.g
-                animate={{ rotate: [0, dir * 360] }}
-                transition={{ duration: speed, repeat: Infinity, ease: "linear" }}
-                style={{ originX: 0, originY: 0 }}
-            >
-                <SigilPaths r={r} type={type} color={color} />
-            </motion.g>
-        </g>
+        <div className="w-full h-full flex items-center justify-center text-foreground/25 dark:text-foreground/15">
+            <IconComponent size="75%" />
+        </div>
     );
 }
 
+// 2. A Denser, Smaller Grid Block for iOS Marquee
+function IconBlock({ pattern }: { pattern: boolean[] }) {
+    return (
+        // Box is now 60vh x 60vh (5 columns of 12vh)
+        <div className="w-[60vh] h-[60vh] grid grid-cols-5 grid-rows-5 shrink-0 border-t border-l border-foreground/[0.04] box-border">
+            {pattern.map((hasIcon, i) => (
+                <div key={i} className="w-[12vh] h-[12vh] flex items-center justify-center border-r border-b border-foreground/[0.04] box-border relative">
+                    {hasIcon && <GlitchIcon />}
+                </div>
+            ))}
+        </div>
+    );
+}
+
+// 3. The Re-imagined iOS Marquee
 function IOSHeroArt({ isDark }: { isDark: boolean }) {
-    const [dims, setDims] = useState({ w: 0, h: 0 });
-    const color = isDark ? "#fff7ed" : "#1d4ed8";
     const bg = isDark ? "#18181b" : "#fff7ed";
+    const [pattern, setPattern] = useState<boolean[]>([]);
 
     useEffect(() => {
-        const update = () => setDims({ w: window.innerWidth, h: window.innerHeight });
-        update();
-        window.addEventListener("resize", update);
-        return () => window.removeEventListener("resize", update);
+        // Generate the grid pattern once on mount. 20% chance a cell is empty.
+        setPattern(Array.from({ length: 25 }).map(() => Math.random() > 0.2));
     }, []);
 
-    if (dims.w === 0) return null;
+    if (pattern.length === 0) return null;
 
     return (
-        <div className="absolute inset-0 w-full h-full pointer-events-none overflow-hidden">
+        <div className="absolute inset-0 w-full h-full overflow-hidden bg-background pointer-events-none opacity-50">
 
-            {/* Grid */}
-            <div
-                className="absolute inset-0 w-full h-full"
-                style={{
-                    backgroundImage: `
-                        linear-gradient(to right, ${color} 1px, transparent 1px),
-                        linear-gradient(to bottom, ${color} 1px, transparent 1px)
-                    `,
-                    backgroundSize: "20vw 20vw",
-                    opacity: 0.06,
-                }}
-            />
-
-            {/* Sigils: positioned with real px coords */}
-            <svg
-                width={dims.w}
-                height={dims.h}
-                className="absolute inset-0"
-                xmlns="http://www.w3.org/2000/svg"
-                aria-hidden="true"
-                style={{ overflow: "visible" }}
+            {/* The Seamless Infinite Loop */}
+            <motion.div
+                // Start one block (60vh) to the left to hide the seam
+                className="absolute top-0 left-[-60vh] flex flex-wrap content-start h-[120vh] w-[300vh]"
+                // Translate exactly one block width (60vh) to create the loop
+                animate={{ x: ["0vh", "60vh"] }}
+                transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
             >
-                {SIGIL_LAYOUT.map((s, i) => (
-                    <Sigil
-                        key={i}
-                        cx={s.nx * dims.w}
-                        cy={s.ny * dims.h}
-                        r={s.r}
-                        type={s.type}
-                        speed={s.speed}
-                        dir={s.dir}
-                        color={color}
-                    />
-                ))}
-            </svg>
+                {/* We render two rows of blocks to cover the vertical height of mobile screens */}
+                <div className="flex w-full">
+                    <IconBlock pattern={pattern} />
+                    <IconBlock pattern={pattern} />
+                    <IconBlock pattern={pattern} />
+                    <IconBlock pattern={pattern} />
+                </div>
+                <div className="flex w-full">
+                    <IconBlock pattern={pattern} />
+                    <IconBlock pattern={pattern} />
+                    <IconBlock pattern={pattern} />
+                    <IconBlock pattern={pattern} />
+                </div>
+            </motion.div>
 
-            {/* Bottom fade: dissolves into background, no hard cutoff */}
+            {/* Bottom Fade */}
             <div
-                className="absolute bottom-0 left-0 right-0 h-[35%] pointer-events-none"
+                className="absolute bottom-0 left-0 right-0 h-[25%] pointer-events-none z-20"
                 style={{
                     background: `linear-gradient(to bottom, transparent 0%, ${bg} 100%)`,
                 }}
@@ -273,8 +182,8 @@ export default function HeroArt() {
                 }}
                 style={{
                     backgroundImage: `radial-gradient(circle at 0% 0%, ${isDark
-                            ? "rgba(0, 0, 0, 1), rgba(0, 0, 0, 0)"
-                            : "rgb(0, 20, 90), rgba(255, 255, 0, 0)"
+                        ? "rgba(0, 0, 0, 1), rgba(0, 0, 0, 0)"
+                        : "rgb(0, 20, 90), rgba(255, 255, 0, 0)"
                         }), url("${noiseUrl}")`,
                     filter: filterValue,
                     mixBlendMode: isDark ? "color-dodge" : "multiply",
