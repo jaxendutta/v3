@@ -124,7 +124,13 @@ export default function FloatingDraggableImage({
             >
                 <div
                     className={`relative z-30 flex shrink-0 items-center justify-center ${frameClassName ?? ""}`}
-                    style={frameStyle}
+                    style={{
+                        ...frameStyle,
+                        // When using 'fill', the container MUST have a defined aspect ratio or dimensions
+                        aspectRatio: `${imageSize.width} / ${imageSize.height}`,
+                        width: "100%",
+                        position: "relative"
+                    }}
                 >
                     <motion.div
                         aria-hidden
@@ -144,20 +150,15 @@ export default function FloatingDraggableImage({
                     <Image
                         src={src}
                         alt={alt}
-                        width={imageSize.width}
-                        height={imageSize.height}
+                        fill
                         draggable={false}
                         className={`object-contain relative z-10 ${drag ? `${cursorClass} active:cursor-grabbing touch-none` : ""} ${borderOnLandscape && !isImageVertical ? "border border-foreground rounded-lg" : ""} ${imageClassName ?? ""}`}
-                        style={{
-                            width: "100%",
-                            height: "auto",
-                        }}
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 800px"
                         onPointerDown={(event) => {
                             if (!drag) return;
                             dragControls.start(event);
                         }}
-                        onDragStart={(event) => event.preventDefault()}
-                       onLoad={(event) => {
+                        onLoad={(event) => {
                             const img = event.currentTarget as HTMLImageElement;
                             const nextIsVertical = img.naturalHeight > img.naturalWidth;
                             setIsImageVertical(nextIsVertical);

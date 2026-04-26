@@ -99,7 +99,7 @@ export default function ProjectCard({
                             ? "w-full max-w-[200px] md:max-w-[280px]"
                             : "w-full max-w-[800px]"
                             }`}
-                        imageClassName="h-full w-full"
+                        imageClassName="w-full h-auto"
                         style={{
                             rotateX: 4,
                         }}
