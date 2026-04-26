@@ -1,6 +1,8 @@
+// src/app/papers/[paperId]/[formatKey]/page.tsx
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { papersData } from "@/data/papers";
+import IOSRedirect from "@/components/ui/IOSRedirect";
 
 type Props = {
     params: Promise<{
@@ -35,14 +37,17 @@ export default async function PaperDocumentPage({ params }: Props) {
         notFound();
     }
 
-    const pdfPath = `/papers/${paperId}/${formatKey}/file`;
+    // NEW: Use your exact requested format
+    const fileName = `jaxen-dutta_${paperId}_${formatKey}.pdf`;
+    const pdfPath = `/papers/${paperId}/${formatKey}/${fileName}`;
 
     return (
-        <main className="min-h-[100dvh] w-full bg-background">
+        <main className="min-h-[100dvh] w-full bg-background no-scrollbar overflow-x-hidden relative">
+            <IOSRedirect pdfUrl={pdfPath} />
             <iframe
                 src={pdfPath}
                 title={`${doc.label} - ${paper.title}`}
-                className="h-[100dvh] w-full border-0"
+                className="absolute inset-0 h-[100dvh] w-full border-0"
             />
         </main>
     );
