@@ -29,200 +29,98 @@ function detectIOS(): boolean {
     );
 }
 
-// Sigil layout as normalised 0–1 fractions: converted to px at render time
-const SIGIL_LAYOUT = [
-    { nx: 0.12, ny: 0.18, r: 38, type: "eye", speed: 25, dir: 1 },
-    { nx: 0.82, ny: 0.12, r: 30, type: "triangle", speed: 35, dir: -1 },
-    { nx: 0.22, ny: 0.68, r: 34, type: "orbital", speed: 28, dir: 1 },
-    { nx: 0.80, ny: 0.65, r: 36, type: "diamond", speed: 32, dir: -1 },
-    { nx: 0.88, ny: 0.40, r: 24, type: "cross", speed: 40, dir: 1 },
-    { nx: 0.06, ny: 0.45, r: 28, type: "eye", speed: 22, dir: -1 },
-    { nx: 0.52, ny: 0.85, r: 32, type: "triangle", speed: 30, dir: 1 },
-    { nx: 0.48, ny: 0.10, r: 22, type: "cross", speed: 38, dir: -1 },
-] as const;
+// Divided into 3 columns using existing public images
+const COL_1 = ["/rgap.png", "/emma.png", "/v2.png", "/hivemind.png"];
+const COL_2 = ["/fabler.png", "/asher.png", "/v1.png", "/pvc.png"];
+const COL_3 = ["/hivemind.png", "/lightbox.png", "/asher.png", "/rgap.png"];
+const COL_4 = ["/evse-opt.png", "/minimax-tic-tac-toe.png", "/space-invaders.png", "/straights.png"];
 
-type SigilType = "eye" | "triangle" | "orbital" | "diamond" | "cross";
-
-interface SigilProps {
-    cx: number;
-    cy: number;
-    r: number;
-    type: SigilType;
-    speed: number;
-    dir: number;
-    color: string;
-}
-
-function SigilPaths({ r, type, color }: { r: number; type: SigilType; color: string }) {
-    const s = { stroke: color, strokeWidth: 0.8, fill: "none", opacity: 0.4 };
-    const d = { fill: color, opacity: 0.4 };
-
-    switch (type) {
-        case "eye":
-            return (
-                <>
-                    <circle r={r} {...s} />
-                    <circle r={r * 0.5} {...s} />
-                    <circle r={r * 0.12} {...d} />
-                    <line x1={-r} y1={0} x2={r} y2={0} {...s} />
-                    <line x1={0} y1={-r} x2={0} y2={r} {...s} />
-                    {[0, 90, 180, 270].map(a => {
-                        const rad = a * Math.PI / 180;
-                        return (
-                            <line key={a}
-                                x1={Math.cos(rad) * r * 0.75} y1={Math.sin(rad) * r * 0.75}
-                                x2={Math.cos(rad) * r * 0.55} y2={Math.sin(rad) * r * 0.55}
-                                {...s} strokeWidth={1.2}
-                            />
-                        );
-                    })}
-                </>
-            );
-
-        case "triangle": {
-            const outer = [0, 1, 2].map(i => {
-                const a = (i * 120 - 90) * Math.PI / 180;
-                return `${Math.cos(a) * r},${Math.sin(a) * r}`;
-            }).join(" ");
-            const inner = [0, 1, 2].map(i => {
-                const a = (i * 120 - 90) * Math.PI / 180;
-                return `${Math.cos(a) * r * 0.45},${Math.sin(a) * r * 0.45}`;
-            }).join(" ");
-            return (
-                <>
-                    <polygon points={outer} {...s} />
-                    <polygon points={inner} {...s} />
-                    <circle r={r * 0.15} {...s} />
-                    {[0, 1, 2].map(i => {
-                        const a = (i * 120 - 90) * Math.PI / 180;
-                        return (
-                            <circle key={i}
-                                cx={Math.cos(a) * r * 0.72}
-                                cy={Math.sin(a) * r * 0.72}
-                                r={r * 0.06} {...d}
-                            />
-                        );
-                    })}
-                </>
-            );
-        }
-
-        case "orbital":
-            return (
-                <>
-                    <circle r={r} {...s} />
-                    <ellipse rx={r * 0.55} ry={r * 0.25} {...s} />
-                    <ellipse rx={r * 0.55} ry={r * 0.25} transform="rotate(60)" {...s} />
-                    <ellipse rx={r * 0.55} ry={r * 0.25} transform="rotate(120)" {...s} />
-                    <circle r={r * 0.1} {...d} />
-                </>
-            );
-
-        case "diamond": {
-            const di = r * 0.72;
-            return (
-                <>
-                    <polygon points={`0,${-r} ${r},0 0,${r} ${-r},0`} {...s} />
-                    <polygon points={`0,${-di} ${di},0 0,${di} ${-di},0`} transform="rotate(45)" {...s} />
-                    <circle r={r * 0.18} {...s} />
-                    <circle r={r * 0.07} {...d} />
-                </>
-            );
-        }
-
-        case "cross": {
-            const arm = r * 0.3;
-            return (
-                <>
-                    <circle r={r} {...s} />
-                    <rect x={-arm / 2} y={-r * 0.85} width={arm} height={r * 1.7} {...s} />
-                    <rect x={-r * 0.85} y={-arm / 2} width={r * 1.7} height={arm} {...s} />
-                    <circle r={r * 0.12} {...d} />
-                    {[45, 135, 225, 315].map(a => (
-                        <circle key={a}
-                            cx={Math.cos(a * Math.PI / 180) * r * 0.7}
-                            cy={Math.sin(a * Math.PI / 180) * r * 0.7}
-                            r={r * 0.05} {...d}
-                        />
-                    ))}
-                </>
-            );
-        }
-    }
-}
-
-function Sigil({ cx, cy, r, type, speed, dir, color }: SigilProps) {
-    return (
-        // g at (cx, cy): all child paths drawn relative to (0,0)
-        // rotation is applied around (0,0) of the inner g, which is the sigil centre
-        <g transform={`translate(${cx}, ${cy})`}>
-            <motion.g
-                animate={{ rotate: [0, dir * 360] }}
-                transition={{ duration: speed, repeat: Infinity, ease: "linear" }}
-                style={{ originX: 0, originY: 0 }}
-            >
-                <SigilPaths r={r} type={type} color={color} />
-            </motion.g>
-        </g>
-    );
-}
-
-function IOSHeroArt({ isDark }: { isDark: boolean }) {
-    const [dims, setDims] = useState({ w: 0, h: 0 });
-    const color = isDark ? "#fff7ed" : "#1d4ed8";
+function VerticalStackHero({ isDark }: { isDark: boolean }) {
     const bg = isDark ? "#18181b" : "#fff7ed";
 
-    useEffect(() => {
-        const update = () => setDims({ w: window.innerWidth, h: window.innerHeight });
-        update();
-        window.addEventListener("resize", update);
-        return () => window.removeEventListener("resize", update);
-    }, []);
-
-    if (dims.w === 0) return null;
-
     return (
-        <div className="absolute inset-0 w-full h-full pointer-events-none overflow-hidden">
+        <div className="absolute inset-0 w-full h-full overflow-hidden flex justify-center items-center bg-background">
 
-            {/* Grid */}
+            {/* Tilted Marquee Container */}
             <div
-                className="absolute inset-0 w-full h-full"
+                // 1. Reduced scale from 1.1 to 1.05 so the rotation doesn't throw the corners too far off-screen
+                className={`absolute w-[150vw] md:w-[100vw] h-[160vh] flex justify-center gap-3 md:gap-5 rotate-[-6deg] scale-[1.05] pointer-events-none transition-all duration-500
+                ${isDark ? 'opacity-80' : 'opacity-30 grayscale contrast-125'}`}
                 style={{
-                    backgroundImage: `
-                        linear-gradient(to right, ${color} 1px, transparent 1px),
-                        linear-gradient(to bottom, ${color} 1px, transparent 1px)
-                    `,
-                    backgroundSize: "20vw 20vw",
-                    opacity: 0.06,
+                    WebkitMaskImage: "linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%)",
+                    maskImage: "linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%)"
+                }}
+            >
+
+                {/* Column 1 - Moves UP (Left Extreme - 50% visible) */}
+                <motion.div
+                    // 2. Changed from 35vw to 27vw on mobile, and 16vw to 14vw on desktop
+                    className="flex flex-col gap-3 md:gap-5 w-[27vw] md:w-[14vw]"
+                    animate={{ y: ["0%", "-50%"] }}
+                    transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
+                >
+                    {[...COL_1, ...COL_1].map((src, i) => (
+                        <div key={i} className="w-full aspect-[1/2] rounded-xl overflow-hidden border border-foreground/10 shadow-2xl shrink-0">
+                            <img src={src} alt="" className="w-full h-full object-cover object-top" />
+                        </div>
+                    ))}
+                </motion.div>
+
+                {/* Column 2 - Moves DOWN (Middle Left - 100% visible) */}
+                <motion.div
+                    className="flex flex-col gap-3 md:gap-5 w-[27vw] md:w-[14vw] pt-[15vh]"
+                    animate={{ y: ["-50%", "0%"] }}
+                    transition={{ duration: 55, repeat: Infinity, ease: "linear" }}
+                >
+                    {[...COL_2, ...COL_2].map((src, i) => (
+                        <div key={i} className="w-full aspect-[1/2] rounded-xl overflow-hidden border border-foreground/10 shadow-2xl shrink-0">
+                            <img src={src} alt="" className="w-full h-full object-cover object-top" />
+                        </div>
+                    ))}
+                </motion.div>
+
+                {/* Column 3 - Moves UP (Middle Right - 100% visible) */}
+                <motion.div
+                    className="flex flex-col gap-3 md:gap-5 w-[27vw] md:w-[14vw] pt-[5vh]"
+                    animate={{ y: ["0%", "-50%"] }}
+                    transition={{ duration: 45, repeat: Infinity, ease: "linear" }}
+                >
+                    {[...COL_3, ...COL_3].map((src, i) => (
+                        <div key={i} className="w-full aspect-[1/2] rounded-xl overflow-hidden border border-foreground/10 shadow-2xl shrink-0">
+                            <img src={src} alt="" className="w-full h-full object-cover object-top" />
+                        </div>
+                    ))}
+                </motion.div>
+
+                {/* Column 4 - Moves DOWN (Right Extreme - 50% visible) */}
+                <motion.div
+                    className="flex flex-col gap-3 md:gap-5 w-[27vw] md:w-[14vw] pt-[20vh]"
+                    animate={{ y: ["-50%", "0%"] }}
+                    transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
+                >
+                    {[...COL_4, ...COL_4].map((src, i) => (
+                        <div key={i} className="w-full aspect-[1/2] rounded-xl overflow-hidden border border-foreground/10 shadow-2xl shrink-0">
+                            <img src={src} alt="" className="w-full h-full object-cover object-top" />
+                        </div>
+                    ))}
+                </motion.div>
+            </div>
+
+            {/* VIGNETTE / GLASSMORPHISM OVERLAY */}
+            <div
+                className="absolute inset-0 z-10 pointer-events-none transition-colors duration-500"
+                style={{
+                    background: isDark
+                        ? `radial-gradient(ellipse at center, ${bg}80 15%, ${bg}c0 60%, ${bg}f5 100%)`
+                        : `radial-gradient(ellipse at center, ${bg}e6 15%, ${bg}99 60%, ${bg}33 100%)`,
+                    backdropFilter: "blur(1.5px)",
+                    WebkitBackdropFilter: "blur(1.5px)",
                 }}
             />
 
-            {/* Sigils: positioned with real px coords */}
-            <svg
-                width={dims.w}
-                height={dims.h}
-                className="absolute inset-0"
-                xmlns="http://www.w3.org/2000/svg"
-                aria-hidden="true"
-                style={{ overflow: "visible" }}
-            >
-                {SIGIL_LAYOUT.map((s, i) => (
-                    <Sigil
-                        key={i}
-                        cx={s.nx * dims.w}
-                        cy={s.ny * dims.h}
-                        r={s.r}
-                        type={s.type}
-                        speed={s.speed}
-                        dir={s.dir}
-                        color={color}
-                    />
-                ))}
-            </svg>
-
-            {/* Bottom fade: dissolves into background, no hard cutoff */}
+            {/* Bottom Fade */}
             <div
-                className="absolute bottom-0 left-0 right-0 h-[35%] pointer-events-none"
+                className="absolute bottom-0 left-0 right-0 h-[25%] pointer-events-none z-20 transition-colors duration-500"
                 style={{
                     background: `linear-gradient(to bottom, transparent 0%, ${bg} 100%)`,
                 }}
@@ -248,7 +146,7 @@ export default function HeroArt() {
     if (isIOS) {
         return (
             <div className="w-full h-[100vh] overflow-visible relative">
-                <IOSHeroArt isDark={isDark} />
+                <VerticalStackHero isDark={isDark} />
             </div>
         );
     }
@@ -273,8 +171,8 @@ export default function HeroArt() {
                 }}
                 style={{
                     backgroundImage: `radial-gradient(circle at 0% 0%, ${isDark
-                            ? "rgba(0, 0, 0, 1), rgba(0, 0, 0, 0)"
-                            : "rgb(0, 20, 90), rgba(255, 255, 0, 0)"
+                        ? "rgba(0, 0, 0, 1), rgba(0, 0, 0, 0)"
+                        : "rgb(0, 20, 90), rgba(255, 255, 0, 0)"
                         }), url("${noiseUrl}")`,
                     filter: filterValue,
                     mixBlendMode: isDark ? "color-dodge" : "multiply",
