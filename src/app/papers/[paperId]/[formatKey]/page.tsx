@@ -37,9 +37,8 @@ export default async function PaperDocumentPage({ params }: Props) {
         notFound();
     }
 
-    // NEW: Use your exact requested format
     const fileName = `jaxen-dutta_${paperId}_${formatKey}.pdf`;
-    const pdfPath = `/papers/${paperId}/${formatKey}/${fileName}`;
+    const pdfPath = `/papers/${paperId}/${formatKey}/pdf/${fileName}`;
 
     return (
         <main className="min-h-[100dvh] w-full bg-background no-scrollbar overflow-x-hidden relative">
