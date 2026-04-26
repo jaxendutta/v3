@@ -1,78 +1,42 @@
-import { promises as fs } from "node:fs";
-import path from "node:path";
-import { NextResponse } from "next/server";
-import { papersData } from "@/data/papers";
+import { ImageResponse } from 'next/og';
+import { notFound } from 'next/navigation';
+import { papersData } from '@/data/papers';
+import { loadOgFonts } from '@/lib/og';
 
-type RouteParams = {
-    params: Promise<{
-        paperId: string;
-        formatKey: string;
-    }>;
-};
+export const size = { width: 1200, height: 630 };
+export const contentType = 'image/png';
 
-function slugify(title: string): string {
-    return title
-        .toLowerCase()
-        .replace(/[^a-z0-9\s-]/g, "")
-        .replace(/\s+/g, "-")
-        .replace(/-+/g, "-")
-        .replace(/^-|-$/g, "");
-}
+type Props = { params: Promise<{ paperId: string; formatKey: string }> };
 
-export async function GET(request: Request, { params }: RouteParams) {
+export default async function Image({ params }: Props) {
     const { paperId, formatKey } = await params;
-
-    // --- 1. THE CRAWLER INTERCEPT ---
-    // Detect if the request is coming from a social media platform or messenger generating a link preview
-    const userAgent = request.headers.get("user-agent") || "";
-    const isBot = /bot|crawler|spider|facebookexternalhit|twitterbot|slackbot|whatsapp|telegram|discordbot|linkedinbot|applebot|imessage/i.test(userAgent);
-
-    if (isBot) {
-        // Redirect the bot back to the parent page so it can scrape your beautiful OG tags!
-        const mainPageUrl = new URL(`/papers/${paperId}/${formatKey}`, request.url);
-        return NextResponse.redirect(mainPageUrl);
-    }
-
-    // --- 2. NORMAL FILE SERVING ---
     const paper = papersData[paperId];
-    const doc = paper?.links?.[formatKey];
+    if (!paper) notFound();
 
-    if (!paper || !doc || doc.type === "project") {
-        return new NextResponse("Not Found", { status: 404 });
-    }
+    const { serifFamily, sansFamily, fonts } = await loadOgFonts();
+    const formatLabel = paper.links[formatKey]?.label ?? formatKey.toUpperCase();
+    const venue = paper.venue?.join(' · ') ?? '';
+    const typeVenue = venue ? `${paper.paperType} — ${venue}` : paper.paperType;
 
-    const formatDir = path.join(process.cwd(), "papers", paperId, formatKey);
+    const endDate = paper.duration.end.toLocaleDateString('en-US', {
+        month: 'short', day: 'numeric', year: 'numeric',
+    });
 
-    try {
-        const searchDirs = [path.join(formatDir, "out"), formatDir];
-        let pdfBlob: Blob | null = null;
-
-        for (const dir of searchDirs) {
-            try {
-                const entries = await fs.readdir(dir);
-                const pdfEntry = entries.find(f => f.endsWith(".pdf"));
-                if (pdfEntry) {
-                    const buf = await fs.readFile(path.join(dir, pdfEntry));
-                    pdfBlob = new Blob([buf], { type: "application/pdf" });
-                    break;
-                }
-            } catch {
-                continue;
-            }
-        }
-
-        if (!pdfBlob) return new NextResponse("Not Found", { status: 404 });
-
-        const titleSlug = slugify(paper.title);
-        const downloadName = `jaxen-dutta_${titleSlug}_${formatKey}.pdf`;
-
-        return new NextResponse(pdfBlob, {
-            headers: {
-                "Content-Disposition": `inline; filename=\"${downloadName}\"`,
-                "Cache-Control": "public, max-age=31536000, immutable",
-            },
-        });
-    } catch {
-        return new NextResponse("Not Found", { status: 404 });
-    }
+    return new ImageResponse(
+        (
+            <div style={{ background: '#18181b', width: '100%', height: '100%', display: 'flex', flexDirection: 'column', padding: '72px 80px' }}>
+                <div style={{ color: '#e11d48', fontSize: 24, fontFamily: sansFamily }}>{formatLabel}</div>
+                <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', paddingBottom: 40, gap: 20 }}>
+                    <div style={{ color: '#fff7ed', fontSize: 60, fontFamily: serifFamily, fontStyle: 'italic', fontWeight: 400, lineHeight: 1.3, letterSpacing: '0.025em' }}>{paper.title}</div>
+                    <div style={{ color: '#fff7ed', fontSize: 28, fontFamily: sansFamily, opacity: 0.5 }}>{typeVenue}</div>
+                </div>
+                <div style={{ width: '100%', height: 2, background: '#e11d48', marginBottom: 28 }} />
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <div style={{ color: '#fff7ed', fontSize: 36, fontFamily: sansFamily, opacity: 0.6 }}>Jaxen Dutta</div>
+                    <div style={{ color: '#e11d48', fontSize: 28, fontFamily: sansFamily }}>{endDate}</div>
+                </div>
+            </div>
+        ),
+        { ...size, ...(fonts.length > 0 ? { fonts } : {}) }
+    );
 }
