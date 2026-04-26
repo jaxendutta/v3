@@ -32,8 +32,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
             title: `${project.label} ✧ Jaxen Dutta`,
             description: description,
             type: "article",
-            // If you have project images in your data, you can add them here:
-            images: [`${projectId}.png`], 
         },
     };
 }
