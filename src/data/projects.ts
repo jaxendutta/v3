@@ -301,7 +301,7 @@ export const projectsData: ProjectsData = {
         },
         footer: "Park View Centre is a production-grade healthcare platform built on the latest Next.js 16 architecture. I utilized Tailwind CSS v4 for a highly optimized, zero-runtime styling engine that ensures instant page loads. The UI is constructed with accessible Radix primitives, ensuring that appointment booking and doctor information are available to all users. The site uses a custom 'medical gradient' animation system to add subtle life to the interface without distracting from critical information. It is fully integrated with Vercel Analytics to track patient engagement and optimize the user journey across both clinic locations.",
     },
-    "portfolio-v2": {
+    "v2": {
         name: "poRtfolio v2",
         label: "Portfolio v2",
         icon: GiOrbital,
@@ -499,7 +499,7 @@ export const projectsData: ProjectsData = {
         footer: "In a large-scale Android visual novel app project, I led development using Jetpack Compose (Kotlin) for the frontend and a Python backend. I spearheaded design and prototyping through Figma and user interviews, ensuring a user-friendly experience. The app features a responsive UI with custom components adhering to Material Design and leverages the OpenAI API to generate storylines and character profiles directly within the visual novels.",
     },
 
-    "portfolio-v1": {
+    "v1": {
         name: "poRtfolio v1",
         label: "Portfolio v1",
         icon: GiNestedEclipses,
@@ -967,14 +967,14 @@ export const projectsData: ProjectsData = {
             },
             {
                 platform: "Download",
-                url: "https://github.com/jaxendutta/tictactoe-minimax/releases", 
+                url: "https://github.com/jaxendutta/tictactoe-minimax/releases",
             },
         ],
         typography: [
             {
                 name: "OCR A Extended",
                 fontFamily: '"OCR A Extended", monospace',
-                url: "", 
+                url: "",
                 description:
                     "A classic monospaced font that provides a retro, terminal-like aesthetic for the scoreboard and informational readouts, perfectly complementing the early-computing vibe of a Minimax AI.",
             },

@@ -15,7 +15,6 @@ export default async function Image({ params }: Props) {
 
     const { serifFamily, sansFamily, fonts } = await loadOgFonts();
     const imageSrc = getProjectImageSrc(projectId);
-
     const isMobile = project.screenshotDevice === 'mobile';
 
     return new ImageResponse(
@@ -27,12 +26,18 @@ export default async function Image({ params }: Props) {
                     height: '100%',
                     display: 'flex',
                     flexDirection: 'column',
-                    justifyContent: 'flex-end',
                     padding: '72px 80px',
                     position: 'relative',
                     overflow: 'hidden',
                 }}
             >
+                {/* Mobile only: name at top left */}
+                {isMobile && (
+                    <div style={{ color: '#fff7ed', fontSize: 36, fontFamily: sansFamily, opacity: 0.6 }}>
+                        Jaxen Dutta
+                    </div>
+                )}
+
                 {/* Title + subtitle */}
                 <div
                     style={{
@@ -57,18 +62,6 @@ export default async function Image({ params }: Props) {
                     >
                         {`${project.label}.`}
                     </div>
-                    {project.subtitle && (
-                        <div
-                            style={{
-                                color: '#fff7ed',
-                                fontSize: 26,
-                                fontFamily: sansFamily,
-                                opacity: 0.5,
-                            }}
-                        >
-                            {project.subtitle}
-                        </div>
-                    )}
                 </div>
 
                 {/* Full-width bottom bar */}
@@ -76,35 +69,34 @@ export default async function Image({ params }: Props) {
                 <div
                     style={{
                         display: 'flex',
-                        justifyContent: 'space-between',
+                        justifyContent: isMobile ? 'flex-start' : 'space-between',
                         alignItems: 'center',
                     }}
                 >
-                    <div style={{ color: '#fff7ed', fontSize: 36, fontFamily: sansFamily, opacity: 0.6 }}>
-                        Jaxen Dutta
-                    </div>
+                    {!isMobile && (
+                        <div style={{ color: '#fff7ed', fontSize: 36, fontFamily: sansFamily, opacity: 0.6 }}>
+                            Jaxen Dutta
+                        </div>
+                    )}
                     <div style={{ color: '#e11d48', fontSize: 28, fontFamily: sansFamily }}>
                         {`anirban.ca/projects/${projectId}`}
                     </div>
                 </div>
 
-                {/*
-                  Images rendered LAST so they paint over the bottom bar.
-                  Satori uses DOM paint order instead of z-index.
-                */}
+                {/* Images rendered LAST — paint over the bottom bar (DOM order = paint order in Satori) */}
 
-                {/* Mobile: overflow visible so sides aren't clipped — borderRadius on the img itself */}
+                {/* Mobile: full card height, portrait, right side */}
                 {imageSrc && isMobile && (
                     <div
                         style={{
                             position: 'absolute',
                             display: 'flex',
-                            right: 50,
-                            top: 28,
-                            width: 240,
-                            height: 430,
+                            right: 30,
+                            top: 30,
+                            width: 310,
+                            height: 580,
                             overflow: 'visible',
-                            transform: 'rotate(12deg)',
+                            transform: 'rotate(6deg)',
                         }}
                     >
                         <img
@@ -114,13 +106,13 @@ export default async function Image({ params }: Props) {
                                 height: '100%',
                                 objectFit: 'contain',
                                 objectPosition: 'top center',
-                                borderRadius: 20,
+                                borderRadius: 24,
                             }}
                         />
                     </div>
                 )}
 
-                {/* Desktop: container clips right-side overflow — borderRadius on img for corners */}
+                {/* Desktop: wide landscape, overflows right edge */}
                 {imageSrc && !isMobile && (
                     <div
                         style={{
