@@ -43,3 +43,12 @@ export function getFaviconSrc(): string | undefined {
         return undefined;
     }
 }
+
+export function getProjectImageSrc(projectId: string): string | undefined {
+    try {
+        const buffer = readFileSync(join(process.cwd(), 'public', `${projectId}.png`));
+        return `data:image/png;base64,${buffer.toString('base64')}`;
+    } catch {
+        return undefined;
+    }
+}
