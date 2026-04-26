@@ -6,6 +6,7 @@ const nextConfig: NextConfig = {
     images: {
         formats: ["image/avif", "image/webp"],
     },
+    allowedDevOrigins: ["tipless-melida-pardonably.ngrok-free.dev"],
     experimental: {
         serverActions: {
             bodySizeLimit: "2mb", // Keep this if you need larger uploads
