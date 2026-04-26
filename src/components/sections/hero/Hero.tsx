@@ -16,7 +16,7 @@ export default function Hero() {
             <HeroArt />
 
             {/* Content above HeroArt */}
-            <div className="absolute text-center top-[10vh] w-screen h-screen flex flex-col justify-center items-center gap-[5vh] z-[3]">
+            <div className="absolute text-center top-[7.5vh] md:top-[10vh] w-screen h-screen flex flex-col justify-center items-center gap-[5vh] z-30">
 
                 {/* Interactive name */}
                 <HeroInteraction />
