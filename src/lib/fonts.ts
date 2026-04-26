@@ -19,6 +19,8 @@ export const googleSansFlex = Google_Sans_Flex({
     style: ['normal'],
     display: "swap",
     weight: ['300', '400', '500', '600', '700'],
+    variable: '--font-google-sans-flex',
+    fallback: ['system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', 'sans-serif'],
 });
 
 export const googleSansCode = Google_Sans_Code({
@@ -26,6 +28,8 @@ export const googleSansCode = Google_Sans_Code({
     style: ['normal'],
     display: "swap",
     weight: ['300', '400', '500', '600', '700'],
+    variable: '--font-google-sans-code',
+    fallback: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', 'monospace'],
 });
 
 export const baskerville = Libre_Baskerville({
