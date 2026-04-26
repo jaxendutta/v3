@@ -16,7 +16,8 @@ export default function Hero() {
             <HeroArt />
 
             {/* Content above HeroArt */}
-            <div className="absolute text-center top-[10vh] w-screen h-screen flex flex-col justify-center items-center gap-[5vh] z-[3]">
+            {/* FIX: Changed z-[3] to z-30 so it sits completely above the glassmorphism */}
+            <div className="absolute text-center top-[10vh] w-screen h-screen flex flex-col justify-center items-center gap-[5vh] z-30">
 
                 {/* Interactive name */}
                 <HeroInteraction />
