@@ -145,7 +145,7 @@ export const papersData: PapersData = {
         venue: ["University of Ottawa"],
         duration: {
             start: new Date("2025-10-11"),
-            end: new Date("2026-10-19")
+            end: new Date("2025-10-19")
         },
         tags: [
             "AI + LLM",
