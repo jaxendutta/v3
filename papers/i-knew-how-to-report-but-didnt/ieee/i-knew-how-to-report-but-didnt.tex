@@ -1,0 +1,454 @@
+\documentclass{ieee-portfolio}
+
+%% -----------------------------------------------------------
+%% Meta-Data Configuration
+%% -----------------------------------------------------------
+\title{\textit{``I Knew How to Report, But Didn't'':} Awareness, Helplessness, and Platform Distrust in CSAM Reporting Among University Students}
+
+\shorttitle{I Knew How to Report, But Didn't}
+\headerauthor{Jaxen Anirban Dutta}
+\date{April 2025}
+
+\author{
+    \IEEEauthorblockN{Jaxen Anirban Dutta\,\orcidlink{0009-0002-5088-4679}}
+    \IEEEauthorblockA{\textit{David R. Cheriton School of Computer Science} \\
+    \textit{University of Waterloo, Waterloo, Ontario, Canada} \\
+    jaxen.dutta@uwaterloo.ca}
+}
+ 
+%% -----------------------------------------------------------
+%% Glossaries
+%% -----------------------------------------------------------
+\usepackage[acronym,nomain,nogroupskip]{glossaries-extra}
+\setabbreviationstyle[acronym]{long-short}
+\input{../glossaries}
+\makeglossaries
+\usepackage[section]{placeins}
+ 
+%% -----------------------------------------------------------
+%% CSV / Appendix Packages
+%% -----------------------------------------------------------
+\usepackage{csvsimple-l3}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{ragged2e}
+\usepackage{pdflscape}
+%% Wrap-friendly column type for long-cell content
+\newcolumntype{P}[1]{>{\RaggedRight\arraybackslash}p{#1}}
+ 
+%% -----------------------------------------------------------
+%% Document Body
+%% -----------------------------------------------------------
+\begin{document}
+ 
+\maketitle
+ 
+\begin{abstract}
+This paper presents a cross-sectional survey study ($n = 47$) examining how university students at the University of Waterloo perceive, respond to, and reason about child sexual abuse material (\gls{csam}) encountered on social media platforms. Data were collected between March and April 2024. Among respondents who confirmed an encounter ($n = 25$, 53.2\%), 80\% reported knowing how to file a report, yet only 44\% did so. Of those who reported, only one participant felt the platform took appropriate action; nine received no response or no visible action, and one described the outcome as ``never heard back.'' These findings reveal a structural reporting gap driven by two compounding dynamics: a bystander effect shaped by platform scale and perceived diffusion of responsibility, and platform distrust arising from repeated experiences of ineffectual moderation. Helplessness was the second most common emotional response (48\%), and 32\% of those who encountered \gls{csam} ignored the content entirely. Against a backdrop of 36.2 million \gls{ncmec} CyberTipline reports and over 40,000 Cybertip.ca reports in Canada during 2023, and consistent user-side evidence that reporting mechanisms are neither trusted nor effective, this paper argues that the problem is not one of digital literacy but of structural accountability. Platform response quality, interface design, and mandatory outcome transparency are identified as the most likely levers for closing the gap between knowing how to report and actually doing so.
+\end{abstract}
+ 
+\begin{IEEEkeywords}
+child sexual abuse material, CSAM, social media, online reporting, bystander effect, platform accountability, digital safety, content moderation, user behaviour, university students, Canada, Bill C-63
+\end{IEEEkeywords}
+ 
+%% -----------------------------------------------------------
+\section{Introduction}
+%% -----------------------------------------------------------
+ 
+The proliferation of \gls{csam} on mainstream social media platforms represents one of the most urgent and persistent failures of digital governance. In 2023, the National Center for Missing and Exploited Children (\gls{ncmec}) received 36.2 million reports of suspected child sexual exploitation via its CyberTipline, encompassing more than 104 million files~\cite{ncmec_2023}. That figure represents a 12\% year-over-year increase and a growth of approximately 75\% over five years~\cite{dhs_2024}. In Canada, Cybertip.ca, the national tipline operated by the Canadian Centre for Child Protection (\gls{c3p}), recorded a 45\% increase in online sexual exploitation reports between 2022 and 2023, processing over 40,000 public reports in that year~\cite{cybertip_2023}. Online sexual luring reports received by Cybertip.ca rose by more than 815\% between 2018 and 2022~\cite{c3p_2023}.
+ 
+These institutional figures capture only the volume of content reported to designated authorities. They do not capture what happens in the seconds after an ordinary user scrolls past \gls{csam} on a mainstream platform: whether they report it, ignore it, feel capable of doing something, or feel that doing something matters. That user-side dimension, the gap between encounter and action, is the focus of this paper.
+ 
+The gap sits at the intersection of several well-documented phenomena. The online bystander effect, an extension of Latané and Darley's~\cite{latane_darley_1970} classic model of diffusion of responsibility, predicts that in large, anonymous online environments, individuals are less likely to intervene because they assume others will~\cite{herry_2023,jeyagobi_2022}. Platform interface design has been shown to actively discourage reporting through friction, opaque outcomes, and disenchantment with reactive moderation~\cite{wong_2016,li_2023_bystander}. Prior research on harmful content encounters documents a pattern of emotional helplessness that, when paired with perceived platform inefficacy, produces passive disengagement as the default response~\cite{jeyagobi_2022,seligman_1975}.
+ 
+Despite the severity of the problem, empirical data on how ordinary users, particularly those in higher education, experience and respond to \gls{csam} on mainstream platforms remain scarce. Existing literature focuses primarily on law enforcement challenges~\cite{aic_2022}, platform-side detection technology~\cite{ncmec_2023}, and regulatory frameworks~\cite{senate_2024,bilc63_2024}, leaving the user-side behavioural and perceptual dimensions understudied. This paper addresses that gap through a cross-sectional survey of 47 University of Waterloo students.
+ 
+The study addresses three research questions. \textbf{RQ1:} How prevalent is \gls{csam} exposure among university students, and on which platforms does it occur? \textbf{RQ2:} What emotional responses and behavioural choices characterise the immediate aftermath of a \gls{csam} encounter, and what explains the gap between knowing how to report and actually doing so? \textbf{RQ3:} How do students assess current platform accountability, and what interventions do they prefer?
+ 
+The dataset underlying this study is provided as a supplementary file accompanying this paper, with all responses anonymised in their original collection format.
+ 
+%% -----------------------------------------------------------
+\section{Background and Related Work}
+%% -----------------------------------------------------------
+ 
+\subsection{The Scale of CSAM on Social Media}
+ 
+The growth of \gls{csam} on social media platforms is documented primarily through institutional reporting. \gls{ncmec}'s CyberTipline received 36.2 million reports in 2023, compared to 18.4 million in 2018~\cite{ncmec_2023}. A 2023 Stanford Internet Observatory investigation found a network of more than 500 accounts on Instagram advertising self-generated \gls{csam} with tens of thousands of likely buyers~\cite{stanford_sio_2023}. The investigation revealed safety failures in Instagram's own reporting interface for accounts with evident child exploitation indicators. In January 2024, the U.S. Senate Judiciary Committee convened a full hearing in which the CEOs of Meta, X, TikTok, Snapchat, and Discord testified about platform responses to child safety, with senators characterising the responses as inadequate and vague~\cite{senate_2024}.
+ 
+In Canada, the problem is equally acute. Statistics Canada's analysis of police-reported incidents found that in 2023, 87\% of online child sexual exploitation incidents involved making or distributing child pornography~\cite{statscan_2024}. \gls{c3p}'s Project Arachnid, an automated web crawler, processed over 164 billion images by January 2024 and has issued millions of removal notices to electronic service providers globally~\cite{statscan_2024}. Despite this technical infrastructure, only a fraction of incidents come to the attention of police or dedicated tiplines, and research consistently shows that sexual offences against children are among the least reported of all crime categories~\cite{statscan_2024}.
+ 
+Platform compliance with reporting obligations varies substantially. While Meta was responsible for more than 90\% of all 2023 \gls{ncmec} CyberTipline reports, \gls{ncmec} noted that the majority of electronic service providers did not report at all, and many reports that were filed lacked sufficient detail for law enforcement action~\cite{ncmec_2023}. The Australian Institute of Criminology's analysis of platform \gls{csam} responses found that detection technologies, including PhotoDNA hash-matching and AI classifiers, are effective against known content but poorly suited to new or self-generated material~\cite{aic_2022}.
+ 
+\subsection{The Canadian Regulatory Context}
+ 
+Canada's regulatory response to online \gls{csam} is shaped by two existing instruments and one landmark legislative attempt. The existing framework includes the \textit{Criminal Code of Canada} provisions on child pornography (ss. 163.1) and \textit{An Act Respecting the Mandatory Reporting of Internet Child Pornography by Persons Who Provide an Internet Service}, which requires internet service providers to report \gls{csam} to \gls{c3p} and to preserve associated data for law enforcement~\cite{bilc63_2024}.
+ 
+On February 26, 2024, the Government of Canada introduced Bill C-63, the proposed Online Harms Act. Had it been enacted, it would have imposed a 24-hour takedown obligation for \gls{csam} and non-consensually distributed intimate images; established a Digital Safety Commission of Canada with enforcement powers; created a Digital Safety Ombudsperson to support users and victims; and required platforms to publish digital safety plans disclosing moderation statistics and internal research data~\cite{bilc63_2024}. Bill C-63 died on the order paper following the prorogation of Parliament in January 2025. At the time of this study's data collection (March--April 2024), the bill was before the House of Commons and represented the most substantive Canadian policy proposal in this space to that point.
+ 
+The bill's 24-hour takedown obligation is directly relevant to the findings of this study. Users who reported \gls{csam} and received no visible platform response would have had recourse to regulatory enforcement under the proposed framework. Its failure to pass means that Canadian users currently have no enforceable expectation of platform response, a structural condition that helps explain the low-trust, low-reporting equilibrium this study documents.
+ 
+\subsection{Bystander Theory and Online Harm Reporting}
+ 
+The bystander intervention model, first proposed by Latané and Darley~\cite{latane_darley_1970} following the 1964 Kitty Genovese case, describes a five-stage cognitive process: noticing the event, interpreting it as an emergency, accepting personal responsibility, determining an appropriate response, and implementing that response. Failure at any stage produces non-intervention. The critical insight is that responsibility diffuses across larger audiences; the more bystanders are present, the less any individual feels obligated to act.
+ 
+Online environments substantially complicate this model. The extreme scale of social media audiences amplifies diffusion of responsibility~\cite{jeyagobi_2022}. Anonymity reduces identifiability, further diminishing felt obligation~\cite{chan_2022}. The absence of non-verbal cues reduces the signal strength of distress and urgency~\cite{herry_2023}. Research on cyberbullying bystanders consistently finds that even when individuals perceive an event as harmful and know how to respond, many choose non-intervention, particularly when they doubt the efficacy of available response channels~\cite{li_2023_bystander}. Self-efficacy regarding platform reporting tools is a significant predictor of whether bystanders act: those who believe reporting will produce an effect are more likely to report~\cite{jeyagobi_2022}.
+ 
+Prior victimisation or prior exposure to harmful content has a dual effect. Herry~\cite{herry_2023} found that individuals with prior experience of harassment were more likely to intervene on behalf of victims. However, when prior reporting experiences produce no visible outcome, the effect reverses: disenchantment with reporting processes reduces future reporting intention~\cite{wong_2016}. Wong et al.~\cite{wong_2016} specifically examined what drives use of reporting functions on social networking sites, finding that perceived reporting efficacy, rather than awareness of how to report, is the primary predictor of reporting behaviour. This is directly relevant to the gap this paper documents.
+ 
+\subsection{Platform Interface Design and Reporting Friction}
+ 
+Research on platform reporting interfaces has documented that their design systematically contributes to low reporting rates. Reporting flows are often opaque about what will happen after submission, do not communicate review timelines, provide no follow-up to reporters, and in several cases frame reports in ways that may deter low-confidence reporters~\cite{wong_2016,li_2023_bystander}. When users experience repeated encounters with moderation systems that produce no visible outcome, they engage in rational updating: the inference that reporting does not change anything~\cite{jeyagobi_2022}.
+ 
+This dynamic parallels the ``privacy fatigue'' construct documented in the digital privacy literature, in which repeated experiences of inadequate privacy protection lead users to disengage from privacy-protective behaviour entirely~\cite{zhang_2024}. Applied to \gls{csam} reporting, the equivalent phenomenon, which this paper terms reporting disenchantment, describes a state in which users retain reporting literacy but have learned to regard the reporting mechanism as ineffective and therefore do not deploy that literacy~\cite{wong_2016}.
+ 
+%% -----------------------------------------------------------
+\section{Methodology}
+%% -----------------------------------------------------------
+ 
+\subsection{Study Design}
+ 
+This study employed a cross-sectional online survey design. The survey examined five dimensions: (1) prior exposure to \gls{csam} on social media; (2) platform distribution of encounters; (3) emotional reactions and behavioural responses upon encounter; (4) reporting knowledge, behaviour, and perceived platform responsiveness; and (5) policy preferences for platform accountability. The survey was administered via Google Forms between March 11 and April 10, 2024, and distributed through course networks at the University of Waterloo.
+ 
+\subsection{Participants}
+ 
+A total of 47 responses were collected. Participants ranged in age from 18 to 24 years (mean: 21.0). Gender distribution: male ($n = 21$, 44.7\%), female ($n = 14$, 29.8\%), non-binary ($n = 5$, 10.6\%), not disclosed ($n = 5$, 10.6\%), agender ($n = 1$), and queer ($n = 1$). Faculty representation: Mathematics ($n = 23$, 48.9\%), Engineering ($n = 9$, 19.1\%), Arts ($n = 10$, 21.3\%), Science ($n = 4$, 8.5\%), and one graduate student in Engineering. One additional response listed Accounting as faculty with a corresponding undergraduate term; this response was retained. Academic terms ranged from 1B to 4B with the majority in third and fourth year. The sampling frame is convenience-based and the sample is not representative of the University of Waterloo student population as a whole.
+ 
+\subsection{Survey Instrument}
+ 
+The survey comprised 15 items combining binary, multiple-choice, Likert-type, and open-response formats. Key items included: a binary yes/no/unsure exposure question; a multi-select platform identification question; a frequency rating (never/rarely/occasionally/frequently); an open-response content description; multi-select questions on personal and recommended reactions; a binary question on reporting knowledge; a follow-up on perceived platform response; an 11-point seriousness scale (0--10); a 5-point platform adequacy scale (1 = platforms do enough, 5 = platforms do not do enough); a 10-point reporting effectiveness scale; a multi-select policy preference question; and a yes/maybe/no item on desire for further education on \gls{csam} reporting. The instrument defined \gls{csam} inclusively as any involvement of minors in sexual contexts, covering visual media, online conversations, comments, posts, and related content.
+ 
+\subsection{Dataset Availability}
+ 
+The full anonymised dataset is provided as a supplementary file accompanying this paper. The dataset preserves all original response fields with no modification beyond the removal of the Google Forms submission timestamp (replaced with a date-only field) to prevent potential re-identification of responses submitted within narrow time windows.
+ 
+\subsection{Data Analysis}
+ 
+Descriptive statistics were computed for all quantitative variables. Subgroup comparisons were conducted between respondents who had and had not encountered \gls{csam} on key outcome variables. Platform and action preference frequencies were tabulated. Open-response descriptions of encountered content were reviewed against the survey's \gls{csam} definition. One open-response description (``a lot of physical violence in terms of hitting, a lot of pages post fights'') did not meet the instrument's definition and was excluded from qualitative content analysis while retained in all quantitative item analyses.
+ 
+\subsection{Ethical Considerations}
+ 
+Participation was voluntary and anonymous. No images, videos, or detailed descriptions of abusive content were solicited. The survey directed participants to Cybertip.ca and the \gls{ncmec} CyberTipline for any content they wished to report during or after participation. The study was conducted in accordance with the Tri-Council Policy Statement on ethical research involving humans and did not require institutional ethics board review under the University of Waterloo's guidelines for low-risk anonymous survey research.
+ 
+%% -----------------------------------------------------------
+\section{Results}
+%% -----------------------------------------------------------
+ 
+\subsection{Exposure Prevalence and Platform Distribution}
+ 
+Of 47 respondents, 25 (53.2\%) confirmed having encountered \gls{csam} on social media, 21 (44.7\%) had not, and one responded ``maybe.'' Exposure frequency among those who confirmed an encounter: rarely/once or twice ($n = 13$, 52\%); occasionally/a few times a month ($n = 7$, 28\%); frequently/several times a month or more ($n = 7$, 28\%).
+ 
+Platform distribution among encountering respondents is shown in Table~\ref{tab:platforms}. Instagram was the most frequently cited platform, appearing in 84\% of encountering respondents' selections, followed by TikTok (56\%), Twitter/X (48\%), and YouTube (44\%). Less frequently cited were Facebook, Snapchat, and Telegram. Several participants encountered \gls{csam} across multiple platforms simultaneously.
+ 
+\begin{table}[!ht]
+\centering
+\caption{Platform Distribution of CSAM Encounters ($n = 25$; multiple platforms per respondent permitted)}
+\label{tab:platforms}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{lcc}
+\toprule
+\textbf{Platform} & \textbf{Respondents} & \textbf{\%} \\
+\midrule
+Instagram   & 21 & 84\% \\
+TikTok      & 14 & 56\% \\
+Twitter / X & 12 & 48\% \\
+YouTube     & 11 & 44\% \\
+Facebook    & 8  & 32\% \\
+Snapchat    & 8  & 32\% \\
+Telegram    & 5  & 20\% \\
+Other       & 5  & 20\% \\
+\bottomrule
+\end{tabular}
+\end{table}
+ 
+\subsection{Content Types Encountered}
+ 
+Where qualitative descriptions were provided, content spanned the full breadth of the survey's inclusive \gls{csam} definition: explicit video and image depictions of minors being sexually assaulted; animated and illustrated sexual content depicting characters identified as minors, including anime and cartoon imagery; children in non-sexualized contexts accompanied by sexualizing comments; parent-managed accounts described as venues for exploitation; and derogatory or grooming-adjacent comments directed at minors. Several respondents declined to describe content and noted only the platform. The breadth of types reflects the survey's inclusive definition and is consistent with research indicating that user-side exposure to \gls{csam}-adjacent content substantially exceeds exposure to content meeting strict legal definitions~\cite{aic_2022}.
+ 
+\subsection{Emotional Reactions and Behavioural Responses}
+ 
+Reactions among the 25 confirming respondents are presented in Table~\ref{tab:reactions}. Disgust was the most common response (68\%), followed by helplessness (48\%). Reporting to the platform occurred in 11 of 25 cases (44\%), while 8 (32\%) ignored the content entirely. Blocking the poster's account was selected by 8 respondents (32\%). The co-occurrence of helplessness and non-reporting is a key pattern: of the 8 who ignored the content, 6 also indicated feeling helpless, suggesting that passive disengagement reflected perceived futility rather than indifference.
+ 
+\begin{table}[!ht]
+\centering
+\caption{Reported Reactions Among Respondents Who Encountered CSAM ($n = 25$)}
+\label{tab:reactions}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{lcc}
+\toprule
+\textbf{Reaction} & \textbf{$n$} & \textbf{\%} \\
+\midrule
+Felt disgusted or disturbed & 17 & 68\% \\
+Felt helpless               & 12 & 48\% \\
+Reported to the platform    & 11 & 44\% \\
+Blocked the account         & 8  & 32\% \\
+Ignored it                  & 8  & 32\% \\
+\bottomrule
+\end{tabular}
+\end{table}
+ 
+\subsection{The Reporting Gap: Knowledge, Behaviour, and Platform Response}
+ 
+The study's central finding is a 36-percentage-point structural gap between reporting knowledge and reporting behaviour. Among the 25 who encountered \gls{csam}, 20 (80\%) knew how to report, 5 (20\%) were unsure, and none reported definitively not knowing. Despite this high rate of reporting literacy, only 11 of 25 (44\%) actually filed a report.
+ 
+Among the 11 who did report, perceived platform response: appropriate action taken ($n = 1$, 9\%); no action taken ($n = 9$, 82\%); unsure/no response ($n = 1$, 9\%). One participant specifically described the platform response as ``never heard back.'' Of the 25 who encountered \gls{csam}, only one (4\%) both filed a report and believed the platform acted appropriately.
+ 
+\subsection{Perceived Seriousness, Platform Adequacy, and Reporting Effectiveness}
+ 
+Across all 47 respondents, perceived seriousness of \gls{csam} as an issue (0--10 scale) yielded a mean of 8.11 ($\text{SD} = 2.04$). Those who had encountered \gls{csam} rated mean seriousness at 8.40 versus 7.71 for those who had not. Notably, even those who had never encountered \gls{csam} rated its seriousness at nearly 8 out of 10, indicating high baseline awareness independent of direct exposure.
+ 
+Platform adequacy (1 = platforms do enough, 5 = platforms do not do enough) yielded a full-sample mean of 2.40, placing collective opinion in the mid-range leaning toward ``do not do enough.'' Reporting effectiveness (10-point scale) yielded a mean of 4.29 ($\text{SD} = 2.07$), indicating moderate to low perceived effectiveness. There was no meaningful difference in effectiveness ratings between those who had and had not used the reporting system, suggesting that low perceived effectiveness is a generalised population-level belief, not an outcome of direct reporting experience.
+ 
+\subsection{Policy Preferences}
+ 
+Results are presented in Table~\ref{tab:policy}. Content removal (85\%) and account suspension from posting (85\%) were the most widely supported interventions, followed by engagement disabling (72\%). Data forfeiture to authorities was supported by 55\%. A ``warn users and allow them to proceed'' option was selected by only 34\%, indicating that most respondents do not support a permissive, notification-only intervention model.
+ 
+\begin{table}[!ht]
+\centering
+\caption{Preferred Platform Responses to CSAM ($n = 47$; multiple selections permitted)}
+\label{tab:policy}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{lcc}
+\toprule
+\textbf{Preferred Action} & \textbf{$n$} & \textbf{\%} \\
+\midrule
+Take down content                & 40 & 85\% \\
+Disable account from posting     & 40 & 85\% \\
+Disable engagement with content  & 34 & 72\% \\
+Forfeit data to authorities      & 26 & 55\% \\
+Warn user and allow to proceed   & 16 & 34\% \\
+\bottomrule
+\end{tabular}
+\end{table}
+ 
+Desire for further education on \gls{csam} and how to report it was endorsed by 21 respondents (45\%), with 14 (30\%) unsure and 12 (26\%) declining. The majority (75\%) expressed some openness to additional education, relevant to this paper's argument that the problem is not ignorance of mechanisms but distrust of their efficacy.
+ 
+%% -----------------------------------------------------------
+\section{Discussion}
+%% -----------------------------------------------------------
+ 
+\subsection{The Reporting Gap as a Structural Problem}
+ 
+The 36-percentage-point gap between knowing how to report (80\%) and actually reporting (44\%) resists explanation through digital literacy frameworks. Respondents who did not report were not ignorant of the reporting mechanism; they were uncertain whether using it would matter. This is supported by the finding that reporting effectiveness was rated at 4.29/10 across the full sample, including among respondents who had never used the reporting system. The perception of inefficacy precedes and shapes behaviour independently of direct experience.
+ 
+This pattern is consistent with Wong et al.'s~\cite{wong_2016} finding that perceived reporting efficacy, rather than awareness of how to report, is the primary driver of reporting behaviour on social networking sites. A user who has formed a prior belief that platform moderation is unresponsive carries that belief into any future encounter, and it suppresses the likelihood of reporting even when the user possesses full procedural knowledge. The near-total absence of positive platform responses in this dataset, with only 1 of 11 reporters believing appropriate action was taken, provides rational grounds for exactly this belief.
+ 
+The finding also extends bystander theory into the \gls{csam} domain. Diffusion of responsibility is structurally amplified on platforms with hundreds of millions of users: any individual encountering \gls{csam} can reasonably infer that many others have already seen it and that some proportion of them have already reported it. Without outcome feedback from the platform, there is no signal to interrupt that inference. The default assumption, that the system is handling it without one's personal involvement, is maintained even when the system is not~\cite{latane_darley_1970,jeyagobi_2022}.
+ 
+\subsection{Helplessness as the Operational State of Non-Reporters}
+ 
+The prevalence of helplessness (48\% of encountering respondents), the second most common emotional response after disgust, is consistent with a reporting ecology that produces what Seligman~\cite{seligman_1975} described as learned helplessness: repeated exposure to an unresponsive environment generates a generalised expectation of futility that inhibits action even when action is technically available. In this study, the co-occurrence of helplessness with the ``ignored it'' response (6 of 8 who ignored content also reported feeling helpless) is consistent with that interpretation.
+ 
+This is a meaningfully different problem from low reporting literacy, and it requires different interventions. Educational campaigns explaining how to file a Cybertip.ca report or a \gls{ncmec} CyberTip will not address the fundamental question of whether filing that report accomplishes anything. That 75\% of respondents expressed openness to further education suggests a genuinely receptive population, but only if that education is paired with credible evidence that reporting produces outcomes~\cite{wong_2016}.
+ 
+\subsection{Canadian and International Policy Implications}
+ 
+The policy preference data reveal a population broadly aligned on a stringent accountability framework. Content takedown (85\%) and account suspension (85\%) are near-universally supported, engagement disabling (72\%) commands strong majority consensus, and only 34\% support a warn-and-allow approach. These preferences align poorly with current platform practice, in which the majority of electronic service providers do not file \gls{ncmec} reports at all~\cite{ncmec_2023}, and none are currently required to notify reporters of outcomes.
+ 
+In the Canadian context, the student preferences documented here map closely onto the core obligations proposed in Bill C-63. The bill's 24-hour takedown requirement for \gls{csam} and its obligation to notify users who flagged content of the resulting action~\cite{bilc63_2024} directly address the two failures this study documents: slow or absent content removal, and the absence of reporter feedback. The bill's failure to pass before Parliament's prorogation in January 2025 leaves Canadian users without an enforceable standard for platform response, in a country where Cybertip.ca saw a 45\% increase in exploitation reports in the year preceding this survey~\cite{cybertip_2023}.
+ 
+The 55\% support for data forfeiture to authorities reflects majority appetite for law enforcement cooperation, though one participant explicitly noted reservations about the word ``forfeit'' and the scope of authority it implies, a concern that echoes civil liberties critiques of both Bill C-63 and its U.S. counterparts such as the \gls{earn_it} Act~\cite{senate_2024}. This ambivalence suggests that policy design will need to distinguish between mandatory \gls{ncmec}-style reporting, which commands strong support, and broader data access arrangements, which face more qualified endorsement.
+ 
+\subsection{Instagram and TikTok as Priority Platforms}
+ 
+Instagram's appearance in 84\% of encountering respondents' selections is consistent with the Stanford SIO investigation~\cite{stanford_sio_2023}, which identified Instagram as the primary platform for \gls{csam} network formation. TikTok's appearance in 56\% reflects the platform's algorithmic recommendation architecture, which has been criticised for surfacing exploitation-adjacent content to users with no prior search history in that space. The dominance of mainstream platforms in this dataset challenges framing of \gls{csam} as a dark-web or fringe-platform problem. Telegram's presence (20\%) reflects its documented use for \gls{csam} distribution through private channels~\cite{scholarcommons_2024}, but its minority position relative to Instagram and TikTok underscores that enforcement focus on encrypted fringe channels misses the mainstream exposure that ordinary users encounter.
+ 
+\gls{c3p}'s 2023--24 reporting highlighted similar platform dominance patterns in the Canadian context, with social media platforms identified as the primary venues for online luring and exploitation, and Cybertip.ca issuing alerts specifically for Wizz, Omegle, and Discord during the same period as this survey's data collection~\cite{c3p_2023}.
+ 
+\subsection{Limitations}
+ 
+This study has several limitations. The sample is small ($n = 47$) and drawn from a single university, with a strong skew toward the Faculty of Mathematics (48.9\%). Responses are self-reported and subject to social desirability bias, particularly for items relating to whether respondents filed a report. The survey period coincides with the beginning of the era of AI-generated \gls{csam}, a category not explicitly addressed in the instrument. The survey's inclusive definition of \gls{csam} may have broadened the exposure estimate relative to narrower legal definitions, though this is consistent with research indicating that user-side exposure to \gls{csam}-adjacent content is substantially higher than exposure to legally-defined content~\cite{aic_2022}. The cross-sectional design does not permit causal inference: the association between helplessness and non-reporting could reflect pre-existing attitudes toward platform efficacy rather than responses to specific encounters.
+ 
+%% -----------------------------------------------------------
+\section{Conclusion}
+%% -----------------------------------------------------------
+ 
+The central argument of this paper is that the gap between knowing how to report \gls{csam} and actually doing so reflects a structural failure of platform accountability rather than a deficit of user knowledge. Among University of Waterloo students who encountered \gls{csam}, 80\% knew how to report and only 44\% did. Of those who reported, one in eleven believed the platform took appropriate action. These findings, situated against 36.2 million \gls{ncmec} CyberTipline reports and over 40,000 Cybertip.ca reports in 2023, and against a Canadian legislative landscape in which Bill C-63's enforceable 24-hour takedown and reporter-notification obligations died on the order paper, indicate that the user-side dimension of \gls{csam} governance is shaped primarily by distrust of reporting outcomes rather than by ignorance of reporting mechanisms.
+ 
+Three implications follow. First, platform accountability measures, specifically mandatory outcome reporting to users who file reports, standardised response timelines, and public disclosure of moderation action rates, are necessary to rebuild the trust that would activate the reporting literacy that already exists. Second, regulatory frameworks must address not only whether platforms file reports but whether those reports are of sufficient quality for law enforcement action and whether platforms communicate outcomes to the users who initiated them. Third, educational campaigns about \gls{csam} reporting must be paired with honest, evidence-grounded communication about current system limitations and what reporting can and cannot be expected to accomplish.
+ 
+The 36-percentage-point reporting gap documented here is a proxy for the larger accountability deficit in platform governance: users know what should happen, want it to happen, and have the technical means to initiate it, but have learned, through repeated experience or population-level inference, that the system does not respond. Closing that gap requires changing the system.
+
+%% -----------------------------------------------------------
+%% Glossaries
+%% -----------------------------------------------------------
+\glsaddall
+\setglossarystyle{alttree}
+\glssetwidest{EARN IT} % <--- Put longest acronym here!
+\printglossary[type=\acronymtype,title=List of Acronyms]
+
+\bibliographystyle{IEEEtran}
+\bibliography{i-knew-how-to-report-but-didnt}
+
+%% ===========================================================
+%% APPENDIX: Full Dataset
+%% ===========================================================
+\appendix
+\clearpage
+\onecolumn
+
+\section{Full Survey Dataset}
+
+The following tables reproduce the complete anonymised dataset collected between March 11 and April 10, 2024. All 47 responses are included. Free-text fields (content description and additional comments) are presented verbatim where provided; cells containing only a dash were not answered or not applicable. The CSV source file \texttt{i-knew-how-to-report-but-didnt.csv} is provided alongside this document.
+
+Column abbreviations used across all tables:
+\begin{itemize}
+  \item \textbf{ID}: Row identifier (1--47, assigned in submission order)
+  \item \textbf{Enc.}: Encountered CSAM (Yes / No / Maybe)
+  \item \textbf{Freq.}: Exposure frequency (Never / Rarely / Occasionally / Frequently)
+  \item \textbf{Knew}: Knew how to report (Yes / No / Unsure)
+  \item \textbf{PR}: Perceived platform response after reporting
+  \item \textbf{Ser.}: Perceived seriousness (0--10)
+  \item \textbf{PD}: Platforms do enough (1 = strongly agree, 5 = strongly disagree)
+  \item \textbf{RE}: Reporting effectiveness (0--10)
+  \item \textbf{Learn}: Want to learn more (Yes / No / Maybe)
+\end{itemize}
+
+%% -----------------------------------------------------------
+%% Table A-I: Quantitative and Categorical Fields
+%% -----------------------------------------------------------
+\subsection{Quantitative and Categorical Responses}
+
+\begin{landscape}
+\small
+\setlength{\LTleft}{0pt}
+\setlength{\LTright}{0pt}
+\begin{longtable}{@{}
+  r        % ID
+  l        % Date
+  r        % Age
+  P{1.3cm} % Gender
+  P{1.4cm} % Faculty
+  P{0.7cm} % Term
+  P{0.8cm} % Enc.
+  P{1.5cm} % Freq.
+  P{0.8cm} % Knew
+  P{1.8cm} % PR
+  r        % Ser.
+  r        % PD
+  r        % RE
+  P{0.9cm} % Learn
+  @{}}
+\toprule
+\textbf{ID} & \textbf{Date} & \textbf{Age} & \textbf{Gender} &
+\textbf{Faculty} & \textbf{Term} & \textbf{Enc.} & \textbf{Freq.} &
+\textbf{Knew} & \textbf{PR} &
+\textbf{Ser.} & \textbf{PD} & \textbf{RE} & \textbf{Learn} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{ID} & \textbf{Date} & \textbf{Age} & \textbf{Gender} &
+\textbf{Faculty} & \textbf{Term} & \textbf{Enc.} & \textbf{Freq.} &
+\textbf{Knew} & \textbf{PR} &
+\textbf{Ser.} & \textbf{PD} & \textbf{RE} & \textbf{Learn} \\
+\midrule
+\endhead
+\midrule
+\multicolumn{14}{r}{\small\textit{(continued)}} \\
+\endfoot
+\bottomrule
+\endlastfoot
+\csvreader[
+  late after line=\\
+]{i-knew-how-to-report-but-didnt.csv}{
+  1=\cDate, 2=\cAge, 3=\cGender, 4=\cFaculty, 5=\cTerm,
+  6=\cEnc, 7=\cFreq, 9=\cKnew, 10=\cPR,
+  11=\cSer, 12=\cPD, 13=\cRE, 14=\cLearn
+}{%
+  \thecsvrow & \cDate & \cAge & \cGender & \cFaculty & \cTerm &
+  \cEnc & \cFreq & \cKnew & \cPR &
+  \cSer & \cPD & \cRE & \cLearn
+}
+\end{longtable}
+\end{landscape}
+
+%% -----------------------------------------------------------
+%% Table A-II: Platform Selections
+%% -----------------------------------------------------------
+\subsection{Platforms Where CSAM Was Encountered}
+
+Each cell indicates whether the respondent selected that platform. A dash indicates the respondent did not encounter \gls{csam} or did not select this platform.
+
+\begin{landscape}
+\small
+\setlength{\LTleft}{0pt}
+\setlength{\LTright}{0pt}
+\begin{longtable}{@{}
+  r        % ID
+  P{1.5cm} % Instagram
+  P{1.1cm} % TikTok
+  P{1.4cm} % Twitter/X
+  P{1.4cm} % YouTube
+  P{1.4cm} % Facebook
+  P{1.4cm} % Snapchat
+  P{1.4cm} % Telegram
+  P{1.4cm} % Discord
+  P{1.4cm} % WhatsApp
+  P{1.0cm} % Kik
+  P{1.5cm} % Other
+  @{}}
+\toprule
+\textbf{ID} & \textbf{Instagram} & \textbf{TikTok} & \textbf{Twitter/X} &
+\textbf{YouTube} & \textbf{Facebook} & \textbf{Snapchat} & \textbf{Telegram} &
+\textbf{Discord} & \textbf{WhatsApp} & \textbf{Kik} & \textbf{Other} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{ID} & \textbf{Instagram} & \textbf{TikTok} & \textbf{Twitter/X} &
+\textbf{YouTube} & \textbf{Facebook} & \textbf{Snapchat} & \textbf{Telegram} &
+\textbf{Discord} & \textbf{WhatsApp} & \textbf{Kik} & \textbf{Other} \\
+\midrule
+\endhead
+\midrule
+\multicolumn{12}{r}{\small\textit{(continued)}} \\
+\endfoot
+\bottomrule
+\endlastfoot
+\csvreader[
+  late after line=\\
+]{i-knew-how-to-report-but-didnt.csv}{
+  16=\cInsta, 17=\cTikTok, 18=\cTwitter, 19=\cYT,
+  20=\cFB, 21=\cSnap, 22=\cTelegram, 23=\cDiscord,
+  24=\cWA, 25=\cKik, 26=\cOther
+}{%
+  \thecsvrow & \cInsta & \cTikTok & \cTwitter & \cYT &
+  \cFB & \cSnap & \cTelegram & \cDiscord &
+  \cWA & \cKik & \cOther
+}
+\end{longtable}
+\end{landscape}
+
+%% -----------------------------------------------------------
+%% Table A-III: Free-Text Responses
+%% -----------------------------------------------------------
+\subsection{Free-Text Responses}
+
+Open-response fields reproduced verbatim. Response~15 was excluded from qualitative content analysis as it did not meet the survey's \gls{csam} definition; it is retained here for transparency.
+
+\small
+\setlength{\LTleft}{0pt}
+\setlength{\LTright}{0pt}
+\begin{longtable}{@{} r P{6.5cm} P{7cm} @{}}
+\toprule
+\textbf{ID} & \textbf{Content Description} & \textbf{Additional Comments} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{ID} & \textbf{Content Description} & \textbf{Additional Comments} \\
+\midrule
+\endhead
+\midrule
+\multicolumn{3}{r}{\small\textit{(continued)}} \\
+\endfoot
+\bottomrule
+\endlastfoot
+\csvreader[
+  late after line=\\
+]{i-knew-how-to-report-but-didnt.csv}{
+  8=\cDesc, 15=\cComments
+}{%
+  \thecsvrow & \cDesc & \cComments
+}
+\end{longtable}
+
+\twocolumn
+\end{document}
