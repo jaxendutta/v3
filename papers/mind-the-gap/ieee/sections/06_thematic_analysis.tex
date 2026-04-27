@@ -1,0 +1,91 @@
+%% -----------------------------------------------------------
+\section{Thematic Analysis}
+%% -----------------------------------------------------------
+
+\subsection{Concept Matrix}
+
+Table~\ref{tab:concept_matrix} organizes the surveyed literature by theme following Webster and Watson's~\cite{webster_watson_2002} concept-centric methodology, revealing patterns that author-by-author review obscures.
+
+\begin{table*}[!ht]
+\centering
+\caption{Concept Matrix: AI Mental Health Technologies and Marginalized Populations}
+\label{tab:concept_matrix}
+\renewcommand{\arraystretch}{1.25}
+\begin{tabularx}{\textwidth}{>{\bfseries}p{2.4cm} X X X X}
+\toprule
+\textbf{Theme} & \textbf{Evidence of Effectiveness} & \textbf{Evidence of Risks/Harms} & \textbf{Cultural/Accessibility Considerations} & \textbf{Design Recommendations} \\
+\midrule
+Purpose-Built CBT Chatbots
+& \cite{karkosz_2024}: depression $\downarrow$8 pts; \cite{meheli_2022}: depression $13\to10$; \cite{li_2023}: Hedges' $g=0.64$
+& \cite{he_2022}: general chatbots may harm; \cite{de_freitas_2024}: crisis recognition failures
+& \cite{karkosz_2024}: culturally adapted for Polish speakers; \cite{meheli_2022}: chronic pain populations show higher engagement
+& \cite{rollwage_2024}: hybrid human-AI models; \cite{smith_2023}: safety protocols required \\
+\midrule
+LGBTQ+ Populations
+& \cite{liu_2023}: structured formal interventions reduce symptoms; \cite{drydakis_2022}: m-health apps show promise
+& \cite{tanni_2024}: elevated online harassment and self-harm links; \cite{fowler_2023}: only 50\% include community input
+& \cite{liu_2023}: underrepresentation of non-binary/trans youth of colour; \cite{fowler_2023}: identity-affirming content critical
+& \cite{liu_2023,fowler_2023}: community co-design essential; transparency about limitations \\
+\midrule
+Neurodivergent Populations
+& \cite{papadopoulos_2025}: judgment-free interaction benefits documented; \cite{dehghani_2024}: AI screening improvements
+& \cite{killian_2023}: neurotypical bias in LLM outputs; \cite{papadopoulos_2025}: crisis detection failures; over-reliance risk
+& \cite{killian_2023}: responses overwhelm cognitive load; \cite{papadopoulos_2025}: social isolation risk
+& \cite{papadopoulos_2025}: co-design with neurodivergent developers; \cite{killian_2023}: specialist practitioner oversight \\
+\midrule
+Racial/Ethnic Minorities
+& --- (significant gap in purpose-built tools)
+& \cite{haider_2024}: AI exacerbates racial disparities; \cite{timmons_2023}: underrepresentation in training data; \cite{straw_2020}: racial stereotypes in LLM outputs
+& \cite{timmons_2023}: minoritized groups less likely to seek treatment; \cite{haider_2024}: Black and Hispanic populations most affected
+& \cite{timmons_2023}: fair-aware AI framework; \cite{omar_2025}: diverse rater pools in evaluation \\
+\midrule
+Cultural Adaptation
+& \cite{naderbagi_2024}: culturally adapted interventions more effective
+& \cite{aleem_2024}: ChatGPT fails non-Western contexts; \cite{soubutts_2024}: misunderstood cultural distress
+& \cite{soubutts_2024}: CALD youth need culturally humble approaches; \cite{naderbagi_2024}: deep vs.\ surface adaptation distinction
+& \cite{naderbagi_2024}: continuous community engagement; \cite{soubutts_2024}: avoid one-time translation \\
+\midrule
+Accessibility for Disabled Users
+& \cite{khan_seo_2025}: documents gap (most DMH platforms inaccessible)
+& \cite{khan_seo_2025}: screen reader failures; visual-only displays exclude blind users
+& \cite{khan_seo_2025}: forced choice between inaccessible mainstream or limited disability-specific tools
+& \cite{khan_seo_2025}: accessibility as foundational design requirement \\
+\midrule
+Socioeconomic Barriers
+& \cite{robinson_2024}: smartphone adoption high among low-income users
+& \cite{robinson_2024}: digital divide limits equitable access; \cite{huang_2024}: diverse youth show lower engagement
+& \cite{robinson_2024}: low-income users depend on phone-only access; digital literacy gaps
+& \cite{robinson_2024}: DEIB in full product lifecycle; \cite{timmons_2023}: equitable evidence generation \\
+\midrule
+LLM Demographic Bias
+& --- (evaluation frameworks beginning to emerge)
+& \cite{omar_2025}: bias in 91.7\% of medical LLM studies; \cite{pfohl_2024}: equity harm framework; \cite{straw_2020}: racial/gender bias in mental health contexts
+& \cite{omar_2025}: gender bias 93.7\%, racial bias 90.9\% of studies; \cite{haider_2024}: Black/Hispanic populations most affected
+& \cite{pfohl_2024}: diverse rater pools; \cite{timmons_2023}: bias assessment throughout lifecycle \\
+\midrule
+Safety \& Crisis Management
+& \cite{abd_alrazaq_2020}: weak evidence of safety in early literature
+& \cite{de_freitas_2024}: crisis recognition failures; \cite{he_2022}: harmful advice documented; \cite{neda_2023}: Tessa case
+& \cite{smith_2023}: lack of crisis escalation protocols; \cite{palmer_2025}: regulatory gap
+& \cite{smith_2023}: human oversight mandatory; \cite{palmer_2025}: voluntary certification program \\
+\midrule
+Implementation \& Sustainability
+& \cite{casu_2024}: scoping review identifies gaps
+& \cite{dehbozorgi_2025}: implementation challenges; lack of long-term monitoring
+& \cite{smith_2023}: no standardized testing; limited post-discontinuation tracking
+& \cite{li_2023}: multimodal, mobile-integrated apps more effective; \cite{smith_2023}: safety standards pre-deployment \\
+\bottomrule
+\end{tabularx}
+\end{table*}
+
+\subsection{The Trapped User Phenomenon}
+
+The evidence across themes reveals a structural paradox this survey terms the \textit{trapped user phenomenon}: marginalized individuals turn to digital mental health after traditional services fail due to cost, stigma, or cultural incompetence, yet have no recourse when AI fails them in turn. Khan and Seo's blind participants described having ``no choice'' while sighted users have their ``pick of the litter''~\cite{khan_seo_2025}. De Freitas et al.~\cite{de_freitas_2024} documented users disclosing suicidal ideation to chatbots that could not recognize or respond to it. Papadopoulos~\cite{papadopoulos_2025} documents autistic individuals developing primary social bonds with AI companions because no accessible human alternative existed. Timmons et al.~\cite{timmons_2023} frame this as a structural inequity: the communities most likely to turn to AI mental health tools out of necessity are also those whose data is least represented in training corpora, whose clinical needs are least reflected in design decisions, and whose harms are least captured in post-market surveillance.
+
+The trapped user phenomenon explains why harm from AI mental health tools is not evenly distributed: it concentrates among those who had nowhere else to go.
+
+\subsection{Stratified Digital Access}
+
+The evidence challenges techno-optimist narratives that position digital mental health as inherently democratizing. Availability does not equal accessibility~\cite{khan_seo_2025}. Global deployment means little when cultural inaccessibility renders AI useless for the populations it reaches~\cite{aleem_2024}. A more accurate model is ``stratified digital access'': AI systems trained on majority populations and deployed without equity design create bifurcated landscapes where privileged groups receive adequate support while marginalized populations receive inadequate or harmful support with no human alternatives~\cite{robinson_2024,timmons_2023}.
+
+The \gls{who}'s 2025 guidance on AI ethics in health~\cite{who_2025} reinforces this critique at the policy level, emphasizing that governance frameworks must address equity from the outset of system design. Robinson et al.~\cite{robinson_2024} call on manufacturers, academic researchers, payers, providers, and regulatory agencies to collectively specify and monitor equity requirements before adopting or deploying \gls{dmh} products.

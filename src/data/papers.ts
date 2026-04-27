@@ -137,6 +137,31 @@ export const papersData: PapersData = {
         },
     },
 
+    "mind-the-gap": {
+        title: "Mind the Gap: A Structured Survey of AI Mental Health Technologies and Their Equity Failures for Marginalized Populations",
+        abstract:
+            "The rapid proliferation of AI-powered mental health technologies has produced a field defined by a foundational paradox: the populations most in need of accessible, affordable care are precisely those most likely to be harmed by current deployment practices. Queer, neurodivergent, disabled, racially and ethnically minoritized, and culturally diverse individuals face disproportionate barriers to traditional therapy and have turned to AI-driven conversational tools in substantial numbers. Yet systematic evidence reveals that these tools, designed predominantly on majority-population data and deployed without equity infrastructure, reproduce and often deepen the inequities they ostensibly address. This survey synthesizes evidence from 35 peer-reviewed sources published between 2020 and 2025, encompassing randomized controlled trials, systematic reviews and meta-analyses, observational studies, qualitative investigations, and policy analyses. Organized around three central questions (effectiveness, risk, and conditions for safe deployment), it identifies six converging patterns: purpose-built interventions outperform general-purpose tools; cultural adaptation and community co-design are safety requirements rather than optional enhancements; accessibility failures systematically exclude disabled users; crisis management infrastructure lags dangerously behind deployment; LLM demographic bias is empirically documented and pervasive; and safety standards remain underdeveloped relative to scale. The survey concludes by proposing an equity-centered design framework and identifying five critical gaps that the research community must urgently address.",
+        paperType: "Literature Survey",
+        venue: ["University of Ottawa"],
+        duration: {
+            start: new Date("2025-10-11"),
+            end: new Date("2026-10-19")
+        },
+        tags: [
+            "AI + LLM",
+            "Ethics",
+            "Digital Health",
+            "HCI",
+            "Human-AI Interaction",
+            "Governance",
+            "Policy",
+        ],
+        links: {
+            ieee: { label: "IEEE Format", type: "paper" },
+            bib: { label: "BibTeX", type: "bib" },
+        },
+    },
+
     "human-centered-theater": {
         title: "Human-Centered Theater: Overcoming Organizational Resistance to Authentic UX",
         abstract:

@@ -1,0 +1,63 @@
+\documentclass{ieee-portfolio}
+
+%% -----------------------------------------------------------
+%% Meta-Data Configuration
+%% -----------------------------------------------------------
+\title{\textit{Mind the Gap:}\\
+A Structured Survey of AI Mental Health Technologies and Their Equity Failures for Marginalized Populations}
+
+\shorttitle{Mind the Gap}
+\headerauthor{Jaxen Anirban Dutta}
+\date{October 19, 2025}
+
+\author{
+    \IEEEauthorblockN{Jaxen Anirban Dutta\,\orcidlink{0009-0002-5088-4679}}
+    \IEEEauthorblockA{\textit{School of Engineering Design and Teaching Innovation} \\
+    \textit{University of Ottawa, Ottawa, Ontario, Canada} \\
+    adutt042@uottawa.ca}
+}
+
+%% -----------------------------------------------------------
+%% Glossaries Configuration
+%% -----------------------------------------------------------
+\usepackage[acronym,nomain,nogroupskip]{glossaries-extra}
+\setabbreviationstyle[acronym]{long-short}
+\input{../glossaries}
+\makeglossaries
+\usepackage[section]{placeins}
+
+%% -----------------------------------------------------------
+%% Document Body
+%% -----------------------------------------------------------
+\begin{document}
+
+\maketitle
+
+\input{sections/00_abstract}
+
+\begin{IEEEkeywords}
+AI mental health, marginalized populations, chatbot equity, digital mental health, LGBTQ+ mental health, neurodivergent users, racial bias, cultural adaptation, accessibility, algorithmic bias, crisis management, co-design, literature survey
+\end{IEEEkeywords}
+
+\input{sections/01_introduction}
+\input{sections/02_methodology}
+\input{sections/03_effectiveness}
+\input{sections/04_risks}
+\input{sections/05_deployment}
+\input{sections/06_thematic_analysis}
+\input{sections/07_research_gaps}
+\input{sections/08_policy_implications}
+\input{sections/09_conclusion}
+
+%% -----------------------------------------------------------
+%% Print Glossaries
+%% -----------------------------------------------------------
+\glsaddall
+\setglossarystyle{alttree}
+\glssetwidest{LGBTQ+} % <--- Put longest acronym here!
+\printglossary[type=\acronymtype,title=List of Acronyms]
+
+\bibliographystyle{IEEEtran}
+\bibliography{mind-the-gap}
+
+\end{document}
