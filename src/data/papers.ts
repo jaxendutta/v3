@@ -236,7 +236,7 @@ export const papersData: PapersData = {
         venue: ["University of Waterloo"],
         duration: {
             start: new Date("2024-03-10"),
-            end: new Date("2025-05-01")
+            end: new Date("2024-05-01")
         },
         tags: [
             "Ethics",
