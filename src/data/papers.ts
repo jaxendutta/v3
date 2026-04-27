@@ -228,6 +228,29 @@ export const papersData: PapersData = {
         },
     },
 
+    "i-knew-how-to-report-but-didnt": {
+        title: "\"I Knew How to Report, But Didn't\": Awareness, Helplessness, and Platform Distrust in CSAM Reporting Among University Students",
+        abstract:
+            "This paper presents a cross-sectional survey study ($n = 47$) examining how university students at the University of Waterloo perceive, respond to, and reason about child sexual abuse material (CSAM) encountered on social media platforms. Data were collected between March and April 2024. Among respondents who confirmed an encounter ($n = 25$, 53.2\%), 80\% reported knowing how to file a report, yet only 44\% did so. Of those who reported, only one participant felt the platform took appropriate action; nine received no response or no visible action, and one described the outcome as ``never heard back.'' These findings reveal a structural reporting gap driven by two compounding dynamics: a bystander effect shaped by platform scale and perceived diffusion of responsibility, and platform distrust arising from repeated experiences of ineffectual moderation. Helplessness was the second most common emotional response (48\%), and 32\% of those who encountered CSAM ignored the content entirely. Against a backdrop of 36.2 million National Center for Missing and Exploited Children (NCMEC) CyberTipline reports and over 40,000 Cybertip.ca reports in Canada during 2023, and consistent user-side evidence that reporting mechanisms are neither trusted nor effective, this paper argues that the problem is not one of digital literacy but of structural accountability. Platform response quality, interface design, and mandatory outcome transparency are identified as the most likely levers for closing the gap between knowing how to report and actually doing so.",
+        paperType: "Empirical Study",
+        venue: ["University of Waterloo"],
+        duration: {
+            start: new Date("2024-03-10"),
+            end: new Date("2025-05-01")
+        },
+        tags: [
+            "Ethics",
+            "Privacy + Security",
+            "HCI",
+            "Governance",
+            "Policy",
+        ],
+        links: {
+            ieee: { label: "IEEE Format", type: "paper" },
+            bib: { label: "BibTeX", type: "bib" },
+        },
+    },
+
     "a-symphony-of-safeguards": {
         title: "A Symphony of Safeguards: The Case for Multi-Layered AI Regulation",
         abstract:
