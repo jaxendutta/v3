@@ -96,7 +96,7 @@ export const projectsData: ProjectsData = {
                 { name: "React-Icons", version: "5.6.0" },
             ]
         },
-        footer: "Made as a birthday gift for a dear friend, this portfolio is a testament to interactive web design. I implemented a programmatic scroll-snapping architecture using Framer Motion and wheel event listeners to override default browser scrolling, creating a presentation-like, slide-by-slide experience. The interface features complex, self-contained glassmorphic dropdowns, a sliding vertical selector for theme management, and an interactive custom cursor that adapts and morphs over clickable elements. By cleanly separating the data layer, the application remains highly maintainable while delivering a visually striking and technically robust user experience.",
+        footer: "Crafted as a birthday gift for a dear friend, this portfolio is a testament to interactive web design. I implemented a programmatic scroll-snapping architecture using Framer Motion and wheel event listeners to override default browser scrolling, creating a presentation-like, slide-by-slide experience. The interface features complex, self-contained glassmorphic dropdowns, a sliding vertical selector for theme management, and an interactive custom cursor that adapts and morphs over clickable elements. By cleanly separating the data layer, the application remains highly maintainable while delivering a visually striking and technically robust user experience.",
     },
 
     emma: {
