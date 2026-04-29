@@ -123,7 +123,12 @@ export default function TypographySpiral({ font }: TypographySpiralProps) {
             <div className="absolute inset-0 flex items-center justify-center p-6 pointer-events-none">
                 <div className="pointer-events-auto flex flex-col items-center text-center gap-4 md:gap-6 max-w-2xl">
                     <div style={{ fontFamily: font.fontFamily }}>
-                        <Link href={font.url} className="text-4xl md:text-6xl no-underline!">
+                        <Link
+                            href={`https://fonts.google.com/specimen/${font.name.replace(/\s+/g, '+')}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-4xl md:text-6xl no-underline!"
+                        >
                             {font.name}
                         </Link>
                     </div>

@@ -13,6 +13,7 @@ import {
     GiJumpingDog,
     GiLifeInTheBalance,
     GiTicTacToe,
+    GiBalloonDog,
 } from "react-icons/gi";
 import { AiOutlineFolderView } from "react-icons/ai";
 import { PiCodesandboxLogoLight } from "react-icons/pi";
@@ -21,6 +22,83 @@ const calloutStyle =
     "border border-2 border-dashed py-2 px-2 md:px-4 mt-8";
 
 export const projectsData: ProjectsData = {
+    sabeer: {
+        name: "sAbeeR GHuRA",
+        label: "Sabeer Ghura",
+        icon: GiBalloonDog,
+        type: "development",
+        layoutType: "showcase",
+        date: new Date("2026-04-29"),
+        screenshotDevice: "mobile",
+        overview: [
+            [
+                {
+                    className: calloutStyle,
+                    content: "Textured Gradient Canvas",
+                },
+                {
+                    content:
+                        "A high-end, interactive textured-gradient portfolio engineered for Sabeer Ghura. It features full-page scroll snapping, glassmorphic UI elements, and a completely custom global colour palette adjuster.",
+                },
+            ],
+            [
+                {
+                    className: calloutStyle,
+                    content: "Seamless State Management",
+                },
+                {
+                    content:
+                        "Built with Next.js and Framer Motion, the site utilizes context providers to globally manage color schemes and active states, allowing users to switch between multiple vibrant themes instantly.",
+                },
+            ],
+        ],
+        links: [
+            {
+                platform: "GitHub",
+                url: "https://github.com/jaxendutta/sabeer",
+            },
+            {
+                platform: "Live Site",
+                url: "https://sabeer.anirban.ca",
+            },
+        ],
+        typography: [
+            {
+                name: "Syne",
+                fontFamily: 'Syne',
+                url: "https://fonts.googleapis.com/css2?family=Syne:wght@400..800&display=swap",
+                description:
+                    "Syne drives the bold, brutalist aesthetic of the portfolio. Its distinctive, wide letterforms are used for the massive central headings, immediately capturing attention and establishing a strong, modern visual hierarchy.",
+            },
+            {
+                name: "Google Sans Flex",
+                fontFamily: '"Google Sans Flex", sans-serif',
+                url: "",
+                description:
+                    "Used for the intricate UI elements like the palette adjuster and dropdowns, providing pristine legibility for the complex interactive controls.",
+            },
+        ],
+        colors: [
+            {
+                palette: ["#ffffff", "#1a1a1a", "#3b82f6", "#10b981"],
+                description:
+                    "The portfolio features a dynamic, user-adjustable color system rather than a static palette. It ships with five distinct preset schemes (represented by playful icons) and includes a custom palette adjuster that allows users to pick, export, and copy their own hex codes directly from the UI.",
+            },
+        ],
+        techStack: {
+            Frontend: [
+                { name: "Next.js", version: "16.2.4" },
+                { name: "React", version: "19.2.4" },
+                { name: "Tailwind CSS", version: "4.2.4" },
+                { name: "Framer Motion", version: "12.28.0" },
+            ],
+            UI: [
+                { name: "React-Icons", version: "5.6.0" },
+            ]
+        },
+        footer: "Made as a birthday gift for a dear friend, this portfolio is a testament to interactive web design. I implemented a programmatic scroll-snapping architecture using Framer Motion and wheel event listeners to override default browser scrolling, creating a presentation-like, slide-by-slide experience. The interface features complex, self-contained glassmorphic dropdowns, a sliding vertical selector for theme management, and an interactive custom cursor that adapts and morphs over clickable elements. By cleanly separating the data layer, the application remains highly maintainable while delivering a visually striking and technically robust user experience.",
+    },
+
     emma: {
         name: "eMMA",
         label: "EMMA",
