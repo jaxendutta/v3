@@ -44,8 +44,7 @@ export default async function Image() {
                         style={{
                             color: '#fff7ed',
                             fontSize: 120,
-                            fontFamily: serifFamily,
-                            fontStyle: 'italic',
+                            fontFamily: sansFamily,
                             fontWeight: 400,
                             lineHeight: 1.1,
                         }}
