@@ -215,11 +215,26 @@ export default function HeroInteraction() {
     }, [hasMouse, triggerActivation]);
 
     // ── Render ────────────────────────────────────────────────────────────
+    const [fontSize, setFontSize] = useState("7xl");
+
+    useEffect(() => {
+        const updateSize = () => {
+            const width = window.innerWidth;
+            // Dynamic sizing: roughly 10vw but clamped between mobile and desktop extremes
+            const size = Math.min(Math.max(width * 0.12, 64), 160);
+            setFontSize(`${size}px`);
+        };
+        updateSize();
+        window.addEventListener("resize", updateSize);
+        return () => window.removeEventListener("resize", updateSize);
+    }, []);
+
     let flatIndex = 0;
 
     return (
         <div
-            className={`w-full flex flex-col text-7xl md:text-9xl px-4 text-center select-none ${sansFont}`}
+            className={`w-full flex flex-col leading-none px-4 text-center select-none ${sansFont}`}
+            style={{ fontSize }}
         >
             {NAME_WORDS.map((word, wordIndex) => (
                 <span key={wordIndex} className="flex justify-center">

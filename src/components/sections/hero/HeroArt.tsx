@@ -43,7 +43,7 @@ export default function HeroArt() {
 
     const isDark = theme === "dark";
 
-    if (!noiseUrl) return <div className="w-full h-[100vh]" />;
+    if (!noiseUrl) return <div className="w-[100vw] h-[100vh]" />;
 
     const filterValue = isDark
         ? isFirefox
@@ -61,7 +61,7 @@ export default function HeroArt() {
     } : {};
 
     return (
-        <div className="w-full h-[100vh] overflow-hidden relative">
+        <div className="w-[100vw] h-[100vh] overflow-hidden relative">
             <motion.div
                 className="absolute inset-0 z-[1] w-full h-full pointer-events-none bg-[size:20vh_20vh] opacity-20"
                 animate={{ backgroundPosition: ["0px 0px", "100vh 0px"] }}

@@ -13,7 +13,7 @@ import {
     GiJumpingDog,
     GiLifeInTheBalance,
     GiTicTacToe,
-    GiBalloonDog,
+    GiAbstract034,
 } from "react-icons/gi";
 import { AiOutlineFolderView } from "react-icons/ai";
 import { PiCodesandboxLogoLight } from "react-icons/pi";
@@ -25,7 +25,7 @@ export const projectsData: ProjectsData = {
     sabeer: {
         name: "sAbeeR's GRooVe",
         label: "Sabeer's Groove",
-        icon: GiBalloonDog,
+        icon: GiAbstract034,
         type: "development",
         layoutType: "showcase",
         date: new Date("2026-04-29"),
