@@ -23,8 +23,8 @@ const calloutStyle =
 
 export const projectsData: ProjectsData = {
     sabeer: {
-        name: "sAbeeR GHuRA",
-        label: "Sabeer Ghura",
+        name: "sAbeeR's GRooVe",
+        label: "Sabeer's Groove",
         icon: GiBalloonDog,
         type: "development",
         layoutType: "showcase",
