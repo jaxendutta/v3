@@ -82,6 +82,18 @@ export default function FloatingDraggableImage({
         hoverOffset.set(Math.sin(phase) * bobAmplitude);
     });
 
+    const combinedFrameStyle: CSSProperties = {
+        ...(frameStyle ?? {}),
+        // When using 'fill', the container MUST have a defined aspect ratio or dimensions
+        aspectRatio: `${imageSize.width} / ${imageSize.height}`,
+        position: "relative",
+    };
+
+    // Only set width:100% when the caller didn't explicitly provide a width
+    if (!frameStyle || (frameStyle && (frameStyle as any).width === undefined)) {
+        combinedFrameStyle.width = "100%";
+    }
+
     const shadowOpacity = useTransform(hoverOffset, [-bobAmplitude, bobAmplitude], [0.3, 0.5]);
     const shadowBlur = useTransform(hoverOffset, [-bobAmplitude, bobAmplitude], [34, 16]);
     const shadowScaleX = useTransform(hoverOffset, [-bobAmplitude, bobAmplitude], [0.82, 1.04]);
@@ -124,13 +136,7 @@ export default function FloatingDraggableImage({
             >
                 <div
                     className={`relative z-30 flex shrink-0 items-center justify-center ${frameClassName ?? ""}`}
-                    style={{
-                        ...frameStyle,
-                        // When using 'fill', the container MUST have a defined aspect ratio or dimensions
-                        aspectRatio: `${imageSize.width} / ${imageSize.height}`,
-                        width: "100%",
-                        position: "relative"
-                    }}
+                    style={combinedFrameStyle}
                 >
                     <motion.div
                         aria-hidden
