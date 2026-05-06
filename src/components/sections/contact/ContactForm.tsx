@@ -9,6 +9,7 @@ import { GiFloorHatch, GiHandTruck } from "react-icons/gi";
 import { sendEmail } from "@/app/actions";
 import { BsX } from "react-icons/bs";
 import { formFields } from "@/data/contact";
+import { serifFont } from "@/lib/fonts";
 
 export const ContactForm: React.FC = () => {
     const formRef = useRef<HTMLFormElement>(null);
@@ -186,9 +187,8 @@ export const ContactForm: React.FC = () => {
                 </div>
             )}
 
-            <div className="mt-4 px-4 text-center text-xs opacity-60 text-theme">
-                Your information will be used only to respond to your message
-                and will never be shared with third parties.
+            <div className={`mt-4 px-4 text-center text-sm font-thin opacity-60 text-theme ${serifFont} italic`}>
+                Your information will be used only to respond to your message and will never be shared with third parties.
             </div>
         </>
     );
