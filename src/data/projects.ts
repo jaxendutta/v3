@@ -100,21 +100,20 @@ export const projectsData: ProjectsData = {
         ],
         techStack: {
             Frontend: [
-                { name: "Next.js", version: "16.1" },
-                { name: "React", version: "19.4" },
-                { name: "Tailwind CSS", version: "4.1" },
-                { name: "Framer Motion" },
+                { name: "Next.js", version: "16.2.4" },
+                { name: "React", version: "19.2.4" },
+                { name: "Tailwind CSS", version: "4.2.4" },
+                { name: "Framer Motion", version: "12.38.0" },
             ],
             "3D & Graphics": [
-                { name: "Three.js" },
+                { name: "Three.js", version: "0.184.0" },
                 { name: "WebGL" }
             ],
             Backend: [
-                { name: "Sanity CMS" },
-                { name: "JSZip" },
+                { name: "Sanity", version: "5.23.0" },
             ],
         },
-        footer: "Building Jeffrey's portfolio required bridging the gap between artistic expression and strict technical architecture. The WebGL Repertoire gallery dynamically generates 3D picture frames with calculated drop shadows and miter joints directly from CSS logic mapped to canvas textures. The backend relies on Sanity CMS, where I implemented a user-friendly DRY schema that allows standalone recordings to automatically inherit composer and date metadata from linked productions. A custom Next.js API route handles on-the-fly ZIP generation for press kits by fetching remote Google Docs and converting them to PDFs server-side. The result is a highly maintainable platform that feels like an immersive, interactive performance.",
+        footer: "Building Jeffrey Liu's portfolio required bridging the gap between artistic expression and strict technical architecture. The WebGL Repertoire gallery dynamically generates 3D picture frames with calculated drop shadows and miter joints directly from CSS logic mapped to canvas textures. The backend relies on Sanity CMS, where I implemented a user-friendly DRY schema that allows standalone recordings to automatically inherit composer and date metadata from linked productions. A custom Next.js API route handles on-the-fly ZIP generation for press kits by fetching remote Google Docs and converting them to PDFs server-side. The result is a highly maintainable platform that feels like an immersive, interactive performance.",
     },
 
     sabeer: {
