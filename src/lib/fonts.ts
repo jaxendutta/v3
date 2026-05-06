@@ -6,6 +6,7 @@ import {
     Libre_Baskerville,
     Baskervville_SC
 } from "next/font/google";
+import localFont from "next/font/local";
 
 export const majorMono = Major_Mono_Display({
     weight: ['400'],
@@ -52,3 +53,19 @@ export const codeFont = googleSansCode.className;
 export const sansFont = googleSansFlex.className;
 export const serifFont = baskerville.className;
 export const serifSCFont = baskervilleSC.className;
+
+export const my_custom_font = localFont({
+    src: [
+        {
+            // The path is relative to the lib/fonts.ts file!
+            path: "../../public/fonts/your-custom-font.ttf", 
+            weight: "400", // Change this if your font is bold (700), light (300), etc.
+            style: "normal"
+        }
+    ],
+    // This creates a CSS variable we can use anywhere
+    variable: "--font-my-custom", 
+    display: "swap", // Ensures text stays visible while the font loads
+    fallback: ["sans-serif"] // Fallback if the font fails to load
+});
+export const myFontClass = my_custom_font.className;
