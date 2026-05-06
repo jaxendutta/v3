@@ -14,6 +14,7 @@ import {
     GiLifeInTheBalance,
     GiTicTacToe,
     GiAbstract034,
+    GiZigzagTune,
 } from "react-icons/gi";
 import { AiOutlineFolderView } from "react-icons/ai";
 import { PiCodesandboxLogoLight } from "react-icons/pi";
@@ -22,6 +23,100 @@ const calloutStyle =
     "border border-2 border-dashed py-2 px-2 md:px-4 mt-8";
 
 export const projectsData: ProjectsData = {
+    jeffrey: {
+        name: "jeffRey's ARiA",
+        label: "Jeffrey's Aria",
+        icon: GiZigzagTune,
+        type: "development",
+        layoutType: "showcase",
+        date: new Date("2026-05-05"),
+        screenshotDevice: "mobile",
+        overview: [
+            [
+                {
+                    className: calloutStyle,
+                    content: "The Digital Stage",
+                },
+                {
+                    content:
+                        "A cinematic, glassmorphic portfolio engineered for a classical tenor. It transcends standard web design by introducing a continuous background music player, an interactive 3D photobook, and a WebGL-powered repertoire gallery.",
+                },
+            ],
+            [
+                {
+                    className: calloutStyle,
+                    content: "Content at the Core",
+                },
+                {
+                    content:
+                        "Powered by Sanity CMS, the platform features a highly relational database architecture. Recordings intelligently inherit metadata from the master Repertoire list, and press kits are generated dynamically via a custom server-side zipping API.",
+                },
+            ],
+        ],
+        links: [
+            {
+                platform: "GitHub",
+                url: "https://github.com/jaxendutta/jeffrey",
+            },
+            {
+                platform: "Live Site",
+                url: "https://jeffrey.anirban.ca",
+            },
+        ],
+        typography: [
+            {
+                name: "Modern Avenue",
+                fontFamily: '"Modern Avenue", serif',
+                url: "",
+                description:
+                    "A dramatic, high-contrast serif used for the massive hero typography, establishing an immediate sense of classical elegance and theatrical grandeur.",
+            },
+            {
+                name: "Libre Baskerville",
+                fontFamily: '"Libre Baskerville", serif',
+                url: "https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap",
+                description:
+                    "Provides an editorial, academic contrast to the display fonts, elevating the storytelling in the biography and emphasizing important italicized performance titles.",
+            },
+            {
+                name: "Monsieur La Doulaise",
+                fontFamily: '"Monsieur La Doulaise", cursive',
+                url: "https://fonts.googleapis.com/css2?family=Monsieur+La+Doulaise&display=swap",
+                description:
+                    "Employed as massive, low-opacity background watermarks across the pages. It adds a layer of brutalist calligraphy that breaks up the grid and adds texture.",
+            }
+        ],
+        colors: [
+            {
+                palette: ["#0a0e27", "#ffffff", "#d4af37", "#1a1a1a"],
+                description:
+                    "The dark mode palette evokes the feeling of a dimmed auditorium. A deep midnight blue (#0a0e27) serves as the backdrop, while metallic gold (#d4af37) is used sparingly for critical metadata and interactive highlights.",
+            },
+            {
+                palette: ["#fdfbf7", "#1a1a1a", "#8b6508", "#ffffff"],
+                description:
+                    "The light mode flips the atmosphere to that of a bright rehearsal studio or sheet music. Off-white parchment (#fdfbf7) is accented by a richer, legible goldenrod (#8b6508) to maintain accessibility while preserving the classical aesthetic.",
+            },
+        ],
+        techStack: {
+            Frontend: [
+                { name: "Next.js", version: "16.1" },
+                { name: "React", version: "19.4" },
+                { name: "Tailwind CSS", version: "4.1" },
+                { name: "Framer Motion" },
+            ],
+            "3D & Graphics": [
+                { name: "Three.js" },
+                { name: "WebGL" }
+            ],
+            Backend: [
+                { name: "Sanity CMS" },
+                { name: "JSZip" },
+            ],
+        },
+        footer: "Building Jeffrey's portfolio required bridging the gap between artistic expression and strict technical architecture. The WebGL Repertoire gallery dynamically generates 3D picture frames with calculated drop shadows and miter joints directly from CSS logic mapped to canvas textures. The backend relies on Sanity CMS, where I implemented a user-friendly DRY schema that allows standalone recordings to automatically inherit composer and date metadata from linked productions. A custom Next.js API route handles on-the-fly ZIP generation for press kits by fetching remote Google Docs and converting them to PDFs server-side. The result is a highly maintainable platform that feels like an immersive, interactive performance.",
+    },
+
     sabeer: {
         name: "sAbeeR's GRooVe",
         label: "Sabeer's Groove",
