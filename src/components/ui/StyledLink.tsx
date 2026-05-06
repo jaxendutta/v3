@@ -3,7 +3,7 @@
 
 import Link, { LinkProps } from "next/link";
 import { IconType } from "react-icons";
-import { LuArrowRightFromLine } from "react-icons/lu";
+import { HiArrowUpRight } from "react-icons/hi2";
 
 interface StyledLinkProps extends LinkProps {
     text: string;
@@ -15,7 +15,7 @@ interface StyledLinkProps extends LinkProps {
 const StyledLink = ({
     text,
     className = "",
-    icon: Icon = LuArrowRightFromLine,
+    icon: Icon = HiArrowUpRight,
     iconPosition = "right",
     ...props
 }: StyledLinkProps) => {
@@ -28,7 +28,7 @@ const StyledLink = ({
                 scroll
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`flex items-center gap-2 ${iconPosition === "right" ? "flex-row-reverse" : "flex-row"}`}
+                className={`flex items-center gap-1 ${iconPosition === "right" ? "flex-row-reverse" : "flex-row"}`}
                 style={{
                     textDecoration: "none",
                 }}
