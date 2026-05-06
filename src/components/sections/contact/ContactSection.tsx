@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
 import Section from "@/components/ui/Section";
 import SocialItems from "@/components/sections/contact/SocialItem";
 import ContactForm from "@/components/sections/contact/ContactForm";
 import { socials } from "@/data/contact";
-import { displayFont, serifFont } from "@/lib/fonts";
+import { serifFont } from "@/lib/fonts";
 
 export default function ContactSection() {
     return (
