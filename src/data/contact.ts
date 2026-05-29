@@ -21,6 +21,10 @@ export const socials: Social[] = [
         platform: "RÉSUMÉ",
         url: "https://docs.google.com/gview?url=https://docs.google.com/document/d/1_ZjIqmoNykdPFLcNhsDdrqrbcV0VCuKltRMDqBuH9Ik/export?format=pdf",
     },
+    {
+        platform: "CURRICULUM VITAE",
+        url: "https://docs.google.com/gview?url=https://docs.google.com/document/d/1hPXUdpBJ-qb_sXpEkihDWRlX3D64aoi6Zbmi-7hn2JU/export?format=pdf",
+    }
 ];
 
 export type ContactFormField = {
