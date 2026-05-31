@@ -11,10 +11,11 @@ import { PiCheckSquare, PiCopySimple, PiFilePdf, PiDownloadSimple } from "react-
 export interface SocialItemProps {
     item: Social;
     index: number;
+    copy?: boolean;
     className?: string;
 }
 
-export const SocialItem = ({ item, index, className = "" }: SocialItemProps) => {
+export const SocialItem = ({ item, index, copy = true, className = "" }: SocialItemProps) => {
     const [copied, setCopied] = useState(false);
 
     const copyToClipboardFallback = (text: string) => {
@@ -70,7 +71,7 @@ export const SocialItem = ({ item, index, className = "" }: SocialItemProps) => 
                 </div>
             </Link>
 
-            {/* Handle — desktop only */}
+            {/* Handle: desktop only */}
             {item.handle && (
                 <span className="hidden md:flex text-[0.75em] opacity-60 pr-3 flex-shrink-0">
                     {item.handle}
@@ -115,17 +116,19 @@ export const SocialItem = ({ item, index, className = "" }: SocialItemProps) => 
                     <BsArrowUpRight />
                 </Link>
 
-                <motion.button
-                    type="button"
-                    className="cursor-pointer opacity-60 dark:opacity-60"
-                    onClick={copyUrl}
-                    whileTap={{ scale: 0.9 }}
-                    animate={{ scale: copied ? 1.2 : 1 }}
-                    transition={{ type: "spring", stiffness: 500, damping: 20 }}
-                    aria-label={copied ? `${item.label} URL copied` : `Copy ${item.label} URL`}
-                >
-                    {copied ? <PiCheckSquare /> : <PiCopySimple />}
-                </motion.button>
+                {copy && (
+                    <motion.button
+                        type="button"
+                        className="cursor-pointer opacity-60 dark:opacity-60"
+                        onClick={copyUrl}
+                        whileTap={{ scale: 0.9 }}
+                        animate={{ scale: copied ? 1.2 : 1 }}
+                        transition={{ type: "spring", stiffness: 500, damping: 20 }}
+                        aria-label={copied ? `${item.label} URL copied` : `Copy ${item.label} URL`}
+                    >
+                        {copied ? <PiCheckSquare /> : <PiCopySimple />}
+                    </motion.button>
+                )}
             </div>
         </motion.div>
     );

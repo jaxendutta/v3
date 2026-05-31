@@ -134,7 +134,7 @@ export default function TalkDetailPage({ params }: { params: Promise<{ talkId: s
                     <SectionLabel label="Links" delay={0.15} />
                     <div className="border-t border-current">
                         {linkEntries.map(([key, link], i) => (
-                            <SocialItem key={key} index={i} item={link} />
+                            <SocialItem key={key} index={i} item={link} copy={false} />
                         ))}
                     </div>
                 </motion.div>
