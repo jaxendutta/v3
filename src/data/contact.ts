@@ -3,27 +3,30 @@ import { Social } from "@/types/contact";
 
 export const socials: Social[] = [
     {
-        platform: "E-MAIL",
+        label: "E-MAIL",
         handle: "jaxendutta[at]gmail.com",
         url: "mailto:jaxendutta@gmail.com",
     },
     {
-        platform: "GITHUB",
+        label: "GITHUB",
         handle: "/jaxendutta",
         url: "https://github.com/jaxendutta",
     },
     {
-        platform: "LINKEDIN",
+        label: "LINKEDIN",
         handle: "/jaxen",
         url: "https://www.linkedin.com/in/jaxen/",
     },
     {
-        platform: "RÉSUMÉ",
+        label: "RÉSUMÉ",
         url: "https://docs.google.com/gview?url=https://docs.google.com/document/d/1_ZjIqmoNykdPFLcNhsDdrqrbcV0VCuKltRMDqBuH9Ik/export?format=pdf",
+        downloadUrl: "https://docs.google.com/document/d/1_ZjIqmoNykdPFLcNhsDdrqrbcV0VCuKltRMDqBuH9Ik/export?format=pdf",
     },
     {
-        platform: "CURRICULUM VITAE",
+        label: "CURRICULUM VITAE",
+        labelShort: "CV",
         url: "https://docs.google.com/gview?url=https://docs.google.com/document/d/1hPXUdpBJ-qb_sXpEkihDWRlX3D64aoi6Zbmi-7hn2JU/export?format=pdf",
+        downloadUrl: "https://docs.google.com/document/d/1hPXUdpBJ-qb_sXpEkihDWRlX3D64aoi6Zbmi-7hn2JU/export?format=pdf",
     }
 ];
 

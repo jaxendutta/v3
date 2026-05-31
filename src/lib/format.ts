@@ -3,7 +3,8 @@ export type DATE_FORMAT_OPTIONS = "DD-MM-YYYY"
     | "DD Month YYYY"
     | "DD Mon YYYY"
     | "Month YYYY"
-    | "Mon YYYY";
+    | "Mon YYYY"
+    | "Weekday, DD Month YYYY";
 
 
 export const formatDate = (date: Date | string, format: DATE_FORMAT_OPTIONS = "DD-MM-YYYY"): string => {
@@ -31,6 +32,8 @@ export const formatDate = (date: Date | string, format: DATE_FORMAT_OPTIONS = "D
             return `${monthLong} ${year}`;
         case "Mon YYYY":
             return `${monthShort} ${year}`;
+        case "Weekday, DD Month YYYY":
+            return `${dayLong}, ${day} ${monthLong} ${year}`;
         default:
             return `${day}-${month}-${year}`;
     }

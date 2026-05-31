@@ -7,10 +7,14 @@ import { fadeIn } from "@/lib/motionVariants";
 import { papersData } from "@/data/papers";
 import { computeFacetCounts, parseCsvNumberList, parseCsvStringList, useSyncedFilters } from "@/lib/filtering";
 import { PaperItems } from "@/components/sections/papers/PaperItem";
+import { PresentationItems } from "@/components/sections/talks/PresentationItem";
+import { presentationsData } from "@/data/presentations";
 import FilteredCollectionPage from "@/components/layout/FilteredCollectionPage";
 import { FilterTag, FilterSection } from "@/components/ui/FilterContainer";
 import { LuCalendarRange, LuSearch, LuSwatchBook } from "react-icons/lu";
 import { TbFilterDown } from "react-icons/tb";
+import Link from "next/link";
+import { serifFont, codeFont } from "@/lib/fonts";
 
 export default function PapersPage() {
     const [expandedItems, setExpandedItems] = useState<Record<string, boolean>>({});
@@ -282,7 +286,7 @@ export default function PapersPage() {
         <FilteredCollectionPage
             backHref="/#papers"
             backTexts={["Back Home", "Over & Out"]}
-            title="Papers & Written Records."
+            title="Papers & Talks."
             titleClassName="text-4xl md:text-5xl lg:text-6xl xl:text-7xl leading-[1.15] pb-8 md:pb-10 lg:pb-12 md:max-w-[80vw] mx-auto"
             summary={summary}
             isFilterVisible={showFilters}
@@ -292,21 +296,48 @@ export default function PapersPage() {
             filterPanel={filtersPanel}
             mainClassName="containerd border-t border-current"
         >
-            {filteredPapers.length > 0 ? (
-                <motion.div variants={fadeIn} initial="hidden" animate="visible" className="max-w-[1440px] mx-auto">
+            {/* ── Papers subsection ─────────────────────────────────── */}
+            <motion.div variants={fadeIn} initial="hidden" animate="visible" className="max-w-[1440px] mx-auto">
+                <div className="flex items-baseline justify-between py-6 md:py-8 border-b border-current mb-0">
+                    <h2 className={`${serifFont} italic text-xl md:text-2xl lg:text-3xl`}>
+                        Written Records
+                    </h2>
+                    <span className={`${codeFont} text-[10px] md:text-xs uppercase tracking-widest text-muted-foreground-subtle`}>
+                        {filteredPapers.length} / {allPaperIds.length} papers
+                    </span>
+                </div>
+
+                {filteredPapers.length > 0 ? (
                     <PaperItems expandedItems={expandedItems} toggleItem={toggleItem} paperIds={filteredPapers} />
-                </motion.div>
-            ) : (
-                <motion.div className="text-center py-20" variants={fadeIn} initial="hidden" animate="visible">
-                    <p className="mb-8 text-accent">No papers found matching your criteria!</p>
-                    <button
-                        onClick={clearFilters}
-                        className="px-6 py-3 border border-current hover:bg-[var(--color-text)] hover:text-[var(--color-background)] transition-colors"
+                ) : (
+                    <motion.div className="text-center py-16" variants={fadeIn} initial="hidden" animate="visible">
+                        <p className="mb-8 text-accent">No papers found matching your criteria!</p>
+                        <button
+                            onClick={clearFilters}
+                            className="px-6 py-3 border border-current hover:bg-[var(--color-text)] hover:text-[var(--color-background)] transition-colors"
+                        >
+                            Clear all filters
+                        </button>
+                    </motion.div>
+                )}
+            </motion.div>
+
+            {/* ── Talks & Presentations subsection ──────────────────── */}
+            <motion.div variants={fadeIn} initial="hidden" animate="visible" className="max-w-[1440px] mx-auto mt-8">
+                <div className="flex items-baseline justify-between py-6 md:py-8 border-b border-current mb-0">
+                    <h2 className={`${serifFont} italic text-xl md:text-2xl lg:text-3xl`}>
+                        Talks &amp; Presentations
+                    </h2>
+                    <Link
+                        href="/talks"
+                        className={`${codeFont} text-[10px] md:text-xs uppercase tracking-widest text-muted-foreground-subtle hover:text-accent transition-colors`}
+                        style={{ textDecoration: "none", color: "inherit" }}
                     >
-                        Clear all filters
-                    </button>
-                </motion.div>
-            )}
+                        View all &gt;
+                    </Link>
+                </div>
+                <PresentationItems presentationIds={Object.keys(presentationsData)} />
+            </motion.div>
         </FilteredCollectionPage>
     );
 }

@@ -55,11 +55,11 @@ export const projectsData: ProjectsData = {
         ],
         links: [
             {
-                platform: "GitHub",
+                label: "GitHub",
                 url: "https://github.com/jaxendutta/jeffrey",
             },
             {
-                platform: "Live Site",
+                label: "Live Site",
                 url: "https://jeffrey.anirban.ca",
             },
         ],
@@ -148,11 +148,11 @@ export const projectsData: ProjectsData = {
         ],
         links: [
             {
-                platform: "GitHub",
+                label: "GitHub",
                 url: "https://github.com/jaxendutta/sabeer",
             },
             {
-                platform: "Live Site",
+                label: "Live Site",
                 url: "https://sabeer.anirban.ca",
             },
         ],
@@ -203,11 +203,11 @@ export const projectsData: ProjectsData = {
         screenshotDevice: "mobile",
         links: [
             {
-                platform: "GitHub",
+                label: "GitHub",
                 url: "https://github.com/jaxendutta/emma",
             },
             {
-                platform: "Live Site",
+                label: "Live Site",
                 url: "https://emma.anirban.ca",
             },
         ],
@@ -266,11 +266,11 @@ export const projectsData: ProjectsData = {
         ],
         links: [
             {
-                platform: "GitHub",
+                label: "GitHub",
                 url: "https://github.com/jaxendutta/asher",
             },
             {
-                platform: "Live Site",
+                label: "Live Site",
                 url: "https://asher.anirban.ca",
             },
         ],
@@ -357,11 +357,11 @@ export const projectsData: ProjectsData = {
         ],
         links: [
             {
-                platform: "GitHub",
+                label: "GitHub",
                 url: "https://github.com/jaxendutta/rgap",
             },
             {
-                platform: "Live Site",
+                label: "Live Site",
                 url: "https://rgap.anirban.ca",
             },
         ],
@@ -437,11 +437,11 @@ export const projectsData: ProjectsData = {
         ],
         links: [
             {
-                platform: "GitHub",
+                label: "GitHub",
                 url: "https://github.com/jaxendutta/pvc",
             },
             {
-                platform: "Live Site",
+                label: "Live Site",
                 url: "https://parkviewcentre.in",
             },
         ],
@@ -505,11 +505,11 @@ export const projectsData: ProjectsData = {
         ],
         links: [
             {
-                platform: "GitHub",
+                label: "GitHub",
                 url: "https://github.com/jaxendutta/v2",
             },
             {
-                platform: "Live Site",
+                label: "Live Site",
                 url: "https://v2.anirban.ca",
             },
         ],
@@ -565,7 +565,7 @@ export const projectsData: ProjectsData = {
         screenshotDevice: "mobile",
         links: [
             {
-                platform: "GitHub",
+                label: "GitHub",
                 url: "https://github.com/jaxendutta/kwc-ev-charging-network-opt",
             },
         ],
@@ -609,11 +609,11 @@ export const projectsData: ProjectsData = {
         ],
         links: [
             {
-                platform: "GitHub",
+                label: "GitHub",
                 url: "https://github.com/SE2-Fabler/",
             },
             {
-                platform: "Figma",
+                label: "Figma",
                 url: "https://www.figma.com/proto/kjrv7xO5wJAFPIJFyd4uy4/Fabler?scaling=scale-down",
             },
         ],
@@ -703,11 +703,11 @@ export const projectsData: ProjectsData = {
         ],
         links: [
             {
-                platform: "GitHub",
+                label: "GitHub",
                 url: "https://github.com/jaxendutta/v1",
             },
             {
-                platform: "Live Site",
+                label: "Live Site",
                 url: "https://v1.anirban.ca",
             },
         ],
@@ -773,11 +773,11 @@ export const projectsData: ProjectsData = {
         ],
         links: [
             {
-                platform: "Figma",
+                label: "Figma",
                 url: "https://www.figma.com/proto/OgAWcQHH2BAl2djJTCnHII/Hivemind?scaling=scale-down",
             },
             {
-                platform: "Design Notebook",
+                label: "Design Notebook",
                 url: "https://docs.google.com/document/d/1mqnpwIP3gOAwz9jm2UrgXZnNPSO40aCmM-wA7pEuu2Q/view",
             },
         ],
@@ -848,11 +848,11 @@ export const projectsData: ProjectsData = {
         ],
         links: [
             {
-                platform: "GitHub",
+                label: "GitHub",
                 url: "https://github.com/jaxendutta/space-invaders/",
             },
             {
-                platform: "Download",
+                label: "Download",
                 url: "https://github.com/jaxendutta/space-invaders/releases",
             },
         ],
@@ -920,11 +920,11 @@ export const projectsData: ProjectsData = {
         ],
         links: [
             {
-                platform: "GitHub",
+                label: "GitHub",
                 url: "https://github.com/jaxendutta/file-explorer/",
             },
             {
-                platform: "Download",
+                label: "Download",
                 url: "https://github.com/jaxendutta/file-explorer/releases",
             },
         ],
@@ -991,11 +991,11 @@ export const projectsData: ProjectsData = {
         ],
         links: [
             {
-                platform: "GitHub",
+                label: "GitHub",
                 url: "https://github.com/jaxendutta/lightbox/",
             },
             {
-                platform: "Download",
+                label: "Download",
                 url: "https://github.com/jaxendutta/lightbox/releases",
             },
         ],
@@ -1061,11 +1061,11 @@ export const projectsData: ProjectsData = {
         ],
         links: [
             {
-                platform: "GitHub",
+                label: "GitHub",
                 url: "https://github.com/jaxendutta/straights/",
             },
             {
-                platform: "Play",
+                label: "Play",
                 url: "https://dutta.itch.io/straights/",
             },
         ],
@@ -1130,15 +1130,15 @@ export const projectsData: ProjectsData = {
         ],
         links: [
             {
-                platform: "GitHub",
+                label: "GitHub",
                 url: "https://github.com/jaxendutta/tictactoe-minimax",
             },
             {
-                platform: "Play",
+                label: "Play",
                 url: "https://tictactoe-minimax--jxnd.replit.app",
             },
             {
-                platform: "Download",
+                label: "Download",
                 url: "https://github.com/jaxendutta/tictactoe-minimax/releases",
             },
         ],
