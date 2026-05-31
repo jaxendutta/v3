@@ -41,7 +41,7 @@ export const presentationsData: PresentationsData = {
             },
             presentation: {
                 label: "PRESENTATION",
-                url: "https://uottawa-my.sharepoint.com/:p:/g/personal/adutt042_uottawa_ca/Ee9qj8nXo7lPjLhKZt2r3sBvHkUuYyJqQ4wWc5sO8i1A?e=abc123",
+                url: "https://uottawa-my.sharepoint.com/personal/adutt042_uottawa_ca/_layouts/15/Doc.aspx?sourcedoc={e316105f-d2bd-4ab7-ade7-79db37330c25}&amp;action=embedview&amp;wdAr=1.7777777777777777",
                 localPdf: "/talks/dti-symposium-2026/presentation.pdf",
                 downloadUrl: "/talks/dti-symposium-2026/presentation.pdf",
             },
