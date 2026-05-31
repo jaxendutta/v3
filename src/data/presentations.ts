@@ -26,7 +26,7 @@ export const presentationsData: PresentationsData = {
         },
         tags: ["Ethics", "Governance", "HCI", "Digital Health"],
         embed: {
-            url: "https://uottawa-my.sharepoint.com/personal/adutt042_uottawa_ca/_layouts/15/Doc.aspx?sourcedoc={e316105f-d2bd-4ab7-ade7-79db37330c25}&action=embedview&wdAr=1.7777777777777777",
+            url: "https://1drv.ms/p/c/B820BDCF281CFE94/IQRVMCB7FMLmR5BFbCmc0CXAAf6lTRU8LrjCgr8EViQCQ38?em=2&amp;wdAr=1.7777777777777777&amp;wdEaaCheck=1",
         },
         links: {
             event: {
@@ -41,7 +41,7 @@ export const presentationsData: PresentationsData = {
             },
             presentation: {
                 label: "PRESENTATION",
-                url: "https://uottawa-my.sharepoint.com/personal/adutt042_uottawa_ca/_layouts/15/Doc.aspx?sourcedoc={e316105f-d2bd-4ab7-ade7-79db37330c25}&amp;action=embedview&amp;wdAr=1.7777777777777777",
+                url: "https://uottawa-my.sharepoint.com/personal/adutt042_uottawa_ca/_layouts/15/guestaccess.aspx?share=IQBfEBbjvdK3Sq3neds3MwwlARjn5J2okVitKSIIlaMOEqs",
                 localPdf: "/talks/dti-symposium-2026/presentation.pdf",
                 downloadUrl: "/talks/dti-symposium-2026/presentation.pdf",
             },
