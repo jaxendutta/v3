@@ -5,8 +5,7 @@ import { useEffect, useState } from "react";
 import RotatingButton from "@/components/ui/RotatingButton";
 import HeroArt from "@/components/sections/hero/HeroArt";
 import HeroInteraction from "@/components/sections/hero/HeroInteraction";
-import { GiJasmine, GiMaterialsScience, GiPlasticDuck, GiSquareBottle, GiUfo } from "react-icons/gi";
-import { GiSnakeSpiral } from "react-icons/gi";
+import { GiSquareBottle } from "react-icons/gi";
 
 export default function Hero() {
     const [dims, setDims] = useState({ w: window.innerWidth, h: window.innerHeight });
@@ -58,7 +57,7 @@ export default function Hero() {
                 <RotatingButton
                     texts={["PROJECTS", "WORK", "RÉSUMÉ", "CONTACT"]}
                     href="#projects"
-                    centerIcon={GiMaterialsScience}
+                    centerIcon={GiSquareBottle}
                     size={smallest * 0.15}
                     fontSize={Math.pow(smallest, 0.45) * 0.625}
                 />

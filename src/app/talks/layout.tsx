@@ -2,7 +2,7 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-    title: "Talks & Presentations ✧ Jaxen Dutta",
+    title: "Talks & Presentations",
     description: "Conference talks, symposium presentations, and public speaking by Jaxen Anirban Dutta.",
     openGraph: {
         title: "Talks & Presentations ✧ Jaxen Dutta",
