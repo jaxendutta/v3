@@ -287,7 +287,7 @@ export default function PapersPage() {
             backHref="/#papers"
             backTexts={["Back Home", "Over & Out"]}
             title="Papers / Written Records"
-            titleClassName="text-7xl md:text-[7rem] lg:[8rem] pb-8 md:pb-10 lg:pb-12"
+            titleClassName="text-6xl md:text-[7rem] lg:[8rem] pb-8 md:pb-10 lg:pb-12"
             summary={summary}
             isFilterVisible={showFilters}
             onToggleFilters={() => setShowFilters(!showFilters)}
@@ -333,7 +333,7 @@ export default function PapersPage() {
                         className={`${codeFont} text-[10px] md:text-xs uppercase tracking-widest text-muted-foreground-subtle hover:text-accent transition-colors`}
                         style={{ textDecoration: "none", color: "inherit" }}
                     >
-                        View all &gt;
+                        View all
                     </Link>
                 </div>
                 <PresentationItems presentationIds={Object.keys(presentationsData)} />
