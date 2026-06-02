@@ -1,12 +1,12 @@
-import { ImageResponse } from 'next/og';
-import { loadOgFonts, getFaviconSrc } from '@/lib/og';
+﻿import { ImageResponse } from 'next/og';
+import { GiSquareBottle } from 'react-icons/gi';
+import { loadOgFonts } from '@/lib/og';
 
 export const size = { width: 1200, height: 630 };
 export const contentType = 'image/png';
 
 export default async function Image() {
-    const { serifFamily, sansFamily, fonts } = await loadOgFonts();
-    const favicon = getFaviconSrc();
+    const { sansFamily, codeFamily, mignovaFamily, fonts } = await loadOgFonts();
 
     return new ImageResponse(
         (
@@ -18,39 +18,43 @@ export default async function Image() {
                     display: 'flex',
                     flexDirection: 'column',
                     justifyContent: 'flex-end',
-                    padding: '72px 80px',
+                    padding: '60px 80px',
                     position: 'relative',
                 }}
             >
-                {favicon && (
-                    <img
-                        src={favicon}
-                        width={180}
-                        height={180}
-                        style={{ position: 'absolute', top: 72, right: 80, transform: 'rotate(10deg)' }}
-                    />
-                )}
+                <GiSquareBottle
+                    style={{ position: 'absolute', top: 100, right: 100, color: '#fff7ed' }}
+                    size={180}
+                />
                 <div
                     style={{
                         flex: 1,
                         display: 'flex',
                         flexDirection: 'column',
-                        justifyContent: 'flex-end',
+                        justifyContent: 'flex-start',
                         paddingBottom: '40px',
-                        gap: 16,
                     }}
                 >
                     <div
                         style={{
                             color: '#fff7ed',
-                            fontSize: 120,
-                            fontFamily: sansFamily,
+                            fontSize: 180,
+                            fontFamily: mignovaFamily,
                             fontWeight: 400,
                             lineHeight: 1.1,
                         }}
                     >
-                        Jaxen Dutta.
+                        Jaxen Dutta
                     </div>
+                </div>
+                
+                <div
+                    style={{
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        alignItems: 'center',
+                    }}
+                >
                     <div
                         style={{
                             color: '#fff7ed',
@@ -59,22 +63,13 @@ export default async function Image() {
                             opacity: 0.5,
                         }}
                     >
-                        UX/UI Engineer · HCI Researcher · Web Designer
+                        UX/UI Engineer · Researcher · Web Designer
                     </div>
-                </div>
-                <div style={{ width: '100%', height: 2, background: '#e11d48', marginBottom: 28 }} />
-                <div
-                    style={{
-                        display: 'flex',
-                        justifyContent: 'flex-end',
-                        alignItems: 'center',
-                    }}
-                >
                     <div
                         style={{
                             color: '#e11d48',
-                            fontSize: 42,
-                            fontFamily: sansFamily,
+                            fontSize: 36,
+                            fontFamily: codeFamily,
                         }}
                     >
                         anirban.ca

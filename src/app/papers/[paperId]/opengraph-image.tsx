@@ -1,5 +1,6 @@
 import { ImageResponse } from 'next/og';
 import { notFound } from 'next/navigation';
+import { GiSquareBottle } from 'react-icons/gi';
 import { papersData } from '@/data/papers';
 import { loadOgFonts } from '@/lib/og';
 
@@ -13,7 +14,7 @@ export default async function Image({ params }: Props) {
     const paper = papersData[paperId];
     if (!paper) notFound();
 
-    const { serifFamily, sansFamily, fonts } = await loadOgFonts();
+    const { sansFamily, serifFamily, codeFamily, fonts } = await loadOgFonts();
 
     const venue = paper.venue?.join(' · ') ?? '';
     const typeVenue = venue ? `${paper.paperType} — ${venue}` : paper.paperType;
@@ -35,8 +36,13 @@ export default async function Image({ params }: Props) {
                     flexDirection: 'column',
                     justifyContent: 'flex-end',
                     padding: '72px 80px',
+                    position: 'relative',
                 }}
             >
+                <GiSquareBottle
+                    style={{ position: 'absolute', top: 72, right: 80, color: '#fff7ed' }}
+                    size={180}
+                />
                 <div
                     style={{
                         flex: 1,
@@ -58,7 +64,7 @@ export default async function Image({ params }: Props) {
                             letterSpacing: '0.025em',
                         }}
                     >
-                        {paper.title}
+                        {paper.shortTitle}
                     </div>
                     <div
                         style={{
@@ -82,7 +88,7 @@ export default async function Image({ params }: Props) {
                     <div style={{ color: '#fff7ed', fontSize: 36, fontFamily: sansFamily, opacity: 0.6 }}>
                         Jaxen Dutta
                     </div>
-                    <div style={{ color: '#e11d48', fontSize: 28, fontFamily: sansFamily }}>
+                    <div style={{ color: '#e11d48', fontSize: 28, fontFamily: codeFamily }}>
                         {endDate.split(' ').length === 3
                             ? `${String(new Date(paper.duration.end).getDate()).padStart(2, '0')} ${endDate.split(' ')[0]} ${endDate.split(' ')[2]}`
                             : endDate}

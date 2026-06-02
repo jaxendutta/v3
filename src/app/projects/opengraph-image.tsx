@@ -1,12 +1,12 @@
-import { ImageResponse } from 'next/og';
-import { loadOgFonts, getFaviconSrc } from '@/lib/og';
+﻿import { ImageResponse } from 'next/og';
+import { GiSquareBottle } from 'react-icons/gi';
+import { loadOgFonts } from '@/lib/og';
 
 export const size = { width: 1200, height: 630 };
 export const contentType = 'image/png';
 
 export default async function Image() {
-    const { serifFamily, sansFamily, fonts } = await loadOgFonts();
-    const favicon = getFaviconSrc();
+    const { sansFamily, codeFamily, csDeviousFamily, fonts } = await loadOgFonts();
 
     return new ImageResponse(
         (
@@ -22,14 +22,10 @@ export default async function Image() {
                     position: 'relative',
                 }}
             >
-                {favicon && (
-                    <img
-                        src={favicon}
-                        width={180}
-                        height={180}
-                        style={{ position: 'absolute', top: 72, right: 80, transform: 'rotate(10deg)' }}
-                    />
-                )}
+                <GiSquareBottle
+                    style={{ position: 'absolute', top: 100, right: 100, color: '#fff7ed' }}
+                    size={200}
+                />
                 <div
                     style={{
                         flex: 1,
@@ -41,14 +37,13 @@ export default async function Image() {
                     <div
                         style={{
                             color: '#fff7ed',
-                            fontSize: 120,
-                            fontFamily: serifFamily,
-                            fontStyle: 'italic',
+                            fontSize: 240,
+                            fontFamily: csDeviousFamily,
                             fontWeight: 400,
                             lineHeight: 1.1,
                         }}
                     >
-                        Projects.
+                        Projects
                     </div>
                 </div>
                 <div style={{ width: '100%', height: 2, background: '#e11d48', marginBottom: 28 }} />
@@ -73,7 +68,7 @@ export default async function Image() {
                         style={{
                             color: '#e11d48',
                             fontSize: 42,
-                            fontFamily: sansFamily,
+                            fontFamily: codeFamily,
                         }}
                     >
                         anirban.ca/projects

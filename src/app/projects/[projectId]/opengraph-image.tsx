@@ -1,5 +1,6 @@
 import { ImageResponse } from 'next/og';
 import { notFound } from 'next/navigation';
+import { GiSquareBottle } from 'react-icons/gi';
 import { projectsData } from '@/data/projects';
 import { loadOgFonts, getProjectImageSrc } from '@/lib/og';
 
@@ -13,7 +14,7 @@ export default async function Image({ params }: Props) {
     const project = projectsData[projectId];
     if (!project) notFound();
 
-    const { serifFamily, sansFamily, fonts } = await loadOgFonts();
+    const { sansFamily, codeFamily, csDeviousFamily, fonts } = await loadOgFonts();
     const imageSrc = getProjectImageSrc(projectId);
     const isMobile = project.screenshotDevice === 'mobile';
 
@@ -31,6 +32,10 @@ export default async function Image({ params }: Props) {
                     overflow: 'hidden',
                 }}
             >
+                <GiSquareBottle
+                    style={{ position: 'absolute', top: 72, right: 80, color: '#fff7ed' }}
+                    size={180}
+                />
                 {/* Mobile only: name at top left */}
                 {isMobile && (
                     <div style={{ color: '#fff7ed', fontSize: 36, fontFamily: sansFamily, opacity: 0.6 }}>
@@ -53,14 +58,13 @@ export default async function Image({ params }: Props) {
                     <div
                         style={{
                             color: '#fff7ed',
-                            fontSize: 80,
-                            fontFamily: serifFamily,
-                            fontStyle: 'italic',
+                            fontSize: 160,
+                            fontFamily: csDeviousFamily,
                             fontWeight: 400,
                             lineHeight: 1.1,
                         }}
                     >
-                        {`${project.label}.`}
+                        {project.label}
                     </div>
                 </div>
 
@@ -78,7 +82,7 @@ export default async function Image({ params }: Props) {
                             Jaxen Dutta
                         </div>
                     )}
-                    <div style={{ color: '#e11d48', fontSize: 28, fontFamily: sansFamily }}>
+                    <div style={{ color: '#e11d48', fontSize: 28, fontFamily: codeFamily }}>
                         {`anirban.ca/projects/${projectId}`}
                     </div>
                 </div>

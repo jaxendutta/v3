@@ -26,6 +26,8 @@ export interface PaperDocument {
 export interface Paper {
     /** Display title */
     title: string;
+    /** Short title for compact displays, e.g. card header */
+    shortTitle: string;
     /** Optional subtitle or venue tagline */
     abstract: string;
     /** Type of paper, e.g. Research Report, Literature Survey, Case Study, Academic Essay */

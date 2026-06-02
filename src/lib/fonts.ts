@@ -10,7 +10,7 @@ import {
 import localFont from "next/font/local";
 
 export const mignova = localFont({
-    src: '../../public/fonts/Mignova-rvn08.ttf',
+    src: '../../public/fonts/Mignova.ttf',
     variable: '--font-mignova',
     display: 'swap',
 });

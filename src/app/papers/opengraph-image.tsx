@@ -1,12 +1,12 @@
-import { ImageResponse } from 'next/og';
-import { loadOgFonts, getFaviconSrc } from '@/lib/og';
+﻿import { ImageResponse } from 'next/og';
+import { GiSquareBottle } from 'react-icons/gi';
+import { loadOgFonts } from '@/lib/og';
 
 export const size = { width: 1200, height: 630 };
 export const contentType = 'image/png';
 
 export default async function Image() {
-    const { serifFamily, sansFamily, fonts } = await loadOgFonts();
-    const favicon = getFaviconSrc();
+    const { serifFamily, sansFamily, codeFamily, fonts } = await loadOgFonts();
 
     return new ImageResponse(
         (
@@ -22,14 +22,10 @@ export default async function Image() {
                     position: 'relative',
                 }}
             >
-                {favicon && (
-                    <img
-                        src={favicon}
-                        width={180}
-                        height={180}
-                        style={{ position: 'absolute', top: 72, right: 80, transform: 'rotate(10deg)' }}
-                    />
-                )}
+                <GiSquareBottle
+                    style={{ position: 'absolute', top: 72, right: 80, color: '#fff7ed' }}
+                    size={180}
+                />
                 <div
                     style={{
                         flex: 1,
@@ -64,7 +60,7 @@ export default async function Image() {
                         style={{
                             color: '#fff7ed',
                             fontSize: 54,
-                            fontFamily: sansFamily,
+                            fontFamily: codeFamily,
                             opacity: 0.6,
                         }}
                     >
@@ -74,7 +70,7 @@ export default async function Image() {
                         style={{
                             color: '#e11d48',
                             fontSize: 42,
-                            fontFamily: sansFamily,
+                            fontFamily: codeFamily,
                         }}
                     >
                         anirban.ca/papers
