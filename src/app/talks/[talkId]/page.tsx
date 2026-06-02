@@ -176,7 +176,7 @@ export default function TalkDetailPage({ params }: { params: Promise<{ talkId: s
                     <SectionLabel label="Recognition / Awards" delay={0.1} />
                     <div className="flex flex-col gap-1">
                         {data.recognition!.map((r) => (
-                            <p key={r} className={`${serifFont} italic text-sm md:text-base text-muted-foreground`}>
+                            <p key={r} className={`${serifFont} italic text-sm md:text-xl lg:text-2xl text-muted-foreground`}>
                                 {r}
                             </p>
                         ))}

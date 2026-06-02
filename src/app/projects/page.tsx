@@ -243,8 +243,8 @@ export default function ProjectsPage() {
         <FilteredCollectionPage
             backHref="/#projects"
             backTexts={["Back Home", "Over & Out"]}
-            title="Projects."
-            titleClassName="text-5xl md:text-7xl pb-8 md:pb-10 lg:pb-12"
+            title="Projects"
+            titleClassName="text-7xl md:text-[10rem] pb-8 md:pb-10 lg:pb-12"
             summary={summary}
             isFilterVisible={showFilters}
             onToggleFilters={() => setShowFilters(!showFilters)}

@@ -234,8 +234,8 @@ export default function TalksPage() {
         <FilteredCollectionPage
             backHref="/"
             backTexts={["Back Home", "Over & Out"]}
-            title="Talks & Presentations."
-            titleClassName="text-4xl md:text-5xl lg:text-6xl xl:text-7xl leading-[1.15] pb-8 md:pb-10 lg:pb-12 md:max-w-[80vw] mx-auto"
+            title="Talks / Presentations"
+            titleClassName="text-7xl md:text-[7rem] lg:text-[8rem] pb-8 md:pb-10 lg:pb-12"
             summary={summary}
             isFilterVisible={showFilters}
             onToggleFilters={() => setShowFilters(!showFilters)}

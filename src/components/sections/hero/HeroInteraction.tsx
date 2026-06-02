@@ -4,7 +4,7 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import { motion } from "framer-motion";
 import { useTheme } from "@/components/theme/ThemeProvider";
-import { sansFont } from "@/lib/fonts";
+import { mignovaFont } from "@/lib/fonts";
 
 /**
  * Glyph Typewriter
@@ -219,9 +219,13 @@ export default function HeroInteraction() {
 
     useEffect(() => {
         const updateSize = () => {
-            const width = window.innerWidth;
-            // Dynamic sizing: roughly 10vw but clamped between mobile and desktop extremes
-            const size = Math.min(Math.max(width * 0.12, 64), 160);
+            const w = window.innerWidth;
+            const h = window.innerHeight;
+            // Width: subtract px-4 padding (32px), target 90%, ~0.65× em per char
+            const fromWidth = ((w - 32) * 0.9) / (7 * 0.65);
+            // Height: 3 lines × fontSize must fit in 60% of viewport height
+            const fromHeight = (h * 0.6) / 3;
+            const size = Math.max(Math.min(fromWidth, fromHeight), 48);
             setFontSize(`${size}px`);
         };
         updateSize();
@@ -233,7 +237,7 @@ export default function HeroInteraction() {
 
     return (
         <div
-            className={`w-full flex flex-col leading-none px-4 text-center select-none ${sansFont}`}
+            className={`w-full flex flex-col leading-none px-4 text-center select-none ${mignovaFont}`}
             style={{ fontSize }}
         >
             {NAME_WORDS.map((word, wordIndex) => (

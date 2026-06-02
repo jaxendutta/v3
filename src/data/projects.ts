@@ -13,8 +13,8 @@ import {
     GiJumpingDog,
     GiLifeInTheBalance,
     GiTicTacToe,
-    GiAbstract034,
-    GiZigzagTune,
+    GiAmplitude,
+    GiResonance,
 } from "react-icons/gi";
 import { AiOutlineFolderView } from "react-icons/ai";
 import { PiCodesandboxLogoLight } from "react-icons/pi";
@@ -24,9 +24,9 @@ const calloutStyle =
 
 export const projectsData: ProjectsData = {
     jeffrey: {
-        name: "jeffRey's ARiA",
+        name: "Jeffrey's Aria",
         label: "Jeffrey's Aria",
-        icon: GiZigzagTune,
+        icon: GiAmplitude,
         type: "development",
         layoutType: "showcase",
         date: new Date("2026-05-05"),
@@ -117,9 +117,9 @@ export const projectsData: ProjectsData = {
     },
 
     sabeer: {
-        name: "sAbeeR's GRooVe",
+        name: "Sabeer's Groove",
         label: "Sabeer's Groove",
-        icon: GiAbstract034,
+        icon: GiResonance,
         type: "development",
         layoutType: "showcase",
         date: new Date("2026-04-29"),
@@ -194,7 +194,7 @@ export const projectsData: ProjectsData = {
     },
 
     emma: {
-        name: "eMMA",
+        name: "EMMA",
         label: "EMMA",
         icon: GiLifeInTheBalance,
         type: "research",
@@ -235,7 +235,7 @@ export const projectsData: ProjectsData = {
     },
 
     asher: {
-        name: "AsHeR's GARden",
+        name: "Asher's Garden",
         label: "Asher's Garden",
         icon: GiJumpingDog,
         type: "development",
@@ -326,7 +326,7 @@ export const projectsData: ProjectsData = {
         footer: "Asher Kim's Research Portfolio is a Next.js 16 application showcasing plant biology and molecular research. The site features a distinctive grass-tiled background that creates an immersive natural environment. With dark and light theme support, the portfolio presents research experience, publications, presentations, and outreach activities in an organized, accessible format. The design balances academic professionalism with a warm, approachable aesthetic that reflects Asher's research in plant-microbe interactions and stress responses. Interactive elements and smooth animations enhance user engagement while maintaining focus on scientific content.",
     },
     rgap: {
-        name: "RGAp",
+        name: "RGAP",
         label: "RGAP",
         icon: GiAbstract014,
         type: "development",
@@ -406,7 +406,7 @@ export const projectsData: ProjectsData = {
         footer: "RGAP represents a complete modernization of legacy research tools. The architecture leverages Next.js 16's App Router and Server Components for optimal performance. I implemented a custom PostgreSQL schema with GIN indexes and fuzzy matching (pg_trgm) to enable instant search capabilities across hundreds of thousands of records. The frontend utilizes React 19 features and a custom-built component library styled with Tailwind 4.1, ensuring a consistent and accessible experience. Security is handled via stateless Iron Sessions and bcrypt hashing, providing a secure environment for researchers to manage their grants and bookmarks.",
     },
     pvc: {
-        name: "pARkVieW centRe",
+        name: "Park View Centre",
         label: "Park View Centre",
         icon: GiPlagueDoctorProfile,
         type: "development",
@@ -474,7 +474,7 @@ export const projectsData: ProjectsData = {
         footer: "Park View Centre is a production-grade healthcare platform built on the latest Next.js 16 architecture. I utilized Tailwind CSS v4 for a highly optimized, zero-runtime styling engine that ensures instant page loads. The UI is constructed with accessible Radix primitives, ensuring that appointment booking and doctor information are available to all users. The site uses a custom 'medical gradient' animation system to add subtle life to the interface without distracting from critical information. It is fully integrated with Vercel Analytics to track patient engagement and optimize the user journey across both clinic locations.",
     },
     "v2": {
-        name: "poRtfolio v2",
+        name: "Portfolio v2",
         label: "Portfolio v2",
         icon: GiOrbital,
         type: "development",
@@ -555,8 +555,8 @@ export const projectsData: ProjectsData = {
     },
 
     "evse-opt": {
-        name: "eVse",
-        subtitle: "netWoRk optiMiZeR",
+        name: "EVSE",
+        subtitle: "Network Optimizer",
         label: "EVSE Network Optimizer",
         icon: GiBoltEye,
         type: "research",
@@ -581,7 +581,7 @@ export const projectsData: ProjectsData = {
     },
 
     fabler: {
-        name: "fAbleR",
+        name: "Fabler",
         label: "Fabler",
         icon: GiBrainTentacle,
         type: "design",
@@ -672,7 +672,7 @@ export const projectsData: ProjectsData = {
     },
 
     "v1": {
-        name: "poRtfolio v1",
+        name: "Portfolio v1",
         label: "Portfolio v1",
         icon: GiNestedEclipses,
         type: "development",
@@ -745,7 +745,7 @@ export const projectsData: ProjectsData = {
     },
 
     hivemind: {
-        name: "HiVeMind",
+        name: "HiveMind",
         label: "HiveMind",
         icon: GiBee,
         date: new Date("2023-08-18"),
@@ -818,7 +818,7 @@ export const projectsData: ProjectsData = {
     },
 
     "space-invaders": {
-        name: "spAce inVAdeRs",
+        name: "Space Invaders",
         label: "Space Invaders",
         icon: FaSpaceAwesome,
         type: "development",
@@ -890,7 +890,7 @@ export const projectsData: ProjectsData = {
     },
 
     "file-explorer": {
-        name: "file eXploReR",
+        name: "File Explorer",
         label: "File Explorer",
         icon: AiOutlineFolderView,
         type: "development",
@@ -961,7 +961,7 @@ export const projectsData: ProjectsData = {
     },
 
     lightbox: {
-        name: "liGHtboX",
+        name: "LightBox",
         label: "LightBox",
         icon: PiCodesandboxLogoLight,
         type: "development",
@@ -1031,7 +1031,7 @@ export const projectsData: ProjectsData = {
     },
 
     straights: {
-        name: "stRAiGHts",
+        name: "Straights",
         label: "Straights",
         icon: GiCardJoker,
         type: "development",
@@ -1099,7 +1099,7 @@ export const projectsData: ProjectsData = {
     },
 
     "minimax-tic-tac-toe": {
-        name: "tic-tAc-toe + MiniMAX",
+        name: "Tic-Tac-Toe + MiniMax",
         label: "Tic-Tac-Toe + MiniMax",
         icon: GiTicTacToe,
         type: "ai",

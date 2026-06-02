@@ -4,7 +4,7 @@ import { ReactNode } from "react";
 import { motion } from "framer-motion";
 import { HiOutlineArrowLeft, HiOutlineArrowUp } from "react-icons/hi2";
 import { TbFilterDown, TbFilterUp, TbFilterX } from "react-icons/tb";
-import { serifFont } from "@/lib/fonts";
+import { csDeviousFont, csDeviousStippledFont } from "@/lib/fonts";
 import { fadeIn } from "@/lib/motionVariants";
 import RotatingButton from "@/components/ui/RotatingButton";
 import Footer from "@/components/layout/Footer";
@@ -68,8 +68,14 @@ export default function FilteredCollectionPage({
             </motion.header>
 
             <motion.div variants={fadeIn} initial="hidden" animate="visible" className="w-full">
-                <motion.div className={`${titleClassName} text-center ${serifFont} italic`}>
-                    {title}
+                <motion.div className={`${titleClassName} text-center`}>
+                    {typeof title === "string"
+                        ? title.split("").map((char: string, i: number) => (
+                            <span key={i} className={/\p{L}/u.test(char) ? csDeviousStippledFont : csDeviousFont}>
+                                {char}
+                            </span>
+                        ))
+                        : title}
                 </motion.div>
 
                 <div className="flex justify-between items-center gap-4 md:gap-8 border-b border-current pb-4">

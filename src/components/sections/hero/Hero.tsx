@@ -5,19 +5,25 @@ import { useEffect, useState } from "react";
 import RotatingButton from "@/components/ui/RotatingButton";
 import HeroArt from "@/components/sections/hero/HeroArt";
 import HeroInteraction from "@/components/sections/hero/HeroInteraction";
-import { GiMaterialsScience } from "react-icons/gi";
+import { GiJasmine, GiMaterialsScience, GiPlasticDuck, GiSquareBottle, GiUfo } from "react-icons/gi";
+import { GiSnakeSpiral } from "react-icons/gi";
 
 export default function Hero() {
-    const [width, setWidth] = useState(window.innerWidth);
+    const [dims, setDims] = useState({ w: window.innerWidth, h: window.innerHeight });
 
     useEffect(() => {
-        const handleResize = () => setWidth(window.innerWidth);
+        const handleResize = () => setDims({ w: window.innerWidth, h: window.innerHeight });
 
         handleResize();
 
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
     }, []);
+
+    const smallest = Math.min(dims.w, dims.h);
+    // Hide when aspect ratio is too close to square — at ~16:9 (1.75) the widest
+    // word clears the button's horizontal position at left: 80%
+    const showDesktopButton = dims.w / dims.h > 1.75;
 
     return (
         <section
@@ -36,26 +42,25 @@ export default function Hero() {
             </div>
 
             {/* Mobile Rotating Button */}
-            <div className="md:hidden absolute right-[5%] bottom-[15%] z-40 pointer-events-auto">
+            <div className="md:hidden absolute right-[10%] bottom-[15%] z-40 pointer-events-auto">
                 <RotatingButton
                     texts={["PROJECTS", "WORK", "RÉSUMÉ", "CONTACT"]}
-                    delimiters={["✦"]}
                     href="#projects"
-                    centerIcon={GiMaterialsScience}
+                    centerIcon={GiSquareBottle}
                 />
             </div>
 
             {/* Desktop Rotating Button */}
             <div
-                className="hidden md:block absolute z-40 pointer-events-auto"
-                style={{ top: '75%', left: '75%', transform: 'translate(-50%, -50%)' }}
+                className="hidden lg:block absolute z-40 pointer-events-auto"
+                style={{ top: '75%', left: '80%', transform: 'translate(-50%, -50%)', visibility: showDesktopButton ? 'visible' : 'hidden' }}
             >
                 <RotatingButton
                     texts={["PROJECTS", "WORK", "RÉSUMÉ", "CONTACT"]}
                     href="#projects"
                     centerIcon={GiMaterialsScience}
-                    size={width * 0.15}
-                    fontSize={Math.pow(width, 0.45) * 0.625}
+                    size={smallest * 0.15}
+                    fontSize={Math.pow(smallest, 0.45) * 0.625}
                 />
             </div>
         </section>
