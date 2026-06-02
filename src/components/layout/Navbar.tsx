@@ -6,7 +6,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { useTheme } from "@/components/theme/ThemeProvider";
 import { RiHomeLine } from "react-icons/ri";
-import { codeFont, sansFont } from "@/lib/fonts";
+import { codeFont } from "@/lib/fonts";
 
 // Define nav link type with proper typing
 type NavLinkType = {
@@ -76,7 +76,7 @@ export default function Navbar() {
             className={`fixed left-0 right-0 top-0 z-50 p-4 text-theme mix-blend-difference ${theme === "light" && "invert"}`}
         >
             {/* Mobile Layout (equidistant tabs) */}
-            <div className={`flex md:hidden items-center justify-between w-full ${sansFont}`}>
+            <div className={`flex md:hidden items-center justify-between w-full ${codeFont}`}>
                 {navLinks.map((link) => (
                     <NavLink key={link.name} {...link} />
                 ))}
@@ -91,7 +91,7 @@ export default function Navbar() {
                 </div>
 
                 <div className="flex items-center justify-between gap-6">
-                    <NavLink name="TALKS" href="/talks" section="talks" className={`${sansFont} hidden md:flex text-sm md:text-base`} />
+                    <NavLink name="TALKS" href="/talks" section="talks" className={`${codeFont} hidden md:flex text-sm md:text-base`} />
                     {rightLinks.map((link) => (
                         <NavLink key={link.name} {...link} />
                     ))}                    
