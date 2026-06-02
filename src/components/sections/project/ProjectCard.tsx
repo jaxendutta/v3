@@ -4,7 +4,7 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { Project } from "@/types/project";
-import { codeFont, csDeviousFont, csDeviousStippledFont, displayFont, serifFont } from "@/lib/fonts";
+import { codeFont, csDeviousFont, csDeviousItalicFont, csDeviousReverseItalicFont } from "@/lib/fonts";
 import { fadeIn } from "@/lib/motionVariants";
 import Tag, { SkillTag } from "@/components/ui/Tag";
 import RotatingButton from "@/components/ui/RotatingButton";
@@ -52,12 +52,15 @@ export default function ProjectCard({
         >
             <div className={`flex flex-col ${reversed ? "md:flex-row-reverse" : "md:flex-row"} gap-6 md:gap-10 items-center`}>
                 {/* Project Info */}
-                <div className={`w-full md:w-[40vw] flex flex-col gap-1 md:gap-4 items-center ${reversed ? `md:items-start md:text-left ${chain && "pl-4"}` : `md:items-end md:text-right ${chain && "pr-4"}`}`}>
+                <div className={`w-full md:w-[40vw] flex flex-col gap-1 md:gap-4 items-center ${reversed ? `md:items-start md:text-left ${chain ? "pl-4" : ""}` : `md:items-end md:text-right ${chain ? "pr-4" : ""}`}`}>
                     <div className={`w-full flex ${reversed ? "flex-row text-left" : "flex-row-reverse text-right"} gap-4 items-center justify-between`}>
-                        <Link href={projectLink} className={`text-5xl md:text-7xl lg:text-8xl ${csDeviousFont} hover:text-accent transition-colors no-underline! font-thin ${chain && (reversed ? "pl-2" : "pr-2")}`}>
+                        <Link
+                            href={projectLink}
+                            className={`text-5xl md:text-7xl lg:text-8xl hover:text-accent transition-colors no-underline! font-thin ${chain ? (reversed ? `pl-2 ${csDeviousReverseItalicFont}` : `pr-2 ${csDeviousItalicFont}`) : csDeviousFont}`}
+                        >
                             {project.label}
                         </Link>
-                        <div className={`md:hidden ${chain && (reversed ? "pr-4" : "pl-4")}`}>{exploreButton}</div>
+                        <div className={`md:hidden ${chain ? (reversed ? "pr-4" : "pl-4") : ""}`}>{exploreButton}</div>
                     </div>
 
                     <div className={`flex flex-wrap gap-2 my-2 justify-center ${reversed ? "md:justify-start" : "md:justify-end"}`}>

@@ -16,24 +16,20 @@ export const mignova = localFont({
 });
 
 export const csDevious = localFont({
-    src: [
-        {
-            path: '../../public/fonts/CSDevious/csdevious-regular.otf',
-            weight: '400',
-            style: 'normal',
-        },
-        {
-            path: '../../public/fonts/CSDevious/csdevious-italic.otf',
-            weight: '400',
-            style: 'italic',
-        },
-        {
-            path: '../../public/fonts/CSDevious/csdevious-reverseitalic.otf',
-            weight: '400',
-            style: 'oblique',
-        },
-    ],
+    src: '../../public/fonts/CSDevious/csdevious-regular.otf',
     variable: '--font-cs-devious',
+    display: 'swap',
+});
+
+export const csDeviousItalic = localFont({
+    src: '../../public/fonts/CSDevious/csdevious-italic.otf',
+    variable: '--font-cs-devious-italic',
+    display: 'swap',
+});
+
+export const csDeviousReverseItalic = localFont({
+    src: '../../public/fonts/CSDevious/csdevious-reverseitalic.otf',
+    variable: '--font-cs-devious-reverse-italic',
     display: 'swap',
 });
 
@@ -97,4 +93,6 @@ export const serifFont = playfairDisplay.className;
 export const serifSCFont = baskervilleSC.className;
 export const csDeviousStippledFont = csDeviousStippled.className;
 export const csDeviousFont = csDevious.className;
+export const csDeviousItalicFont = csDeviousItalic.className;
+export const csDeviousReverseItalicFont = csDeviousReverseItalic.className;
 export const mignovaFont = mignova.className;
