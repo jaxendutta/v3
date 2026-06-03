@@ -57,16 +57,11 @@ export default function ProjectCard({
                         <Link
                             href={projectLink}
                             className={`text-[48px] md:text-7xl lg:text-8xl hover:text-accent transition-colors no-underline! font-thin leading-12 
-                                ${chain 
-                                    ? (reversed 
-                                        ? `pl-2 ${csDeviousReverseItalicFont}` 
-                                        : `pr-2 ${csDeviousItalicFont}`
-                                    ) 
-                                    : `${csDeviousFont} ${(reversed 
-                                        ? `pl-2` 
-                                        : `pr-2`)}
-                                    `}
-                                `}
+                                ${reversed 
+                                    ? `pl-2 ${csDeviousReverseItalicFont}` 
+                                    : `pr-2 ${csDeviousItalicFont}`
+                                }
+                            `}
                         >
                             {project.label}
                         </Link>

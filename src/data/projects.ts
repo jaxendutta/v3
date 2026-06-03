@@ -327,7 +327,7 @@ export const projectsData: ProjectsData = {
     },
     rgap: {
         name: "RGAP",
-        label: "RGAP",
+        label: "[ RGAP ]",
         icon: GiAbstract014,
         type: "development",
         layoutType: "showcase",
