@@ -53,10 +53,20 @@ export default function ProjectCard({
             <div className={`flex flex-col ${reversed ? "md:flex-row-reverse" : "md:flex-row"} gap-6 md:gap-10 items-center`}>
                 {/* Project Info */}
                 <div className={`w-full md:w-[40vw] flex flex-col gap-1 md:gap-4 items-center ${reversed ? `md:items-start md:text-left ${chain ? "pl-4" : ""}` : `md:items-end md:text-right ${chain ? "pr-4" : ""}`}`}>
-                    <div className={`w-full flex ${reversed ? "flex-row text-left" : "flex-row-reverse text-right"} gap-4 items-center justify-between`}>
+                    <div className={`w-full flex ${reversed ? "flex-row text-left" : "flex-row-reverse text-right"} gap-4 items-center justify-between ${chain ? "pr-4" : ""}`}>
                         <Link
                             href={projectLink}
-                            className={`text-5xl md:text-7xl lg:text-8xl hover:text-accent transition-colors no-underline! font-thin ${chain ? (reversed ? `pl-2 ${csDeviousReverseItalicFont}` : `pr-2 ${csDeviousItalicFont}`) : csDeviousFont}`}
+                            className={`text-[48px] md:text-7xl lg:text-8xl hover:text-accent transition-colors no-underline! font-thin leading-12 
+                                ${chain 
+                                    ? (reversed 
+                                        ? `pl-2 ${csDeviousReverseItalicFont}` 
+                                        : `pr-2 ${csDeviousItalicFont}`
+                                    ) 
+                                    : `${csDeviousFont} ${(reversed 
+                                        ? `pl-2` 
+                                        : `pr-2`)}
+                                    `}
+                                `}
                         >
                             {project.label}
                         </Link>
