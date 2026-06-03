@@ -159,15 +159,22 @@ export const projectsData: ProjectsData = {
         typography: [
             {
                 name: "Syne",
-                fontFamily: 'Syne',
+                fontFamily: '"Syne", sans-serif',
                 url: "https://fonts.googleapis.com/css2?family=Syne:wght@400..800&display=swap",
                 description:
                     "Syne drives the bold, brutalist aesthetic of the portfolio. Its distinctive, wide letterforms are used for the massive central headings, immediately capturing attention and establishing a strong, modern visual hierarchy.",
             },
             {
+                name: "Space Mono",
+                fontFamily: '"Space Mono", monospace',
+                url: "https://fonts.googleapis.com/css2?family=Google+Sans+Flex:opsz,wght@6..144,1..1000&family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap",
+                description:
+                    "Used for the body text and interactive UI elements, Space Mono's monospaced structure provides a technical, utilitarian contrast to the display font. It enhances readability for dense information and adds to the portfolio's modern, edgy vibe.",
+            },
+            {
                 name: "Google Sans Flex",
                 fontFamily: '"Google Sans Flex", sans-serif',
-                url: "",
+                url: "https://fonts.googleapis.com/css2?family=Google+Sans+Flex:opsz,wght@6..144,1..1000&family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&display=swap",
                 description:
                     "Used for the intricate UI elements like the palette adjuster and dropdowns, providing pristine legibility for the complex interactive controls.",
             },
