@@ -29,6 +29,7 @@ export interface Paper {
     /** Short title for compact displays, e.g. card header */
     shortTitle: string;
     /** Optional subtitle or venue tagline */
+    subtitle?: string;
     abstract: string;
     /** Type of paper, e.g. Research Report, Literature Survey, Case Study, Academic Essay */
     paperType: string;

@@ -126,10 +126,15 @@ export const PaperItem = ({
 
     const header = (
         <div className="flex flex-col justify-center gap-0.5 pr-2 md:pr-8">
-            <div className="flex flex-wrap items-center gap-2 mb-0.5">
-                <span className={`${serifFont} italic text-[15px] md:text-2xl`}>
-                    {data.title}
+            <div className="flex flex-wrap items-center mb-0.5 tracking-wide">
+                <span className={`${serifFont} italic text-[18px] md:text-2xl`}>
+                    {data.shortTitle}
                 </span>
+                {data.subtitle && (
+                    <span className={`${serifFont} italic text-[14px] md:text-lg`}>
+                        {data.subtitle}
+                    </span>
+                )}
                 <StatusBadge status={data.status} />
             </div>
             <span
@@ -149,24 +154,6 @@ export const PaperItem = ({
             </span>
         </div>
     );
-
-    const inlineLinksSection = docEntries.length > 0 ? (
-        <>
-            <p className="text-[10px] md:text-xs font-mono uppercase tracking-widest text-muted-foreground-subtle">
-                Links
-            </p>
-            <div className="flex flex-wrap gap-2">
-                {docEntries.map(([key, doc]) => (
-                    <DocLink
-                        key={key}
-                        paperId={paperId}
-                        formatKey={key}
-                        doc={doc}
-                    />
-                ))}
-            </div>
-        </>
-    ) : null;
 
     return (
         <CollapsibleItem
