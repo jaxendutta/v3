@@ -91,7 +91,7 @@ export default function NameSection({ project }: NameSectionProps) {
                             <span className="opacity-50">Links</span>
                             <div className="flex gap-4">
                                 {project.links?.map((link: any, i: number) => (
-                                    <Link key={i} href={link.url} target="_blank" className="underline underline-offset-4 hover:text-accent transition-colors">{link.platform}</Link>
+                                    <Link key={i} href={link.url} target="_blank" className="underline underline-offset-4 hover:text-accent transition-colors">{link.label}</Link>
                                 ))}
                             </div>
                         </div>
@@ -101,7 +101,7 @@ export default function NameSection({ project }: NameSectionProps) {
                 <div className="relative flex flex-row justify-between items-stretch w-full h-full pl-6 pr-8 pt-6 pb-24 gap-2">
                     {/* Left: Icons + Meta */}
                     <div className="flex flex-col justify-between items-start flex-1 min-w-0 max-w-[50vw]">
-                        <div className="flex flex-col items-start gap-6 px-2 py-2 md:py-4 
+                        <div className="flex flex-col items-start gap-6 px-2 py-2 md:py-4
                         justify-between max-h-[calc(100vh-200px)]">
                             <div className="flex flex-col items-center gap-4">
                                 {/* Make all random icons large by wrapping in a container with text size */}
@@ -124,7 +124,7 @@ export default function NameSection({ project }: NameSectionProps) {
                                 <span className="opacity-50">Links</span>
                                 <div className="flex gap-4 flex-wrap">
                                     {project.links?.map((link: any, i: number) => (
-                                        <Link key={i} href={link.url} target="_blank" className="underline underline-offset-4 hover:text-accent transition-colors">{link.platform}</Link>
+                                        <Link key={i} href={link.url} target="_blank" className="underline underline-offset-4 hover:text-accent transition-colors">{link.label}</Link>
                                     ))}
                                 </div>
                             </div>
@@ -167,7 +167,7 @@ export default function NameSection({ project }: NameSectionProps) {
                             <span className="opacity-50">Links</span>
                             <div className="flex gap-4">
                                 {project.links?.map((link: any, i: number) => (
-                                    <Link key={i} href={link.url} target="_blank" className="underline underline-offset-4 pointer-events-none">{link.platform}</Link>
+                                    <Link key={i} href={link.url} target="_blank" className="underline underline-offset-4 pointer-events-none">{link.label}</Link>
                                 ))}
                             </div>
                         </div>
