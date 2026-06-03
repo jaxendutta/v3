@@ -3,7 +3,7 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import { useTheme } from "@/components/theme/ThemeProvider";
-import { GiMoon, GiSun } from "react-icons/gi";
+import { GiFireflake, GiMoon, GiMoonBats, GiSun } from "react-icons/gi";
 
 export default function ThemeSwitch() {
     const { theme, toggleTheme } = useTheme();
@@ -13,7 +13,6 @@ export default function ThemeSwitch() {
             type="button"
             onClick={() => toggleTheme()}
             aria-label={`Switch to ${theme} mode`}
-            className={`text-3xl md:text-5xl`}
             animate={{ rotate: 360 }}
             transition={{
                 duration: 10,
@@ -30,9 +29,9 @@ export default function ThemeSwitch() {
         >
             <AnimatePresence mode="wait" initial={false}>
                 {theme === "dark" ? (
-                    <GiSun />
+                    <GiFireflake className="text-4xl md:text-5xl" />
                 ) : (
-                    <GiMoon />
+                    <GiMoon className="text-[28px] md:text-[40px]" />
                 )}
             </AnimatePresence>
         </motion.button>
