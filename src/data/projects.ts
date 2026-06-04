@@ -88,12 +88,12 @@ export const projectsData: ProjectsData = {
         ],
         colors: [
             {
-                palette: ["#0a0e27", "#ffffff", "#d4af37", "#1a1a1a"],
+                palette: ["#1a1a1a", "#0a0e27", "#d4af37"],
                 description:
                     "The dark mode palette evokes the feeling of a dimmed auditorium. A deep midnight blue (#0a0e27) serves as the backdrop, while metallic gold (#d4af37) is used sparingly for critical metadata and interactive highlights.",
             },
             {
-                palette: ["#fdfbf7", "#1a1a1a", "#8b6508", "#ffffff"],
+                palette: ["#1a1a1a", "#8b6508", "#fdfbf7"],
                 description:
                     "The light mode flips the atmosphere to that of a bright rehearsal studio or sheet music. Off-white parchment (#fdfbf7) is accented by a richer, legible goldenrod (#8b6508) to maintain accessibility while preserving the classical aesthetic.",
             },
@@ -538,12 +538,12 @@ export const projectsData: ProjectsData = {
         ],
         colors: [
             {
-                palette: ["#17181C", "#F4F1EA", "#D7482F", "#DEEFB7"],
+                palette: ["#17181C", "#D7482F", "#DEEFB7"],
                 description:
                     "The dark theme features a deep charcoal background (#17181C) with warm off-white text (#F4F1EA), creating strong contrast for readability. Vibrant red (#D7482F) accents add energy while soft lime (#DEEFB7) highlights create visual interest.",
             },
             {
-                palette: ["#F4F1EA", "#001ECB", "#28B7D0", "#001ECB"],
+                palette: ["#001ECB", "#28B7D0", "#F4F1EA"],
                 description:
                     "The light theme employs a warm off-white background (#F4F1EA) with deep blue text (#001ECB) for comfortable reading. Bright teal accents (#28B7D0) provide visual interest without sacrificing accessibility.",
             },

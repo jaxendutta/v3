@@ -9,13 +9,16 @@ interface ColorSectionProps {
     colors: ColorSet[];
 }
 
+const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1];
+const BORDER_EASE: [number, number, number, number] = [0.4, 0, 0.2, 1];
+
 export default function ColorSection({ id, colors }: ColorSectionProps) {
     const [activeSetIdx, setActiveSetIdx] = useState<number | null>(null);
     const activeSet = activeSetIdx !== null ? colors[activeSetIdx] : null;
 
-    const swingIn = { duration: 0.6, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] };
+    const swingIn = { duration: 0.6, ease: EASE };
 
-    // Overlapping radial blobs layered on a linear base — the "cool colour mix"
+    // Overlapping radial blobs on a linear base
     const getGradient = (set: ColorSet): string => {
         if (set.palette.length === 1) return set.palette[0];
         const n = set.palette.length;
@@ -28,170 +31,127 @@ export default function ColorSection({ id, colors }: ColorSectionProps) {
         return [...blobs, base].join(", ");
     };
 
+    // Render palette groups with animated border overlay — shared by desktop and mobile
+    const renderGroups = (keyPrefix: string) =>
+        colors.flatMap((colorSet, setIdx) => {
+            const isActive = activeSetIdx === setIdx;
+            const n = colorSet.palette.length;
+
+            const group = (
+                <motion.div
+                    key={`${keyPrefix}-group-${setIdx}`}
+                    className="relative flex flex-row min-h-0 cursor-crosshair"
+                    animate={{
+                        // Group flex = per-strip factor × number of strips → same visual proportions as before
+                        flex: isActive ? 1.5 * n : activeSetIdx === null ? n : 0.6 * n,
+                    }}
+                    transition={swingIn}
+                    onMouseEnter={keyPrefix === "d" ? () => setActiveSetIdx(setIdx) : undefined}
+                    onClick={() => setActiveSetIdx(activeSetIdx === setIdx ? null : setIdx)}
+                >
+                    {colorSet.palette.map((hex, colorIdx) => (
+                        <div
+                            key={colorIdx}
+                            className="group relative flex-1 flex items-end justify-center pb-8 lg:pb-12 overflow-hidden"
+                            style={{ backgroundColor: hex }}
+                        >
+                            <a
+                                className={`font-mono ${keyPrefix === "d" ? "text-5xl" : "text-base"} tracking-[0.15em] mix-blend-difference text-white no-underline! hover:underline duration-500 whitespace-nowrap select-none`}
+                                style={{ writingMode: "vertical-rl", transform: "rotate(180deg)" }}
+                                href={`https://google.com/search?q=%23${hex.slice(1)}`}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                onClick={e => e.stopPropagation()}
+                            >
+                                {hex.toUpperCase()}
+                            </a>
+                        </div>
+                    ))}
+
+                    {/* Animated inset border; rendered last so it sits above the strip backgrounds */}
+                    <motion.div
+                        className="absolute inset-0 pointer-events-none z-10"
+                        animate={{
+                            boxShadow: isActive
+                                ? "inset 0 0 0 15px rgba(255,255,255,0.5)"
+                                : "inset 0 0 0 0px rgba(255,255,255,0)",
+                        }}
+                        transition={{ duration: 0.45, ease: BORDER_EASE }}
+                    />
+                </motion.div>
+            );
+
+            return [group];
+        });
+
+    const renderPanel = (panelHeight: string, keyPrefix: string, pClass: string) => (
+        <motion.div
+            className="relative w-full shrink-0 overflow-hidden"
+            animate={{ height: activeSet ? panelHeight : 0 }}
+            transition={swingIn}
+        >
+            <AnimatePresence mode="popLayout">
+                {activeSet && (
+                    <motion.div
+                        key={`${keyPrefix}-panel-${activeSetIdx}`}
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: 0.3 }}
+                        className="absolute inset-0"
+                        style={{ background: getGradient(activeSet) }}
+                    >
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/25 to-transparent" />
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0 }}
+                            transition={{ duration: 0.35, delay: 0.15 }}
+                            className={`absolute bottom-0 ${pClass} text-white`}
+                        >
+                            <p className="font-mono text-xs uppercase tracking-[0.3em] mb-3 opacity-60">
+                                [ Palette {String((activeSetIdx ?? 0) + 1).padStart(2, "0")} ]
+                            </p>
+                            <p className="text-sm lg:text-base leading-relaxed max-w-2xl opacity-90">
+                                {activeSet.description}
+                            </p>
+                        </motion.div>
+
+                        {/* White line at the panel bottom — visually ties it to the selected strips */}
+                        <motion.div
+                            className="absolute bottom-0 inset-x-0 h-px bg-white"
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 0.45 }}
+                            exit={{ opacity: 0 }}
+                            transition={{ duration: 0.3, delay: 0.3 }}
+                        />
+                    </motion.div>
+                )}
+            </AnimatePresence>
+        </motion.div>
+    );
+
     return (
         <section
             id={id}
             className="relative snap-center shrink-0 w-screen h-full overflow-hidden bg-background"
         >
-            {/* DESKTOP VERSION */}
-            <div className="hidden md:flex flex-col h-full" onMouseLeave={() => setActiveSetIdx(null)}>
-
-                {/* Info panel: animates down from top on palette hover */}
-                <motion.div
-                    className="relative w-full shrink-0 overflow-hidden"
-                    animate={{ height: activeSet ? "55%" : 0 }}
-                    transition={swingIn}
-                >
-                    <AnimatePresence mode="popLayout">
-                        {activeSet && (
-                            <motion.div
-                                key={activeSetIdx}
-                                initial={{ opacity: 0 }}
-                                animate={{ opacity: 1 }}
-                                exit={{ opacity: 0 }}
-                                transition={{ duration: 0.3 }}
-                                className="absolute inset-0"
-                                style={{ background: getGradient(activeSet) }}
-                            >
-                                {/* Bottom-fade for text legibility */}
-                                <div className="absolute inset-0 bg-gradient-to-t from-black/25 to-transparent" />
-                                <motion.div
-                                    initial={{ opacity: 0, y: 20 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    exit={{ opacity: 0 }}
-                                    transition={{ duration: 0.35, delay: 0.15 }}
-                                    className="absolute bottom-0 p-8 lg:p-12 text-white"
-                                >
-                                    <p className="font-mono text-xs uppercase tracking-[0.3em] mb-3 opacity-60">
-                                        [ Palette {String((activeSetIdx ?? 0) + 1).padStart(2, "0")} ]
-                                    </p>
-                                    <p className="text-sm lg:text-base leading-relaxed max-w-2xl opacity-90">
-                                        {activeSet.description}
-                                    </p>
-                                </motion.div>
-                            </motion.div>
-                        )}
-                    </AnimatePresence>
-                </motion.div>
-
-                {/* Color strips: palette groups separated by a thin rule */}
+            {/* ── DESKTOP ──────────────────────────────────── */}
+            <div
+                className="hidden md:flex flex-col h-full"
+                onMouseLeave={() => setActiveSetIdx(null)}
+            >
+                {renderPanel("55%", "d", "p-8 lg:p-12")}
                 <div className="flex flex-row flex-1 min-h-0">
-                    {colors.flatMap((colorSet, setIdx) => {
-                        const isActive = activeSetIdx === setIdx;
-                        const strips = colorSet.palette.map((hex, colorIdx) => (
-                            <motion.div
-                                key={`${setIdx}-${colorIdx}`}
-                                className="group relative flex items-end justify-center pb-8 lg:pb-12 overflow-hidden"
-                                style={{ backgroundColor: hex }}
-                                animate={{
-                                    flex: isActive ? 1.5 : activeSetIdx === null ? 1 : 0.6,
-                                }}
-                                transition={swingIn}
-                                onMouseEnter={() => setActiveSetIdx(setIdx)}
-                                onClick={() =>
-                                    setActiveSetIdx(activeSetIdx === setIdx ? null : setIdx)
-                                }
-                            >
-                                <a
-                                    className="font-mono text-5xl tracking-[0.15em] mix-blend-difference text-white no-underline! hover:underline duration-500 whitespace-nowrap select-none"
-                                    style={{ writingMode: "vertical-rl", transform: "rotate(180deg)" }}
-                                    href={`https://google.com/search?q=%23${hex.slice(1)}`}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                >
-                                    {hex.toUpperCase()}
-                                </a>
-                            </motion.div>
-                        ));
-
-                        if (setIdx < colors.length - 1) {
-                            strips.push(
-                                <div
-                                    key={`sep-${setIdx}`}
-                                    className="w-px bg-background/40 self-stretch shrink-0"
-                                />
-                            );
-                        }
-                        return strips;
-                    })}
+                    {renderGroups("d")}
                 </div>
             </div>
 
-            {/* MOBILE VERSION */}
+            {/* ── MOBILE ──────────────────────────────────── */}
             <div className="flex md:hidden flex-col h-full">
-
-                {/* Same gradient info panel as desktop */}
-                <motion.div
-                    className="relative w-full shrink-0 overflow-hidden"
-                    animate={{ height: activeSet ? "48%" : 0 }}
-                    transition={swingIn}
-                >
-                    <AnimatePresence mode="popLayout">
-                        {activeSet && (
-                            <motion.div
-                                key={`m-panel-${activeSetIdx}`}
-                                initial={{ opacity: 0 }}
-                                animate={{ opacity: 1 }}
-                                exit={{ opacity: 0 }}
-                                transition={{ duration: 0.3 }}
-                                className="absolute inset-0"
-                                style={{ background: getGradient(activeSet) }}
-                            >
-                                <div className="absolute inset-0 bg-gradient-to-t from-black/25 to-transparent" />
-                                <motion.div
-                                    initial={{ opacity: 0, y: 16 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    exit={{ opacity: 0 }}
-                                    transition={{ duration: 0.35, delay: 0.15 }}
-                                    className="absolute bottom-0 p-6 text-white"
-                                >
-                                    <p className="font-mono text-[0.6rem] uppercase tracking-[0.3em] mb-2 opacity-60">
-                                        [ Palette {String((activeSetIdx ?? 0) + 1).padStart(2, "0")} ]
-                                    </p>
-                                    <p className="text-xs leading-relaxed opacity-90">
-                                        {activeSet.description}
-                                    </p>
-                                </motion.div>
-                            </motion.div>
-                        )}
-                    </AnimatePresence>
-                </motion.div>
-
-                {/* Same vertical-strip layout as desktop */}
+                {renderPanel("48%", "m", "p-6")}
                 <div className="flex flex-row flex-1 min-h-0">
-                    {colors.flatMap((colorSet, setIdx) => {
-                        const isActive = activeSetIdx === setIdx;
-                        const strips = colorSet.palette.map((hex, colorIdx) => (
-                            <motion.div
-                                key={`m-${setIdx}-${colorIdx}`}
-                                className="group relative flex items-end justify-center pb-6 cursor-crosshair overflow-hidden"
-                                style={{ backgroundColor: hex }}
-                                animate={{
-                                    flex: isActive ? 1.5 : activeSetIdx === null ? 1 : 0.6,
-                                }}
-                                transition={swingIn}
-                                onClick={() =>
-                                    setActiveSetIdx(activeSetIdx === setIdx ? null : setIdx)
-                                }
-                            >
-                                <a
-                                    href={`https://google.com/search?q=%23${hex.slice(1)}`}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="font-mono tracking-[0.15em] no-underline! mix-blend-difference text-white duration-300 whitespace-nowrap select-none"
-                                    style={{ writingMode: "vertical-rl", transform: "rotate(180deg)" }}
-                                >
-                                    {hex.toUpperCase()}
-                                </a>
-                            </motion.div>
-                        ));
-                        if (setIdx < colors.length - 1) {
-                            strips.push(
-                                <div key={`m-sep-${setIdx}`} className="w-px bg-background/40 self-stretch shrink-0" />
-                            );
-                        }
-                        return strips;
-                    })}
+                    {renderGroups("m")}
                 </div>
             </div>
         </section>
