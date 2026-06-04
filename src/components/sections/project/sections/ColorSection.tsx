@@ -12,6 +12,18 @@ interface ColorSectionProps {
 const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1];
 const BORDER_EASE: [number, number, number, number] = [0.4, 0, 0.2, 1];
 
+const getLuminance = (hex: string): number => {
+    const r = parseInt(hex.slice(1, 3), 16);
+    const g = parseInt(hex.slice(3, 5), 16);
+    const b = parseInt(hex.slice(5, 7), 16);
+    return (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+};
+
+const isPaletteLight = (set: ColorSet): boolean => {
+    const avg = set.palette.reduce((sum, c) => sum + getLuminance(c), 0) / set.palette.length;
+    return avg > 0.55;
+};
+
 export default function ColorSection({ id, colors }: ColorSectionProps) {
     const [activeSetIdx, setActiveSetIdx] = useState<number | null>(null);
     const activeSet = activeSetIdx !== null ? colors[activeSetIdx] : null;
@@ -84,7 +96,11 @@ export default function ColorSection({ id, colors }: ColorSectionProps) {
             return [group];
         });
 
-    const renderPanel = (panelHeight: string, keyPrefix: string, pClass: string) => (
+    const renderPanel = (panelHeight: string, keyPrefix: string, pClass: string) => {
+        const isLight = activeSet ? isPaletteLight(activeSet) : false;
+        const textColor = isLight ? "text-gray-900" : "text-white";
+
+        return (
         <motion.div
             className="relative w-full shrink-0 overflow-hidden"
             animate={{ height: activeSet ? panelHeight : 0 }}
@@ -107,17 +123,17 @@ export default function ColorSection({ id, colors }: ColorSectionProps) {
                             animate={{ opacity: 1, y: 0 }}
                             exit={{ opacity: 0 }}
                             transition={{ duration: 0.35, delay: 0.15 }}
-                            className={`absolute bottom-0 ${pClass} text-white`}
+                            className={`absolute bottom-0 ${pClass} ${textColor}`}
                         >
                             <p className="font-mono text-xs uppercase tracking-[0.3em] mb-3 opacity-60">
                                 [ Palette {String((activeSetIdx ?? 0) + 1).padStart(2, "0")} ]
                             </p>
-                            <p className="text-sm lg:text-base leading-relaxed max-w-2xl opacity-90">
+                            <p className="text-xs md:text-sm lg:text-base leading-relaxed max-w-2xl opacity-90">
                                 {activeSet.description}
                             </p>
                         </motion.div>
 
-                        {/* White line at the panel bottom — visually ties it to the selected strips */}
+                        {/* White line at the panel bottom: visually ties it to the selected strips */}
                         <motion.div
                             className="absolute bottom-0 inset-x-0 h-px bg-white"
                             initial={{ opacity: 0 }}
@@ -129,7 +145,8 @@ export default function ColorSection({ id, colors }: ColorSectionProps) {
                 )}
             </AnimatePresence>
         </motion.div>
-    );
+        );
+    };
 
     return (
         <section

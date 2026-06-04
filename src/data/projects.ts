@@ -181,7 +181,7 @@ export const projectsData: ProjectsData = {
         ],
         colors: [
             {
-                palette: ["#ffffff", "#1a1a1a", "#3b82f6", "#10b981"],
+                palette: ["#1a1a1a", "#3b82f6", "#10b981", "#ffffff" ],
                 description:
                     "The portfolio features a dynamic, user-adjustable color system rather than a static palette. It ships with five distinct preset schemes (represented by playful icons) and includes a custom palette adjuster that allows users to pick, export, and copy their own hex codes directly from the UI.",
             },
@@ -390,7 +390,7 @@ export const projectsData: ProjectsData = {
         ],
         colors: [
             {
-                palette: ["#0a0a0a", "#ededed", "#3b82f6", "#10b981"],
+                palette: ["#0a0a0a", "#3b82f6", "#10b981", "#ededed"],
                 description:
                     "The platform employs a strictly neutral monochrome foundation (#0a0a0a, #ededed) to let the data take center stage. Semantic colors are reserved strictly for data visualization: Blue (#3b82f6) for quantitative metrics and Emerald (#10b981) for financial indicators.",
             },
