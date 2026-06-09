@@ -9,7 +9,7 @@ import { papersData } from "@/data/papers";
 import Tag from "@/components/ui/Tag";
 import CollapsibleItem from "@/components/ui/CollapsibleItem";
 import CollapsibleAbstract from "@/components/ui/CollapsibleAbstract";
-import { sansFont, serifFont, serifSCFont } from "@/lib/fonts";
+import { sansFont, serifFont } from "@/lib/fonts";
 import { formatDate } from "@/lib/format";
 import {
     HiOutlineDocumentText,
@@ -126,14 +126,17 @@ export const PaperItem = ({
 
     const header = (
         <div className="flex flex-col justify-center gap-0.5 pr-2 md:pr-8">
-            <div className="flex flex-col mb-0.5 tracking-wide md:tracking-wider">
+            <div className="flex flex-col md:block mb-0.5 tracking-wide md:tracking-wider">
                 <span className={`${serifFont} italic text-[18px] md:text-2xl`}>
                     {data.shortTitle}
                 </span>
                 {data.subtitle && (
-                    <span className={`${serifFont} italic text-[14px] md:text-lg`}>
-                        {data.subtitle}
-                    </span>
+                    <>
+                        <span className={`${serifFont} text-[14px] md:text-2xl hidden md:inline`}>—</span>
+                        <span className={`${serifFont} italic text-[14px] md:text-2xl`}>
+                            {data.subtitle}
+                        </span>
+                    </>
                 )}
                 <StatusBadge status={data.status} />
             </div>
