@@ -132,8 +132,8 @@ export const PaperItem = ({
                 </span>
                 {data.subtitle && (
                     <>
-                        <span className={`${serifFont} text-[14px] md:text-2xl hidden md:inline`}>—</span>
-                        <span className={`${serifFont} italic text-[14px] md:text-2xl`}>
+                        <span className={`${serifFont} text-[15px] md:text-2xl hidden md:inline`}>—</span>
+                        <span className={`${serifFont} italic text-[15px] md:text-2xl`}>
                             {data.subtitle}
                         </span>
                     </>
