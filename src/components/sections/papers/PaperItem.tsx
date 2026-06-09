@@ -126,7 +126,7 @@ export const PaperItem = ({
 
     const header = (
         <div className="flex flex-col justify-center gap-0.5 pr-2 md:pr-8">
-            <div className="flex flex-wrap items-center mb-0.5 tracking-wide">
+            <div className="flex flex-col mb-0.5 tracking-wide md:tracking-wider">
                 <span className={`${serifFont} italic text-[18px] md:text-2xl`}>
                     {data.shortTitle}
                 </span>
