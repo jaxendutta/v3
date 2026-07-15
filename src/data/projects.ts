@@ -1142,7 +1142,7 @@ export const projectsData: ProjectsData = {
             },
             {
                 label: "Play",
-                url: "https://tictactoe-minimax--jxnd.replit.app",
+                url: "https://tictactoe.anirban.ca",
             },
             {
                 label: "Download",
