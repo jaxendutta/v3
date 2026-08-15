@@ -1,12 +1,14 @@
 import { RESUME_DOC_URL } from "@/data/contact";
 
+export const dynamic = "force-dynamic";
+
 export async function GET(request: Request) {
     const { searchParams } = new URL(request.url);
     const isDownload = searchParams.get("download") === "1";
 
     try {
         const response = await fetch(RESUME_DOC_URL, {
-            next: { revalidate: 3600 },
+            cache: "no-store",
         });
 
         if (!response.ok) {
@@ -22,7 +24,9 @@ export async function GET(request: Request) {
                 "Content-Disposition": isDownload
                     ? 'attachment; filename="Anirban_Dutta_Resume.pdf"'
                     : 'inline; filename="Anirban_Dutta_Resume.pdf"',
-                "Cache-Control": "public, max-age=3600, s-maxage=3600, stale-while-revalidate=86400",
+                "Cache-Control": "no-store, no-cache, must-revalidate, proxy-revalidate",
+                "Pragma": "no-cache",
+                "Expires": "0",
             },
         });
     } catch (error) {
