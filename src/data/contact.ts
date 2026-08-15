@@ -1,6 +1,12 @@
 // src/data/contactData.ts
 import { Social } from "@/types/contact";
 
+export const RESUME_DOC_URL =
+    "https://docs.google.com/document/d/1624clRbgzAkiqR-YPmR3FJZoCAmO-RszkgIJjAUUumk/export?format=pdf";
+
+export const CV_DOC_URL =
+    "https://docs.google.com/document/d/1hPXUdpBJ-qb_sXpEkihDWRlX3D64aoi6Zbmi-7hn2JU/export?format=pdf";
+
 export const socials: Social[] = [
     {
         label: "E-MAIL",
@@ -19,14 +25,16 @@ export const socials: Social[] = [
     },
     {
         label: "RÉSUMÉ",
-        url: "https://docs.google.com/gview?url=https://docs.google.com/document/d/1_ZjIqmoNykdPFLcNhsDdrqrbcV0VCuKltRMDqBuH9Ik/export?format=pdf",
-        downloadUrl: "https://docs.google.com/document/d/1_ZjIqmoNykdPFLcNhsDdrqrbcV0VCuKltRMDqBuH9Ik/export?format=pdf",
+        url: "/resume",
+        downloadUrl: "/resume?download=1",
+        docUrl: RESUME_DOC_URL,
     },
     {
         label: "CURRICULUM VITAE",
         labelShort: "CV",
-        url: "https://docs.google.com/gview?url=https://docs.google.com/document/d/1hPXUdpBJ-qb_sXpEkihDWRlX3D64aoi6Zbmi-7hn2JU/export?format=pdf",
-        downloadUrl: "https://docs.google.com/document/d/1hPXUdpBJ-qb_sXpEkihDWRlX3D64aoi6Zbmi-7hn2JU/export?format=pdf",
+        url: "/cv",
+        downloadUrl: "/cv?download=1",
+        docUrl: CV_DOC_URL,
     }
 ];
 

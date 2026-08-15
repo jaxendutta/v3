@@ -28,17 +28,20 @@ export const SocialItem = ({ item, index, copy = true, className = "" }: SocialI
 
     const copyUrl = async (e: React.MouseEvent) => {
         e.preventDefault();
+        const targetUrl = item.url.startsWith("/")
+            ? `${window.location.origin}${item.url}`
+            : item.url;
         if (navigator.clipboard?.writeText) {
             try {
-                await navigator.clipboard.writeText(item.url);
+                await navigator.clipboard.writeText(targetUrl);
                 setCopied(true);
                 setTimeout(() => setCopied(false), 1000);
             } catch (err) {
                 console.error("Failed to copy: ", err);
-                copyToClipboardFallback(item.url);
+                copyToClipboardFallback(targetUrl);
             }
         } else {
-            copyToClipboardFallback(item.url);
+            copyToClipboardFallback(targetUrl);
         }
     };
 

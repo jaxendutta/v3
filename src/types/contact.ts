@@ -5,4 +5,5 @@ export type Social = {
     url: string;
     localPdf?: string;
     downloadUrl?: string;
+    docUrl?: string;
 };
