@@ -12,6 +12,7 @@ import {
 import TextBorderAnimation from "@/components/ui/TextBorder";
 import ProjectButton from "@/components/ui/ProjectButton";
 import FloatingDraggableImage from "@/components/ui/FloatingDraggableImage";
+import { projectsData } from "@/data/projects";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { serifFont } from "@/lib/fonts";
 
@@ -211,7 +212,7 @@ function OverviewSlide({ items, links, isLandscape, index, projectId }: { items:
                     <div className={`${isLandscape ? "w-5/12 h-full" : "w-full min-h-1/2"} flex items-center justify-center perspective-[1200px] z-20`}>
 
                         <FloatingDraggableImage
-                            src={`/${projectId}.png`}
+                            src={projectsData[projectId].image ?? `/${projectId}.png`}
                             alt={`${calloutText} interface`}
                             className="relative w-full h-full touch-auto"
                             style={{

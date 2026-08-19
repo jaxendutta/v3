@@ -15,6 +15,7 @@ import {
     GiTicTacToe,
     GiAmplitude,
     GiResonance,
+    GiPlatform
 } from "react-icons/gi";
 import { AiOutlineFolderView } from "react-icons/ai";
 import { PiCodesandboxLogoLight } from "react-icons/pi";
@@ -23,6 +24,81 @@ const calloutStyle =
     "border border-2 border-dashed py-2 px-2 md:px-4 mt-8";
 
 export const projectsData: ProjectsData = {
+    "sqlite-xplore": {
+        name: "SQLite Xplore",
+        label: "SQLite Xplore",
+        icon: GiPlatform,
+        type: "development",
+        layoutType: "showcase",
+        date: new Date("2026-08-15"),
+        screenshotDevice: "desktop",
+        image: "/sqlite-xplore.gif",
+        overview: [
+            [
+                {
+                    className: calloutStyle,
+                    content: "Instant Massive Opens",
+                },
+                {
+                    content:
+                        "A high-performance SQLite database viewer for VS Code. Powered by a custom lazy-loading virtual filesystem (VFS) and block cache, it reads database pages on-demand. Multi-gigabyte databases open instantly since only the pages required for active queries are loaded.",
+                },
+            ],
+            [
+                {
+                    className: calloutStyle,
+                    content: "No-Framework Architecture",
+                },
+                {
+                    content:
+                        "Crafted entirely in pure vanilla TypeScript with zero external UI frameworks to keep bundle sizes minimal. Features a custom virtualized grid rendering millions of rows with responsive column resizing, and an interactive zoomable schema map.",
+                },
+            ],
+        ],
+        links: [
+            {
+                label: "GitHub",
+                url: "https://github.com/jaxendutta/sqlite-xplore",
+            },
+        ],
+        typography: [
+            {
+                name: "Geist Mono",
+                fontFamily: '"Geist Mono", monospace',
+                url: "https://fonts.googleapis.com/css2?family=Geist+Mono:wght@100..900&display=swap",
+                description:
+                    "A crisp, monospaced font tailored for reading database values and columns. It provides perfect structural alignment for the table grid cells and statistical details.",
+            },
+            {
+                name: "Geist Sans",
+                fontFamily: '"Geist Sans", sans-serif',
+                url: "https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap",
+                description:
+                    "Utilized for the sidebar navigation, table names, and interactive UI controls, offering a premium and modern developer-oriented aesthetic.",
+            },
+        ],
+        colors: [
+            {
+                palette: ["#1e1e2e", "#89b4fa", "#a6adc8", "#cdd6f4"],
+                description:
+                    "Optimized for dark mode matching the VS Code theme ecosystem. Features a deep navy-charcoal canvas with smooth cobalt-blue accents for active tabs and column highlights.",
+            },
+        ],
+        techStack: {
+            Frontend: [
+                { name: "HTML" },
+                { name: "CSS" },
+                { name: "TypeScript" },
+            ],
+            Backend: [
+                { name: "WebAssembly" },
+                { name: "SQLite" },
+                { name: "VS Code API" },
+            ],
+        },
+        footer: "Developing SQLite Xplore required solving complex VS Code sandbox constraints. Webview environments do not have direct file-system access, so I built a custom SQLite VFS in WebAssembly (via wa-sqlite) that redirects page requests back to the extension host using postMessage. The extension host acts as a page server, performing fast random-access reads. To optimize filtering and sorting on large, unindexed tables, I integrated SQLite progress-handlers for instant cancellation, preventing the event loop from blocking and delivering a responsive desktop-class database editor.",
+    },
+
     jeffrey: {
         name: "Jeffrey's Aria",
         label: "Jeffrey's Aria",
@@ -109,8 +185,11 @@ export const projectsData: ProjectsData = {
                 { name: "Three.js", version: "0.184.0" },
                 { name: "WebGL" }
             ],
-            Backend: [
+            CMS: [
                 { name: "Sanity", version: "5.23.0" },
+            ],
+            Deployment: [
+                { name: "Vercel" },
             ],
         },
         footer: "Building Jeffrey Liu's portfolio required bridging the gap between artistic expression and strict technical architecture. The WebGL Repertoire gallery dynamically generates 3D picture frames with calculated drop shadows and miter joints directly from CSS logic mapped to canvas textures. The backend relies on Sanity CMS, where I implemented a user-friendly DRY schema that allows standalone recordings to automatically inherit composer and date metadata from linked productions. A custom Next.js API route handles on-the-fly ZIP generation for press kits by fetching remote Google Docs and converting them to PDFs server-side. The result is a highly maintainable platform that feels like an immersive, interactive performance.",
@@ -181,7 +260,7 @@ export const projectsData: ProjectsData = {
         ],
         colors: [
             {
-                palette: ["#1a1a1a", "#3b82f6", "#10b981", "#ffffff" ],
+                palette: ["#1a1a1a", "#3b82f6", "#10b981", "#ffffff"],
                 description:
                     "The portfolio features a dynamic, user-adjustable color system rather than a static palette. It ships with five distinct preset schemes (represented by playful icons) and includes a custom palette adjuster that allows users to pick, export, and copy their own hex codes directly from the UI.",
             },
@@ -193,16 +272,19 @@ export const projectsData: ProjectsData = {
                 { name: "Tailwind CSS", version: "4.2.4" },
                 { name: "Framer Motion", version: "12.28.0" },
             ],
-            UI: [
-                { name: "React-Icons", version: "5.6.0" },
-            ]
+            CMS: [
+                { name: "Sanity", version: "5.23.0" },
+            ],
+            Deployment: [
+                { name: "Vercel" },
+            ],
         },
         footer: "Crafted as a birthday gift for a dear friend, this portfolio is a testament to interactive web design. I implemented a programmatic scroll-snapping architecture using Framer Motion and wheel event listeners to override default browser scrolling, creating a presentation-like, slide-by-slide experience. The interface features complex, self-contained glassmorphic dropdowns, a sliding vertical selector for theme management, and an interactive custom cursor that adapts and morphs over clickable elements. By cleanly separating the data layer, the application remains highly maintainable while delivering a visually striking and technically robust user experience.",
     },
 
     emma: {
         name: "EMMA",
-        label: "EMMA",
+        label: "[ EMMA ]",
         icon: GiLifeInTheBalance,
         type: "research",
         layoutType: "article",
@@ -325,10 +407,11 @@ export const projectsData: ProjectsData = {
                 { name: "React", version: "19.4" },
                 { name: "Tailwind", version: "4.1" },
                 { name: "Framer Motion" },
-                { name: "MDX" },
             ],
-            Backend: [{ name: "Server Actions" }],
-            Development: [{ name: "Vercel" }],
+            Deployment: [{ name: "Vercel" }],
+            CMS: [
+                { name: "Sanity", version: "5.25.1" },
+            ],
         },
         footer: "Asher Kim's Research Portfolio is a Next.js 16 application showcasing plant biology and molecular research. The site features a distinctive grass-tiled background that creates an immersive natural environment. With dark and light theme support, the portfolio presents research experience, publications, presentations, and outreach activities in an organized, accessible format. The design balances academic professionalism with a warm, approachable aesthetic that reflects Asher's research in plant-microbe interactions and stress responses. Interactive elements and smooth animations enhance user engagement while maintaining focus on scientific content.",
     },
@@ -482,7 +565,7 @@ export const projectsData: ProjectsData = {
     },
     "v2": {
         name: "Portfolio v2",
-        label: "Portfolio v2",
+        label: "Portfolio [ v2 ]",
         icon: GiOrbital,
         type: "development",
         layoutType: "showcase",
@@ -589,7 +672,7 @@ export const projectsData: ProjectsData = {
 
     fabler: {
         name: "Fabler",
-        label: "Fabler",
+        label: "[ Fabler ]",
         icon: GiBrainTentacle,
         type: "design",
         layoutType: "showcase",
@@ -680,7 +763,7 @@ export const projectsData: ProjectsData = {
 
     "v1": {
         name: "Portfolio v1",
-        label: "Portfolio v1",
+        label: "Portfolio [ v1 ]",
         icon: GiNestedEclipses,
         type: "development",
         layoutType: "showcase",
@@ -753,7 +836,7 @@ export const projectsData: ProjectsData = {
 
     hivemind: {
         name: "HiveMind",
-        label: "HiveMind",
+        label: "[ HiveMind ]",
         icon: GiBee,
         date: new Date("2023-08-18"),
         screenshotDevice: "mobile",
@@ -969,7 +1052,7 @@ export const projectsData: ProjectsData = {
 
     lightbox: {
         name: "LightBox",
-        label: "LightBox",
+        label: "[ LightBox ]",
         icon: PiCodesandboxLogoLight,
         type: "development",
         layoutType: "showcase",

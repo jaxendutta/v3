@@ -39,6 +39,7 @@ export interface Project {
     techStack?: Record<string, Tech[]>;
     footer?: string;
     screenshotDevice?: "desktop" | "mobile" | "tablet";
+    image?: string;
 }
 
 export type ProjectsData = Record<string, Project>;

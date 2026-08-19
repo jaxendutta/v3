@@ -92,7 +92,7 @@ export default function ProjectCard({
                     className={`w-full ${isMobileProject ? "md:w-2/5" : "md:w-3/5"} relative`}
                 >
                     <FloatingDraggableImage
-                        src={`/${id}.png`}
+                        src={project.image ?? `/${id}.png`}
                         alt={project.name}
                         width={isMobileProject ? 280 : 800}
                         height={isMobileProject ? 600 : 450}
