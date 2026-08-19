@@ -8,13 +8,8 @@ const nextConfig: NextConfig = {
     },
     allowedDevOrigins: ["tipless-melida-pardonably.ngrok-free.dev"],
     experimental: {
-        optimizePackageImports: [
-            "react-icons",
-            "framer-motion",
-            "react-markdown",
-        ],
         serverActions: {
-            bodySizeLimit: "2mb", // Keep this if you need larger uploads
+            bodySizeLimit: "2mb", // Keep this if larger uploads are needed
         },
     },
     async headers() {
