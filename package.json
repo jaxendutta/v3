@@ -9,6 +9,9 @@
     "lint": "next lint",
     "typecheck": "tsc --noEmit"
   },
+  "allowScripts": {
+    "unrs-resolver": true
+  },
   "dependencies": {
     "@react-email/components": "^1.0.12",
     "@react-email/render": "^2.1.0",
