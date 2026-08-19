@@ -56,9 +56,9 @@ export default function ProjectCard({
                     <div className={`w-full flex ${reversed ? "flex-row text-left" : "flex-row-reverse text-right"} gap-4 items-center justify-between ${chain ? "pr-4" : ""}`}>
                         <Link
                             href={projectLink}
-                            className={`text-[48px] md:text-7xl lg:text-8xl hover:text-accent transition-colors no-underline! font-thin leading-12 
-                                ${reversed 
-                                    ? `pl-2 ${csDeviousReverseItalicFont}` 
+                            className={`text-[48px] md:text-7xl lg:text-8xl hover:text-accent transition-colors no-underline!
+                                ${reversed
+                                    ? `pl-2 ${csDeviousReverseItalicFont}`
                                     : `pr-2 ${csDeviousItalicFont}`
                                 }
                             `}
