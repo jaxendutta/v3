@@ -5,13 +5,15 @@ import { motion } from "framer-motion";
 import { fadeIn, staggerContainer, slideUp } from "@/lib/motionVariants";
 import { projectsData } from "@/data/projects";
 import { computeFacetCounts, parseCsvNumberList, parseCsvStringList, useSyncedFilters } from "@/lib/filtering";
-import { LuSearch, LuSwatchBook, LuCalendarRange } from "react-icons/lu";
+import { LuSearch, LuSwatchBook, LuCalendarRange, LuLayers } from "react-icons/lu";
 import ProjectCard from "@/components/sections/project/ProjectCard";
 import FilteredCollectionPage from "@/components/layout/FilteredCollectionPage";
 import {
     FilterTag,
     FilterSection,
 } from "@/components/ui/FilterContainer";
+
+import { CATEGORY_MAP, ProjectCategoryKey } from "@/types/project";
 
 export default function ProjectsPage() {
     const projects = projectsData;
@@ -27,19 +29,27 @@ export default function ProjectsPage() {
     } = useSyncedFilters<{
         techStack: string[];
         years: number[];
+        categories: string[];
     }>({
         filterParams: {
             techStack: "tech",
             years: "year",
+            categories: "cat",
         },
         parseFilter: {
             techStack: parseCsvStringList,
             years: parseCsvNumberList,
+            categories: parseCsvStringList,
         },
     });
 
     const selectedTechStack = filters.techStack;
     const selectedYears = filters.years;
+    const selectedCategories = filters.categories;
+
+    const allCategories = useMemo(() => {
+        return Object.keys(CATEGORY_MAP) as ProjectCategoryKey[];
+    }, []);
 
     // Extract all unique tech stacks from all projects
     const allTechStacks = useMemo(() => {
@@ -106,6 +116,34 @@ export default function ProjectsPage() {
         return years.length === 0 || years.includes(project.date.getFullYear());
     };
 
+    const projectMatchesCategory = (project: (typeof projectsData)[string], categories: string[]) => {
+        return (
+            categories.length === 0 ||
+            (project.categories
+                ? categories.some((cat) => project.categories.includes(cat as ProjectCategoryKey))
+                : false)
+        );
+    };
+
+    const categoryCounts = useMemo(
+        () =>
+            computeFacetCounts({
+                items: projectIds,
+                values: allCategories,
+                selectedValues: selectedCategories,
+                isMatch: (id, nextCategories) => {
+                    const project = projects[id];
+                    return (
+                        projectMatchesSearch(project) &&
+                        projectMatchesTechStack(project, selectedTechStack) &&
+                        projectMatchesYear(project, selectedYears) &&
+                        projectMatchesCategory(project, nextCategories)
+                    );
+                },
+            }),
+        [allCategories, projectIds, selectedCategories, selectedTechStack, selectedYears, searchQuery]
+    );
+
     const techStackCounts = useMemo(
         () =>
             computeFacetCounts({
@@ -117,11 +155,12 @@ export default function ProjectsPage() {
                     return (
                         projectMatchesSearch(project) &&
                         projectMatchesTechStack(project, nextTechStack) &&
-                        projectMatchesYear(project, selectedYears)
+                        projectMatchesYear(project, selectedYears) &&
+                        projectMatchesCategory(project, selectedCategories)
                     );
                 },
             }),
-        [allTechStacks, projectIds, selectedTechStack, selectedYears, searchQuery]
+        [allTechStacks, projectIds, selectedTechStack, selectedYears, selectedCategories, searchQuery]
     );
 
     const yearCounts = useMemo(
@@ -135,24 +174,26 @@ export default function ProjectsPage() {
                     return (
                         projectMatchesSearch(project) &&
                         projectMatchesTechStack(project, selectedTechStack) &&
-                        projectMatchesYear(project, nextYears)
+                        projectMatchesYear(project, nextYears) &&
+                        projectMatchesCategory(project, selectedCategories)
                     );
                 },
             }),
-        [allYears, projectIds, selectedTechStack, selectedYears, searchQuery]
+        [allYears, projectIds, selectedTechStack, selectedYears, selectedCategories, searchQuery]
     );
 
-    // Filter projects based on search query, selected tech stacks, and years
+    // Filter projects based on search query, selected tech stacks, years, and categories
     const filteredProjects = useMemo(() => {
         return projectIds.filter((id) => {
             const project = projects[id];
             return (
                 projectMatchesSearch(project) &&
                 projectMatchesTechStack(project, selectedTechStack) &&
-                projectMatchesYear(project, selectedYears)
+                projectMatchesYear(project, selectedYears) &&
+                projectMatchesCategory(project, selectedCategories)
             );
         });
-    }, [projectIds, projects, searchQuery, selectedTechStack, selectedYears]);
+    }, [projectIds, projects, searchQuery, selectedTechStack, selectedYears, selectedCategories]);
 
     const toggleTechStack = (tech: string) => {
         toggleFilterValue("techStack", tech);
@@ -162,6 +203,10 @@ export default function ProjectsPage() {
         toggleFilterValue("years", year);
     };
 
+    const toggleCategory = (cat: string) => {
+        toggleFilterValue("categories", cat);
+    };
+
     const summary = (
         <>
             <span className="font-medium text-accent">
@@ -169,9 +214,19 @@ export default function ProjectsPage() {
             </span>
             <span>{" projects found "}</span>
 
+            {selectedCategories.length > 0 && (
+                <>
+                    <span>{" in "}</span>
+                    <span className="text-accent">
+                        {selectedCategories
+                            .map((cat) => CATEGORY_MAP[cat as ProjectCategoryKey] ?? cat)
+                            .join(", ")}
+                    </span>
+                </>
+            )}
             {selectedTechStack.length > 0 && (
                 <>
-                    <span>{" filtered by "}</span>
+                    <span>{" using "}</span>
                     <span className="text-accent">
                         {selectedTechStack.length} {selectedTechStack.length === 1 ? "tool" : "tools"}
                     </span>
@@ -179,7 +234,7 @@ export default function ProjectsPage() {
             )}
             {selectedYears.length > 0 && (
                 <>
-                    {" from the "}
+                    {" from "}
                     <span className="text-accent">
                         {selectedYears.length === 1 ? "year" : "years"} {selectedYears.join(", ")}
                     </span>
@@ -209,32 +264,46 @@ export default function ProjectsPage() {
                 </div>
             </div>
 
-            <div className="w-full flex flex-col md:grid md:grid-cols-4 md:gap-4 gap-8">
-                <FilterSection title="Tech Stack Filter" icon={<LuSwatchBook />} className="md:col-span-3">
-                    {allTechStacks.map((tech) => (
+            <div className="w-full flex flex-col gap-6">
+                <FilterSection title="Industry / Category" icon={<LuLayers />}>
+                    {allCategories.map((catKey) => (
                         <FilterTag
-                            key={tech}
-                            label={tech}
-                            count={techStackCounts[tech] ?? 0}
-                            isActive={selectedTechStack.includes(tech)}
-                            onClick={() => toggleTechStack(tech)}
+                            key={catKey}
+                            label={CATEGORY_MAP[catKey]}
+                            count={categoryCounts[catKey] ?? 0}
+                            isActive={selectedCategories.includes(catKey)}
+                            onClick={() => toggleCategory(catKey)}
                         />
                     ))}
                 </FilterSection>
 
-                {allYears.length > 0 && (
-                    <FilterSection title="Year Filter" icon={<LuCalendarRange />} className="md:col-span-1">
-                        {allYears.map((year) => (
+                <div className="w-full flex flex-col md:grid md:grid-cols-4 md:gap-4 gap-8">
+                    <FilterSection title="Tech Stack" icon={<LuSwatchBook />} className="md:col-span-3">
+                        {allTechStacks.map((tech) => (
                             <FilterTag
-                                key={year}
-                                label={year.toString()}
-                                count={yearCounts[year] ?? 0}
-                                isActive={selectedYears.includes(year)}
-                                onClick={() => toggleYear(year)}
+                                key={tech}
+                                label={tech}
+                                count={techStackCounts[tech] ?? 0}
+                                isActive={selectedTechStack.includes(tech)}
+                                onClick={() => toggleTechStack(tech)}
                             />
                         ))}
                     </FilterSection>
-                )}
+
+                    {allYears.length > 0 && (
+                        <FilterSection title="Year" icon={<LuCalendarRange />} className="md:col-span-1">
+                            {allYears.map((year) => (
+                                <FilterTag
+                                    key={year}
+                                    label={year.toString()}
+                                    count={yearCounts[year] ?? 0}
+                                    isActive={selectedYears.includes(year)}
+                                    onClick={() => toggleYear(year)}
+                                />
+                            ))}
+                        </FilterSection>
+                    )}
+                </div>
             </div>
         </div>
     );

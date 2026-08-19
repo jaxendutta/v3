@@ -3,7 +3,7 @@
 import React, { useRef, useEffect, useState } from "react";
 import { motion, useMotionValue, useSpring, useMotionTemplate } from "framer-motion";
 import Link from "next/link";
-import { Project } from "@/types/project";
+import { Project, CATEGORY_MAP, ProjectCategoryKey } from "@/types/project";
 import { RandomIconsLoader } from "@/components/ui/RandomIcons";
 import { serifFont } from "@/lib/fonts";
 
@@ -81,7 +81,9 @@ export default function NameSection({ project }: NameSectionProps) {
                     <div className="grid text-xs font-mono uppercase tracking-widest relative z-50 pb-10 grid-cols-3 gap-8 opacity-60">
                         <div className="flex flex-col gap-2">
                             <span className="opacity-50">Type</span>
-                            <span className="leading-relaxed uppercase text-xs">{project.type}</span>
+                            <span className="leading-relaxed uppercase text-xs">
+                                {project.categories?.map((c) => CATEGORY_MAP[c as ProjectCategoryKey]).join(" ✧ ") ?? project.type}
+                            </span>
                         </div>
                         <div className="flex flex-col gap-2 items-center">
                             <span className="opacity-50">Timestamp</span>
@@ -114,7 +116,9 @@ export default function NameSection({ project }: NameSectionProps) {
                         <div className="mt-8 grid text-xs font-mono uppercase tracking-widest z-50 grid-cols-1 gap-4">
                             <div className="flex flex-col gap-2">
                                 <span className="opacity-50">Type</span>
-                                <span className="leading-relaxed uppercase text-sm">{project.type}</span>
+                                <span className="leading-relaxed uppercase text-sm">
+                                    {project.categories?.map((c) => CATEGORY_MAP[c as ProjectCategoryKey]).join(" ✧ ") ?? project.type}
+                                </span>
                             </div>
                             <div className="flex flex-col gap-2">
                                 <span className="opacity-50">Timestamp</span>
@@ -157,7 +161,9 @@ export default function NameSection({ project }: NameSectionProps) {
                     <div className="grid grid-cols-3 gap-8 text-xs font-sans font-bold uppercase tracking-widest relative z-10 pb-10">
                         <div className="flex flex-col gap-2">
                             <span className="opacity-50">Type</span>
-                            <span className="leading-relaxed uppercase">{project.type}</span>
+                            <span className="leading-relaxed uppercase">
+                                {project.categories?.map((c) => CATEGORY_MAP[c as ProjectCategoryKey]).join(" ✧ ") ?? project.type}
+                            </span>
                         </div>
                         <div className="flex flex-col gap-2 items-center">
                             <span className="opacity-50">Timestamp</span>

@@ -24,12 +24,21 @@ export interface Tech {
     version?: string;
 }
 
+export type ProjectCategoryKey = "frontend" | "fullstack" | "data";
+
+export const CATEGORY_MAP: Record<ProjectCategoryKey, string> = {
+    frontend: "Frontend + UX/UI",
+    fullstack: "Full-Stack",
+    data: "Data Science + AI",
+} as const;
+
 export interface Project {
     name: string;
     label: string;
     subtitle?: string;
     icon: IconType;
     type: "design" | "development" | "ai" | "research";
+    categories: ProjectCategoryKey[];
     layoutType: "showcase" | "article";
     date: Date;
     overview?: OverviewItem[][];
