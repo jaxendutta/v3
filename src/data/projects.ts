@@ -6,6 +6,7 @@ import {
     GiBrainTentacle,
     GiBee,
     GiCardJoker,
+    GiPokerHand,
     GiOrbital,
     GiNestedEclipses,
     GiAbstract014,
@@ -15,7 +16,8 @@ import {
     GiTicTacToe,
     GiAmplitude,
     GiResonance,
-    GiPlatform
+    GiPlatform,
+    GiAce
 } from "react-icons/gi";
 import { AiOutlineFolderView } from "react-icons/ai";
 import { PiCodesandboxLogoLight } from "react-icons/pi";
@@ -31,7 +33,10 @@ export const projectsData: ProjectsData = {
         type: "development",
         categories: ["fullstack", "frontend"],
         layoutType: "showcase",
-        date: new Date("2026-08-15"),
+        date: {
+            start: new Date("2026-08-15"),
+            end: new Date("2026-08-15")
+        },
         screenshotDevice: "desktop",
         image: "/sqlite-xplore.gif",
         overview: [
@@ -101,6 +106,104 @@ export const projectsData: ProjectsData = {
         footer: "Developing SQLite Xplore required solving complex VS Code sandbox constraints. Webview environments do not have direct file-system access, so I built a custom SQLite VFS in WebAssembly (via wa-sqlite) that redirects page requests back to the extension host using postMessage. The extension host acts as a page server, performing fast random-access reads. To optimize filtering and sorting on large, unindexed tables, I integrated SQLite progress-handlers for instant cancellation, preventing the event loop from blocking and delivering a responsive desktop-class database editor.",
     },
 
+    jaxpot: {
+        name: "Jaxpot",
+        label: "JAXPOT!",
+        icon: GiAce,
+        type: "development",
+        categories: ["fullstack", "frontend"],
+        layoutType: "showcase",
+        date: {
+            start: new Date("2026-06-01")
+        },
+        screenshotDevice: "mobile",
+        image: "/jaxpot.png",
+        overview: [
+            [
+                {
+                    className: calloutStyle,
+                    content: "Multi-Mode Card Gaming Platform",
+                },
+                {
+                    content:
+                        "A full-stack, mobile-friendly Next.js 16 card gaming engine served on a woven green felt casino table. Features single-player matches against customizable AI computer players (Easy, Medium, Hard), local Pass & Play with secret 3-digit PIN locks between turns to prevent hand peeking on shared devices, and real-time online tables.",
+                },
+            ],
+            [
+                {
+                    className: calloutStyle,
+                    content: "Supabase Realtime & Auth Engine",
+                },
+                {
+                    content:
+                        "Powered by PostgreSQL and Supabase Realtime for instant WebSocket state broadcasts across active player seats. Integrates anonymous guest sign-ins, email/password and OAuth using Google, Discord, and Github, Cloudflare Turnstile anti-bot CAPTCHA protection, custom player scoreboard match histories, and a public all-human leaderboard.",
+                },
+            ],
+        ],
+        links: [
+            {
+                label: "Live Site",
+                url: "https://jaxpot.anirban.ca",
+            },
+            {
+                label: "GitHub",
+                url: "https://github.com/jaxendutta/jaxpot",
+            },
+        ],
+        typography: [
+            {
+                name: "Sancreek",
+                fontFamily: '"Sancreek", serif',
+                url: "https://fonts.googleapis.com/css2?family=Sancreek&display=swap",
+                description:
+                    "A classic western, saloon-style serif Google Font used for the main JAXPOT brand logo header.",
+            },
+            {
+                name: "Baloo 2",
+                fontFamily: '"Baloo 2", cursive',
+                url: "https://fonts.googleapis.com/css2?family=Baloo+2:wght@400..800&display=swap",
+                description:
+                    "A chunky, friendly rounded display font used for tabletop action buttons, game setup modals, and section titles.",
+            },
+            {
+                name: "Nunito",
+                fontFamily: '"Nunito", sans-serif',
+                url: "https://fonts.googleapis.com/css2?family=Nunito:wght@400..800&display=swap",
+                description:
+                    "A clean, high-legibility sans-serif for player profiles, game stats, lobby table listings, and match controls.",
+            },
+        ],
+        colors: [
+            {
+                palette: ["#0a2418", "#0e3524", "#0d2b1c", "#ffd873", "#fbf3e1"],
+                description:
+                    "Felt backdrop vignette (#0a2418) with a woven felt table surface (#0e3524), deep canvas (#0d2b1c), chunky gold button gradients (#ffd873), and cream card text (#fbf3e1).",
+            },
+        ],
+        techStack: {
+            "Frontend & UI": [
+                { name: "TypeScript", version: "5.0" },
+                { name: "Next.js", version: "16.2.10" },
+                { name: "React", version: "19.2.4" },
+                { name: "Tailwind", version: "4.0" },
+                { name: "Icons8" },
+                { name: "React Icons", version: "5.7.0" },
+            ],
+            "Backend & Database": [
+                { name: "Supabase", version: "2.110.0" },
+                { name: "PostgreSQL", version: "17" },
+                { name: "Supabase Realtime" },
+                { name: "Supabase Auth" },
+            ],
+            "Infrastructure & Security": [
+                { name: "Cloudflare Turnstile" },
+                { name: "Resend API" },
+                { name: "Vercel" },
+            ],
+        },
+        footer: "JAXPOT! was engineered as a decoupled, multi-mode card game architecture where game engines live as pure, stateful JS reducers completely isolated from UI or network IO. The backend leverages Supabase Realtime for instant state broadcasts across active seats, while Row-Level Security policies scope access per room code. Pass & Play turns feature 3-digit pin locks to prevent peeking on single devices, while online games seamlessly blend AI drop-ins for empty seats.",
+    },
+
     jeffrey: {
         name: "Jeffrey's Aria",
         label: "Jeffrey's Aria",
@@ -108,7 +211,10 @@ export const projectsData: ProjectsData = {
         type: "development",
         categories: ["frontend"],
         layoutType: "showcase",
-        date: new Date("2026-05-05"),
+        date: {
+            start: new Date("2026-05-05"),
+            end: new Date("2026-05-05")
+        },
         screenshotDevice: "mobile",
         overview: [
             [
@@ -209,7 +315,10 @@ export const projectsData: ProjectsData = {
         type: "development",
         categories: ["frontend"],
         layoutType: "showcase",
-        date: new Date("2026-04-29"),
+        date: {
+            start: new Date("2026-04-29"),
+            end: new Date("2026-04-29")
+        },
         screenshotDevice: "mobile",
         overview: [
             [
@@ -301,7 +410,10 @@ export const projectsData: ProjectsData = {
         type: "research",
         categories: ["data", "fullstack"],
         layoutType: "article",
-        date: new Date("2026-04-18"),
+        date: {
+            start: new Date("2026-04-18"),
+            end: new Date("2026-04-18")
+        },
         screenshotDevice: "mobile",
         links: [
             {
@@ -359,7 +471,10 @@ export const projectsData: ProjectsData = {
         type: "development",
         categories: ["frontend"],
         layoutType: "showcase",
-        date: new Date("2025-05-20"),
+        date: {
+            start: new Date("2025-05-20"),
+            end: new Date("2025-05-20")
+        },
         screenshotDevice: "mobile",
         overview: [
             [
@@ -458,7 +573,10 @@ export const projectsData: ProjectsData = {
         type: "development",
         categories: ["fullstack", "data"],
         layoutType: "showcase",
-        date: new Date("2026-01-24"),
+        date: {
+            start: new Date("2026-01-24"),
+            end: new Date("2026-01-24")
+        },
         screenshotDevice: "mobile",
         overview: [
             [
@@ -545,7 +663,10 @@ export const projectsData: ProjectsData = {
         type: "development",
         categories: ["frontend"],
         layoutType: "showcase",
-        date: new Date("2025-11-10"),
+        date: {
+            start: new Date("2025-11-10"),
+            end: new Date("2025-11-10")
+        },
         screenshotDevice: "mobile",
         overview: [
             [
@@ -619,7 +740,10 @@ export const projectsData: ProjectsData = {
         type: "development",
         categories: ["frontend"],
         layoutType: "showcase",
-        date: new Date("2025-04-10"),
+        date: {
+            start: new Date("2025-04-10"),
+            end: new Date("2025-04-10")
+        },
         screenshotDevice: "mobile",
         overview: [
             [
@@ -710,7 +834,10 @@ export const projectsData: ProjectsData = {
         type: "research",
         categories: ["data"],
         layoutType: "article",
-        date: new Date("2024-12-18"),
+        date: {
+            start: new Date("2024-12-18"),
+            end: new Date("2024-12-18")
+        },
         screenshotDevice: "mobile",
         links: [
             {
@@ -738,7 +865,10 @@ export const projectsData: ProjectsData = {
         type: "design",
         categories: ["fullstack", "data", "frontend"],
         layoutType: "showcase",
-        date: new Date("2024-08-18"),
+        date: {
+            start: new Date("2024-08-18"),
+            end: new Date("2024-08-18")
+        },
         screenshotDevice: "mobile",
         overview: [
             [
@@ -834,7 +964,10 @@ export const projectsData: ProjectsData = {
         type: "development",
         categories: ["frontend"],
         layoutType: "showcase",
-        date: new Date("2023-12-22"),
+        date: {
+            start: new Date("2023-12-22"),
+            end: new Date("2023-12-22")
+        },
         screenshotDevice: "mobile",
         overview: [
             [
@@ -907,7 +1040,10 @@ export const projectsData: ProjectsData = {
         name: "HiveMind",
         label: "[ HiveMind ]",
         icon: GiBee,
-        date: new Date("2023-08-18"),
+        date: {
+            start: new Date("2023-08-18"),
+            end: new Date("2023-08-18")
+        },
         screenshotDevice: "mobile",
         type: "design",
         categories: ["frontend"],
@@ -985,7 +1121,10 @@ export const projectsData: ProjectsData = {
         type: "development",
         categories: ["frontend"],
         layoutType: "showcase",
-        date: new Date("2023-08-18"),
+        date: {
+            start: new Date("2023-08-18"),
+            end: new Date("2023-08-18")
+        },
         overview: [
             [
                 {
@@ -1060,7 +1199,10 @@ export const projectsData: ProjectsData = {
         type: "development",
         categories: ["fullstack"],
         layoutType: "showcase",
-        date: new Date("2023-08-18"),
+        date: {
+            start: new Date("2023-08-18"),
+            end: new Date("2023-08-18")
+        },
         overview: [
             [
                 {
@@ -1137,7 +1279,10 @@ export const projectsData: ProjectsData = {
         type: "development",
         categories: ["fullstack"],
         layoutType: "showcase",
-        date: new Date("2023-08-18"),
+        date: {
+            start: new Date("2023-08-18"),
+            end: new Date("2023-08-18")
+        },
         overview: [
             [
                 {
@@ -1214,7 +1359,10 @@ export const projectsData: ProjectsData = {
         type: "development",
         categories: ["frontend", "fullstack"],
         layoutType: "showcase",
-        date: new Date("2022-08-18"),
+        date: {
+            start: new Date("2022-08-18"),
+            end: new Date("2022-08-18")
+        },
         overview: [
             [
                 {
@@ -1286,7 +1434,10 @@ export const projectsData: ProjectsData = {
         type: "ai",
         categories: ["data"],
         layoutType: "showcase",
-        date: new Date("2019-06-29"),
+        date: {
+            start: new Date("2019-06-29"),
+            end: new Date("2019-06-29")
+        },
         screenshotDevice: "mobile",
         overview: [
             [

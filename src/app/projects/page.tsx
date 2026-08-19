@@ -69,14 +69,18 @@ export default function ProjectsPage() {
         return Array.from(techStacks).sort();
     }, [projectIds, projects]);
 
-    // Extract all unique years from project data
+    // Extract all unique years from project data (including active range spans)
     const allYears = useMemo(() => {
         const years = new Set<number>();
 
         projectIds.forEach((id) => {
             const project = projects[id];
             if (project.date) {
-                years.add(project.date.getFullYear());
+                const startYear = project.date.start.getFullYear();
+                const endYear = (project.date.end ?? new Date()).getFullYear();
+                for (let y = startYear; y <= endYear; y++) {
+                    years.add(y);
+                }
             }
         });
 
@@ -113,7 +117,11 @@ export default function ProjectsPage() {
     };
 
     const projectMatchesYear = (project: (typeof projectsData)[string], years: number[]) => {
-        return years.length === 0 || years.includes(project.date.getFullYear());
+        if (years.length === 0) return true;
+        if (!project.date) return false;
+        const startYear = project.date.start.getFullYear();
+        const endYear = (project.date.end ?? new Date()).getFullYear();
+        return years.some((year) => year >= startYear && year <= endYear);
     };
 
     const projectMatchesCategory = (project: (typeof projectsData)[string], categories: string[]) => {

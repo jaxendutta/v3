@@ -113,13 +113,12 @@ function OverviewSlide({ items, links, isLandscape, index, projectId }: { items:
         [isEven ? 12 : -12, isEven ? -4 : 4]
     );
 
-    // Pre-calculate transforms to avoid conditional hook calls
+    // Determine device type: desktop vs mobile
+    const isDesktopDevice = projectsData[projectId]?.screenshotDevice === "desktop" || (!isImageVertical && projectsData[projectId]?.screenshotDevice !== "mobile");
+
     const invertedPhoneRotate = useTransform(phoneRotate, (v) => -v);
-    const finalRotate = isImageVertical ?
-        phoneRotate
-        : isLandscape
-            ? invertedPhoneRotate
-            : phoneRotate;
+    // Desktop screenshots use the opposite tilt direction of mobile screenshots
+    const finalRotate = isDesktopDevice ? invertedPhoneRotate : phoneRotate;
 
     const imageMaxWidthPx = (isImageVertical
         ? (isLandscape ? 0.34 : 0.72)

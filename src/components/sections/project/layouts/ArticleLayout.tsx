@@ -1,6 +1,7 @@
 "use client";
 
 import { projectsData } from "@/data/projects";
+import { formatProjectDate } from "@/types/project";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import remarkMath from "remark-math";
@@ -166,9 +167,9 @@ export default function ArticleLayout({ projectId, markdownContent }: ArticleLay
                         {project.type}
                         <span className="hidden md:flex">Project</span>
                         <div className="flex-1 h-0.5 bg-primary" />
-                        <span className="text-muted-foreground block">{project.date.toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}</span>
+                        <span className="text-muted-foreground block">{formatProjectDate(project.date)}</span>
                     </div>
-                    <h1 className={`${serifFont} italic text-4xl md:text-5xl lg:text-6xl  font-normal mb-2 md:mb-6 flex gap-2 items-start`}>
+                    <h1 className={`${serifFont} italic text-4xl md:text-5xl lg:text-6xl font-normal mb-2 md:mb-6 flex gap-2 items-start`}>
                         <project.icon />
                         {project.label}
                     </h1>

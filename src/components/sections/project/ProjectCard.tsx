@@ -54,17 +54,24 @@ export default function ProjectCard({
                 {/* Project Info */}
                 <div className={`w-full md:w-[40vw] flex flex-col gap-1 md:gap-4 items-center ${reversed ? `md:items-start md:text-left ${chain ? "pl-4" : ""}` : `md:items-end md:text-right ${chain ? "pr-4" : ""}`}`}>
                     <div className={`w-full flex ${reversed ? "flex-row text-left" : "flex-row-reverse text-right"} gap-4 items-center justify-between ${chain ? "pr-4" : ""}`}>
-                        <Link
-                            href={projectLink}
-                            className={`text-[48px] md:text-7xl lg:text-8xl hover:text-accent transition-colors no-underline!
-                                ${reversed
-                                    ? `pl-2 ${csDeviousReverseItalicFont}`
-                                    : `pr-2 ${csDeviousItalicFont}`
-                                }
-                            `}
-                        >
-                            {project.label}
-                        </Link>
+                        <div className="flex flex-wrap items-center gap-3">
+                            <Link
+                                href={projectLink}
+                                className={`text-[48px] md:text-7xl lg:text-8xl hover:text-accent transition-colors no-underline!
+                                    ${reversed
+                                        ? `pl-2 ${csDeviousReverseItalicFont}`
+                                        : `pr-2 ${csDeviousItalicFont}`
+                                    }
+                                `}
+                            >
+                                {project.label}
+                            </Link>
+                            {!project.date.end && (
+                                <span className="text-[11px] md:text-xs font-mono uppercase tracking-widest text-accent shrink-0 select-none">
+                                    [ IN PROGRESS ]
+                                </span>
+                            )}
+                        </div>
                         <div className={`md:hidden ${chain ? (reversed ? "pr-4" : "pl-4") : ""}`}>{exploreButton}</div>
                     </div>
 

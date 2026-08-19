@@ -32,6 +32,11 @@ export const CATEGORY_MAP: Record<ProjectCategoryKey, string> = {
     data: "Data Science + AI",
 } as const;
 
+export interface ProjectDate {
+    start: Date;
+    end?: Date;
+}
+
 export interface Project {
     name: string;
     label: string;
@@ -40,7 +45,7 @@ export interface Project {
     type: "design" | "development" | "ai" | "research";
     categories: ProjectCategoryKey[];
     layoutType: "showcase" | "article";
-    date: Date;
+    date: ProjectDate;
     overview?: OverviewItem[][];
     links: Social[];
     typography?: FontInfo[];
@@ -52,3 +57,12 @@ export interface Project {
 }
 
 export type ProjectsData = Record<string, Project>;
+
+export function formatProjectDate(date: ProjectDate): string {
+    const startStr = date.start.toLocaleDateString("en-US", { month: "short", year: "numeric" });
+    if (!date.end) {
+        return `${startStr} – Present`;
+    }
+    const endStr = date.end.toLocaleDateString("en-US", { month: "short", year: "numeric" });
+    return startStr === endStr ? startStr : `${startStr} – ${endStr}`;
+}

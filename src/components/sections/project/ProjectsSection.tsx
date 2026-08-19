@@ -7,7 +7,9 @@ import { GiStrongbox } from "react-icons/gi";
 import Link from "next/link";
 
 export default function ProjectsSection() {
-    const projectIds = Object.keys(projectsData);
+    const finishedProjectIds = Object.keys(projectsData).filter(
+        (id) => projectsData[id].date.end !== undefined
+    );
     const topCount = 3;
 
     return (
@@ -24,8 +26,8 @@ export default function ProjectsSection() {
             }}
         >
             <div className="flex flex-col items-center">
-                {projectIds
-                    .slice(0, Math.min(topCount, projectIds.length))
+                {finishedProjectIds
+                    .slice(0, Math.min(topCount, finishedProjectIds.length))
                     .map((id, index) => (
                         <div
                             key={id}

@@ -3,7 +3,7 @@
 import React, { useRef, useEffect, useState } from "react";
 import { motion, useMotionValue, useSpring, useMotionTemplate } from "framer-motion";
 import Link from "next/link";
-import { Project, CATEGORY_MAP, ProjectCategoryKey } from "@/types/project";
+import { Project, CATEGORY_MAP, ProjectCategoryKey, formatProjectDate } from "@/types/project";
 import { RandomIconsLoader } from "@/components/ui/RandomIcons";
 import { serifFont } from "@/lib/fonts";
 
@@ -87,7 +87,7 @@ export default function NameSection({ project }: NameSectionProps) {
                         </div>
                         <div className="flex flex-col gap-2 items-center">
                             <span className="opacity-50">Timestamp</span>
-                            <span className="text-xs">{project.date.toDateString()}</span>
+                            <span className="text-xs">{formatProjectDate(project.date)}</span>
                         </div>
                         <div className="flex flex-col gap-2 items-end">
                             <span className="opacity-50">Links</span>
@@ -122,7 +122,7 @@ export default function NameSection({ project }: NameSectionProps) {
                             </div>
                             <div className="flex flex-col gap-2">
                                 <span className="opacity-50">Timestamp</span>
-                                <span className="text-sm">{project.date.toDateString()}</span>
+                                <span className="text-sm">{formatProjectDate(project.date)}</span>
                             </div>
                             <div className="flex flex-col gap-2">
                                 <span className="opacity-50">Links</span>
@@ -167,7 +167,7 @@ export default function NameSection({ project }: NameSectionProps) {
                         </div>
                         <div className="flex flex-col gap-2 items-center">
                             <span className="opacity-50">Timestamp</span>
-                            <span>{project.date.toDateString()}</span>
+                            <span>{formatProjectDate(project.date)}</span>
                         </div>
                         <div className="flex flex-col gap-2 items-end">
                             <span className="opacity-50">Links</span>
