@@ -41,7 +41,7 @@ export async function GET(request: Request, { params }: RouteParams) {
 
         for (const dir of searchDirs) {
             try {
-                const entries = await fs.readdir(dir);
+                const entries = await fs.readdir(/*turbopackIgnore: true*/ dir);
                 const pdfEntry = entries.find(f => f.endsWith(".pdf"));
                 if (pdfEntry) {
                     const buf = await fs.readFile(path.join(dir, pdfEntry));
