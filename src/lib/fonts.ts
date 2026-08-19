@@ -52,6 +52,7 @@ export const googleSansFlex = Google_Sans_Flex({
     display: "swap",
     weight: ['300', '400', '500', '600', '700'],
     variable: '--font-google-sans-flex',
+    adjustFontFallback: false,
     fallback: ['system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', 'sans-serif'],
 });
 
@@ -61,6 +62,7 @@ export const googleSansCode = Google_Sans_Code({
     display: "swap",
     weight: ['300', '400', '500', '600', '700'],
     variable: '--font-google-sans-code',
+    adjustFontFallback: false,
     fallback: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', 'monospace'],
 });
 
