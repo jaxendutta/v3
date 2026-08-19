@@ -88,12 +88,13 @@ export const projectsData: ProjectsData = {
             Frontend: [
                 { name: "HTML" },
                 { name: "CSS" },
-                { name: "TypeScript" },
+                { name: "TypeScript", version: "5.5" },
             ],
             Backend: [
                 { name: "WebAssembly" },
-                { name: "SQLite" },
-                { name: "VS Code API" },
+                { name: "SQLite", version: "3.45" },
+                { name: "wa-sqlite", version: "1.0.0" },
+                { name: "VS Code API", version: "1.85.0" },
             ],
         },
         footer: "Developing SQLite Xplore required solving complex VS Code sandbox constraints. Webview environments do not have direct file-system access, so I built a custom SQLite VFS in WebAssembly (via wa-sqlite) that redirects page requests back to the extension host using postMessage. The extension host acts as a page server, performing fast random-access reads. To optimize filtering and sorting on large, unindexed tables, I integrated SQLite progress-handlers for instant cancellation, preventing the event loop from blocking and delivering a responsive desktop-class database editor.",
@@ -176,9 +177,10 @@ export const projectsData: ProjectsData = {
         ],
         techStack: {
             Frontend: [
+                { name: "TypeScript", version: "5.0" },
                 { name: "Next.js", version: "16.2.4" },
                 { name: "React", version: "19.2.4" },
-                { name: "Tailwind CSS", version: "4.2.4" },
+                { name: "Tailwind", version: "4.2.4" },
                 { name: "Framer Motion", version: "12.38.0" },
             ],
             "3D & Graphics": [
@@ -187,6 +189,9 @@ export const projectsData: ProjectsData = {
             ],
             CMS: [
                 { name: "Sanity", version: "5.23.0" },
+            ],
+            Analytics: [
+                { name: "Vercel Analytics", version: "2.0.1" },
             ],
             Deployment: [
                 { name: "Vercel" },
@@ -267,13 +272,17 @@ export const projectsData: ProjectsData = {
         ],
         techStack: {
             Frontend: [
+                { name: "TypeScript", version: "5.0" },
                 { name: "Next.js", version: "16.2.4" },
                 { name: "React", version: "19.2.4" },
-                { name: "Tailwind CSS", version: "4.2.4" },
+                { name: "Tailwind", version: "4.2.4" },
                 { name: "Framer Motion", version: "12.28.0" },
             ],
             CMS: [
-                { name: "Sanity", version: "5.23.0" },
+                { name: "Sanity", version: "5.24.0" },
+            ],
+            Analytics: [
+                { name: "Vercel Analytics", version: "2.0.1" },
             ],
             Deployment: [
                 { name: "Vercel" },
@@ -301,22 +310,36 @@ export const projectsData: ProjectsData = {
             },
         ],
         techStack: {
-            "NLP / ML": [
-                { name: "SpaCy" },
+            "NLP & ML": [
+                { name: "SpaCy", version: "3.7" },
                 { name: "FAISS" },
                 { name: "scikit-learn" },
                 { name: "scikit-surprise" },
+                { name: "BERTopic" },
             ],
-            "LLM / RAG": [
+            "LLM / RAG & Cloud APIs": [
+                { name: "Google Cloud Platform" },
                 { name: "Ollama" },
                 { name: "HuggingFace" },
                 { name: "LangChain" },
             ],
+            Frontend: [
+                { name: "HTML" },
+                { name: "CSS" },
+                { name: "JavaScript" },
+                { name: "D3.js" },
+                { name: "KaTeX" },
+            ],
             Backend: [
+                { name: "Python", version: "3.11" },
                 { name: "FastAPI" },
                 { name: "Dialogflow ES" },
+                { name: "SQLite" },
             ],
             Deployment: [
+                { name: "Docker" },
+                { name: "Render" },
+                { name: "Cloud Run" },
                 { name: "Vercel" },
                 { name: "ngrok" },
             ],
@@ -403,12 +426,18 @@ export const projectsData: ProjectsData = {
         ],
         techStack: {
             Frontend: [
-                { name: "Next.js", version: "16.1" },
-                { name: "React", version: "19.4" },
-                { name: "Tailwind", version: "4.1" },
-                { name: "Framer Motion" },
+                { name: "TypeScript", version: "6.0" },
+                { name: "Next.js", version: "16.2.4" },
+                { name: "React", version: "19.2.5" },
+                { name: "Tailwind", version: "4.0" },
+                { name: "Framer Motion", version: "12.38.0" },
             ],
-            Deployment: [{ name: "Vercel" }],
+            Analytics: [
+                { name: "Vercel Analytics", version: "1.6.1" },
+            ],
+            Deployment: [
+                { name: "Vercel" },
+            ],
             CMS: [
                 { name: "Sanity", version: "5.25.1" },
             ],
@@ -480,18 +509,24 @@ export const projectsData: ProjectsData = {
         ],
         techStack: {
             Frontend: [
-                { name: "Next.js", version: "16.1" },
-                { name: "React", version: "19.4" },
-                { name: "Tailwind", version: "4.1" },
-                { name: "Recharts" },
-                { name: "TanStack Query" },
+                { name: "TypeScript", version: "5.0" },
+                { name: "Next.js", version: "16.1.6" },
+                { name: "React", version: "19.2.3" },
+                { name: "Tailwind", version: "4.0" },
+                { name: "Recharts", version: "3.6.0" },
+                { name: "TanStack Query", version: "5.90.16" },
             ],
             Backend: [
+                { name: "Python", version: "3.11" },
                 { name: "PostgreSQL", version: "17" },
                 { name: "MySQL", version: "8.0.44" },
-                { name: "Iron Session" },
+                { name: "Iron Session", version: "8.0.4" },
             ],
-            Deployment: [{ name: "Docker" }, { name: "Vercel" }, { name: "Supabase" }],
+            Deployment: [
+                { name: "Docker" },
+                { name: "Vercel" },
+                { name: "Supabase" }
+            ],
         },
         footer: "RGAP represents a complete modernization of legacy research tools. The architecture leverages Next.js 16's App Router and Server Components for optimal performance. I implemented a custom PostgreSQL schema with GIN indexes and fuzzy matching (pg_trgm) to enable instant search capabilities across hundreds of thousands of records. The frontend utilizes React 19 features and a custom-built component library styled with Tailwind 4.1, ensuring a consistent and accessible experience. Security is handled via stateless Iron Sessions and bcrypt hashing, providing a secure environment for researchers to manage their grants and bookmarks.",
     },
@@ -553,13 +588,18 @@ export const projectsData: ProjectsData = {
         ],
         techStack: {
             Frontend: [
-                { name: "Next.js", version: "16.1" },
-                { name: "React", version: "19.2" },
+                { name: "TypeScript", version: "5.9.3" },
+                { name: "Next.js", version: "16.2.10" },
+                { name: "React", version: "19.2.7" },
                 { name: "Tailwind", version: "4.0" },
                 { name: "Radix UI" },
             ],
-            Analytics: [{ name: "Vercel Analytics" }],
-            Deployment: [{ name: "Vercel" }],
+            Analytics: [
+                { name: "Vercel Analytics", version: "2.0.1" },
+            ],
+            Deployment: [
+                { name: "Vercel" },
+            ],
         },
         footer: "Park View Centre is a production-grade healthcare platform built on the latest Next.js 16 architecture. I utilized Tailwind CSS v4 for a highly optimized, zero-runtime styling engine that ensures instant page loads. The UI is constructed with accessible Radix primitives, ensuring that appointment booking and doctor information are available to all users. The site uses a custom 'medical gradient' animation system to add subtle life to the interface without distracting from critical information. It is fully integrated with Vercel Analytics to track patient engagement and optimize the user journey across both clinic locations.",
     },
@@ -633,13 +673,21 @@ export const projectsData: ProjectsData = {
         ],
         techStack: {
             Frontend: [
-                { name: "Next.js", version: "16.1" },
-                { name: "React", version: "19.4" },
-                { name: "Tailwind", version: "4.1" },
-                { name: "Framer Motion" },
+                { name: "TypeScript", version: "5.8.3" },
+                { name: "Next.js", version: "15.5.6" },
+                { name: "React", version: "19.1.0" },
+                { name: "Tailwind", version: "4.1.6" },
+                { name: "Framer Motion", version: "12.10.5" },
             ],
-            Backend: [{ name: "Server Actions" }],
-            Development: [{ name: "Vercel" }],
+            Backend: [
+                { name: "Server Actions" }
+            ],
+            Analytics: [
+                { name: "Vercel Analytics", version: "1.5.0" }
+            ],
+            Deployment: [
+                { name: "Vercel" }
+            ],
         },
         footer: "This portfolio revamp is built with Next.js 15 and React 19, preserving the visual identity of v1 while adding significant technical improvements. The implementation uses a hybrid rendering strategy with Server Components for static content and Client Components for interactive elements. For styling, I leveraged Tailwind 4.1 with custom design tokens that maintain the original color scheme while enabling the theme switching with zero flicker. The contact form uses React Server Actions with zod validation and the Resend API for email delivery. All animations were recreated using Framer Motion, reducing animation code by 70% while maintaining the same visual effects. Image loading is optimized through Next.js Image component with proper sizing, formats, and lazy loading. The site is fully accessible with perfect Lighthouse scores and 100% keyboard navigability. Analytics and performance monitoring are implemented using Vercel's built-in tools.",
     },
@@ -662,11 +710,13 @@ export const projectsData: ProjectsData = {
         techStack: {
             "Data Engineering": [
                 { name: "Python" },
+                { name: "Gurobi" },
                 { name: "GeoPandas" },
                 { name: "GIS" },
             ],
-            "Visualization": [{ name: "Folium" }],
-            Optimization: [{ name: "Gurobi" }],
+            Frontend: [
+                { name: "Folium" }
+            ],
         },
     },
 
@@ -745,18 +795,22 @@ export const projectsData: ProjectsData = {
             Frontend: [
                 { name: "Kotlin" },
                 { name: "Jetpack Compose" },
-                { name: "Android SDK" }],
+                { name: "Android SDK" },
+            ],
             Backend: [
                 { name: "Python" },
                 { name: "Ren'Py" },
-                { name: "FastAPI" }],
+                { name: "FastAPI" },
+            ],
             "AI/ML": [
                 { name: "OpenAI" },
-                { name: "Stable Diffusion" }],
-            Design: [
+                { name: "Stable Diffusion" },
+            ],
+            "UX/UI": [
                 { name: "Figma" },
                 { name: "Material Design" },
-                { name: "Miro" }],
+                { name: "Miro" },
+            ],
         },
         footer: "In a large-scale Android visual novel app project, I led development using Jetpack Compose (Kotlin) for the frontend and a Python backend. I spearheaded design and prototyping through Figma and user interviews, ensuring a user-friendly experience. The app features a responsive UI with custom components adhering to Material Design and leverages the OpenAI API to generate storylines and character profiles directly within the visual novels.",
     },
@@ -829,7 +883,9 @@ export const projectsData: ProjectsData = {
                 { name: "HTML" },
                 { name: "CSS" },
                 { name: "JavaScript" }],
-            Deployment: [{ name: "Netlify" }],
+            Deployment: [
+                { name: "Netlify" }
+            ],
         },
         footer: "My original portfolio was crafted with vanilla JavaScript, HTML5, and CSS3 to demonstrate core web development fundamentals without relying on frameworks. I implemented custom scroll-triggered animations, a dynamic theme switcher using CSS variables, and interactive project cards with pure CSS transitions. The site features a custom-built content loader that dynamically fetches project data without any libraries. For animations, I created a custom timeline system in just 30 lines of JavaScript that handles scroll-based triggers and easing functions. The entire site loads in under 500ms, achieving perfect 100 scores across all Lighthouse metrics. This project showcases the power of mastering fundamentals and proves that impressive interactions don't always require heavy frameworks.",
     },
@@ -900,9 +956,10 @@ export const projectsData: ProjectsData = {
             },
         ],
         techStack: {
-            Design: [
+            "UX/UI": [
                 { name: "Figma" },
-                { name: "Miro" }],
+                { name: "Miro" }
+            ],
         },
         footer: "As the lead of Hivemind, a collaborative study app project, I directed the design and iOS prototype development efforts. Working with a diverse team, I facilitated Figma prototyping and conducted user interviews, refining the user experience. The app promotes seamless online connections for students worldwide, fostering collaborative study groups.",
     },
@@ -972,9 +1029,11 @@ export const projectsData: ProjectsData = {
         techStack: {
             Frontend: [
                 { name: "Kotlin" },
-                { name: "JavaFX" }],
-            "Build Tools": [
-                { name: "Gradle" }],
+                { name: "JavaFX" }
+            ],
+            Build: [
+                { name: "Gradle" }
+            ],
         },
         footer: "Created with Kotlin and JavaFX, this game features a visually engaging interface with a title screen, player-controlled ship, and dynamically moving alien fleet. Multiple levels were implemented, each intensifying the challenge as the player progresses. The use of smooth animations and audio feedback enhances the overall gaming atmosphere, showcasing elements of game development and animation techniques.",
     },
@@ -1043,9 +1102,14 @@ export const projectsData: ProjectsData = {
         techStack: {
             Frontend: [
                 { name: "Kotlin" },
-                { name: "JavaFX" }],
-            "Build Tools": [{ name: "Gradle" }],
-            "File System": [{ name: "Java NIO" }],
+                { name: "JavaFX" },
+            ],
+            Build: [
+                { name: "Gradle" },
+            ],
+            "File System": [
+                { name: "Java NIO" },
+            ],
         },
         footer: "File Explorer features a comprehensive Menu Bar with options for creating folders, opening directories, and exiting the program. The Actions menu empowers users to rename, move, and delete selected files effortlessly. A versatile Tool Bar provides quick access to navigation and file manipulation options. The main File View displays a clear hierarchy of files and directories, complemented by a preview panel for supported file types.",
     },
@@ -1113,9 +1177,15 @@ export const projectsData: ProjectsData = {
         ],
         techStack: {
             Frontend: [
-                { name: "Kotlin" }, { name: "JavaFX" }],
-            "Build Tools": [{ name: "Gradle" }],
-            "Image Processing": [{ name: "JavaFX Image API" }],
+                { name: "Kotlin" },
+                { name: "JavaFX" }
+            ],
+            Build: [
+                { name: "Gradle" }
+            ],
+            "Image Processing": [
+                { name: "JavaFX Image API" }
+            ],
         },
         footer: "Lightbox showcases a feature-rich Tool Bar equipped with various buttons for comprehensive image manipulation. Users can effortlessly add, delete, rotate, and zoom images, among other operations. The heart of the application, the Preview Pane, offers intuitive image selection, dragging, and stacking capabilities, providing a seamless workflow for managing multiple images.",
     },
@@ -1184,6 +1254,9 @@ export const projectsData: ProjectsData = {
                 { name: "HTML" },
                 { name: "CSS" },
                 { name: "JavaScript" }],
+            Deployment: [
+                { name: "itch.io" },
+            ]
         },
         footer: "Straights showcases the seamless integration of C++ and web technologies. The core game logic, originally written in C++, has been recompiled to WebAssembly using Emscripten. This WebAssembly module is then integrated into a modern web application, with HTML, CSS, and JavaScript working in harmony to render the game state and provide an interactive user interface.",
     },
@@ -1258,13 +1331,16 @@ export const projectsData: ProjectsData = {
         techStack: {
             "Core Logic": [
                 { name: "Python", version: "3.10" },
-                { name: "MiniMax" }
             ],
             "Frontend": [
-                { name: "Tkinter" }
+                { name: "Tkinter" },
+                { name: "HTML" },
+                { name: "CSS" },
+                { name: "JavaScript" },
             ],
             "Deployment": [
-                { name: "Replit" }
+                { name: "Replit" },
+                { name: "Vercel" },
             ],
         },
         footer: "One of my early algorithmic projects, this application serves as a practical exploration of the Minimax algorithm in a zero-sum game environment. The Python backend recursively evaluates board states to maximize the AI's advantage while minimizing the player's potential score. The graphical interface was constructed using Tkinter, providing a responsive grid, real-time score tracking, and visual feedback for win/tie states. It stands as a foundational piece of my programming journey, demonstrating an early focus on complex logic and standalone software delivery.",
