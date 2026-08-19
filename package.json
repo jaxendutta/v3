@@ -16,6 +16,7 @@
     "@vercel/analytics": "^2.0.1",
     "framer-motion": "^13.1.0",
     "html-react-parser": "^6.1.7",
+    "katex": "^0.18.4",
     "mermaid": "^11.17.0",
     "next": "^16.3.1",
     "react": "^19.2.8",

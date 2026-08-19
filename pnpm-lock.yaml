@@ -26,6 +26,9 @@ importers:
       html-react-parser:
         specifier: ^6.1.7
         version: 6.1.7(@types/react@19.2.18)(react@19.2.8)
+      katex:
+        specifier: ^0.18.4
+        version: 0.18.4
       mermaid:
         specifier: ^11.17.0
         version: 11.17.0
@@ -2426,6 +2429,10 @@ packages:
 
   katex@0.16.47:
     resolution: {integrity: sha512-Eeo8Ys1doU1z+x8AZsPpQu+p/QcZBI5PeOo7QGQdy2x2m0MU/hYagBbGOmXwr5KVbEfVuWv9LpnQWeehogurjg==}
+    hasBin: true
+
+  katex@0.18.4:
+    resolution: {integrity: sha512-IMPntbRLOU+eu88XDiFKqQ8Akhr9Tv7jDMXqPhjG9SI1JMA4DIgXk4x9k4skJz2NZJXBRbC+2pYBLj9olqcZow==}
     hasBin: true
 
   keyv@4.5.4:
@@ -5821,6 +5828,10 @@ snapshots:
       object.values: 1.2.1
 
   katex@0.16.47:
+    dependencies:
+      commander: 8.3.0
+
+  katex@0.18.4:
     dependencies:
       commander: 8.3.0
 
