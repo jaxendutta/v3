@@ -11,7 +11,6 @@ const nextConfig: NextConfig = {
         optimizePackageImports: [
             "react-icons",
             "framer-motion",
-            "lucide-react",
             "react-markdown",
         ],
         serverActions: {

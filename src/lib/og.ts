@@ -6,7 +6,8 @@ const UA = 'Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_8; de-at) AppleWebKit
 
 function loadLocalFont(relativePath: string): ArrayBuffer | undefined {
     try {
-        const buf = readFileSync(join(process.cwd(), relativePath));
+        const cleanPath = relativePath.replace(/^\/?(public\/)?/, '');
+        const buf = readFileSync(join(process.cwd(), 'public', cleanPath));
         return buf.buffer.slice(buf.byteOffset, buf.byteOffset + buf.byteLength) as ArrayBuffer;
     } catch {
         return undefined;
