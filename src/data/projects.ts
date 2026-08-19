@@ -91,7 +91,7 @@ export const projectsData: ProjectsData = {
                 { name: "TypeScript", version: "5.5" },
             ],
             Backend: [
-                { name: "WebAssembly" },
+                { name: "WebAssembly", version: "1.0" },
                 { name: "SQLite", version: "3.45" },
                 { name: "wa-sqlite", version: "1.0.0" },
                 { name: "VS Code API", version: "1.85.0" },
@@ -312,29 +312,31 @@ export const projectsData: ProjectsData = {
         techStack: {
             "NLP & ML": [
                 { name: "SpaCy", version: "3.7" },
-                { name: "FAISS" },
-                { name: "scikit-learn" },
-                { name: "scikit-surprise" },
-                { name: "BERTopic" },
+                { name: "FAISS", version: "1.8" },
+                { name: "scikit-learn", version: "1.4" },
+                { name: "scikit-surprise", version: "1.1" },
+                { name: "BERTopic", version: "0.16" },
             ],
             "LLM / RAG & Cloud APIs": [
                 { name: "Google Cloud Platform" },
-                { name: "Ollama" },
-                { name: "HuggingFace" },
-                { name: "LangChain" },
+                { name: "Google Gemini", version: "1.5 Flash" },
+                { name: "Groq", version: "Llama-3.3 70B" },
+                { name: "Ollama", version: "0.1" },
+                { name: "HuggingFace", version: "4.40" },
+                { name: "LangChain", version: "0.1" },
             ],
             Frontend: [
                 { name: "HTML" },
                 { name: "CSS" },
                 { name: "JavaScript" },
-                { name: "D3.js" },
-                { name: "KaTeX" },
+                { name: "D3.js", version: "7.0" },
+                { name: "KaTeX", version: "0.16" },
             ],
             Backend: [
                 { name: "Python", version: "3.11" },
-                { name: "FastAPI" },
+                { name: "FastAPI", version: "0.110" },
                 { name: "Dialogflow ES" },
-                { name: "SQLite" },
+                { name: "SQLite", version: "3.45" },
             ],
             Deployment: [
                 { name: "Docker" },
@@ -592,7 +594,7 @@ export const projectsData: ProjectsData = {
                 { name: "Next.js", version: "16.2.10" },
                 { name: "React", version: "19.2.7" },
                 { name: "Tailwind", version: "4.0" },
-                { name: "Radix UI" },
+                { name: "Radix UI", version: "2.1" },
             ],
             Analytics: [
                 { name: "Vercel Analytics", version: "2.0.1" },
@@ -709,13 +711,13 @@ export const projectsData: ProjectsData = {
         ],
         techStack: {
             "Data Engineering": [
-                { name: "Python" },
-                { name: "Gurobi" },
-                { name: "GeoPandas" },
+                { name: "Python", version: "3.10" },
+                { name: "Gurobi", version: "11.0" },
+                { name: "GeoPandas", version: "0.14" },
                 { name: "GIS" },
             ],
             Frontend: [
-                { name: "Folium" }
+                { name: "Folium", version: "0.16" }
             ],
         },
     },
@@ -793,22 +795,22 @@ export const projectsData: ProjectsData = {
         ],
         techStack: {
             Frontend: [
-                { name: "Kotlin" },
-                { name: "Jetpack Compose" },
-                { name: "Android SDK" },
+                { name: "Kotlin", version: "1.9" },
+                { name: "Jetpack Compose", version: "1.6" },
+                { name: "Android SDK", version: "34" },
             ],
             Backend: [
-                { name: "Python" },
-                { name: "Ren'Py" },
-                { name: "FastAPI" },
+                { name: "Python", version: "3.11" },
+                { name: "Ren'Py", version: "8.1" },
+                { name: "FastAPI", version: "0.110" },
             ],
             "AI/ML": [
-                { name: "OpenAI" },
-                { name: "Stable Diffusion" },
+                { name: "OpenAI", version: "1.12" },
+                { name: "Stable Diffusion", version: "1.5" },
             ],
             "UX/UI": [
                 { name: "Figma" },
-                { name: "Material Design" },
+                { name: "Material Design", version: "3" },
                 { name: "Miro" },
             ],
         },
@@ -1028,11 +1030,11 @@ export const projectsData: ProjectsData = {
         ],
         techStack: {
             Frontend: [
-                { name: "Kotlin" },
-                { name: "JavaFX" }
+                { name: "Kotlin", version: "1.9" },
+                { name: "JavaFX", version: "21" }
             ],
             Build: [
-                { name: "Gradle" }
+                { name: "Gradle", version: "8.5" }
             ],
         },
         footer: "Created with Kotlin and JavaFX, this game features a visually engaging interface with a title screen, player-controlled ship, and dynamically moving alien fleet. Multiple levels were implemented, each intensifying the challenge as the player progresses. The use of smooth animations and audio feedback enhances the overall gaming atmosphere, showcasing elements of game development and animation techniques.",
@@ -1101,11 +1103,11 @@ export const projectsData: ProjectsData = {
         ],
         techStack: {
             Frontend: [
-                { name: "Kotlin" },
-                { name: "JavaFX" },
+                { name: "Kotlin", version: "1.9" },
+                { name: "JavaFX", version: "21" },
             ],
             Build: [
-                { name: "Gradle" },
+                { name: "Gradle", version: "8.5" },
             ],
             "File System": [
                 { name: "Java NIO" },
@@ -1177,11 +1179,11 @@ export const projectsData: ProjectsData = {
         ],
         techStack: {
             Frontend: [
-                { name: "Kotlin" },
-                { name: "JavaFX" }
+                { name: "Kotlin", version: "1.9" },
+                { name: "JavaFX", version: "21" }
             ],
             Build: [
-                { name: "Gradle" }
+                { name: "Gradle", version: "8.5" }
             ],
             "Image Processing": [
                 { name: "JavaFX Image API" }
@@ -1247,9 +1249,9 @@ export const projectsData: ProjectsData = {
         ],
         techStack: {
             Backend: [
-                { name: "C++" },
-                { name: "WebAssembly" },
-                { name: "Emscripten" }],
+                { name: "C++", version: "17" },
+                { name: "WebAssembly", version: "1.0" },
+                { name: "Emscripten", version: "3.1" }],
             Frontend: [
                 { name: "HTML" },
                 { name: "CSS" },
