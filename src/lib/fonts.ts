@@ -44,6 +44,7 @@ export const majorMono = Major_Mono_Display({
     style: ['normal'],
     subsets: ['latin'],
     display: 'swap',
+    adjustFontFallback: false,
 });
 
 export const googleSansFlex = Google_Sans_Flex({
@@ -71,6 +72,7 @@ export const baskerville = Libre_Baskerville({
     style: ['normal', 'italic'],
     display: "swap",
     weight: ['400', '500', '600', '700'],
+    adjustFontFallback: false,
 });
 
 export const baskervilleSC = Baskervville_SC({
@@ -78,6 +80,7 @@ export const baskervilleSC = Baskervville_SC({
     style: ['normal'],
     display: "swap",
     weight: ['400', '500', '600', '700'],
+    adjustFontFallback: false,
 });
 
 export const playfairDisplay = Playfair_Display({
@@ -85,6 +88,7 @@ export const playfairDisplay = Playfair_Display({
     style: ['normal', 'italic'],
     display: "swap",
     weight: ['400', '500', '600', '700'],
+    adjustFontFallback: false,
 });
 
 export const headingFont = majorMono.className;
