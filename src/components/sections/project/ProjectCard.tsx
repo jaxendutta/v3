@@ -9,6 +9,7 @@ import { fadeIn } from "@/lib/motionVariants";
 import Tag, { SkillTag } from "@/components/ui/Tag";
 import RotatingButton from "@/components/ui/RotatingButton";
 import FloatingDraggableImage from "@/components/ui/FloatingDraggableImage";
+import { renderFormattedTitle } from "@/lib/format";
 
 interface ProjectCardProps {
     id: string;
@@ -64,7 +65,7 @@ export default function ProjectCard({
                                     }
                                 `}
                             >
-                                {project.label}
+                                {renderFormattedTitle(project.label)}
                             </Link>
                             {!project.date.end && (
                                 <span className="text-[11px] md:text-xs font-mono uppercase tracking-widest text-accent shrink-0 select-none">

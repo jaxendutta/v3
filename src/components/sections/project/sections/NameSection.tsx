@@ -6,6 +6,7 @@ import Link from "next/link";
 import { Project, getProjectCategoryLabels, formatProjectDate } from "@/types/project";
 import { RandomIconsLoader } from "@/components/ui/RandomIcons";
 import { serifFont } from "@/lib/fonts";
+import { renderFormattedTitle } from "@/lib/format";
 
 interface NameSectionProps {
     project: Project;
@@ -74,7 +75,7 @@ export default function NameSection({ project }: NameSectionProps) {
                 <div className="inset-0 flex flex-col justify-between z-0 flex-1 absolute p-12 pb-8">
                     <div className="flex-1 flex flex-col items-end justify-start w-full h-fit! my-0">
                         <h1 className={`leading-[1.1] h-fit! max-h-[calc(100%-400px)] max-w-[90vw] text-[clamp(4rem,20vw,7rem)] tracking-tighter [writing-mode:horizontal-tb] text-center text-transparent ${serifFont} [-webkit-text-stroke:2px_currentColor]`}>
-                            {project.label}
+                            {renderFormattedTitle(project.label)}
                         </h1>
                     </div>
                     {/* Metadata Grid */}
@@ -147,7 +148,7 @@ export default function NameSection({ project }: NameSectionProps) {
                     {/* Right: Vertical Label */}
                     <div className="flex flex-col justify-center items-end min-h-0 max-h-full">
                         <h1 className={`leading-[1.1] h-fit! max-h-[calc(100vh-200px)] max-w-[40vw] text-[clamp(3.5rem,24vw,5rem)] [writing-mode:vertical-rl] text-foreground ${serifFont} italic text-left`}>
-                            {project.label}
+                            {renderFormattedTitle(project.label)}
                         </h1>
                     </div>
                 </div>
@@ -164,7 +165,7 @@ export default function NameSection({ project }: NameSectionProps) {
                     <div className="flex-1 flex flex-row items-center justify-center w-full relative z-10">
                         <div className={`inline-flex text-[clamp(3.5rem,20vw,10rem)] leading-[1.1] ${serifFont} italic text-center max-w-[95vw] break-words hyphens-auto`}>
                             <span className="overflow-hidden block py-[0.05em] px-[0.1em]">
-                                {project.label}<project.icon className="ml-4 mb-8 inline-block align-middle text-[0.8em]" />
+                                {renderFormattedTitle(project.label)}<project.icon className="ml-4 mb-8 inline-block align-middle text-[0.8em]" />
                             </span>
                         </div>
                     </div>
