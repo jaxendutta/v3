@@ -62,6 +62,14 @@ export const projectsData: ProjectsData = {
         ],
         links: [
             {
+                label: "VS Code",
+                url: "https://marketplace.visualstudio.com/items?itemName=jxn.sqlite-xplore",
+            },
+            {
+                label: "Open VSX",
+                url: "https://open-vsx.org/extension/jxn/sqlite-xplore",
+            },
+            {
                 label: "GitHub",
                 url: "https://github.com/jaxendutta/sqlite-xplore",
             },
