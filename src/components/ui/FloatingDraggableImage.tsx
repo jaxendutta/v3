@@ -157,8 +157,9 @@ export default function FloatingDraggableImage({
                         src={src}
                         alt={alt}
                         fill
+                        unoptimized={src.endsWith(".gif")}
                         draggable={false}
-                        className={`object-contain relative z-10 ${drag ? `${cursorClass} active:cursor-grabbing touch-none` : ""} ${borderOnLandscape && !isImageVertical ? "border border-foreground rounded-lg" : ""} ${imageClassName ?? ""}`}
+                        className={`${isImageVertical ? "object-contain" : "object-cover"} relative z-10 ${drag ? `${cursorClass} active:cursor-grabbing touch-none` : ""} ${borderOnLandscape && !isImageVertical ? "border border-foreground rounded-lg" : ""} ${imageClassName ?? ""}`}
                         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 800px"
                         onPointerDown={(event) => {
                             if (!drag) return;

@@ -186,7 +186,6 @@ export const projectsData: ProjectsData = {
                 { name: "React", version: "19.2.4" },
                 { name: "Tailwind", version: "4.0" },
                 { name: "Icons8" },
-                { name: "React Icons", version: "5.7.0" },
             ],
             "Backend & Database": [
                 { name: "Supabase", version: "2.110.0" },
@@ -434,7 +433,6 @@ export const projectsData: ProjectsData = {
             ],
             "LLM / RAG & Cloud APIs": [
                 { name: "Google Cloud Platform" },
-                { name: "Google Gemini", version: "1.5 Flash" },
                 { name: "Groq", version: "Llama-3.3 70B" },
                 { name: "Ollama", version: "0.1" },
                 { name: "HuggingFace", version: "4.40" },
@@ -445,7 +443,6 @@ export const projectsData: ProjectsData = {
                 { name: "CSS" },
                 { name: "JavaScript" },
                 { name: "D3.js", version: "7.0" },
-                { name: "KaTeX", version: "0.16" },
             ],
             Backend: [
                 { name: "Python", version: "3.11" },
