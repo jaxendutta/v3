@@ -6,7 +6,6 @@ import {
     GiBrainTentacle,
     GiBee,
     GiCardJoker,
-    GiPokerHand,
     GiOrbital,
     GiNestedEclipses,
     GiAbstract014,
