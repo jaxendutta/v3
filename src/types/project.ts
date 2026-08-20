@@ -32,6 +32,17 @@ export const CATEGORY_MAP: Record<ProjectCategoryKey, string> = {
     data: "Data Science + AI",
 } as const;
 
+export function getProjectCategoryLabels(categories: ProjectCategoryKey[]): string[] {
+    if (!categories || categories.length === 0) return [];
+    const hasFullStack = categories.includes("fullstack");
+    return categories.map((cat) => {
+        if (cat === "frontend" && hasFullStack) {
+            return "Product Design";
+        }
+        return CATEGORY_MAP[cat] ?? cat;
+    });
+}
+
 export interface ProjectDate {
     start: Date;
     end?: Date;

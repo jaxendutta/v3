@@ -10,13 +10,13 @@ import {
     GiOrbital,
     GiNestedEclipses,
     GiAbstract014,
+    GiAbstract079,
     GiPlagueDoctorProfile,
     GiJumpingDog,
     GiLifeInTheBalance,
     GiTicTacToe,
     GiAmplitude,
     GiResonance,
-    GiPlatform,
     GiAce
 } from "react-icons/gi";
 import { AiOutlineFolderView } from "react-icons/ai";
@@ -29,7 +29,7 @@ export const projectsData: ProjectsData = {
     "sqlite-xplore": {
         name: "SQLite Xplore",
         label: "SQLite Xplore",
-        icon: GiPlatform,
+        icon: GiAbstract079,
         type: "development",
         categories: ["fullstack", "frontend"],
         layoutType: "showcase",
