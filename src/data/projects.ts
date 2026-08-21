@@ -109,6 +109,9 @@ export const projectsData: ProjectsData = {
                 { name: "wa-sqlite", version: "1.0.0" },
                 { name: "VS Code API", version: "1.85.0" },
             ],
+            Build: [
+                { name: "esbuild", version: "0.28.1" },
+            ],
         },
         footer: "Developing SQLite Xplore required solving complex VS Code sandbox constraints. Webview environments do not have direct file-system access, so I built a custom SQLite VFS in WebAssembly (via wa-sqlite) that redirects page requests back to the extension host using postMessage. The extension host acts as a page server, performing fast random-access reads. To optimize filtering and sorting on large, unindexed tables, I integrated SQLite progress-handlers for instant cancellation, preventing the event loop from blocking and delivering a responsive desktop-class database editor.",
     },
@@ -818,8 +821,10 @@ export const projectsData: ProjectsData = {
                 { name: "Tailwind", version: "4.1.6" },
                 { name: "Framer Motion", version: "12.10.5" },
             ],
-            Backend: [
-                { name: "Server Actions" }
+            "Backend & Form API": [
+                { name: "Server Actions" },
+                { name: "Resend API" },
+                { name: "Zod", version: "3.23" },
             ],
             Analytics: [
                 { name: "Vercel Analytics", version: "1.5.0" }
