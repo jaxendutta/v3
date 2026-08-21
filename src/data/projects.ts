@@ -648,6 +648,7 @@ export const projectsData: ProjectsData = {
             ],
             Backend: [
                 { name: "Python", version: "3.11" },
+                { name: "FastAPI", version: "0.110" },
                 { name: "PostgreSQL", version: "17" },
                 { name: "MySQL", version: "8.0.44" },
                 { name: "Iron Session", version: "8.0.4" },
