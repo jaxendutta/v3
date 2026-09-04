@@ -94,7 +94,7 @@ export default function Navbar() {
                     <NavLink name="TALKS" href="/talks" section="talks" className={`${codeFont} hidden md:flex text-sm md:text-base`} />
                     {rightLinks.map((link) => (
                         <NavLink key={link.name} {...link} />
-                    ))}                    
+                    ))}
                 </div>
             </div>
         </nav>
