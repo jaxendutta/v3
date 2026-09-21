@@ -149,7 +149,7 @@ export default function FloatingDraggableImage({
                             y: isImageVertical ? sideShadowY : 0,
                         }}
                         className={isImageVertical
-                            ? "absolute top-[58%] left-[84%] z-0 h-[68%] w-[30%] -translate-y-1/2 rounded-[999px] bg-gradient-to-r from-black/90 via-black/55 to-transparent pointer-events-none"
+                            ? "absolute top-[58%] left-[84%] z-0 h-[68%] w-[30%] -translate-y-1/2 rounded-[999px] bg-linear-to-r from-black/90 via-black/55 to-transparent pointer-events-none"
                             : "absolute bottom-[-7%] left-1/2 z-0 h-[15%] w-[62%] -translate-x-1/2 rounded-[999px] bg-black/90 pointer-events-none"
                         }
                     />
@@ -159,7 +159,7 @@ export default function FloatingDraggableImage({
                         fill
                         unoptimized={src.endsWith(".gif")}
                         draggable={false}
-                        className={`${isImageVertical ? "object-contain" : "object-cover"} relative z-10 ${drag ? `${cursorClass} active:cursor-grabbing touch-none` : ""} ${borderOnLandscape && !isImageVertical ? "border border-foreground rounded-lg" : ""} ${imageClassName ?? ""}`}
+                        className={`${isImageVertical ? "object-contain" : "object-cover"} relative z-10 ${drag ? `${cursorClass} active:cursor-grabbing touch-none` : ""} ${borderOnLandscape && !isImageVertical ? "border border-current rounded-lg" : ""} ${imageClassName ?? ""}`}
                         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 800px"
                         onPointerDown={(event) => {
                             if (!drag) return;

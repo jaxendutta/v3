@@ -18,6 +18,7 @@ interface ProjectCardProps {
     skillLimit?: number;
     reversed?: boolean;
     chain?: boolean;
+    className?: string;
 }
 
 export default function ProjectCard({
@@ -26,6 +27,7 @@ export default function ProjectCard({
     skillLimit = 12,
     reversed = false,
     chain = false,
+    className = "max-w-[90vw] mx-auto mt-4 mb-6 md:my-8",
 }: ProjectCardProps) {
     // Use mobile screenshot vs desktop logic based on the ID
     const isMobileProject = project.screenshotDevice === "mobile";
@@ -45,7 +47,7 @@ export default function ProjectCard({
 
     return (
         <motion.div
-            className="max-w-[90vw] mx-auto mt-4 mb-6 md:my-8"
+            className={className}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-100px" }}
@@ -58,7 +60,7 @@ export default function ProjectCard({
                         <div className="flex flex-wrap items-center gap-x-1.5 md:gap-x-3 gap-y-0 md:gap-y-0.5">
                             <Link
                                 href={projectLink}
-                                className={`text-[36px] sm:text-[48px] md:text-7xl lg:text-8xl hover:text-accent transition-colors no-underline!
+                                className={`text-[40px] sm:text-[48px] md:text-7xl lg:text-8xl hover:text-accent transition-colors no-underline! leading-9
                                     ${reversed
                                         ? `pl-2 ${csDeviousReverseItalicFont}`
                                         : `pr-2 ${csDeviousItalicFont}`

@@ -66,6 +66,18 @@
     --alert-important: #a78bfa;   /* purple-400 */
     --alert-warning: #fbbf24;     /* amber-400 */
     --alert-caution: #f87171;     /* red-400 */
+
+    /* 4 REPEATING PROJECT CARD COLORS (Same for both Dark and Light mode) */
+    --project-card-bg-0: #dbeafe;       /* Rich Blue/Periwinkle Tint */
+    --project-card-bg-1: #d1fae5;       /* Rich Mint/Jade Tint */
+    --project-card-bg-2: #fef3c7;       /* Rich Warm Gold Tint */
+    --project-card-bg-3: #ffe4e6;       /* Rich Soft Rose Tint */
+
+    /* Darker versions of the card colors for text and borders */
+    --project-card-fg-0: #1e3a8a;       /* Deep Navy Blue */
+    --project-card-fg-1: #064e3b;       /* Deep Forest Emerald */
+    --project-card-fg-2: #78350f;       /* Deep Roasted Amber */
+    --project-card-fg-3: #881337;       /* Deep Burgundy Rose */
 }
 
 /* 3. LIGHT MODE OVERRIDES */
@@ -104,6 +116,18 @@
     --alert-important: #6d28d9;   /* purple-900 */
     --alert-warning: #92400e;     /* amber-900 */
     --alert-caution: #991b1b;     /* red-900 */
+
+    /* 4 REPEATING PROJECT CARD COLORS (LIGHT MODE - Rich & Clearly Visible Tints) */
+    --project-card-bg-0: #dbeafe;       /* Rich Blue/Periwinkle Tint */
+    --project-card-bg-1: #d1fae5;       /* Rich Mint/Jade Tint */
+    --project-card-bg-2: #fef3c7;       /* Rich Warm Gold Tint */
+    --project-card-bg-3: #ffe4e6;       /* Rich Soft Rose Tint */
+
+    /* Darker versions of the card colors for text and borders in Light Mode */
+    --project-card-fg-0: #1e3a8a;       /* Deep Navy Blue */
+    --project-card-fg-1: #064e3b;       /* Deep Forest Emerald */
+    --project-card-fg-2: #78350f;       /* Deep Roasted Amber */
+    --project-card-fg-3: #881337;       /* Deep Burgundy Rose */
 }
 
 /* 4. BASE STYLES */
@@ -182,7 +206,7 @@ a:hover {
 }
 
 @utility no-scrollbar {
-    @apply [scrollbar-width:none] [&::-webkit-scrollbar]:hidden;
+    @apply [scrollbar:none] [&::-webkit-scrollbar]:hidden;
 }
 
 /* 6. MARQUEE ANIMATIONS */

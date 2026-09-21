@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import React, { useState, useMemo } from "react";
 import { motion } from "framer-motion";
 import { fadeIn, staggerContainer, slideUp } from "@/lib/motionVariants";
 import { projectsData } from "@/data/projects";
@@ -203,6 +203,8 @@ export default function ProjectsPage() {
         });
     }, [projectIds, projects, searchQuery, selectedTechStack, selectedYears, selectedCategories]);
 
+
+
     const toggleTechStack = (tech: string) => {
         toggleFilterValue("techStack", tech);
     };
@@ -328,23 +330,52 @@ export default function ProjectsPage() {
             hasActiveFilters={hasActiveFilters}
             onClearFilters={clearFilters}
             filterPanel={filtersPanel}
-            mainClassName="containerd"
+            mainClassName="w-full flex-1 max-w-7xl mx-auto"
         >
             {filteredProjects.length > 0 ? (
-                <motion.div variants={staggerContainer} initial="hidden" animate="visible" className="space-y-5 md:space-y-8">
-                    {filteredProjects.map((id, index) => (
-                        <motion.div key={id} variants={slideUp} className="p-6 border border-current">
-                            <ProjectCard id={id} project={projects[id]} reversed={index % 2 !== 0} />
-                        </motion.div>
-                    ))}
-                </motion.div>
+                <div className="w-full">
+                    <motion.div
+                        variants={staggerContainer}
+                        initial="hidden"
+                        animate="visible"
+                        className="w-full flex flex-col items-stretch"
+                    >
+                        {filteredProjects.map((id, index) => {
+                            const isLast = index === filteredProjects.length - 1;
+
+                            return (
+                                <motion.div
+                                    key={id}
+                                    variants={slideUp}
+                                    className={`relative w-full rounded-4xl lg:rounded-[3.5rem] border-12 sm:border-14 md:border-16 lg:border-20 border-current/40 transition-all duration-300 px-6 md:px-8 lg:px-10 pt-12 md:pt-30 
+                                        ${isLast
+                                            ? "pb-16 md:pb-24 lg:pb-32"
+                                            : "pb-24 md:pb-28 lg:pb-36"
+                                        } ${index > 0 ? "-mt-16 sm:-mt-12 lg:-mt-28" : ""}`}
+                                    style={{
+                                        zIndex: index + 1,
+                                        backgroundColor: `var(--project-card-bg-${index % 4})`,
+                                        color: `var(--project-card-fg-${index % 4})`,
+                                    }}
+                                >
+                                    <ProjectCard
+                                        id={id}
+                                        project={projects[id]}
+                                        reversed={index % 2 !== 0}
+                                        className="w-full my-0"
+                                    />
+                                </motion.div>
+                            );
+                        })}
+                    </motion.div>
+                </div>
             ) : (
                 <motion.div className="text-center py-20" variants={fadeIn} initial="hidden" animate="visible">
                     <p className="mb-8 text-accent">No projects found matching your criteria!</p>
                     <button
                         type="button"
                         onClick={clearFilters}
-                        className="px-6 py-3 border border-current hover:bg-[var(--color-text)] hover:text-[var(--color-background)] transition-colors"
+                        className="px-6 py-3 border border-current hover:bg-(--color-text) hover:text-background transition-colors"
                     >
                         Clear all filters
                     </button>
