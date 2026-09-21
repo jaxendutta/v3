@@ -8,7 +8,7 @@ export async function GET(request: Request) {
 
     try {
         const response = await fetch(RESUME_DOC_URL, {
-            cache: "no-store",
+            next: { revalidate: 86400 },
         });
 
         if (!response.ok) {
@@ -24,9 +24,8 @@ export async function GET(request: Request) {
                 "Content-Disposition": isDownload
                     ? 'attachment; filename="Anirban_Dutta_Resume.pdf"'
                     : 'inline; filename="Anirban_Dutta_Resume.pdf"',
-                "Cache-Control": "no-store, no-cache, must-revalidate, proxy-revalidate",
-                "Pragma": "no-cache",
-                "Expires": "0",
+                "Cache-Control": "public, max-age=3600, s-maxage=86400, stale-while-revalidate=604800",
+                
             },
         });
     } catch (error) {
