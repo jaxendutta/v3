@@ -85,7 +85,7 @@ export default function RootLayout({
                     fetchPriority="high"
                 />
             </head>
-            <body className="min-h-[100dvh] w-full cursor-crosshair">
+            <body className="min-h-dvh w-full cursor-crosshair">
                 <Analytics />
                 <ThemeProvider>
                     <BottomBar />

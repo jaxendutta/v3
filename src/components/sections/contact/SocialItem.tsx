@@ -62,7 +62,7 @@ export const SocialItem = ({ item, index, copy = true, className = "" }: SocialI
                 style={{ color: "inherit", textDecoration: "none" }}
             >
                 <div className="flex gap-4">
-                    <span className="opacity-60 flex-shrink-0">
+                    <span className="opacity-60 shrink-0">
                         {(index + 1).toString().padStart(2, "0")}.
                     </span>
                     <span>
@@ -76,13 +76,13 @@ export const SocialItem = ({ item, index, copy = true, className = "" }: SocialI
 
             {/* Handle: desktop only */}
             {item.handle && (
-                <span className="hidden md:flex text-[0.75em] opacity-60 pr-3 flex-shrink-0">
+                <span className="hidden md:flex text-[0.75em] opacity-60 pr-3 shrink-0">
                     {item.handle}
                 </span>
             )}
 
             {/* Actions */}
-            <div className="flex items-center gap-3 px-3 flex-shrink-0">
+            <div className="flex items-center gap-3 px-3 shrink-0">
                 {item.localPdf && (
                     <Link
                         href={item.localPdf}
