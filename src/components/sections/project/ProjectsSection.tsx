@@ -3,14 +3,19 @@
 import { projectsData } from "@/data/projects";
 import Section from "@/components/ui/Section";
 import ProjectCard from "@/components/sections/project/ProjectCard";
+import WavyDivider from "@/components/ui/WavyDivider";
+import WavyButton from "@/components/ui/WavyButton";
 import { GiStrongbox } from "react-icons/gi";
-import Link from "next/link";
 
 export default function ProjectsSection() {
     const finishedProjectIds = Object.keys(projectsData).filter(
         (id) => projectsData[id].date.end !== undefined
     );
     const topCount = 3;
+    const displayedProjectIds = finishedProjectIds.slice(
+        0,
+        Math.min(topCount, finishedProjectIds.length)
+    );
 
     return (
         <Section
@@ -26,26 +31,27 @@ export default function ProjectsSection() {
             }}
         >
             <div className="flex flex-col items-center">
-                {finishedProjectIds
-                    .slice(0, Math.min(topCount, finishedProjectIds.length))
-                    .map((id, index) => (
-                        <div
-                            key={id}
-                            className={`w-full py-8 border-b border-current ${index % 2 === 0 ? "border-r pr-2" : "border-l pl-2"}`}
-                        >
+                {displayedProjectIds.map((id, index) => (
+                    <div key={id} className="w-full">
+                        <div className="w-full py-8">
                             <ProjectCard
                                 id={id}
                                 project={projectsData[id]}
                                 reversed={index % 2 !== 0}
-                                chain
                             />
                         </div>
-                    ))}
+                        {index < displayedProjectIds.length - 1 && (
+                            <WavyDivider className="w-full my-4 text-current opacity-60" />
+                        )}
+                    </div>
+                ))}
             </div>
 
-            <Link href="/projects" className={`flex justify-center no-underline! border-b border-foreground hover:bg-foreground hover:text-background! py-3 mb-8 transition-all duration-500 uppercase text-[13px] md:text-base`}>
-                view all projects
-            </Link>
+            <div className="w-full mt-6 mb-8">
+                <WavyButton href="/projects">
+                    view all projects
+                </WavyButton>
+            </div>
         </Section>
     );
 }
