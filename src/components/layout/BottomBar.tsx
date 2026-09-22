@@ -7,8 +7,8 @@ import { useTheme } from "@/components/theme/ThemeProvider";
 import { usePathname } from "next/navigation";
 
 export default function BottomBar() {
-    const { theme } = useTheme();
     const pathname = usePathname() || "";
+    const { theme } = useTheme();
 
     const isPaperDocumentRoute = /^\/papers\/[^/]+\/[^/]+\/?$/.test(pathname);
 
@@ -17,7 +17,7 @@ export default function BottomBar() {
     }
 
     return (
-        <div className={`w-full fixed bottom-0 z-100 flex items-center justify-between p-2 text-muted-foreground-subtle`}>
+        <div className={`w-full fixed bottom-0 z-100 flex items-center justify-between p-2 text-theme mix-blend-difference ${theme === "light" && "invert"}`}>
             <DateTimePlace />
             <ThemeSwitch />
         </div>
