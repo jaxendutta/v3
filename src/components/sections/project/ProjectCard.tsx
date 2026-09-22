@@ -1,5 +1,5 @@
 "use client";
-import React, { useRef, useState, useEffect } from "react";
+import React from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { Project } from "@/types/project";
@@ -9,6 +9,7 @@ import Tag, { SkillTag } from "@/components/ui/Tag";
 import RotatingButton from "@/components/ui/RotatingButton";
 import FloatingDraggableImage from "@/components/ui/FloatingDraggableImage";
 import { renderFormattedTitle } from "@/lib/format";
+import { useTightWrappedWidth } from "@/hooks/useTightWrappedWidth";
 
 interface ProjectCardProps {
     id: string;
@@ -33,65 +34,7 @@ export default function ProjectCard({
     const projectLink = `/projects/${id}`;
     const skillCount = Object.values(project.techStack || []).flat().length;
 
-    const titleRef = useRef<HTMLAnchorElement>(null);
-    const [wrappedWidth, setWrappedWidth] = useState<number | undefined>(undefined);
-
-    useEffect(() => {
-        const el = titleRef.current;
-        if (!el) return;
-
-        const measure = () => {
-            if (window.innerWidth >= 768) {
-                setWrappedWidth(undefined);
-                return;
-            }
-
-            // Temporarily clear inline maxWidth to let the browser lay out words naturally
-            const wrapper = el.parentElement;
-            if (wrapper) wrapper.style.maxWidth = "none";
-
-            const range = document.createRange();
-            range.selectNodeContents(el);
-            const rects = Array.from(range.getClientRects()).filter(
-                (r) => r.width > 0 && r.height > 0
-            );
-
-            if (rects.length > 0) {
-                // Group inline rects into visual lines by their vertical position (top coordinate)
-                const lineGroups: { top: number; left: number; right: number }[] = [];
-                for (const r of rects) {
-                    const match = lineGroups.find(
-                        (g) => Math.abs(g.top - r.top) < r.height * 0.5
-                    );
-                    if (match) {
-                        match.left = Math.min(match.left, r.left);
-                        match.right = Math.max(match.right, r.right);
-                    } else {
-                        lineGroups.push({ top: r.top, left: r.left, right: r.right });
-                    }
-                }
-
-                if (lineGroups.length > 1) {
-                    // Title wrapped onto multiple lines! Find the longest visual line width:
-                    const lineWidths = lineGroups.map((g) => g.right - g.left);
-                    const maxLineWidth = Math.ceil(Math.max(...lineWidths));
-                    if (maxLineWidth > 0) {
-                        const targetWidth = maxLineWidth + 8;
-                        if (wrapper) wrapper.style.maxWidth = `${targetWidth}px`;
-                        setWrappedWidth(targetWidth);
-                        return;
-                    }
-                }
-            }
-
-            if (wrapper) wrapper.style.maxWidth = "";
-            setWrappedWidth(undefined);
-        };
-
-        measure();
-        window.addEventListener("resize", measure);
-        return () => window.removeEventListener("resize", measure);
-    }, [project.label]);
+    const { ref: titleRef, wrappedWidth } = useTightWrappedWidth<HTMLAnchorElement>(project.label);
 
     const exploreButton = (
         <RotatingButton
