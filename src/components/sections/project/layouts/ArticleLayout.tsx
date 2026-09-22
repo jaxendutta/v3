@@ -169,7 +169,7 @@ export default function ArticleLayout({ projectId, markdownContent }: ArticleLay
                         <div className="flex-1 h-0.5 bg-primary" />
                         <span className="text-muted-foreground block">{formatProjectDate(project.date)}</span>
                     </div>
-                    <h1 className={`${project.cardFont || serifFont} text-6xl font-normal mb-2 md:mb-6 w-full flex gap-2 items-center justify-center`}>
+                    <h1 className={`${project.cardFont || serifFont} text-6xl font-normal mb-2 md:mb-6 w-full flex gap-2 items-center justify-center text-center`}>
                         {project.label}
                     </h1>
                 </div>
