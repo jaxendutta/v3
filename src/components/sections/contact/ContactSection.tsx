@@ -10,19 +10,19 @@ export default function ContactSection() {
     return (
         <Section
             id="contact"
-            headerProps={{ title: "contAct" }}
+            headerProps={{ title: "Contact" }}
             className="text-3xl md:text-4xl lg:text-4xl theme-bg theme-text"
         >
             <SocialItems socials={socials} className="text-3xl md:text-4xl lg:text-4xl" />
 
-            <div className="my-12 md:my-16 flex items-center gap-3 md:gap-6 text-border">
-                <span className="h-px flex-1 bg-border/70" />
+            <div className="my-12 md:my-16 flex items-center gap-3 md:gap-6 text-foreground/80">
+                <span className="h-px flex-1 bg-foreground/25" />
                 <span
                     className={`${serifFont} text-center text-lg md:text-2xl lg:text-3xl leading-none tracking-wide italic`}
                 >
                     or
                 </span>
-                <span className="h-px flex-1 bg-border/70" />
+                <span className="h-px flex-1 bg-foreground/25" />
             </div>
 
             <ContactForm />

@@ -146,11 +146,11 @@ export default function ArticleLayout({ projectId, markdownContent }: ArticleLay
         return (
             <a
                 href={`#${id}`}
-                className={`flex-1 !no-underline hover:text-primary transition-colors flex items-baseline gap-3 w-full text-foreground ${levelClassName}`}
+                className={`flex-1 no-underline! hover:text-primary transition-colors flex items-baseline gap-3 w-full text-foreground ${levelClassName}`}
             >
-                {!isReferences && <span className="number-prefix font-mono text-primary/70 mr-1 select-none flex-shrink-0"></span>}
+                {!isReferences && <span className="number-prefix font-mono text-primary/70 mr-1 select-none shrink-0"></span>}
                 <span>{children}</span>
-                <FiLink className="opacity-0 group-hover:opacity-50 transition-opacity text-[0.5em] text-muted-foreground self-center flex-shrink-0" />
+                <FiLink className="opacity-0 group-hover:opacity-50 transition-opacity text-[0.5em] text-muted-foreground self-center shrink-0" />
             </a>
         );
     };
@@ -169,8 +169,7 @@ export default function ArticleLayout({ projectId, markdownContent }: ArticleLay
                         <div className="flex-1 h-0.5 bg-primary" />
                         <span className="text-muted-foreground block">{formatProjectDate(project.date)}</span>
                     </div>
-                    <h1 className={`${serifFont} italic text-4xl md:text-5xl lg:text-6xl font-normal mb-2 md:mb-6 flex gap-2 items-start`}>
-                        <project.icon />
+                    <h1 className={`${project.cardFont || serifFont} text-6xl font-normal mb-2 md:mb-6 w-full flex gap-2 items-center justify-center`}>
                         {project.label}
                     </h1>
                 </div>
@@ -216,7 +215,7 @@ export default function ArticleLayout({ projectId, markdownContent }: ArticleLay
                                     return (
                                         <div className={`my-8 p-2 md:p-4 border-l-4 ${style.classes} flex flex-col gap-2 md:gap-4 items-start`}>
                                             <div className="w-full flex items-start gap-2 text-base md:text-xl">
-                                                <Icon className="flex-shrink-0 mt-0.75" />
+                                                <Icon className="shrink-0 mt-0.75" />
                                                 <p className="uppercase tracking-wide text-inherit dark:text-inherit">{style.title}</p>
                                             </div>
                                             <div className="[&>p]:my-0 text-inherit dark:text-inherit">{children}</div>
@@ -279,7 +278,7 @@ export default function ArticleLayout({ projectId, markdownContent }: ArticleLay
                                             {/* Pass clean code to Mermaid so it doesn't double-render title */}
                                             <Mermaid chart={cleanCode} />
                                             <figcaption className="text-center text-xs md:text-sm text-muted-foreground mt-3 italic flex justify-center">
-                                                <a href={`#${figId}`} className="!no-underline hover:text-primary transition-colors flex items-center gap-1.5">
+                                                <a href={`#${figId}`} className="no-underline! hover:text-primary transition-colors flex items-center gap-1.5">
                                                     <span className="figure-prefix not-italic font-semibold text-foreground/80"></span>
                                                     <span>{title}</span>
                                                     <FiLink className="opacity-0 group-hover:opacity-100 transition-opacity text-xs" />
@@ -326,7 +325,7 @@ export default function ArticleLayout({ projectId, markdownContent }: ArticleLay
                                     <figure id={id} className="my-6 md:my-12 w-full group">
                                         <img {...props} src={src} className="w-full h-auto rounded-none border border-border/40" alt={alt} />
                                         <figcaption className="text-center text-xs md:text-sm text-muted-foreground mt-3 italic flex justify-center">
-                                            <a href={`#${id}`} className="!no-underline hover:text-primary transition-colors flex inline-flex items-center gap-1.5">
+                                            <a href={`#${id}`} className="no-underline! hover:text-primary transition-colors inline-flex items-center gap-1.5">
                                                 <span className="figure-prefix not-italic font-semibold text-foreground/80 inline-flex"></span>
                                                 <span>{alt}</span>
                                                 <FiLink className="opacity-0 group-hover:opacity-100 transition-opacity" />
@@ -343,7 +342,7 @@ export default function ArticleLayout({ projectId, markdownContent }: ArticleLay
                             h4: ({ node, ...props }) => <h4 id={props.id} className="group font-normal mt-4 md:mt-6 mb-4 border-b border-border pb-2"><HeaderRenderer id={props.id} levelClassName="text-sm md:text-xl lg:text-xl">{props.children}</HeaderRenderer></h4>,
                             h5: ({ node, ...props }) => <h5 id={props.id} className="group font-normal mt-4 mb-3 border-b border-border pb-2"><HeaderRenderer id={props.id} levelClassName="text-xs md:text-md lg:text-lg">{props.children}</HeaderRenderer></h5>,
 
-                            p: ({ node, ...props }) => <p className="text-xs md:text-sm my-1 md:my-6 tracking-wide leading-normal text-justify break-words" {...props} />,
+                            p: ({ node, ...props }) => <p className="text-xs md:text-sm my-1 md:my-6 tracking-wide leading-normal text-justify wrap-break-word" {...props} />,
                         }}
                     >
                         {markdownContent || "*No content available.*"}

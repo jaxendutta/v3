@@ -166,14 +166,14 @@ export default function ShowcaseLayout({ projectId }: { projectId: keyof typeof 
             <main
                 ref={mainRef}
                 className={`
-                    h-[100vh] w-screen no-scrollbar flex scroll-pt-[100px] pt-[100px]
+                    h-screen w-screen no-scrollbar flex scroll-pt-25 pt-25
                     ${isLandscape
                         ? "flex-row gap-20 overflow-x-auto overflow-y-hidden"
                         : "flex-col overflow-y-auto overflow-x-hidden"
                     }
                 `}
             >
-                <NameSection project={project} />
+                <NameSection project={project} projectId={projectId} />
                 {project.overview && <OverviewSection projectId={projectId} overview={project.overview} links={project.links} isLandscape={isLandscape} />}
                 {project.typography && <TypographySection typography={project.typography} />}
                 {project.colors && <ColorSection colors={project.colors} />}

@@ -5,14 +5,15 @@ import { motion, useMotionValue, useSpring, useMotionTemplate } from "framer-mot
 import Link from "next/link";
 import { Project, getProjectCategoryLabels, formatProjectDate } from "@/types/project";
 import { RandomIconsLoader } from "@/components/ui/RandomIcons";
-import { serifFont } from "@/lib/fonts";
+import { serifFont, getProjectCardFont } from "@/lib/fonts";
 import { renderFormattedTitle } from "@/lib/format";
 
 interface NameSectionProps {
     project: Project;
+    projectId?: string;
 }
 
-export default function NameSection({ project }: NameSectionProps) {
+export default function NameSection({ project, projectId }: NameSectionProps) {
     const containerRef = useRef<HTMLElement>(null);
     const [isMounted, setIsMounted] = useState(false);
 
@@ -55,8 +56,11 @@ export default function NameSection({ project }: NameSectionProps) {
     const noiseBackground = `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`;
     const clipPath = useMotionTemplate`circle(clamp(150px, 35vw, 350px) at ${smoothX}px ${smoothY}px)`;
 
+    const projectFont = project.cardFont || (projectId ? getProjectCardFont(projectId) : serifFont);
+
     return (
         <section
+            id="project-name"
             ref={containerRef}
             onPointerMove={handlePointerMove}
             className={`relative w-screen h-fit min-h-full overflow-hidden bg-background text-foreground shrink-0 flex flex-col ${hasMouse ? "cursor-crosshair" : ""}`}
@@ -74,7 +78,7 @@ export default function NameSection({ project }: NameSectionProps) {
             {hasMouse ? (
                 <div className="inset-0 flex flex-col justify-between z-0 flex-1 absolute p-12 pb-8">
                     <div className="flex-1 flex flex-col items-end justify-start w-full h-fit! my-0">
-                        <h1 className={`leading-[1.1] h-fit! max-h-[calc(100%-400px)] max-w-[90vw] text-[clamp(4rem,20vw,7rem)] tracking-tighter [writing-mode:horizontal-tb] text-center text-transparent ${serifFont} [-webkit-text-stroke:2px_currentColor]`}>
+                        <h1 className={`leading-[1.1] h-fit! max-h-[calc(100%-400px)] max-w-[90vw] text-[clamp(4rem,20vw,7rem)] tracking-normal [writing-mode:horizontal-tb] text-center text-transparent ${projectFont} [-webkit-text-stroke:2px_currentColor]`}>
                             {renderFormattedTitle(project.label)}
                         </h1>
                     </div>
@@ -147,7 +151,7 @@ export default function NameSection({ project }: NameSectionProps) {
                     </div>
                     {/* Right: Vertical Label */}
                     <div className="flex flex-col justify-center items-end min-h-0 max-h-full">
-                        <h1 className={`leading-[1.1] h-fit! max-h-[calc(100vh-200px)] max-w-[40vw] text-[clamp(3.5rem,24vw,5rem)] [writing-mode:vertical-rl] text-foreground ${serifFont} italic text-left`}>
+                        <h1 className={`leading-[1.1] h-fit! max-h-[calc(100vh-200px)] max-w-[40vw] text-[clamp(3.5rem,24vw,5rem)] [writing-mode:vertical-rl] text-foreground ${projectFont} text-left`}>
                             {renderFormattedTitle(project.label)}
                         </h1>
                     </div>
@@ -163,7 +167,7 @@ export default function NameSection({ project }: NameSectionProps) {
                 >
                     <div className="absolute inset-0 opacity-10 mix-blend-overlay" style={{ backgroundImage: noiseBackground }} />
                     <div className="flex-1 flex flex-row items-center justify-center w-full relative z-10">
-                        <div className={`inline-flex text-[clamp(3.5rem,20vw,10rem)] leading-[1.1] ${serifFont} italic text-center max-w-[95vw] break-words hyphens-auto`}>
+                        <div className={`inline-flex text-[clamp(3.5rem,20vw,10rem)] leading-[1.1] ${projectFont} text-center max-w-[95vw] wrap-break-word hyphens-auto`}>
                             <span className="overflow-hidden block py-[0.05em] px-[0.1em]">
                                 {renderFormattedTitle(project.label)}<project.icon className="ml-4 mb-8 inline-block align-middle text-[0.8em]" />
                             </span>

@@ -15,6 +15,108 @@ export const mignova = localFont({
     display: 'swap',
 });
 
+export const newRomantics = localFont({
+    src: '../../public/fonts/new_romantics.ttf',
+    variable: '--font-new-romantics',
+    display: 'swap',
+});
+
+export const waterResistant = localFont({
+    src: '../../public/fonts/water_resistant.ttf',
+    variable: '--font-water-resistant',
+    display: 'swap',
+});
+
+export const acidic = localFont({
+    src: '../../public/fonts/acidic.ttf',
+    variable: '--font-acidic',
+    display: 'swap',
+});
+
+export const schizoidPersonality = localFont({
+    src: '../../public/fonts/schizoid_personality.otf',
+    variable: '--font-schizoid-personality',
+    display: 'swap',
+});
+
+export const josephin = localFont({
+    src: '../../public/fonts/josephin.ttf',
+    variable: '--font-josephin',
+    display: 'swap',
+});
+
+export const stripeDisco = localFont({
+    src: '../../public/fonts/stripedisco.ttf',
+    variable: '--font-stripe-disco',
+    display: 'swap',
+    declarations: [
+        { prop: 'size-adjust', value: '125%' },
+    ],
+});
+
+export const lunazzi = localFont({
+    src: '../../public/fonts/lunazzi.ttf',
+    variable: '--font-lunazzi',
+    display: 'swap',
+});
+
+export const jackTheHipper = localFont({
+    src: '../../public/fonts/jack_the_hipper.otf',
+    variable: '--font-jack-the-hipper',
+    display: 'swap',
+});
+
+export const lostar = localFont({
+    src: '../../public/fonts/lostar.ttf',
+    variable: '--font-lostar',
+    display: 'swap',
+});
+
+export const celexa = localFont({
+    src: '../../public/fonts/celexa.ttf',
+    variable: '--font-celexa',
+    display: 'swap',
+});
+
+export const modernPrestige = localFont({
+    src: '../../public/fonts/modern_prestige.otf',
+    variable: '--font-modern-prestige',
+    display: 'swap',
+});
+
+export const rc = localFont({
+    src: '../../public/fonts/r_c.otf',
+    variable: '--font-rc',
+    display: 'swap',
+});
+
+export const stampTypo = localFont({
+    src: '../../public/fonts/stamp_typo.ttf',
+    variable: '--font-stamp-typo',
+    display: 'swap',
+});
+
+export const silvus = localFont({
+    src: '../../public/fonts/silvus.ttf',
+    variable: '--font-silvus',
+    display: 'swap',
+    declarations: [
+        { prop: 'size-adjust', value: '78%' },
+    ],
+});
+
+export const blastimoSans = localFont({
+    src: '../../public/fonts/blastimo_sans.ttf',
+    variable: '--font-blastimo-sans',
+    display: 'swap',
+});
+
+export const beaconAesthetic = localFont({
+    src: '../../public/fonts/beacon_aesthetic.ttf',
+    variable: '--font-beacon-aesthetic',
+    display: 'swap',
+});
+
 export const csDevious = localFont({
     src: '../../public/fonts/CSDevious/csdevious-regular.otf',
     variable: '--font-cs-devious',
@@ -102,3 +204,42 @@ export const csDeviousFont = csDevious.className;
 export const csDeviousItalicFont = csDeviousItalic.className;
 export const csDeviousReverseItalicFont = csDeviousReverseItalic.className;
 export const mignovaFont = mignova.className;
+export const newRomanticsFont = newRomantics.className;
+export const waterResistantFont = waterResistant.className;
+export const acidicFont = acidic.className;
+export const schizoidPersonalityFont = schizoidPersonality.className;
+export const josephinFont = josephin.className;
+export const stripeDiscoFont = stripeDisco.className;
+export const lunazziFont = `${lunazzi.className} leading-[0.8]! md:leading-[0.8]!`;
+export const jackTheHipperFont = jackTheHipper.className;
+export const lostarFont = lostar.className;
+export const celexaFont = celexa.className;
+export const modernPrestigeFont = modernPrestige.className;
+export const rcFont = rc.className;
+export const stampTypoFont = stampTypo.className;
+export const silvusFont = `${silvus.className} uppercase`;
+export const blastimoSansFont = `${blastimoSans.className} leading-[1.35]! md:leading-[1.3]!`;
+export const beaconAestheticFont = beaconAesthetic.className;
+
+export const PROJECT_CARD_FONTS: Record<string, string> = {
+    "sqlite-xplore": acidicFont,
+    "sabeer": jackTheHipperFont,
+    "file-explorer": stripeDiscoFont,
+    "v1": newRomanticsFont,
+    "v2": newRomanticsFont,
+    "evse-opt": lunazziFont,
+    "space-invaders": josephinFont,
+    "emma": blastimoSansFont,
+    "rgap": josephinFont,
+    "pvc": beaconAestheticFont,
+    "hivemind": lostarFont,
+    "jeffrey": modernPrestigeFont,
+    "asher": celexaFont,
+    "fabler": silvusFont,
+    "lightbox": rcFont,
+    "straights": stampTypoFont,
+};
+
+export function getProjectCardFont(id: string): string {
+    return PROJECT_CARD_FONTS[id] || csDeviousItalicFont;
+}

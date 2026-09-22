@@ -386,3 +386,18 @@ a:hover {
     font-style: normal;
     font-display: swap;
 }
+
+/* Blastimo Sans vertical metrics override: taller/longer glyphs require higher line height */
+[class*="blastimoSans"],
+[class*="blastimo_sans"],
+.font-blastimo-sans {
+    line-height: 1.35 !important;
+}
+
+/* Lunazzi (EVSE Network Optimizer) reduced line-height */
+[class*="lunazzi"],
+.font-lunazzi {
+    line-height: 0.8 !important;
+}
+
+

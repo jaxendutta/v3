@@ -5,7 +5,6 @@ import Section from "@/components/ui/Section";
 import ProjectCard from "@/components/sections/project/ProjectCard";
 import WavyDivider from "@/components/ui/WavyDivider";
 import WavyButton from "@/components/ui/WavyButton";
-import { GiStrongbox } from "react-icons/gi";
 
 export default function ProjectsSection() {
     const finishedProjectIds = Object.keys(projectsData).filter(
@@ -21,13 +20,7 @@ export default function ProjectsSection() {
         <Section
             id="projects"
             headerProps={{
-                title: "pRojects",
-                buttonProps: {
-                    href: "/projects",
-                    texts: ["Access the vault", "See them all"],
-                    centerIcon: GiStrongbox,
-                    className: "right-1/6",
-                },
+                title: "Projects",
             }}
         >
             <div className="flex flex-col items-center">

@@ -2,7 +2,6 @@
 "use client";
 
 import { useState, useMemo } from "react";
-import { GiLockedChest, GiOpenTreasureChest } from "react-icons/gi";
 import Section from "@/components/ui/Section";
 import { PaperItems } from "@/components/sections/papers/PaperItem";
 import { papersData } from "@/data/papers";
@@ -21,8 +20,6 @@ export default function PapersSection({ limit, showLink }: { limit?: number, sho
     // Apply the limit if provided
     const paperIds = limit ? allPaperIds.slice(0, limit) : allPaperIds;
 
-    const allExpanded = paperIds.length > 0 && paperIds.every((id) => expandedItems[id]);
-
     const toggleItem = (id: string) => {
         setExpandedItems((prev) => ({
             ...prev,
@@ -30,33 +27,11 @@ export default function PapersSection({ limit, showLink }: { limit?: number, sho
         }));
     };
 
-    const toggleAll = () => {
-        if (allExpanded) {
-            setExpandedItems({});
-        } else {
-            const newState: Record<string, boolean> = {};
-            paperIds.forEach((id) => {
-                newState[id] = true;
-            });
-            setExpandedItems(newState);
-        }
-    };
-
     return (
         <Section
             id="papers"
             headerProps={{
-                title: "pApeRs",
-                buttonProps: {
-                    onClick: toggleAll,
-                    texts: allExpanded
-                        ? ["Click Here", "To Collapse All"]
-                        : ["Click Here", "To Expand All"],
-                    centerIcon: allExpanded
-                        ? GiOpenTreasureChest
-                        : GiLockedChest,
-                    className: "left-1/6",
-                },
+                title: "Papers",
             }}
         >
             <PaperItems expandedItems={expandedItems} toggleItem={toggleItem} paperIds={paperIds} />

@@ -13,13 +13,29 @@ import {
     GiPlagueDoctorProfile,
     GiJumpingDog,
     GiLifeInTheBalance,
-    GiTicTacToe,
+    // GiTicTacToe,
     GiAmplitude,
     GiResonance,
-    GiAce
+    // GiAce
 } from "react-icons/gi";
 import { AiOutlineFolderView } from "react-icons/ai";
 import { PiCodesandboxLogoLight } from "react-icons/pi";
+import {
+    acidicFont,
+    beaconAestheticFont,
+    blastimoSansFont,
+    josephinFont,
+    lostarFont,
+    lunazziFont,
+    modernPrestigeFont,
+    newRomanticsFont,
+    rcFont,
+    schizoidPersonalityFont,
+    silvusFont,
+    stampTypoFont,
+    stripeDiscoFont,
+    celexaFont,
+} from "@/lib/fonts";
 
 const calloutStyle =
     "border border-2 border-dashed py-2 px-2 md:px-4 mt-8";
@@ -29,6 +45,7 @@ export const projectsData: ProjectsData = {
         name: "SQLite Xplore",
         label: "SQLite Xplore",
         icon: GiAbstract079,
+        cardFont: acidicFont,
         type: "development",
         categories: ["fullstack", "frontend"],
         layoutType: "showcase",
@@ -116,6 +133,7 @@ export const projectsData: ProjectsData = {
         footer: "Developing SQLite Xplore required solving complex VS Code sandbox constraints. Webview environments do not have direct file-system access, so I built a custom SQLite VFS in WebAssembly (via wa-sqlite) that redirects page requests back to the extension host using postMessage. The extension host acts as a page server, performing fast random-access reads. To optimize filtering and sorting on large, unindexed tables, I integrated SQLite progress-handlers for instant cancellation, preventing the event loop from blocking and delivering a responsive desktop-class database editor.",
     },
 
+    /*
     jaxpot: {
         name: "Jaxpot",
         label: "JAXPOT!",
@@ -212,11 +230,13 @@ export const projectsData: ProjectsData = {
         },
         footer: "JAXPOT! was engineered as a decoupled, multi-mode card game architecture where game engines live as pure, stateful JS reducers completely isolated from UI or network IO. The backend leverages Supabase Realtime for instant state broadcasts across active seats, while Row-Level Security policies scope access per room code. Pass & Play turns feature 3-digit pin locks to prevent peeking on single devices, while online games seamlessly blend AI drop-ins for empty seats.",
     },
+    */
 
     jeffrey: {
         name: "Jeffrey's Aria",
         label: "Jeffrey's Aria",
         icon: GiAmplitude,
+        cardFont: modernPrestigeFont,
         type: "development",
         categories: ["frontend"],
         layoutType: "showcase",
@@ -321,6 +341,7 @@ export const projectsData: ProjectsData = {
         name: "Sabeer's Groove",
         label: "Sabeer's Groove",
         icon: GiResonance,
+        cardFont: schizoidPersonalityFont,
         type: "development",
         categories: ["frontend"],
         layoutType: "showcase",
@@ -416,6 +437,7 @@ export const projectsData: ProjectsData = {
         name: "EMMA",
         label: "[ EMMA ]",
         icon: GiLifeInTheBalance,
+        cardFont: blastimoSansFont,
         type: "research",
         categories: ["data", "fullstack"],
         layoutType: "article",
@@ -475,6 +497,7 @@ export const projectsData: ProjectsData = {
         name: "Asher's Garden",
         label: "Asher's Garden",
         icon: GiJumpingDog,
+        cardFont: celexaFont,
         type: "development",
         categories: ["frontend"],
         layoutType: "showcase",
@@ -577,6 +600,7 @@ export const projectsData: ProjectsData = {
         name: "RGAP",
         label: "[ RGAP ]",
         icon: GiAbstract014,
+        cardFont: josephinFont,
         type: "development",
         categories: ["fullstack", "data"],
         layoutType: "showcase",
@@ -668,6 +692,7 @@ export const projectsData: ProjectsData = {
         name: "Park View Centre",
         label: "Park View Centre",
         icon: GiPlagueDoctorProfile,
+        cardFont: beaconAestheticFont,
         type: "development",
         categories: ["frontend"],
         layoutType: "showcase",
@@ -745,6 +770,7 @@ export const projectsData: ProjectsData = {
         name: "Portfolio v2",
         label: "Portfolio [ v2 ]",
         icon: GiOrbital,
+        cardFont: newRomanticsFont,
         type: "development",
         categories: ["frontend"],
         layoutType: "showcase",
@@ -841,6 +867,7 @@ export const projectsData: ProjectsData = {
         subtitle: "Network Optimizer",
         label: "EVSE Network Optimizer",
         icon: GiBoltEye,
+        cardFont: lunazziFont,
         type: "research",
         categories: ["data"],
         layoutType: "article",
@@ -870,8 +897,9 @@ export const projectsData: ProjectsData = {
 
     fabler: {
         name: "Fabler",
-        label: "[ Fabler ]",
+        label: "FABLER",
         icon: GiBrainTentacle,
+        cardFont: silvusFont,
         type: "design",
         categories: ["fullstack", "data", "frontend"],
         layoutType: "showcase",
@@ -971,6 +999,7 @@ export const projectsData: ProjectsData = {
         name: "Portfolio v1",
         label: "Portfolio [ v1 ]",
         icon: GiNestedEclipses,
+        cardFont: newRomanticsFont,
         type: "development",
         categories: ["frontend"],
         layoutType: "showcase",
@@ -1048,14 +1077,15 @@ export const projectsData: ProjectsData = {
 
     hivemind: {
         name: "HiveMind",
-        label: "[ HiveMind ]",
+        label: "HiveMind",
         icon: GiBee,
+        cardFont: lostarFont,
+        type: "design",
         date: {
             start: new Date("2023-08-18"),
             end: new Date("2023-08-18")
         },
         screenshotDevice: "mobile",
-        type: "design",
         categories: ["frontend"],
         layoutType: "showcase",
         overview: [
@@ -1128,6 +1158,7 @@ export const projectsData: ProjectsData = {
         name: "Space Invaders",
         label: "Space Invaders",
         icon: FaSpaceAwesome,
+        cardFont: josephinFont,
         type: "development",
         categories: ["frontend"],
         layoutType: "showcase",
@@ -1206,6 +1237,7 @@ export const projectsData: ProjectsData = {
         name: "File Explorer",
         label: "File Explorer",
         icon: AiOutlineFolderView,
+        cardFont: stripeDiscoFont,
         type: "development",
         categories: ["fullstack"],
         layoutType: "showcase",
@@ -1284,8 +1316,9 @@ export const projectsData: ProjectsData = {
 
     lightbox: {
         name: "LightBox",
-        label: "[ LightBox ]",
+        label: "LightBox",
         icon: PiCodesandboxLogoLight,
+        cardFont: rcFont,
         type: "development",
         categories: ["fullstack"],
         layoutType: "showcase",
@@ -1366,6 +1399,7 @@ export const projectsData: ProjectsData = {
         name: "Straights",
         label: "Straights",
         icon: GiCardJoker,
+        cardFont: stampTypoFont,
         type: "development",
         categories: ["frontend", "fullstack"],
         layoutType: "showcase",
@@ -1437,6 +1471,7 @@ export const projectsData: ProjectsData = {
         footer: "Straights showcases the seamless integration of C++ and web technologies. The core game logic, originally written in C++, has been recompiled to WebAssembly using Emscripten. This WebAssembly module is then integrated into a modern web application, with HTML, CSS, and JavaScript working in harmony to render the game state and provide an interactive user interface.",
     },
 
+    /*
     "minimax-tic-tac-toe": {
         name: "Tic-Tac-Toe + MiniMax",
         label: "Tic-Tac-Toe + MiniMax",
@@ -1525,4 +1560,5 @@ export const projectsData: ProjectsData = {
         },
         footer: "One of my early algorithmic projects, this application serves as a practical exploration of the Minimax algorithm in a zero-sum game environment. The Python backend recursively evaluates board states to maximize the AI's advantage while minimizing the player's potential score. The graphical interface was constructed using Tkinter, providing a responsive grid, real-time score tracking, and visual feedback for win/tie states. It stands as a foundational piece of my programming journey, demonstrating an early focus on complex logic and standalone software delivery.",
     },
+    */
 };

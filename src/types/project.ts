@@ -53,6 +53,7 @@ export interface Project {
     label: string;
     subtitle?: string;
     icon: IconType;
+    cardFont?: string;
     type: "design" | "development" | "ai" | "research";
     categories: ProjectCategoryKey[];
     layoutType: "showcase" | "article";
