@@ -76,6 +76,9 @@ export const celexa = localFont({
     src: '../../public/fonts/celexa.ttf',
     variable: '--font-celexa',
     display: 'swap',
+    declarations: [
+        { prop: 'size-adjust', value: '88%' },
+    ],
 });
 
 export const modernPrestige = localFont({
