@@ -23,14 +23,15 @@ export default function ProjectsSection() {
                 title: "Projects",
             }}
         >
-            <div className="flex flex-col items-center">
+            <div className="flex flex-col items-center w-full max-w-7xl mx-auto">
                 {displayedProjectIds.map((id, index) => (
-                    <div key={id} className="w-full">
-                        <div className="w-full py-8">
+                    <div key={id} className="w-full flex flex-col items-center">
+                        <div className="w-full py-8 flex justify-center">
                             <ProjectCard
                                 id={id}
                                 project={projectsData[id]}
                                 reversed={index % 2 !== 0}
+                                className="w-full my-0"
                             />
                         </div>
                         {index < displayedProjectIds.length - 1 && (
