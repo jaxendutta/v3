@@ -55,18 +55,18 @@ export default function ProjectCard({
             viewport={{ once: true, margin: "-100px" }}
             variants={fadeIn}
         >
-            <div className={`flex flex-col ${reversed ? "md:flex-row-reverse" : "md:flex-row"} gap-4 sm:gap-6 md:gap-10 items-center justify-center w-full max-w-full overflow-visible`}>
+            <div className={`flex flex-col ${reversed ? "md:flex-row-reverse" : "md:flex-row"} gap-4 md:gap-6 lg:gap-8 xl:gap-10 items-center justify-center w-full max-w-full overflow-visible`}>
                 {/* Project Info */}
                 <div className={`w-full min-w-0 max-w-full ${isMobileProject ? "md:w-1/2 xl:w-3/5" : "md:w-[46%] lg:w-[45%]"} flex flex-col gap-1 md:gap-4 items-center ${reversed ? `md:items-start md:text-left ${chain ? "pl-4" : ""}` : `md:items-end md:text-right ${chain ? "pr-4" : ""}`}`}>
-                    <div className={`w-full min-w-0 max-w-full flex ${reversed ? "flex-row" : "flex-row-reverse"} md:flex-row gap-3 sm:gap-6 md:gap-8 items-center justify-center ${reversed ? "md:justify-start md:text-left" : "md:justify-end md:text-right"} text-center ${chain ? "pr-4" : ""}`}>
+                    <div className={`w-full min-w-0 max-w-full flex ${reversed ? "flex-row" : "flex-row-reverse"} md:flex-row gap-3 sm:gap-6 md:gap-8 items-center justify-center ${reversed ? "md:justify-start" : "md:justify-end"} ${chain ? "pr-4" : ""}`}>
                         <div
-                            className={`w-fit min-w-0 max-w-full flex flex-wrap items-center justify-center ${reversed ? "md:justify-start" : "md:justify-end"} gap-x-1.5 md:gap-x-3 gap-y-0 md:gap-y-0.5`}
+                            className={`w-fit min-w-0 max-w-full flex flex-wrap items-center ${reversed ? "justify-end text-right md:justify-start md:text-left" : "justify-start text-left md:justify-end md:text-right"} gap-x-1.5 md:gap-x-3 gap-y-0 md:gap-y-0.5`}
                             style={wrappedWidth ? { maxWidth: `${wrappedWidth}px` } : undefined}
                         >
                             <Link
                                 ref={titleRef}
                                 href={projectLink}
-                                className={`text-[32px] sm:text-[48px] md:text-7xl lg:text-8xl hover:text-accent transition-colors no-underline! leading-9 md:leading-16 lg:leading-22 wrap-break-word hyphens-auto ${project.cardFont || getProjectCardFont(id)} px-2 md:px-0 ${reversed ? "md:pl-2" : "md:pr-2"
+                                className={`text-[40px] sm:text-[48px] md:text-7xl lg:text-8xl hover:text-accent transition-colors no-underline! leading-9 md:leading-16 lg:leading-22 wrap-break-word ${reversed ? "text-right md:text-left" : "text-left md:text-right"} ${project.cardFont || getProjectCardFont(id)} px-2 md:px-0 ${reversed ? "md:pl-2" : "md:pr-2"
                                     }`}
                             >
                                 {renderFormattedTitle(project.label)}

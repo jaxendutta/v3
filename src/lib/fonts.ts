@@ -119,7 +119,7 @@ export const blastimoSans = localFont({
     variable: '--font-blastimo-sans',
     display: 'swap',
     declarations: [
-        { prop: 'size-adjust', value: '135%' },
+        { prop: 'size-adjust', value: '125%' },
     ],
 });
 

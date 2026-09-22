@@ -28,10 +28,17 @@ export function useTightWrappedWidth<T extends HTMLElement = HTMLAnchorElement>(
                 return;
             }
 
-            // Temporarily clear inline maxWidth so the browser calculates natural word wrap
             const wrapper = el.parentElement;
-            if (wrapper) wrapper.style.maxWidth = "none";
 
+            // 1. Temporarily clear inline maxWidth so the browser calculates natural word wrap
+            // in the full available space without being artificially constrained.
+            if (wrapper) wrapper.style.maxWidth = "none";
+            el.style.maxWidth = "none";
+
+            // 2. Force synchronous reflow to ensure natural layout with maxWidth="none"
+            void (wrapper?.offsetWidth || el.offsetWidth);
+
+            // 3. Inspect the rendered text fragments
             const range = document.createRange();
             range.selectNodeContents(el);
             const rects = Array.from(range.getClientRects()).filter(
@@ -39,17 +46,22 @@ export function useTightWrappedWidth<T extends HTMLElement = HTMLAnchorElement>(
             );
 
             if (rects.length > 0) {
-                // Group inline rects into visual lines by vertical coordinate
-                const lineGroups: { top: number; left: number; right: number }[] = [];
+                // Group rects into visual lines based on vertical overlap
+                const lineGroups: { top: number; bottom: number; left: number; right: number }[] = [];
                 for (const r of rects) {
-                    const match = lineGroups.find(
-                        (g) => Math.abs(g.top - r.top) < r.height * 0.5
-                    );
+                    const match = lineGroups.find((g) => {
+                        const overlap = Math.min(g.bottom, r.bottom) - Math.max(g.top, r.top);
+                        const minHeight = Math.min(g.bottom - g.top, r.height);
+                        return overlap > minHeight * 0.4;
+                    });
+
                     if (match) {
                         match.left = Math.min(match.left, r.left);
                         match.right = Math.max(match.right, r.right);
+                        match.top = Math.min(match.top, r.top);
+                        match.bottom = Math.max(match.bottom, r.bottom);
                     } else {
-                        lineGroups.push({ top: r.top, left: r.left, right: r.right });
+                        lineGroups.push({ top: r.top, bottom: r.bottom, left: r.left, right: r.right });
                     }
                 }
 
@@ -57,8 +69,19 @@ export function useTightWrappedWidth<T extends HTMLElement = HTMLAnchorElement>(
                     // Multi-line wrapped text: determine the widest rendered line
                     const lineWidths = lineGroups.map((g) => g.right - g.left);
                     const maxLineWidth = Math.ceil(Math.max(...lineWidths));
+
                     if (maxLineWidth > 0) {
-                        const targetWidth = maxLineWidth + 8;
+                        // Dynamically determine el's horizontal padding & border
+                        const computed = window.getComputedStyle(el);
+                        const pl = parseFloat(computed.paddingLeft) || 0;
+                        const pr = parseFloat(computed.paddingRight) || 0;
+                        const bl = parseFloat(computed.borderLeftWidth) || 0;
+                        const br = parseFloat(computed.borderRightWidth) || 0;
+                        const elExtra = pl + pr + bl + br;
+
+                        // Add a safe 6px subpixel buffer so natural line wrapping doesn't break
+                        const targetWidth = Math.ceil(maxLineWidth + elExtra + 6);
+
                         if (wrapper) wrapper.style.maxWidth = `${targetWidth}px`;
                         setWrappedWidth(targetWidth);
                         return;
@@ -66,11 +89,18 @@ export function useTightWrappedWidth<T extends HTMLElement = HTMLAnchorElement>(
                 }
             }
 
+            // Single line text or no wrap needed: let natural fit-content handle it
             if (wrapper) wrapper.style.maxWidth = "";
             setWrappedWidth(undefined);
         };
 
         measure();
+
+        // Re-measure when web fonts finish loading, as font metrics can change line lengths
+        if (typeof document !== "undefined" && document.fonts) {
+            document.fonts.ready.then(measure);
+        }
+
         window.addEventListener("resize", measure);
         return () => window.removeEventListener("resize", measure);
     }, [dependency, breakpoint]);
