@@ -58,15 +58,15 @@ export default function ProjectCard({
             <div className={`flex flex-col ${reversed ? "md:flex-row-reverse" : "md:flex-row"} gap-6 md:gap-10 items-center justify-center w-full`}>
                 {/* Project Info */}
                 <div className={`w-full md:w-[40vw] flex flex-col gap-1 md:gap-4 items-center ${reversed ? `md:items-start md:text-left ${chain ? "pl-4" : ""}` : `md:items-end md:text-right ${chain ? "pr-4" : ""}`}`}>
-                    <div className={`w-full flex ${reversed ? "flex-row text-right md:text-left" : "flex-row-reverse text-left md:text-right"} gap-6 md:gap-8 items-center justify-center ${chain ? "pr-4" : ""}`}>
+                    <div className={`w-full flex ${reversed ? "flex-row" : "flex-row-reverse"} md:flex-row gap-6 md:gap-8 items-center justify-center ${reversed ? "md:justify-start md:text-left" : "md:justify-end md:text-right"} text-center ${chain ? "pr-4" : ""}`}>
                         <div
-                            className="w-fit flex flex-wrap items-center gap-x-1.5 md:gap-x-3 gap-y-0 md:gap-y-0.5"
+                            className={`w-fit flex flex-wrap items-center justify-center ${reversed ? "md:justify-start" : "md:justify-end"} gap-x-1.5 md:gap-x-3 gap-y-0 md:gap-y-0.5`}
                             style={wrappedWidth ? { maxWidth: `${wrappedWidth}px` } : undefined}
                         >
                             <Link
                                 ref={titleRef}
                                 href={projectLink}
-                                className={`text-[40px] sm:text-[68px] md:text-7xl lg:text-8xl hover:text-accent transition-colors no-underline! leading-9 md:leading-16 lg:leading-normal ${project.cardFont || getProjectCardFont(id)} ${reversed ? "pl-2" : "pr-2"
+                                className={`text-[40px] sm:text-[68px] md:text-7xl lg:text-8xl hover:text-accent transition-colors no-underline! leading-9 md:leading-16 lg:leading-22 ${project.cardFont || getProjectCardFont(id)} px-2 md:px-0 ${reversed ? "md:pl-2" : "md:pr-2"
                                     }`}
                             >
                                 {renderFormattedTitle(project.label)}

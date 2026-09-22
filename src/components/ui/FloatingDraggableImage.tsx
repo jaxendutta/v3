@@ -58,7 +58,7 @@ export default function FloatingDraggableImage({
     onImageLoad,
 }: FloatingDraggableImageProps) {
     const [imageSize, setImageSize] = useState({ width, height });
-    const [isImageVertical, setIsImageVertical] = useState(false);
+    const [isImageVertical, setIsImageVertical] = useState(height > width);
     const hoverOffset = useMotionValue(0);
     const staticTilt = useMotionValue(0);
     const dragControls = useDragControls();
@@ -153,31 +153,38 @@ export default function FloatingDraggableImage({
                             : "absolute bottom-[-7%] left-1/2 z-0 h-[15%] w-[62%] -translate-x-1/2 rounded-[999px] bg-black/90 pointer-events-none"
                         }
                     />
-                    <Image
-                        src={src}
-                        alt={alt}
-                        fill
-                        unoptimized={src.endsWith(".gif")}
-                        draggable={false}
-                        className={`${isImageVertical ? "object-contain" : "object-cover"} relative z-10 ${drag ? `${cursorClass} active:cursor-grabbing touch-none` : ""} ${borderOnLandscape && !isImageVertical ? "border border-current rounded-lg" : ""} ${imageClassName ?? ""}`}
-                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 800px"
+                    <div
                         onPointerDown={(event) => {
                             if (!drag) return;
                             dragControls.start(event);
                         }}
-                        onLoad={(event) => {
-                            const img = event.currentTarget as HTMLImageElement;
-                            const nextIsVertical = img.naturalHeight > img.naturalWidth;
-                            setIsImageVertical(nextIsVertical);
+                        className={`relative z-10 w-full h-full ${drag ? `${cursorClass} active:cursor-grabbing touch-none` : ""} ${borderOnLandscape && !isImageVertical
+                            ? "border-[6px] sm:border-8 md:border-10 border-[#202734] rounded-2xl md:rounded-3xl overflow-hidden ring-1.5 sm:ring-2 ring-slate-400/90 shadow-md"
+                            : ""
+                            }`}
+                    >
+                        <Image
+                            src={src}
+                            alt={alt}
+                            fill
+                            unoptimized={src.endsWith(".gif")}
+                            draggable={false}
+                            className={`${isImageVertical ? "object-contain" : "object-cover"} ${imageClassName ?? ""}`}
+                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 800px"
+                            onLoad={(event) => {
+                                const img = event.currentTarget as HTMLImageElement;
+                                const nextIsVertical = img.naturalHeight > img.naturalWidth;
+                                setIsImageVertical(nextIsVertical);
 
-                            if (img.naturalWidth > 0 && img.naturalHeight > 0) {
-                                const nextSize = { width: img.naturalWidth, height: img.naturalHeight };
-                                setImageSize(nextSize);
-                                onImageLoad?.({ ...nextSize, isVertical: nextIsVertical });
-                            }
-                        }}
-                        priority={priority}
-                    />
+                                if (img.naturalWidth > 0 && img.naturalHeight > 0) {
+                                    const nextSize = { width: img.naturalWidth, height: img.naturalHeight };
+                                    setImageSize(nextSize);
+                                    onImageLoad?.({ ...nextSize, isVertical: nextIsVertical });
+                                }
+                            }}
+                            priority={priority}
+                        />
+                    </div>
                 </div>
             </motion.div>
         </motion.div>
