@@ -246,44 +246,29 @@ export default function Floating3DImage({
                     onPointerCancel={handlePointerUp}
                     onClickCapture={handleClickCapture}
                 >
-                    {/* Floating Drop Shadow on Ground */}
-                    {mockup === "iphone" && (
+                    {/* Floating Drop Shadow on Ground (iPhone renders its own dynamic shadow inside the 3D canvas) */}
+                    {mockup !== "iphone" && (
                         <motion.div
                             aria-hidden
                             style={{
-                                opacity: shadowOpacity,
-                                filter: shadowFilter,
+                                opacity: (!is3DMockup && isImageVertical) ? sideShadowOpacity : shadowOpacity,
+                                filter: (!is3DMockup && isImageVertical) ? sideShadowFilter : shadowFilter,
                                 scaleX: shadowScaleX,
                                 scaleY: shadowScaleY,
-                                rotate: initialTiltZ ? (initialTiltZ * 180) / Math.PI : 0,
+                                x: is3DMockup ? 0 : dynamicShadowX,
+                                y: is3DMockup ? 0 : dynamicShadowY,
+                                rotate: 0,
                                 transform: "translateZ(-80px)",
                             }}
-                            className="absolute bottom-[-5%] left-1/2 z-0 h-[16%] w-[78%] -translate-x-1/2 rounded-[999px] bg-black/40 pointer-events-none"
-                        />
-                    )}
-
-                    <motion.div
-                        aria-hidden
-                        style={{
-                            opacity: (!is3DMockup && isImageVertical) ? sideShadowOpacity : shadowOpacity,
-                            filter: (!is3DMockup && isImageVertical) ? sideShadowFilter : shadowFilter,
-                            scaleX: shadowScaleX,
-                            scaleY: shadowScaleY,
-                            x: is3DMockup ? 0 : dynamicShadowX,
-                            y: is3DMockup ? 0 : dynamicShadowY,
-                            rotate: mockup === "iphone" && initialTiltZ ? (initialTiltZ * 180) / Math.PI : 0,
-                            transform: "translateZ(-80px)",
-                        }}
-                        className={
-                            mockup === "iphone"
-                                ? "absolute bottom-[-3%] left-1/2 z-0 h-[8%] w-[64%] -translate-x-1/2 rounded-[999px] bg-black/70 pointer-events-none"
-                                : mockup === "ipad"
+                            className={
+                                mockup === "ipad"
                                     ? "absolute bottom-[-4%] left-1/2 z-0 h-[16%] w-[84%] -translate-x-1/2 rounded-[999px] bg-black/90 pointer-events-none"
                                     : isImageVertical
                                         ? "absolute top-[58%] left-[84%] z-0 h-[68%] w-[30%] -translate-y-1/2 rounded-[999px] bg-linear-to-r from-black/90 via-black/55 to-transparent pointer-events-none"
                                         : "absolute bottom-[-7%] left-1/2 z-0 h-[15%] w-[62%] -translate-x-1/2 rounded-[999px] bg-black/90 pointer-events-none"
-                        }
-                    />
+                            }
+                        />
+                    )}
 
                     {mockup === "iphone" ? (
                         <div className="relative z-10 w-full h-full flex items-center justify-center overflow-visible">
