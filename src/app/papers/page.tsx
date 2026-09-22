@@ -1,7 +1,7 @@
 // src/app/papers/page.tsx
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, Suspense } from "react";
 import { motion } from "framer-motion";
 import { fadeIn } from "@/lib/motionVariants";
 import { papersData } from "@/data/papers";
@@ -16,7 +16,7 @@ import { TbFilterDown } from "react-icons/tb";
 import Link from "next/link";
 import { serifFont, codeFont } from "@/lib/fonts";
 
-export default function PapersPage() {
+function PapersContent() {
     const [expandedItems, setExpandedItems] = useState<Record<string, boolean>>({});
     const [showFilters, setShowFilters] = useState(false);
     const { searchQuery, setSearchQuery, filters, toggleFilterValue, clearFilters, hasActiveFilters } = useSyncedFilters<{
@@ -341,5 +341,13 @@ export default function PapersPage() {
                 )}
             </motion.div>
         </FilteredCollectionPage>
+    );
+}
+
+export default function PapersPage() {
+    return (
+        <Suspense fallback={null}>
+            <PapersContent />
+        </Suspense>
     );
 }

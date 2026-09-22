@@ -1,87 +1,53 @@
 // src/components/theme/ThemeProvider.tsx
 "use client";
 
-import { createContext, useContext, useEffect, useState, Fragment } from "react";
+import * as React from "react";
+import { flushSync } from "react-dom";
+import { ThemeProvider as NextThemesProvider, useTheme as useNextTheme } from "next-themes";
 import { ThemeOption } from "@/lib/theme";
 
-interface ThemeContextType {
-    theme: ThemeOption;
-    toggleTheme: () => void;
-}
-
-const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
-
-function ThemeWrapper({
-    children,
-    theme,
-}: {
-    children: React.ReactNode;
-    theme: ThemeOption;
-}) {
-    return <Fragment key={theme}>{children}</Fragment>;
-}
-
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-    const [theme, setTheme] = useState<ThemeOption>("dark");
-    const [mounted, setMounted] = useState(false);
-
-    useEffect(() => {
-        // Get theme from localStorage if available
-        const storedTheme = localStorage.getItem("theme") as ThemeOption | null;
-        const systemPrefersDark = window.matchMedia(
-            "(prefers-color-scheme: dark)"
-        ).matches;
-
-        const initialTheme =
-            storedTheme || (systemPrefersDark ? "dark" : "light");
-        setTheme(initialTheme);
-        setMounted(true);
-
-        // Listen for system theme changes
-        const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
-        const handleChange = (e: MediaQueryListEvent) => {
-            if (!localStorage.getItem("theme")) {
-                setTheme(e.matches ? "dark" : "light");
-            }
-        };
-
-        mediaQuery.addEventListener("change", handleChange);
-        return () => mediaQuery.removeEventListener("change", handleChange);
-    }, []);
-
-    useEffect(() => {
-        if (!mounted) return;
-
-        const isDark = theme === "dark";
-
-        // Toggle the dark/light class on the html element
-        document.documentElement.classList.toggle("dark", isDark);
-        document.documentElement.classList.toggle("light", !isDark);
-    }, [theme, mounted]);
-
-    const toggleTheme = () => {
-        const newTheme = theme === "dark" ? "light" : "dark";
-        setTheme(newTheme);
-        localStorage.setItem("theme", newTheme);
-    };
-
-    // Avoid rendering with default theme to prevent flash
-    if (!mounted) {
-        return <div className="hidden" />;
-    }
-
     return (
-        <ThemeContext.Provider value={{ theme, toggleTheme }}>
-            {/* The key forces a complete re-render when theme changes */}
-            <ThemeWrapper theme={theme}>{children}</ThemeWrapper>
-        </ThemeContext.Provider>
+        <NextThemesProvider
+            attribute="class"
+            defaultTheme="light"
+            enableSystem={false}
+        >
+            {children}
+        </NextThemesProvider>
     );
 }
 
 export function useTheme() {
-    const context = useContext(ThemeContext);
-    if (context === undefined) {
-        throw new Error("useTheme must be used within a ThemeProvider");
-    }
-    return context;
+    const { theme, setTheme, resolvedTheme } = useNextTheme();
+    const currentTheme = (resolvedTheme || theme || "light") as ThemeOption;
+
+    const toggleTheme = React.useCallback(() => {
+        const nextTheme = currentTheme === "dark" ? "light" : "dark";
+
+        if (
+            typeof document !== "undefined" &&
+            "startViewTransition" in document &&
+            !window.matchMedia("(prefers-reduced-motion: reduce)").matches
+        ) {
+            document.documentElement.classList.add("theme-transitioning");
+            const transition = document.startViewTransition(() => {
+                flushSync(() => {
+                    setTheme(nextTheme);
+                });
+            });
+            transition.finished.finally(() => {
+                document.documentElement.classList.remove("theme-transitioning");
+            });
+        } else {
+            setTheme(nextTheme);
+        }
+    }, [currentTheme, setTheme]);
+
+    return {
+        theme: currentTheme,
+        setTheme,
+        toggleTheme,
+    };
 }
+

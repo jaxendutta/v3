@@ -8,7 +8,10 @@ import HeroInteraction from "@/components/sections/hero/HeroInteraction";
 import { GiSquareBottle } from "react-icons/gi";
 
 export default function Hero() {
-    const [dims, setDims] = useState({ w: window.innerWidth, h: window.innerHeight });
+    const [dims, setDims] = useState(() => ({
+        w: typeof window !== "undefined" ? window.innerWidth : 1440,
+        h: typeof window !== "undefined" ? window.innerHeight : 900,
+    }));
 
     useEffect(() => {
         const handleResize = () => setDims({ w: window.innerWidth, h: window.innerHeight });

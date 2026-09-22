@@ -4,7 +4,6 @@
 import { useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { useTheme } from "@/components/theme/ThemeProvider";
 import { RiHomeLine } from "react-icons/ri";
 import { codeFont } from "@/lib/fonts";
 
@@ -69,11 +68,10 @@ export default function Navbar() {
     const linkLength = Math.ceil(navLinks.length / 2);
     const leftLinks = navLinks.slice(0, linkLength);
     const rightLinks = navLinks.slice(linkLength);
-    const { theme } = useTheme();
 
     return (
         <nav
-            className={`fixed left-0 right-0 top-0 z-50 p-4 text-theme mix-blend-difference ${theme === "light" && "invert"}`}
+            className="fixed left-0 right-0 top-0 z-50 p-4 text-theme mix-blend-difference invert dark:invert-0"
         >
             {/* Mobile Layout (equidistant tabs) */}
             <div className={`flex md:hidden items-center justify-between w-full ${codeFont}`}>

@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 /* 1. DEFINE THEME MAPPINGS */
 /* This tells Tailwind v4: "When I type bg-background, use the variable --background" */
 @theme {
@@ -29,9 +31,60 @@
     --color-alert-caution: var(--alert-caution);
 }
 
-/* 2. ROOT VARIABLES (Dark Mode Default) */
-:root {
-    /* Dark theme colors (default) */
+/* 2. ROOT VARIABLES (Light Mode Default) */
+:root,
+.light {
+    /* Light theme colors (default) */
+    --color-background: #fff7ed;
+    --color-text: #1d4ed8;
+    --color-accent: #f43f5e;
+    --color-highlight-bg: #1d4ed8;
+    --color-highlight-text: #bef264;
+
+    /* --- STANDARD VARIABLES --- */
+    /* Background: Orange-50 */
+    --background: #fff7ed;
+    /* Foreground: Blue-700 */
+    --foreground: #0039d4;
+
+    /* Primary: Rose-500 */
+    --primary: #f43f5e;
+    --primary-foreground: #fff7ed;
+
+    /* Secondary: White for cards */
+    --secondary: #ffffff;
+    --secondary-foreground: #1d4ed8;
+
+    /* Muted: shades of blue with contrast! */
+    --muted: #fed7aa;
+    --muted-foreground: #0044ff;
+    --muted-foreground-subtle: #0073ff;
+
+    /* Border: Orange-300 */
+    --border: #fdba74;
+
+    /* ALERT COLOR VARIABLES */
+    --alert-note: #1e40af;        /* blue-900 */
+    --alert-tip: #166534;         /* green-900 */
+    --alert-important: #6d28d9;   /* purple-900 */
+    --alert-warning: #92400e;     /* amber-900 */
+    --alert-caution: #991b1b;     /* red-900 */
+
+    /* 4 REPEATING PROJECT CARD COLORS (LIGHT MODE - Rich & Clearly Visible Tints) */
+    --project-card-bg-0: #dbeafe;       /* Rich Blue/Periwinkle Tint */
+    --project-card-bg-1: #d1fae5;       /* Rich Mint/Jade Tint */
+    --project-card-bg-2: #fef3c7;       /* Rich Warm Gold Tint */
+    --project-card-bg-3: #ffe4e6;       /* Rich Soft Rose Tint */
+
+    /* Darker versions of the card colors for text and borders in Light Mode */
+    --project-card-fg-0: #1e3a8a;       /* Deep Navy Blue */
+    --project-card-fg-1: #064e3b;       /* Deep Forest Emerald */
+    --project-card-fg-2: #78350f;       /* Deep Roasted Amber */
+    --project-card-fg-3: #881337;       /* Deep Burgundy Rose */
+}
+
+/* 3. DARK MODE OVERRIDES */
+.dark {
     --color-background: #18181b;
     --color-text: #fff7ed;
     --color-accent: #e11d48;
@@ -80,56 +133,6 @@
     --project-card-fg-3: #881337;       /* Deep Burgundy Rose */
 }
 
-/* 3. LIGHT MODE OVERRIDES */
-.light {
-    --color-background: #fff7ed;
-    --color-text: #1d4ed8;
-    --color-accent: #f43f5e;
-    --color-highlight-bg: #1d4ed8;
-    --color-highlight-text: #bef264;
-
-    /* --- NEW STANDARD VARIABLES --- */
-    /* Background: Orange-50 */
-    --background: #fff7ed;
-    /* Foreground: Blue-700 */
-    --foreground: #0039d4;
-
-    /* Primary: Rose-500 */
-    --primary: #f43f5e;
-    --primary-foreground: #fff7ed;
-
-    /* Secondary: White for cards */
-    --secondary: #ffffff;
-    --secondary-foreground: #1d4ed8;
-
-    /* Muted: shades of blue with contrast! */
-    --muted: #fed7aa;
-    --muted-foreground: #0044ff;
-    --muted-foreground-subtle: #0073ff;
-
-    /* Border: Orange-300 */
-    --border: #fdba74;
-
-    /* ALERT COLOR VARIABLES */
-    --alert-note: #1e40af;        /* blue-900 */
-    --alert-tip: #166534;         /* green-900 */
-    --alert-important: #6d28d9;   /* purple-900 */
-    --alert-warning: #92400e;     /* amber-900 */
-    --alert-caution: #991b1b;     /* red-900 */
-
-    /* 4 REPEATING PROJECT CARD COLORS (LIGHT MODE - Rich & Clearly Visible Tints) */
-    --project-card-bg-0: #dbeafe;       /* Rich Blue/Periwinkle Tint */
-    --project-card-bg-1: #d1fae5;       /* Rich Mint/Jade Tint */
-    --project-card-bg-2: #fef3c7;       /* Rich Warm Gold Tint */
-    --project-card-bg-3: #ffe4e6;       /* Rich Soft Rose Tint */
-
-    /* Darker versions of the card colors for text and borders in Light Mode */
-    --project-card-fg-0: #1e3a8a;       /* Deep Navy Blue */
-    --project-card-fg-1: #064e3b;       /* Deep Forest Emerald */
-    --project-card-fg-2: #78350f;       /* Deep Roasted Amber */
-    --project-card-fg-3: #881337;       /* Deep Burgundy Rose */
-}
-
 /* 4. BASE STYLES */
 html {
     scroll-behavior: smooth;
@@ -144,27 +147,83 @@ body {
     overflow-x: hidden;
     width: 100vw;
     min-height: 100vh;
-    color-scheme: dark light;
+    color-scheme: light dark;
     background-color: var(--background);
     color: var(--foreground);
 }
 
-/* Transitions */
-*,
-*::before,
-*::after {
+/* Smooth transitions for theme changes (fallback when View Transitions is not active) */
+body,
+nav,
+footer,
+div,
+header,
+main,
+section,
+p,
+span,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+button,
+a,
+svg {
     transition:
-        color 0.1s ease,
-        background-color 0.1s ease,
-        border-color 0.1s ease,
-        box-shadow 0.1s ease;
+        color 0.35s cubic-bezier(0.25, 1, 0.5, 1),
+        background-color 0.35s cubic-bezier(0.25, 1, 0.5, 1),
+        border-color 0.35s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
-/* BUT exclude transitions from complex animations and interactions */
+/* During a View Transition, disable element-level transitions so the whole-page crossfade is ultra-crisp */
+.theme-transitioning,
+.theme-transitioning *,
+.theme-transitioning *::before,
+.theme-transitioning *::after {
+    transition: none !important;
+}
+
+/* View Transition Crossfade */
+::view-transition-old(root),
+::view-transition-new(root) {
+    animation-duration: 0.4s;
+    animation-timing-function: cubic-bezier(0.25, 1, 0.5, 1);
+    mix-blend-mode: normal;
+}
+
+::view-transition-old(root) {
+    animation-name: theme-fade-out;
+}
+
+::view-transition-new(root) {
+    animation-name: theme-fade-in;
+}
+
+@keyframes theme-fade-out {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+
+@keyframes theme-fade-in {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* Exclude transitions from complex animations and interactions */
 .marquee-content,
 .rotating-text,
 [class*="animate-"] {
-    transition: none;
+    transition: none !important;
 }
 
 a {

@@ -1,7 +1,7 @@
 // src/app/talks/page.tsx
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, Suspense } from "react";
 import { motion } from "framer-motion";
 import { fadeIn } from "@/lib/motionVariants";
 import { presentationsData } from "@/data/presentations";
@@ -12,7 +12,7 @@ import { FilterTag, FilterSection } from "@/components/ui/FilterContainer";
 import { LuCalendarRange, LuSearch, LuSwatchBook } from "react-icons/lu";
 import { TbFilterDown } from "react-icons/tb";
 
-export default function TalksPage() {
+function TalksContent() {
     const [showFilters, setShowFilters] = useState(false);
     const { searchQuery, setSearchQuery, filters, toggleFilterValue, clearFilters, hasActiveFilters } = useSyncedFilters<{
         tags: string[];
@@ -245,7 +245,7 @@ export default function TalksPage() {
             mainClassName="containerd border-t border-current"
         >
             {filtered.length > 0 ? (
-                <motion.div variants={fadeIn} initial="hidden" animate="visible" className="max-w-[1440px] mx-auto">
+                <motion.div variants={fadeIn} initial="hidden" animate="visible" className="max-w-360 mx-auto">
                     <PresentationItems presentationIds={filtered} />
                 </motion.div>
             ) : (
@@ -253,12 +253,20 @@ export default function TalksPage() {
                     <p className="mb-8 text-accent">No talks found matching your criteria!</p>
                     <button
                         onClick={clearFilters}
-                        className="px-6 py-3 border border-current hover:bg-[var(--color-text)] hover:text-[var(--color-background)] transition-colors"
+                        className="px-6 py-3 border border-current hover:bg-(--color-text) hover:text-background transition-colors"
                     >
                         Clear all filters
                     </button>
                 </motion.div>
             )}
         </FilteredCollectionPage>
+    );
+}
+
+export default function TalksPage() {
+    return (
+        <Suspense fallback={null}>
+            <TalksContent />
+        </Suspense>
     );
 }

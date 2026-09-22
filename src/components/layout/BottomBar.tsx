@@ -3,12 +3,10 @@
 
 import DateTimePlace from "@/components/ui/DateTimePlace";
 import ThemeSwitch from "@/components/theme/ThemeSwitch";
-import { useTheme } from "@/components/theme/ThemeProvider";
 import { usePathname } from "next/navigation";
 
 export default function BottomBar() {
     const pathname = usePathname() || "";
-    const { theme } = useTheme();
 
     const isPaperDocumentRoute = /^\/papers\/[^/]+\/[^/]+\/?$/.test(pathname);
 
@@ -17,7 +15,7 @@ export default function BottomBar() {
     }
 
     return (
-        <div className={`w-full fixed bottom-0 z-100 flex items-center justify-between p-2 text-theme mix-blend-difference ${theme === "light" && "invert"}`}>
+        <div className="w-full fixed bottom-0 z-100 flex items-center justify-between p-2 text-theme mix-blend-difference invert dark:invert-0">
             <DateTimePlace />
             <ThemeSwitch />
         </div>

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, Suspense } from "react";
 import { motion } from "framer-motion";
 import { fadeIn, staggerContainer, slideUp } from "@/lib/motionVariants";
 import { projectsData } from "@/data/projects";
@@ -15,7 +15,7 @@ import {
 
 import { CATEGORY_MAP, ProjectCategoryKey } from "@/types/project";
 
-export default function ProjectsPage() {
+function ProjectsContent() {
     const projects = projectsData;
     const projectIds = Object.keys(projects);
     const [showFilters, setShowFilters] = useState(false);
@@ -382,5 +382,13 @@ export default function ProjectsPage() {
                 </motion.div>
             )}
         </FilteredCollectionPage>
+    );
+}
+
+export default function ProjectsPage() {
+    return (
+        <Suspense fallback={null}>
+            <ProjectsContent />
+        </Suspense>
     );
 }
