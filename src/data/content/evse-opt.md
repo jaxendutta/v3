@@ -1054,7 +1054,7 @@ So, we can incorprate all of our data to formulate our multi-objective function 
 $$
 \begin{align*}
 \left\lbrace
-\begin{array}{l}
+\begin{array}{ll}
 \max \quad & \sum_{j \in D} w_j \cdot y^2_j \\
 \max \quad & \sum_{j \in D} w_j \cdot y^3_j \\
 \min \quad & C
