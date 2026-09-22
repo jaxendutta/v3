@@ -120,6 +120,12 @@ interface ArticleLayoutProps {
     markdownContent: string;
 }
 
+const extractFigureNumber = (idStr?: string) => {
+    if (!idStr) return null;
+    const m = /^fig-(\d+)$/.exec(idStr);
+    return m ? m[1] : null;
+};
+
 export default function ArticleLayout({ projectId, markdownContent }: ArticleLayoutProps) {
     const project = projectsData[projectId];
     const [titleVisible, setTitleVisible] = useState(false);
@@ -273,15 +279,19 @@ export default function ArticleLayout({ projectId, markdownContent }: ArticleLay
                                         cleanCode = titleMatch[2]; // Code without title block
                                     }
 
+                                    const figNum = extractFigureNumber(figId);
+
                                     return (
                                         <figure id={figId} className="my-6 md:my-12 w-full group">
                                             {/* Pass clean code to Mermaid so it doesn't double-render title */}
                                             <Mermaid chart={cleanCode} />
-                                            <figcaption className="text-center text-xs md:text-sm text-muted-foreground mt-3 italic flex justify-center">
-                                                <a href={`#${figId}`} className="no-underline! hover:text-primary transition-colors flex items-center gap-1.5">
-                                                    <span className="figure-prefix not-italic font-semibold text-foreground/80"></span>
+                                            <figcaption className="text-center text-xs md:text-sm text-muted-foreground mt-3 italic">
+                                                <a href={`#${figId}`} className="no-underline! hover:text-primary transition-colors inline-block text-center">
+                                                    <span className="figure-prefix not-italic font-semibold text-foreground/80">
+                                                        {figNum ? `Figure ${figNum}: ` : "Figure: "}
+                                                    </span>
                                                     <span>{title}</span>
-                                                    <FiLink className="opacity-0 group-hover:opacity-100 transition-opacity text-xs" />
+                                                    <FiLink className="inline-block ml-1.5 opacity-0 group-hover:opacity-100 transition-opacity text-xs align-middle" />
                                                 </a>
                                             </figcaption>
                                         </figure>
@@ -321,14 +331,17 @@ export default function ArticleLayout({ projectId, markdownContent }: ArticleLay
                                 const src = rawSrc.startsWith('/') ? rawSrc : `/images/projects/${projectId}/${rawSrc}`;
                                 const alt = props.alt || "Figure";
                                 const id = props.id || "fig-unknown";
+                                const figNum = extractFigureNumber(id);
                                 return (
                                     <figure id={id} className="my-6 md:my-12 w-full group">
                                         <img {...props} src={src} className="w-full h-auto rounded-none border border-border/40" alt={alt} />
-                                        <figcaption className="text-center text-xs md:text-sm text-muted-foreground mt-3 italic flex justify-center">
-                                            <a href={`#${id}`} className="no-underline! hover:text-primary transition-colors inline-flex items-center gap-1.5">
-                                                <span className="figure-prefix not-italic font-semibold text-foreground/80 inline-flex"></span>
+                                        <figcaption className="text-center text-xs md:text-sm text-muted-foreground mt-3 italic">
+                                            <a href={`#${id}`} className="no-underline! hover:text-primary transition-colors inline-block text-center">
+                                                <span className="figure-prefix not-italic font-semibold text-foreground/80">
+                                                    {figNum ? `Figure ${figNum}: ` : "Figure: "}
+                                                </span>
                                                 <span>{alt}</span>
-                                                <FiLink className="opacity-0 group-hover:opacity-100 transition-opacity" />
+                                                <FiLink className="inline-block ml-1.5 opacity-0 group-hover:opacity-100 transition-opacity align-middle" />
                                             </a>
                                         </figcaption>
                                     </figure>

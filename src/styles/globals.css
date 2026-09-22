@@ -330,12 +330,7 @@ a:hover {
     }
 
     /* --- Figures --- */
-    .article-content figure {
-        counter-increment: figureCounter;
-    }
-
-    .article-content .figure-prefix::before {
-        content: "Figure " counter(figureCounter) ": ";
+    .article-content .figure-prefix {
         font-weight: 600;
     }
 
