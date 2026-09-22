@@ -1,9 +1,9 @@
 "use client";
-import React from "react";
+
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { Project } from "@/types/project";
-import { codeFont, getProjectCardFont } from "@/lib/fonts";
+import { getProjectCardFont } from "@/lib/fonts";
 import { fadeIn } from "@/lib/motionVariants";
 import Tag, { SkillTag } from "@/components/ui/Tag";
 import RotatingButton from "@/components/ui/RotatingButton";
