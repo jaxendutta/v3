@@ -5,7 +5,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { Presentation } from "@/types/presentation";
 import { presentationsData } from "@/data/presentations";
-import { sansFont, serifFont } from "@/lib/fonts";
+import { sansFont, serifFont, baskervilleFont } from "@/lib/fonts";
 import { formatDate } from "@/lib/format";
 
 // Status badge
@@ -52,13 +52,17 @@ export const PresentationItem = ({
                 >
                     <div className="flex items-start md:items-center gap-2.5 md:gap-5 flex-1 min-w-0">
                         {/* Index */}
-                        <div className="flex-shrink-0 flex items-center text-2xl md:text-4xl lg:text-5xl font-thin">
+                        <div className="shrink-0 flex items-center text-2xl md:text-4xl lg:text-5xl font-thin">
                             {(index + 1).toString().padStart(2, "0")}.
                         </div>
 
                         {/* Title + meta */}
                         <div className="flex flex-col justify-center gap-0.5 pr-2 md:pr-8 flex-1 min-w-0">
-                            <p className={`${serifFont} italic text-[15px] md:text-2xl mb-0.5 space-x-1`}>
+                            <p className={`${baskervilleFont} md:hidden italic text-[15px] mb-0.5 space-x-1`}>
+                                <span dangerouslySetInnerHTML={{ __html: data.title }} />
+                                {data.status && <> <StatusBadge status={data.status} /></>}
+                            </p>
+                            <p className={`${serifFont} hidden md:block italic md:text-2xl mb-0.5 space-x-1`}>
                                 <span dangerouslySetInnerHTML={{ __html: data.title }} />
                                 {data.status && <> <StatusBadge status={data.status} /></>}
                             </p>

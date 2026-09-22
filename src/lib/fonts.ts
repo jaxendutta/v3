@@ -201,6 +201,7 @@ export const displayFont = majorMono?.className || "";
 export const codeFont = googleSansCode?.className || "";
 export const sansFont = googleSansFlex?.className || "";
 export const serifFont = playfairDisplay?.className || "";
+export const baskervilleFont = baskerville?.className || "";
 export const serifSCFont = baskervilleSC?.className || "";
 export const csDeviousStippledFont = csDeviousStippled?.className || "";
 export const csDeviousFont = csDevious?.className || "";

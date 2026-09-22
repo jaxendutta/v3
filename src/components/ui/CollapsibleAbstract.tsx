@@ -3,6 +3,7 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
+import { HiChevronDown } from "react-icons/hi2";
 import { codeFont } from "@/lib/fonts";
 
 interface CollapsibleAbstractProps {
@@ -36,14 +37,17 @@ export default function CollapsibleAbstract({
                 </p>
                 <button
                     onClick={toggle}
-                    className={`${codeFont} md:hidden text-[9px] uppercase tracking-widest border-b border-current text-muted-foreground-subtle transition-opacity`}
+                    className={`${codeFont} md:hidden flex items-center gap-1 text-[10px] uppercase tracking-widest text-muted-foreground-subtle transition-opacity`}
                 >
                     {isExpanded ? "Read Less" : "Read More"}
+                    <HiChevronDown
+                        className={`size-2.5 sm:size-3 shrink-0 transition-transform duration-200 ${isExpanded ? "rotate-180" : ""}`}
+                    />
                 </button>
             </div>
 
             <motion.div
-                className="w-full h-0.25 origin-left bg-current mb-3"
+                className="w-full h-px origin-left bg-current mb-3"
                 initial={{ scaleX: 0 }}
                 animate={{ scaleX: 1 }}
                 transition={{ duration: 0.4, ease: "easeOut", delay: lineDelay }}
@@ -53,15 +57,14 @@ export default function CollapsibleAbstract({
                 initial={false}
                 animate={{ height: isExpanded ? "auto" : "4.875rem" }}
                 onAnimationComplete={() => { if (!isExpanded) setIsClamped(true); }}
-                className={`overflow-hidden md:!h-auto ${!isExpanded ? "md:cursor-auto cursor-pointer" : ""}`}
+                className={`overflow-hidden md:h-auto! ${!isExpanded ? "md:cursor-auto cursor-pointer" : ""}`}
                 onClick={!isExpanded ? toggle : undefined}
                 transition={{ duration: 0.35, ease: "easeInOut" }}
             >
-                <p className={`text-xs md:text-sm leading-relaxed text-muted-foreground ${
-                    isClamped
-                        ? "line-clamp-4 text-left md:line-clamp-none md:text-justify"
-                        : "text-justify"
-                }`}>
+                <p className={`text-xs md:text-sm leading-relaxed text-muted-foreground ${isClamped
+                    ? "line-clamp-4 text-left md:line-clamp-none md:text-justify"
+                    : "text-justify"
+                    }`}>
                     {abstract}
                 </p>
             </motion.div>

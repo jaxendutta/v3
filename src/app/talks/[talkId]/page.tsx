@@ -54,7 +54,7 @@ function SectionLabel({ label, delay = 0 }: { label: string; delay?: number }) {
 function MetaRow({ icon: Icon, label, value }: { icon: React.ElementType; label: string; value: React.ReactNode }) {
     return (
         <div className="flex gap-0 md:gap-3 py-2.5 border-b border-current/20">
-            <div className="flex items-center gap-1.25 md:gap-2 min-w-[22.5%] md:min-w-[30%] max-w-[50%] flex-shrink-0 text-muted-foreground-subtle text-[11px] md:text-base leading-0">
+            <div className="flex items-center gap-1.25 md:gap-2 min-w-[22.5%] md:min-w-[30%] max-w-[50%] shrink-0 text-muted-foreground-subtle text-[11px] md:text-base leading-0">
                 <Icon className="mb-0.5 hidden md:inline" />
                 <span className={`${codeFont} uppercase tracking-wider`}>{label}</span>
             </div>
@@ -146,7 +146,7 @@ export default function TalkDetailPage({ params }: { params: Promise<{ talkId: s
                 <Html
                     tag="p"
                     html={data.title}
-                    className={`${serifFont} italic text-[15px] md:text-2xl lg:text-3xl leading-[1.5] text-justify`}
+                    className={`${serifFont} italic text-[15px] md:text-2xl lg:text-3xl leading-normal text-justify`}
                 />
             </motion.div>
 

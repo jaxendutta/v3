@@ -8,7 +8,7 @@ import { papersData } from "@/data/papers";
 import Tag from "@/components/ui/Tag";
 import CollapsibleItem from "@/components/ui/CollapsibleItem";
 import CollapsibleAbstract from "@/components/ui/CollapsibleAbstract";
-import { sansFont, serifFont } from "@/lib/fonts";
+import { sansFont, serifFont, baskervilleFont } from "@/lib/fonts";
 import { formatDate } from "@/lib/format";
 import {
     HiOutlineDocumentText,
@@ -74,8 +74,8 @@ function DocLink({
     const bibFilename = `jaxen-dutta_${slugify(papersData[paperId]?.title ?? paperId)}.bib`;
     const url =
         doc.type === "project" ? `/projects/${paperId}`
-        : doc.type === "bib"   ? `/papers/${paperId}/bib/${bibFilename}`
-        : `/papers/${paperId}/${formatKey}`;
+            : doc.type === "bib" ? `/papers/${paperId}/bib/${bibFilename}`
+                : `/papers/${paperId}/${formatKey}`;
 
     const Icon = DOC_ICONS[doc.type] ?? HiOutlineDocumentText;
 
@@ -95,7 +95,7 @@ function DocLink({
                 style={{ textDecoration: "none", color: "inherit" }}
                 className="flex items-center gap-2"
             >
-                <Icon className="h-4 w-4 flex-shrink-0" />
+                <Icon className="h-4 w-4 shrink-0" />
                 <span>{doc.label}</span>
             </Link>
         </motion.div>
@@ -121,14 +121,21 @@ export const PaperItem = ({
 
     const header = (
         <div className="flex flex-col justify-center gap-0.5 pr-2 md:pr-8">
-            <div className="flex flex-col md:block mb-0.5 tracking-wide md:tracking-wider">
-                <span className={`${serifFont} italic text-[18px] md:text-2xl`}>
+            <div className="mb-0.5 tracking-wide md:tracking-wider">
+                <span className={`${baskervilleFont} md:hidden italic text-[15px]`}>
+                    {data.shortTitle}
+                </span>
+                <span className={`${serifFont} hidden md:inline italic md:text-2xl`}>
                     {data.shortTitle}
                 </span>
                 {data.subtitle && (
                     <>
-                        <span className={`${serifFont} text-[15px] md:text-2xl hidden md:inline`}>—</span>
-                        <span className={`${serifFont} italic text-[15px] md:text-2xl`}>
+                        <span className={`${baskervilleFont} md:hidden italic text-[15px]`}>: </span>
+                        <span className={`${serifFont} hidden md:inline italic md:text-2xl`}>: </span>
+                        <span className={`${baskervilleFont} md:hidden italic text-[15px]`}>
+                            {data.subtitle}
+                        </span>
+                        <span className={`${serifFont} hidden md:inline italic md:text-2xl`}>
                             {data.subtitle}
                         </span>
                     </>
@@ -137,7 +144,7 @@ export const PaperItem = ({
             </div>
             <span
                 className={
-                    `${sansFont} font-thin text-[13px] md:text-base text-muted-foreground md:tracking-wide` +
+                    `${sansFont} font-thin text-[13px] md:text-base md:tracking-wide` +
                     (!isActive ? " group-hover:text-highlight-text" : "")
                 }
             >
@@ -175,7 +182,7 @@ export const PaperItem = ({
                 >
                     {/* Links panel: only one, above on small, right on lg+ */}
                     {docEntries.length > 0 && (
-                        <div className="flex flex-col gap-2 w-full items-start mb-2 lg:mb-0 lg:w-auto lg:items-end lg:order-2 lg:justify-start lg:min-w-0 lg:max-w-[25%] lg:flex-grow-0 lg:flex-shrink-0 lg:basis-auto">
+                        <div className="flex flex-col gap-2 w-full items-start mb-2 lg:mb-0 lg:w-auto lg:items-end lg:order-2 lg:justify-start lg:min-w-0 lg:max-w-[25%] lg:grow-0 lg:shrink-0 lg:basis-auto">
                             <p className="text-[10px] md:text-xs font-mono uppercase tracking-widest text-muted-foreground-subtle mb-1 lg:mb-0">
                                 Links
                             </p>
@@ -192,7 +199,7 @@ export const PaperItem = ({
                         </div>
                     )}
                     {/* Abstract (below links on small, left on lg+) */}
-                    <div className="flex-grow min-w-0 max-w-full lg:min-w-[75%] lg:order-1">
+                    <div className="grow min-w-0 max-w-full lg:min-w-[75%] lg:order-1">
                         <CollapsibleAbstract abstract={data.abstract} />
                     </div>
                 </div>

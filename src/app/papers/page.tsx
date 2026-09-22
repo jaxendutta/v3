@@ -296,8 +296,27 @@ export default function PapersPage() {
             filterPanel={filtersPanel}
             mainClassName="containerd border-t border-current"
         >
+            {/* ── Talks & Presentations subsection ──────────────────── */}
+            <motion.div variants={fadeIn} initial="hidden" animate="visible" className="max-w-360 mx-auto">
+                <div className="flex items-baseline justify-between py-6 md:py-8 border-b border-current mb-0">
+                    <h2 className={`${serifFont} italic text-xl md:text-2xl lg:text-3xl`}>
+                        Talks &amp; Presentations
+                    </h2>
+                    {Object.keys(presentationsData).length > 3 && (
+                        <Link
+                            href="/talks"
+                            className={`${codeFont} text-[10px] md:text-xs uppercase tracking-widest text-muted-foreground-subtle hover:text-accent transition-colors`}
+                            style={{ textDecoration: "none", color: "inherit" }}
+                        >
+                            View all
+                        </Link>
+                    )}
+                </div>
+                <PresentationItems presentationIds={Object.keys(presentationsData)} />
+            </motion.div>
+
             {/* ── Papers subsection ─────────────────────────────────── */}
-            <motion.div variants={fadeIn} initial="hidden" animate="visible" className="max-w-[1440px] mx-auto">
+            <motion.div variants={fadeIn} initial="hidden" animate="visible" className="max-w-360 mx-auto mt-8">
                 <div className="flex items-baseline justify-between py-6 md:py-8 border-b border-current mb-0">
                     <h2 className={`${serifFont} italic text-xl md:text-2xl lg:text-3xl`}>
                         Written Records
@@ -314,29 +333,12 @@ export default function PapersPage() {
                         <p className="mb-8 text-accent">No papers found matching your criteria!</p>
                         <button
                             onClick={clearFilters}
-                            className="px-6 py-3 border border-current hover:bg-[var(--color-text)] hover:text-[var(--color-background)] transition-colors"
+                            className="px-6 py-3 border border-current hover:bg-(--color-text) hover:text-background transition-colors"
                         >
                             Clear all filters
                         </button>
                     </motion.div>
                 )}
-            </motion.div>
-
-            {/* ── Talks & Presentations subsection ──────────────────── */}
-            <motion.div variants={fadeIn} initial="hidden" animate="visible" className="max-w-[1440px] mx-auto mt-8">
-                <div className="flex items-baseline justify-between py-6 md:py-8 border-b border-current mb-0">
-                    <h2 className={`${serifFont} italic text-xl md:text-2xl lg:text-3xl`}>
-                        Talks &amp; Presentations
-                    </h2>
-                    <Link
-                        href="/talks"
-                        className={`${codeFont} text-[10px] md:text-xs uppercase tracking-widest text-muted-foreground-subtle hover:text-accent transition-colors`}
-                        style={{ textDecoration: "none", color: "inherit" }}
-                    >
-                        View all
-                    </Link>
-                </div>
-                <PresentationItems presentationIds={Object.keys(presentationsData)} />
             </motion.div>
         </FilteredCollectionPage>
     );

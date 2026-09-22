@@ -193,8 +193,8 @@ function OverviewSlide({ items, links, isLandscape, index, projectId }: { items:
                                 flex flex-wrap w-full mt-2 md:mt-12
                                 ${!isEven ? "justify-end" : "justify-start"}
                                 gap-2 md:gap-6
-                                [&>*]:scale-[0.8] md:[&>*]:scale-100
-                                ${!isEven ? "[&>*]:origin-right" : "[&>*]:origin-left"} md:[&>*]:origin-center
+                                *:scale-[0.8] md:*:scale-100
+                                ${!isEven ? "*:origin-right" : "*:origin-left"} md:*:origin-center
                             `}>
                                 {links.map((link, linkIndex) => (
                                     <ProjectButton
@@ -208,7 +208,7 @@ function OverviewSlide({ items, links, isLandscape, index, projectId }: { items:
                     </motion.div>
 
                     {/* --- INTERACTIVE IMAGE HALF --- */}
-                    <div className={`${isLandscape ? "w-5/12 h-full" : "w-full min-h-1/2"} flex items-center justify-center perspective-[1200px] z-20`}>
+                    <div className={`${isLandscape ? "w-5/12 h-full" : "w-full min-h-1/2"} flex items-center justify-center perspective-distant z-20`}>
 
                         <FloatingDraggableImage
                             src={projectsData[projectId].image ?? `/${projectId}.png`}
