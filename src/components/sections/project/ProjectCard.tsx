@@ -7,7 +7,7 @@ import { getProjectCardFont } from "@/lib/fonts";
 import { fadeIn } from "@/lib/motionVariants";
 import Tag, { SkillTag } from "@/components/ui/Tag";
 import RotatingButton from "@/components/ui/RotatingButton";
-import FloatingDraggableImage from "@/components/ui/FloatingDraggableImage";
+import Floating3DImage from "@/components/ui/Floating3DImage";
 import { renderFormattedTitle } from "@/lib/format";
 import { useTightWrappedWidth } from "@/hooks/useTightWrappedWidth";
 
@@ -49,24 +49,24 @@ export default function ProjectCard({
 
     return (
         <motion.div
-            className={className}
+            className={`${className} overflow-visible`}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-100px" }}
             variants={fadeIn}
         >
-            <div className={`flex flex-col ${reversed ? "md:flex-row-reverse" : "md:flex-row"} gap-6 md:gap-10 items-center justify-center w-full`}>
+            <div className={`flex flex-col ${reversed ? "md:flex-row-reverse" : "md:flex-row"} gap-4 sm:gap-6 md:gap-10 items-center justify-center w-full max-w-full overflow-visible`}>
                 {/* Project Info */}
-                <div className={`w-full md:w-[40vw] flex flex-col gap-1 md:gap-4 items-center ${reversed ? `md:items-start md:text-left ${chain ? "pl-4" : ""}` : `md:items-end md:text-right ${chain ? "pr-4" : ""}`}`}>
-                    <div className={`w-full flex ${reversed ? "flex-row" : "flex-row-reverse"} md:flex-row gap-6 md:gap-8 items-center justify-center ${reversed ? "md:justify-start md:text-left" : "md:justify-end md:text-right"} text-center ${chain ? "pr-4" : ""}`}>
+                <div className={`w-full min-w-0 max-w-full ${isMobileProject ? "md:w-1/2 lg:w-2/3" : "md:w-[46%] lg:w-[45%]"} flex flex-col gap-1 md:gap-4 items-center ${reversed ? `md:items-start md:text-left ${chain ? "pl-4" : ""}` : `md:items-end md:text-right ${chain ? "pr-4" : ""}`}`}>
+                    <div className={`w-full min-w-0 max-w-full flex ${reversed ? "flex-row" : "flex-row-reverse"} md:flex-row gap-3 sm:gap-6 md:gap-8 items-center justify-center ${reversed ? "md:justify-start md:text-left" : "md:justify-end md:text-right"} text-center ${chain ? "pr-4" : ""}`}>
                         <div
-                            className={`w-fit flex flex-wrap items-center justify-center ${reversed ? "md:justify-start" : "md:justify-end"} gap-x-1.5 md:gap-x-3 gap-y-0 md:gap-y-0.5`}
+                            className={`w-fit min-w-0 max-w-full flex flex-wrap items-center justify-center ${reversed ? "md:justify-start" : "md:justify-end"} gap-x-1.5 md:gap-x-3 gap-y-0 md:gap-y-0.5`}
                             style={wrappedWidth ? { maxWidth: `${wrappedWidth}px` } : undefined}
                         >
                             <Link
                                 ref={titleRef}
                                 href={projectLink}
-                                className={`text-[40px] sm:text-[68px] md:text-7xl lg:text-8xl hover:text-accent transition-colors no-underline! leading-9 md:leading-16 lg:leading-22 ${project.cardFont || getProjectCardFont(id)} px-2 md:px-0 ${reversed ? "md:pl-2" : "md:pr-2"
+                                className={`text-[32px] sm:text-[48px] md:text-7xl lg:text-8xl hover:text-accent transition-colors no-underline! leading-9 md:leading-16 lg:leading-22 wrap-break-word hyphens-auto ${project.cardFont || getProjectCardFont(id)} px-2 md:px-0 ${reversed ? "md:pl-2" : "md:pr-2"
                                     }`}
                             >
                                 {renderFormattedTitle(project.label)}
@@ -77,7 +77,7 @@ export default function ProjectCard({
                                 </span>
                             )}
                         </div>
-                        <div className={`md:hidden ${chain ? (reversed ? "pr-4" : "pl-4") : ""}`}>{exploreButton}</div>
+                        <div className={`md:hidden shrink-0 ${chain ? (reversed ? "pr-4" : "pl-4") : ""}`}>{exploreButton}</div>
                     </div>
 
                     <div className={`flex flex-wrap gap-2 my-2 justify-center ${reversed ? "md:justify-start" : "md:justify-end"}`}>
@@ -101,28 +101,54 @@ export default function ProjectCard({
                 {/* Project Image */}
                 <Link
                     href={projectLink}
-                    className={`w-full ${isMobileProject ? "md:w-2/5" : "md:w-3/5"} relative`}
+                    className={`w-full min-w-0 max-w-full ${isMobileProject ? "md:w-1/2 lg:w-1/3" : "md:w-[54%] lg:w-[55%]"} relative overflow-visible flex items-center justify-center ${isMobileProject ? (reversed ? "md:justify-end" : "md:justify-start") : ""}`}
                 >
-                    <FloatingDraggableImage
-                        src={project.image ?? `/${id}.png`}
-                        alt={project.name}
-                        width={isMobileProject ? 280 : 800}
-                        height={isMobileProject ? 600 : 450}
-                        baseCursor="pointer"
-                        className={`relative mx-auto w-full touch-auto ${isMobileProject ? (reversed ? "-rotate-5" : "rotate-5") : (reversed ? "-rotate-3" : "rotate-3")}`}
-                        frameClassName={`mx-auto ${isMobileProject
-                            ? "w-full max-w-[200px] md:max-w-[280px]"
-                            : "w-full max-w-[800px]"
-                            }`}
-                        imageClassName="w-full h-auto"
-                        style={{
-                            rotateX: 4,
-                        }}
-                        tilt={isMobileProject ? (reversed ? -8 : 8) : 0}
-                        bobPhase={reversed ? 0.8 : 0}
-                        borderOnLandscape={!isMobileProject}
-                        priority
-                    />
+                    {(() => {
+                        const mockupType = project.mockup ?? (isMobileProject ? "none" : "ipad");
+                        const is3DMockup = mockupType === "iphone" || mockupType === "ipad";
+
+                        return (
+                            <Floating3DImage
+                                src={project.image ?? `/${id}.png`}
+                                alt={project.name}
+                                width={isMobileProject ? 280 : 800}
+                                height={isMobileProject ? 600 : 450}
+                                baseCursor="pointer"
+                                align={isMobileProject ? (reversed ? "end" : "start") : "center"}
+                                className={`relative w-full touch-auto overflow-visible ${isMobileProject ? (reversed ? "md:justify-end" : "md:justify-start") : "mx-auto"}`}
+                                frameClassName={`overflow-visible 
+                                    ${isMobileProject
+                                        ? (reversed ? "mx-auto md:ml-auto md:mr-0" : "mx-auto md:mr-auto md:ml-0")
+                                        : "mx-auto"
+                                    }
+                                    ${mockupType === "iphone"
+                                        ? "w-[82%] sm:w-[75%] md:w-full max-w-[380px] max-w-[90svh] max-h-[90svh] aspect-[1/1.9]"
+                                        : isMobileProject
+                                            ? "w-[78%] sm:w-[70%] md:w-full max-w-[300px] max-w-[90svh] max-h-[90svh]"
+                                            : mockupType === "ipad"
+                                                ? "w-[96%] sm:w-[92%] md:w-full max-w-[1100px] aspect-[1.43/1]"
+                                                : "w-full max-w-[800px]"
+                                    }`}
+                                frameStyle={
+                                    mockupType === "iphone"
+                                        ? { maxWidth: "min(380px, 90svh)", maxHeight: "90svh" }
+                                        : isMobileProject
+                                            ? { maxWidth: "min(300px, 90svh)", maxHeight: "90svh" }
+                                            : undefined
+                                }
+                                imageClassName="w-full h-full"
+                                tilt={is3DMockup ? 0 : (reversed ? -8 : 8)}
+                                bobPhase={reversed ? 0.8 : 0}
+                                borderOnLandscape={!is3DMockup && !isMobileProject}
+                                mockup={mockupType}
+                                iphoneColor={(project.mockupColor as any) ?? "cosmic-orange"}
+                                ipadColor={(project.mockupColor as any) ?? "silver"}
+                                initialTiltY={reversed ? (mockupType === "ipad" ? 0.15 : 0.16) : (mockupType === "ipad" ? -0.15 : -0.16)}
+                                initialTiltZ={mockupType === "iphone" ? (reversed ? 0.10 : -0.10) : 0}
+                                priority
+                            />
+                        );
+                    })()}
                 </Link>
             </div>
         </motion.div>

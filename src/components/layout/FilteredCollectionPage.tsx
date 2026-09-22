@@ -42,7 +42,7 @@ export default function FilteredCollectionPage({
     footerClassName = "mt-6",
 }: FilteredCollectionPageProps) {
     return (
-        <div className="min-h-screen flex flex-col gap-4 p-4 md:p-6 lg:p-8 xl:p-12 2xl:p-16 text-[13px] md:text-sm lg:text-base">
+        <div className="min-h-screen flex flex-col gap-4 p-4 md:p-6 lg:p-8 xl:p-12 2xl:p-16 text-[13px] md:text-sm lg:text-base w-full max-w-full overflow-visible">
             <motion.header
                 className="sticky top-4 z-50 flex justify-between items-center"
                 initial={{ y: -100 }}
@@ -67,7 +67,7 @@ export default function FilteredCollectionPage({
                 />
             </motion.header>
 
-            <motion.div variants={fadeIn} initial="hidden" animate="visible" className="w-full">
+            <motion.div variants={fadeIn} initial="hidden" animate="visible" className="w-full max-w-full overflow-visible">
                 <motion.div className={`${titleClassName} text-center`}>
                     {typeof title === "string"
                         ? title.split("").map((char: string, i: number) => (
@@ -79,8 +79,8 @@ export default function FilteredCollectionPage({
                 </motion.div>
 
                 <div className="flex justify-between items-center gap-4 md:gap-8 border-b border-current pb-4">
-                    <div className="w-full min-w-0 text-center items-center text-[13px] xl:text-base leading-[1] justify-center flex flex-wrap">
-                        <span className="max-w-full break-words text-left leading-relaxed">{summary}</span>
+                    <div className="w-full min-w-0 text-center items-center text-[13px] xl:text-base leading-none justify-center flex flex-wrap">
+                        <span className="max-w-full wrap-break-word text-left leading-relaxed">{summary}</span>
                     </div>
 
                     <div className="flex items-center gap-2 md:gap-4 shrink-0">
@@ -95,7 +95,7 @@ export default function FilteredCollectionPage({
                                 animate={{ opacity: 1, y: 0 }}
                                 exit={{ opacity: 0, y: 10 }}
                             >
-                                <TbFilterX className="flex-shrink-0" />
+                                <TbFilterX className="shrink-0" />
                                 <span className="hidden md:flex">Clear filters</span>
                             </motion.button>
                         )}
@@ -107,7 +107,7 @@ export default function FilteredCollectionPage({
                             className="px-2 py-1.5 border border-current hover:bg-foreground hover:text-background transition-colors flex items-center gap-2 whitespace-nowrap text-[13px] xl:text-[15px]"
                             aria-label={isFilterVisible ? "Hide filters" : "Show filters"}
                         >
-                            {isFilterVisible ? <TbFilterUp className="flex-shrink-0" /> : <TbFilterDown className="flex-shrink-0" />}
+                            {isFilterVisible ? <TbFilterUp className="shrink-0" /> : <TbFilterDown className="shrink-0" />}
                             <span className="hidden md:flex">{isFilterVisible ? "Hide filters" : "Show filters"}</span>
                         </button>
                     </div>
@@ -118,7 +118,7 @@ export default function FilteredCollectionPage({
                 {filterPanel}
             </FilterContainer>
 
-            <main className={mainClassName}>{children}</main>
+            <main className={`${mainClassName} w-full max-w-full min-w-0 overflow-visible`}>{children}</main>
 
             <Footer className={footerClassName} />
         </div>

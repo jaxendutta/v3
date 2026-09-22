@@ -16,8 +16,10 @@
     "@react-email/components": "^1.0.12",
     "@react-email/render": "^2.1.0",
     "@tailwindcss/typography": "^0.5.20",
+    "@types/three": "^0.186.0",
     "@vercel/analytics": "^2.0.1",
     "framer-motion": "^13.1.0",
+    "gifuct-js": "^2.1.2",
     "html-react-parser": "^6.1.7",
     "katex": "^0.18.4",
     "mermaid": "^11.17.0",
@@ -37,6 +39,7 @@
     "sonner": "^2.0.8",
     "tailwind-merge": "^3.6.0",
     "tar": "^7.5.22",
+    "three": "^0.186.0",
     "unist-util-visit": "^5.1.0",
     "zod": "^4.4.3"
   },

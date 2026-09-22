@@ -323,22 +323,22 @@ function ProjectsContent() {
             backHref="/#projects"
             backTexts={["Back Home", "Over & Out"]}
             title="Projects"
-            titleClassName="text-7xl md:text-[10rem] pb-8 md:pb-10 lg:pb-12"
+            titleClassName="text-5xl sm:text-7xl md:text-[10rem] pb-8 md:pb-10 lg:pb-12"
             summary={summary}
             isFilterVisible={showFilters}
             onToggleFilters={() => setShowFilters(!showFilters)}
             hasActiveFilters={hasActiveFilters}
             onClearFilters={clearFilters}
             filterPanel={filtersPanel}
-            mainClassName="w-full flex-1 max-w-7xl mx-auto"
+            mainClassName="w-full flex-1 max-w-7xl mx-auto max-w-full overflow-visible"
         >
             {filteredProjects.length > 0 ? (
-                <div className="w-full">
+                <div className="w-full max-w-full overflow-visible">
                     <motion.div
                         variants={staggerContainer}
                         initial="hidden"
                         animate="visible"
-                        className="w-full flex flex-col items-stretch"
+                        className="w-full max-w-full flex flex-col items-stretch overflow-visible"
                     >
                         {filteredProjects.map((id, index) => {
                             const isLast = index === filteredProjects.length - 1;
@@ -347,11 +347,11 @@ function ProjectsContent() {
                                 <motion.div
                                     key={id}
                                     variants={slideUp}
-                                    className={`relative w-full rounded-4xl lg:rounded-[3.5rem] border-12 sm:border-14 md:border-16 lg:border-20 border-current/40 transition-all duration-300 px-6 md:px-8 lg:px-10 pt-12 md:pt-30 
+                                    className={`relative w-full max-w-full overflow-visible rounded-4xl lg:rounded-[3.5rem] border-8 sm:border-12 md:border-16 lg:border-20 border-current/40 transition-all duration-300 px-4 sm:px-6 md:px-8 lg:px-10 pt-8 sm:pt-10 md:pt-16 lg:pt-20 
                                         ${isLast
-                                            ? "pb-16 md:pb-24 lg:pb-32"
-                                            : "pb-24 md:pb-28 lg:pb-36"
-                                        } ${index > 0 ? "-mt-16 sm:-mt-12 lg:-mt-28" : ""}`}
+                                            ? "pb-12 sm:pb-16 md:pb-20 lg:pb-24"
+                                            : "pb-16 sm:pb-20 md:pb-24 lg:pb-28"
+                                        } ${index > 0 ? "-mt-12 sm:-mt-16 lg:-mt-24" : ""}`}
                                     style={{
                                         zIndex: index + 1,
                                         backgroundColor: `var(--project-card-bg-${index % 4})`,

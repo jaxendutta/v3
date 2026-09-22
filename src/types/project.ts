@@ -65,6 +65,8 @@ export interface Project {
     techStack?: Record<string, Tech[]>;
     footer?: string;
     screenshotDevice?: "desktop" | "mobile" | "tablet";
+    mockup?: "iphone" | "ipad" | "none";
+    mockupColor?: "cosmic-orange" | "natural-titanium" | "black-titanium" | "silver" | "space-gray";
     image?: string;
 }
 

@@ -54,6 +54,8 @@ export const projectsData: ProjectsData = {
             end: new Date("2026-08-15")
         },
         screenshotDevice: "desktop",
+        mockup: "ipad",
+        mockupColor: "silver",
         image: "/sqlite-xplore.gif",
         overview: [
             [
@@ -701,6 +703,9 @@ export const projectsData: ProjectsData = {
             end: new Date("2025-11-10")
         },
         screenshotDevice: "mobile",
+        mockup: "iphone",
+        mockupColor: "cosmic-orange",
+        image: "/pvc.png",
         overview: [
             [
                 {
@@ -1166,6 +1171,9 @@ export const projectsData: ProjectsData = {
             start: new Date("2023-08-18"),
             end: new Date("2023-08-18")
         },
+        screenshotDevice: "desktop",
+        mockup: "ipad",
+        mockupColor: "silver",
         overview: [
             [
                 {
@@ -1245,6 +1253,9 @@ export const projectsData: ProjectsData = {
             start: new Date("2023-08-18"),
             end: new Date("2023-08-18")
         },
+        screenshotDevice: "desktop",
+        mockup: "ipad",
+        mockupColor: "silver",
         overview: [
             [
                 {
@@ -1326,6 +1337,9 @@ export const projectsData: ProjectsData = {
             start: new Date("2023-08-18"),
             end: new Date("2023-08-18")
         },
+        screenshotDevice: "desktop",
+        mockup: "ipad",
+        mockupColor: "silver",
         overview: [
             [
                 {
@@ -1407,6 +1421,9 @@ export const projectsData: ProjectsData = {
             start: new Date("2022-08-18"),
             end: new Date("2022-08-18")
         },
+        screenshotDevice: "desktop",
+        mockup: "ipad",
+        mockupColor: "silver",
         overview: [
             [
                 {
