@@ -26,9 +26,9 @@ export default function TypographySpiral({ font }: TypographySpiralProps) {
         return () => observer.disconnect();
     }, []);
 
-    const { spiralPath, gap, isMobile } = useMemo(() => {
+    const { spiralPath, gap } = useMemo(() => {
         const { width: w, height: h } = dimensions;
-        if (w === 0 || h === 0) return { spiralPath: "", gap: 0, isMobile: false };
+        if (w === 0 || h === 0) return { spiralPath: "", gap: 0 };
 
         const mobileCheck = w < 768;
         const isTablet = w >= 768 && w < 1024;
@@ -77,7 +77,7 @@ export default function TypographySpiral({ font }: TypographySpiralProps) {
             }
         }
 
-        return { spiralPath: d, gap: calculatedGap, isMobile: mobileCheck };
+        return { spiralPath: d, gap: calculatedGap };
     }, [dimensions]);
 
     const letters = "Aa Bb Cc Dd Ee Ff Gg Hh Ii Jj Kk Ll Mm Nn Oo Pp Qq Rr Ss Tt Uu Vv Ww Xx Yy Zz   ".repeat(20);

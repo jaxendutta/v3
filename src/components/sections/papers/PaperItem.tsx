@@ -1,7 +1,6 @@
 // src/components/sections/papers/PaperItem.tsx
 "use client";
 
-import { useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { Paper, PaperDocument, DocumentType } from "@/types/paper";
@@ -72,8 +71,6 @@ function DocLink({
     formatKey: string;
     doc: PaperDocument;
 }) {
-    const [isHovered, setIsHovered] = useState(false);
-
     const bibFilename = `jaxen-dutta_${slugify(papersData[paperId]?.title ?? paperId)}.bib`;
     const url =
         doc.type === "project" ? `/projects/${paperId}`
@@ -90,8 +87,6 @@ function DocLink({
                 color: "var(--color-background)",
             }}
             transition={{ duration: 0.2 }}
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
         >
             <Link
                 href={url}

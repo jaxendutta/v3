@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import mermaid from "mermaid";
 
 // 1. Safe Global Init (No Variables here!)
@@ -29,7 +29,6 @@ export default function Mermaid({ chart }: MermaidProps) {
                 // We read the ACTUAL hex values from the DOM
                 const style = getComputedStyle(document.documentElement);
                 const foreground = style.getPropertyValue('--foreground').trim() || '#000000';
-                const primary = style.getPropertyValue('--primary').trim() || '#ff0000';
                 const background = style.getPropertyValue('--background').trim() || '#ffffff';
 
                 // 3. Configure Mermaid for this render

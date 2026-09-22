@@ -5,7 +5,7 @@ import { use } from "react";
 import { notFound } from "next/navigation";
 import { motion } from "framer-motion";
 import { HiOutlineArrowLeft, HiOutlineArrowUp } from "react-icons/hi2";
-import { LuMapPin, LuCalendar, LuBuilding2, LuMic, LuLayers, LuClock, LuPresentation } from "react-icons/lu";
+import { LuMapPin, LuCalendar, LuBuilding2, LuLayers, LuClock, LuPresentation } from "react-icons/lu";
 import { presentationsData } from "@/data/presentations";
 import { SocialItem } from "@/components/sections/contact/SocialItem";
 import RotatingButton from "@/components/ui/RotatingButton";

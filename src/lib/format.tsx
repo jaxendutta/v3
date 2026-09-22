@@ -18,7 +18,6 @@ export const formatDate = (date: Date | string, format: DATE_FORMAT_OPTIONS = "D
     const year = d.toLocaleString("en-CA", { ...options, year: "numeric" });
     const monthLong = d.toLocaleString("en-CA", { ...options, month: "long" });
     const monthShort = d.toLocaleString("en-CA", { ...options, month: "short" });
-    const dayShort = d.toLocaleString("en-CA", { ...options, weekday: "short" });
     const dayLong = d.toLocaleString("en-CA", { ...options, weekday: "long" });
 
     switch (format) {

@@ -1,4 +1,4 @@
-﻿import { ImageResponse } from 'next/og';
+import { ImageResponse } from 'next/og';
 import { GiSquareBottle } from 'react-icons/gi';
 import { loadOgFonts } from '@/lib/og';
 
@@ -6,7 +6,7 @@ export const size = { width: 1200, height: 630 };
 export const contentType = 'image/png';
 
 export default async function Image() {
-    const { serifFamily, sansFamily, codeFamily, fonts } = await loadOgFonts();
+    const { serifFamily, codeFamily, fonts } = await loadOgFonts();
 
     return new ImageResponse(
         (

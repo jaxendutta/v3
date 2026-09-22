@@ -3,7 +3,6 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { HiOutlineArrowRight } from "react-icons/hi2";
 import { Presentation } from "@/types/presentation";
 import { presentationsData } from "@/data/presentations";
 import { sansFont, serifFont } from "@/lib/fonts";

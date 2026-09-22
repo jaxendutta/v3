@@ -140,7 +140,6 @@ export default function HeroInteraction() {
         idleTimerRef.current = setInterval(() => {
             const index = Math.floor(Math.random() * TOTAL_LETTERS);
             const glyphs = getGlyphs(NAME_WORDS.join("")[index] ?? "");
-            const trueForm = glyphs[glyphs.length - 1]; // deepest corruption
 
             // Don't interrupt active letters
             setLetters(prev => {
@@ -242,7 +241,7 @@ export default function HeroInteraction() {
         >
             {NAME_WORDS.map((word, wordIndex) => (
                 <span key={wordIndex} className="flex justify-center">
-                    {word.split("").map((char, charIndex) => {
+                    {word.split("").map((char) => {
                         const fi = flatIndex++;
                         const letter = letters[fi];
                         if (!letter) return null;

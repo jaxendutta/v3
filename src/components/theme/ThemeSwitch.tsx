@@ -3,7 +3,7 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import { useTheme } from "@/components/theme/ThemeProvider";
-import { GiFireflake, GiMoon, GiMoonBats, GiSun } from "react-icons/gi";
+import { GiFireflake, GiMoon } from "react-icons/gi";
 
 export default function ThemeSwitch() {
     const { theme, toggleTheme } = useTheme();

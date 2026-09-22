@@ -83,7 +83,7 @@ function OverviewSlide({ items, links, isLandscape, index, projectId }: { items:
         restDelta: 0.001
     });
 
-    useAnimationFrame((t) => {
+    useAnimationFrame(() => {
         if (!slideRef.current) return;
         const rect = slideRef.current.getBoundingClientRect();
 

@@ -128,7 +128,7 @@ export function useSyncedFilters<T extends FilterMap>({
 
     const clearFilters = () => {
         setSearchQuery("");
-        setFilters((prev) => {
+        setFilters(() => {
             const next = {} as T;
             filterKeys.forEach((key) => {
                 next[key] = [] as unknown as T[typeof key];

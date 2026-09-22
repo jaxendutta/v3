@@ -8,7 +8,7 @@ import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
 import remarkUnwrapImages from "rehype-unwrap-images";
 import rehypeSlug from "rehype-slug";
-import { displayFont, serifFont } from "@/lib/fonts";
+import { serifFont } from "@/lib/fonts";
 import {
     FiCpu, FiLink, FiInfo, FiAlertCircle,
     FiCheckCircle, FiAlertTriangle, FiBookmark
