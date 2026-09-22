@@ -57,7 +57,7 @@ export default function ProjectCard({
         >
             <div className={`flex flex-col ${reversed ? "md:flex-row-reverse" : "md:flex-row"} gap-4 sm:gap-6 md:gap-10 items-center justify-center w-full max-w-full overflow-visible`}>
                 {/* Project Info */}
-                <div className={`w-full min-w-0 max-w-full ${isMobileProject ? "md:w-1/2 lg:w-2/3" : "md:w-[46%] lg:w-[45%]"} flex flex-col gap-1 md:gap-4 items-center ${reversed ? `md:items-start md:text-left ${chain ? "pl-4" : ""}` : `md:items-end md:text-right ${chain ? "pr-4" : ""}`}`}>
+                <div className={`w-full min-w-0 max-w-full ${isMobileProject ? "md:w-1/2 xl:w-3/5" : "md:w-[46%] lg:w-[45%]"} flex flex-col gap-1 md:gap-4 items-center ${reversed ? `md:items-start md:text-left ${chain ? "pl-4" : ""}` : `md:items-end md:text-right ${chain ? "pr-4" : ""}`}`}>
                     <div className={`w-full min-w-0 max-w-full flex ${reversed ? "flex-row" : "flex-row-reverse"} md:flex-row gap-3 sm:gap-6 md:gap-8 items-center justify-center ${reversed ? "md:justify-start md:text-left" : "md:justify-end md:text-right"} text-center ${chain ? "pr-4" : ""}`}>
                         <div
                             className={`w-fit min-w-0 max-w-full flex flex-wrap items-center justify-center ${reversed ? "md:justify-start" : "md:justify-end"} gap-x-1.5 md:gap-x-3 gap-y-0 md:gap-y-0.5`}
@@ -99,15 +99,18 @@ export default function ProjectCard({
                 </div>
 
                 {/* Project Image */}
-                <Link
-                    href={projectLink}
-                    className={`w-full min-w-0 max-w-full ${isMobileProject ? "md:w-1/2 lg:w-1/3" : "md:w-[54%] lg:w-[55%]"} relative overflow-visible flex items-center justify-center ${isMobileProject ? (reversed ? "md:justify-end" : "md:justify-start") : ""}`}
-                >
-                    {(() => {
-                        const mockupType = project.mockup ?? (isMobileProject ? "none" : "ipad");
-                        const is3DMockup = mockupType === "iphone" || mockupType === "ipad";
+                {(() => {
+                    const mockupType = project.mockup ?? (isMobileProject ? "none" : "ipad");
+                    const is3DMockup = mockupType === "iphone" || mockupType === "ipad";
 
-                        return (
+                    return (
+                        <Link
+                            href={projectLink}
+                            className={`w-full min-w-0 max-w-full ${isMobileProject ? "md:w-1/2 lg:w-1/3 pt-4 sm:pt-6 md:pt-0" : "md:w-[54%] lg:w-[55%]"
+                                } ${mockupType === "ipad" ? "py-6 sm:py-8 md:py-0" : ""
+                                } relative overflow-visible flex items-center justify-center ${isMobileProject ? (reversed ? "md:justify-end" : "md:justify-start") : ""
+                                }`}
+                        >
                             <Floating3DImage
                                 src={project.image ?? `/${id}.png`}
                                 alt={project.name}
@@ -122,9 +125,9 @@ export default function ProjectCard({
                                         : "mx-auto"
                                     }
                                     ${mockupType === "iphone"
-                                        ? "w-[82%] sm:w-[75%] md:w-full max-w-[380px] max-w-[90svh] max-h-[90svh] aspect-[1/1.9]"
+                                        ? "w-[82%] sm:w-[75%] md:w-full max-w-[380px] max-w-[90svh] max-h-[90svh] aspect-[1/1.9] mt-2 sm:mt-4 md:mt-0"
                                         : isMobileProject
-                                            ? "w-[78%] sm:w-[70%] md:w-full max-w-[300px] max-w-[90svh] max-h-[90svh]"
+                                            ? "w-[58%] sm:w-[52%] md:w-full max-w-[200px] md:max-w-[300px] max-w-[90svh] max-h-[90svh]"
                                             : mockupType === "ipad"
                                                 ? "w-[96%] sm:w-[92%] md:w-full max-w-[1100px] aspect-[1.43/1]"
                                                 : "w-full max-w-[800px]"
@@ -147,9 +150,9 @@ export default function ProjectCard({
                                 initialTiltZ={mockupType === "iphone" ? (reversed ? 0.10 : -0.10) : 0}
                                 priority
                             />
-                        );
-                    })()}
-                </Link>
+                        </Link>
+                    );
+                })()}
             </div>
         </motion.div>
     );

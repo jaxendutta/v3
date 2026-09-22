@@ -142,6 +142,7 @@ html::-webkit-scrollbar {
     display: none;
 }
 
+html,
 body {
     margin: 0;
     overflow-x: hidden;
@@ -454,5 +455,3 @@ a:hover {
 .font-lunazzi {
     line-height: 0.8 !important;
 }
-
-

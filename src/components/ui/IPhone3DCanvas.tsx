@@ -104,7 +104,8 @@ export default function IPhone3DCanvas({
         if (!container || !canvas) return;
 
         let animationFrameId: number;
-        const BLEED = 0.12;
+        // TWEAK HERE: BLEED controls the invisible overflow canvas margin around the container (0.16 = 16% on each side)
+        const BLEED = 0.16;
         const width = container.clientWidth || 300;
         const height = container.clientHeight || 580;
 
@@ -113,13 +114,19 @@ export default function IPhone3DCanvas({
         const initialAspect = width / height;
         const camera = new THREE.PerspectiveCamera(40, initialAspect, 0.1, 100);
 
+        // Guarantee phone height stays strictly within the container div bounds (90% fill, 5% padding top and bottom)
         const updateCameraDistance = (w: number, h: number) => {
             const aspect = w / h;
             camera.aspect = aspect;
-            const targetAspect = 0.526;
-            const baseDist = 9.2;
-            if (aspect < targetAspect) {
-                camera.position.set(0, 0, baseDist * (targetAspect / aspect));
+            const verticalFill = 0.90;
+            const phoneH = 5.80;
+            const phoneW = 2.74;
+            const hContainer = phoneH / verticalFill;
+            const hCanvas = hContainer * (1 + BLEED * 2);
+            const baseDist = hCanvas / (2 * Math.tan((camera.fov * Math.PI) / 360));
+            const minAspect = phoneW / hContainer;
+            if (aspect < minAspect) {
+                camera.position.set(0, 0, baseDist * (minAspect / aspect));
             } else {
                 camera.position.set(0, 0, baseDist);
             }
@@ -169,6 +176,7 @@ export default function IPhone3DCanvas({
         // 4. Phone Group & Dimensions (19.5 : 9 iPhone Pro geometry)
         const finish = FINISH_COLORS[color] ?? FINISH_COLORS["cosmic-orange"];
         const phoneGroup = new THREE.Group();
+        phoneGroup.position.y = 0;
 
         // Exact screen geometry based on 1179 x 2556 ratio (ultra-thin modern iPhone bezel)
         const screenHeight = 5.68;
@@ -564,7 +572,7 @@ export default function IPhone3DCanvas({
         >
             <canvas
                 ref={canvasRef}
-                className="absolute top-[-12%] left-[-12%] w-[124%] h-[124%] block pointer-events-none overflow-visible"
+                className="absolute top-[-16%] left-[-16%] w-[132%] h-[132%] block pointer-events-none overflow-visible"
             />
 
             {/* Loading Spinner */}

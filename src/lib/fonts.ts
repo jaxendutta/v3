@@ -31,6 +31,9 @@ export const acidic = localFont({
     src: '../../public/fonts/acidic.ttf',
     variable: '--font-acidic',
     display: 'swap',
+    declarations: [
+        { prop: 'size-adjust', value: '88%' },
+    ],
 });
 
 export const schizoidPersonality = localFont({
@@ -91,6 +94,9 @@ export const rc = localFont({
     src: '../../public/fonts/r_c.otf',
     variable: '--font-rc',
     display: 'swap',
+    declarations: [
+        { prop: 'size-adjust', value: '88%' },
+    ],
 });
 
 export const stampTypo = localFont({
@@ -112,6 +118,9 @@ export const blastimoSans = localFont({
     src: '../../public/fonts/blastimo_sans.ttf',
     variable: '--font-blastimo-sans',
     display: 'swap',
+    declarations: [
+        { prop: 'size-adjust', value: '135%' },
+    ],
 });
 
 export const beaconAesthetic = localFont({

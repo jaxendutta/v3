@@ -247,20 +247,36 @@ export default function Floating3DImage({
                     onClickCapture={handleClickCapture}
                 >
                     {/* Floating Drop Shadow on Ground */}
+                    {mockup === "iphone" && (
+                        <motion.div
+                            aria-hidden
+                            style={{
+                                opacity: shadowOpacity,
+                                filter: shadowFilter,
+                                scaleX: shadowScaleX,
+                                scaleY: shadowScaleY,
+                                rotate: initialTiltZ ? (initialTiltZ * 180) / Math.PI : 0,
+                                transform: "translateZ(-80px)",
+                            }}
+                            className="absolute bottom-[-5%] left-1/2 z-0 h-[16%] w-[78%] -translate-x-1/2 rounded-[999px] bg-black/40 pointer-events-none"
+                        />
+                    )}
+
                     <motion.div
                         aria-hidden
                         style={{
-                            opacity: isImageVertical ? sideShadowOpacity : shadowOpacity,
-                            filter: isImageVertical ? sideShadowFilter : shadowFilter,
+                            opacity: (!is3DMockup && isImageVertical) ? sideShadowOpacity : shadowOpacity,
+                            filter: (!is3DMockup && isImageVertical) ? sideShadowFilter : shadowFilter,
                             scaleX: shadowScaleX,
                             scaleY: shadowScaleY,
                             x: is3DMockup ? 0 : dynamicShadowX,
                             y: is3DMockup ? 0 : dynamicShadowY,
+                            rotate: mockup === "iphone" && initialTiltZ ? (initialTiltZ * 180) / Math.PI : 0,
                             transform: "translateZ(-80px)",
                         }}
                         className={
                             mockup === "iphone"
-                                ? "absolute bottom-[-3%] left-1/2 z-0 h-[14%] w-[84%] -translate-x-1/2 rounded-[999px] bg-black/90 pointer-events-none"
+                                ? "absolute bottom-[-3%] left-1/2 z-0 h-[8%] w-[64%] -translate-x-1/2 rounded-[999px] bg-black/70 pointer-events-none"
                                 : mockup === "ipad"
                                     ? "absolute bottom-[-4%] left-1/2 z-0 h-[16%] w-[84%] -translate-x-1/2 rounded-[999px] bg-black/90 pointer-events-none"
                                     : isImageVertical
