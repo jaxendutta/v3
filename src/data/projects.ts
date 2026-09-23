@@ -253,8 +253,8 @@ export const projectsData: ProjectsData = {
         },
         image: {
             device: "mobile",
-            mockup: "none",
-            source: "/jeffrey.png",
+            mockup: "iphone",
+            source: "/jeffrey.mp4",
         },
         overview: [
             [
