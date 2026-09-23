@@ -254,7 +254,7 @@ export const projectsData: ProjectsData = {
         image: {
             device: "mobile",
             mockup: "iphone",
-            mockupColor: "green",
+            mockupColor: "ultramarine",
             source: "/jeffrey.mp4",
         },
         overview: [
@@ -364,7 +364,7 @@ export const projectsData: ProjectsData = {
         image: {
             device: "mobile",
             mockup: "iphone",
-            mockupColor: "ultramarine",
+            mockupColor: "pink",
             source: "/sabeer.mp4",
             boomerang: true,
         },
