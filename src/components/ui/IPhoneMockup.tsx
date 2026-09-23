@@ -47,14 +47,14 @@ const COLOR_STYLES: Record<IPhoneColor, { outerChassis: string; ring: string; bu
         button: "bg-[#b8bcc4]",
     },
     ultramarine: {
-        outerChassis: "bg-gradient-to-b from-[#688fe3] via-[#4f78cf] to-[#3a60b5]",
-        ring: "ring-1 ring-[#9bbcf7]/50",
-        button: "bg-[#456ec4]",
+        outerChassis: "bg-gradient-to-b from-[#9cc7f2] via-[#73aae6] to-[#5591d4]",
+        ring: "ring-1 ring-[#bedcf8]/70",
+        button: "bg-[#659ad9]",
     },
     blue: {
-        outerChassis: "bg-gradient-to-b from-[#688fe3] via-[#4f78cf] to-[#3a60b5]",
-        ring: "ring-1 ring-[#9bbcf7]/50",
-        button: "bg-[#456ec4]",
+        outerChassis: "bg-gradient-to-b from-[#9cc7f2] via-[#73aae6] to-[#5591d4]",
+        ring: "ring-1 ring-[#bedcf8]/70",
+        button: "bg-[#659ad9]",
     },
     teal: {
         outerChassis: "bg-gradient-to-b from-[#4caea7] via-[#338f89] to-[#24706b]",
@@ -67,9 +67,9 @@ const COLOR_STYLES: Record<IPhoneColor, { outerChassis: string; ring: string; bu
         button: "bg-[#94c4a2]",
     },
     pink: {
-        outerChassis: "bg-gradient-to-b from-[#e87f9f] via-[#c86082] to-[#a04664]",
-        ring: "ring-1 ring-[#f8b4c8]/50",
-        button: "bg-[#b04c6c]",
+        outerChassis: "bg-gradient-to-b from-[#f0a8bf] via-[#dc7d9b] to-[#ba5979]",
+        ring: "ring-1 ring-[#f7c6d6]/70",
+        button: "bg-[#cb6b8a]",
     },
     white: {
         outerChassis: "bg-gradient-to-b from-[#ffffff] via-[#ebedf2] to-[#d0d4dc]",

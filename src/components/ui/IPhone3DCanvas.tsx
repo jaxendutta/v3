@@ -76,18 +76,18 @@ const FINISH_COLORS: Record<
     },
     // iPhone 16 / 17 Signature Colors
     ultramarine: {
-        body: 0x4f78cf, // Vibrant luminous cerulean/ultramarine aluminum rim
-        back: 0x688fe3, // Silky bright luminous frosted ultramarine blue glass
-        plateau: 0x456ec4, // Saturated camera plateau
-        ring: 0x7fa4f2, // Polished bright reflective cobalt/sky lens rings
-        logo: 0x4973cb,
+        body: 0x73aae6, // Vibrant pastel sky/cerulean anodized aluminum chassis
+        back: 0x9cc7f2, // Silky luminous rich pastel sky blue rear glass
+        plateau: 0x8bbdf0, // Tinted pastel sky camera plateau
+        ring: 0xbedcf8, // Polished pale ice-blue reflective lens rings
+        logo: 0x659ad9,
     },
     blue: {
-        body: 0x4f78cf,
-        back: 0x688fe3,
-        plateau: 0x456ec4,
-        ring: 0x7fa4f2,
-        logo: 0x4973cb,
+        body: 0x73aae6,
+        back: 0x9cc7f2,
+        plateau: 0x8bbdf0,
+        ring: 0xbedcf8,
+        logo: 0x659ad9,
     },
     teal: {
         body: 0x338f89, // iPhone 16 fresh vibrant cyan-seafoam teal aluminum
@@ -104,11 +104,11 @@ const FINISH_COLORS: Record<
         logo: 0x94c4a2,
     },
     pink: {
-        body: 0xb04c6c, // Vibrant pop-pink / saturated magenta-rose aluminum
-        back: 0xc86082, // Luminous silky frosted punchy pink glass
-        plateau: 0x9c3e5c,
-        ring: 0xdb7597,
-        logo: 0xa64664,
+        body: 0xdc7d9b, // iPhone signature elegant pastel blossom rose aluminum chassis
+        back: 0xf0a8bf, // Silky luminous rich pastel blossom pink rear glass
+        plateau: 0xe895ae, // Delicate pastel rose camera island
+        ring: 0xf7c6d6, // Polished pale rose reflective lens rings
+        logo: 0xcb6b8a,
     },
     white: {
         body: 0xe2e4e8, // Clean bright porcelain white
