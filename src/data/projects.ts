@@ -735,7 +735,8 @@ export const projectsData: ProjectsData = {
             device: "mobile",
             mockup: "iphone",
             mockupColor: "green",
-            source: "/pvc.png",
+            source: "/pvc.mp4",
+            boomerang: true
         },
         overview: [
             [
