@@ -171,7 +171,7 @@ export default function IPad3DCanvas({
         const canvas = canvasRef.current;
         if (!container || !canvas) return;
 
-        let animationFrameId: number;
+        let animationFrameId = 0;
         const BLEED = 0.12;
         const width = container.clientWidth || 580;
         const height = container.clientHeight || 400;
@@ -457,6 +457,7 @@ export default function IPad3DCanvas({
         let gifPlayback: { update: (time: number) => void } | null = null;
         let videoElement: HTMLVideoElement | null = null;
         let isCancelled = false;
+        let isIntersecting = false;
 
         const cleanSrc = src.split("?")[0].toLowerCase();
         const isVideo = cleanSrc.endsWith(".mp4") || cleanSrc.endsWith(".webm") || cleanSrc.endsWith(".ogg");
@@ -487,9 +488,8 @@ export default function IPad3DCanvas({
             screenMaterial.color.setHex(0xffffff);
             screenMaterial.needsUpdate = true;
 
-
-
             const startPlayback = () => {
+                if (!isIntersecting) return;
                 video.play().catch(() => {
                     video.muted = true;
                     video.play().catch(() => {});
@@ -729,6 +729,10 @@ export default function IPad3DCanvas({
         const startTime = performance.now();
 
         const animate = () => {
+            if (!isIntersecting) {
+                animationFrameId = 0;
+                return;
+            }
             animationFrameId = requestAnimationFrame(animate);
             const time = (performance.now() - startTime) * 0.001;
 
@@ -755,13 +759,43 @@ export default function IPad3DCanvas({
                 gifPlayback.update(performance.now());
             }
 
-
             renderer.render(scene, camera);
         };
 
-        animate();
+        const startLoop = () => {
+            if (!animationFrameId) {
+                animationFrameId = requestAnimationFrame(animate);
+            }
+            if (videoElement && videoElement.paused) {
+                videoElement.play().catch(() => {});
+            }
+        };
 
-        // 7. Resize Observer
+        const stopLoop = () => {
+            if (animationFrameId) {
+                cancelAnimationFrame(animationFrameId);
+                animationFrameId = 0;
+            }
+            if (videoElement && !videoElement.paused) {
+                videoElement.pause();
+            }
+        };
+
+        // 7. Visibility Intersection Observer (pauses rendering and video decoding when off-screen)
+        const intersectionObserver = new IntersectionObserver(
+            ([entry]) => {
+                isIntersecting = entry.isIntersecting;
+                if (isIntersecting) {
+                    startLoop();
+                } else {
+                    stopLoop();
+                }
+            },
+            { rootMargin: "300px 0px" }
+        );
+        intersectionObserver.observe(container);
+
+        // 8. Resize Observer
         const resizeObserver = new ResizeObserver(() => {
             if (!container) return;
             const newW = container.clientWidth || 580;
@@ -773,16 +807,16 @@ export default function IPad3DCanvas({
         });
         resizeObserver.observe(container);
 
-        // 8. Cleanup on Unmount
+        // 9. Cleanup on Unmount
         return () => {
             isCancelled = true;
+            intersectionObserver.disconnect();
+            stopLoop();
             if (videoElement) {
-                videoElement.pause();
                 videoElement.removeAttribute("src");
                 videoElement.load();
                 videoElement = null;
             }
-            cancelAnimationFrame(animationFrameId);
             resizeObserver.disconnect();
             container.removeEventListener("pointerdown", onPointerDown);
             container.removeEventListener("pointermove", onPointerMove);

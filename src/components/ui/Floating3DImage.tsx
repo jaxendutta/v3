@@ -7,6 +7,7 @@ import {
     MotionValue,
     motion,
     useAnimationFrame,
+    useInView,
     useMotionValue,
     useSpring,
     useTransform,
@@ -114,8 +115,11 @@ export default function Floating3DImage({
     // Combine base tilt (Z) with subtle Y steering
     const finalRotateZ = tiltValue;
 
-    // Bobbing animation
+    const isInView = useInView(containerRef, { margin: "250px 0px 250px 0px" });
+
+    // Bobbing animation (only runs when near/in viewport)
     useAnimationFrame((time) => {
+        if (!isInView) return;
         const phase = (time / 1000) * ((Math.PI * 2) / bobDuration) + bobPhase;
         hoverOffset.set(Math.sin(phase) * bobAmplitude);
     });

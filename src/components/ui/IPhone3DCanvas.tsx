@@ -188,7 +188,7 @@ export default function IPhone3DCanvas({
         const canvas = canvasRef.current;
         if (!container || !canvas) return;
 
-        let animationFrameId: number;
+        let animationFrameId = 0;
         // TWEAK HERE: BLEED controls the invisible overflow canvas margin around the container (0.16 = 16% on each side)
         const BLEED = 0.16;
         const width = container.clientWidth || 300;
@@ -500,6 +500,7 @@ export default function IPhone3DCanvas({
         let gifPlayback: { update: (time: number) => void } | null = null;
         let videoElement: HTMLVideoElement | null = null;
         let isCancelled = false;
+        let isIntersecting = false;
 
         const cleanSrc = src.split("?")[0].toLowerCase();
         const isVideo = cleanSrc.endsWith(".mp4") || cleanSrc.endsWith(".webm") || cleanSrc.endsWith(".ogg");
@@ -529,9 +530,8 @@ export default function IPhone3DCanvas({
             screenMaterial.color.setHex(0xffffff);
             screenMaterial.needsUpdate = true;
 
-
-
             const startPlayback = () => {
+                if (!isIntersecting) return;
                 video.play().catch(() => {
                     video.muted = true;
                     video.play().catch(() => {});
@@ -864,6 +864,10 @@ export default function IPhone3DCanvas({
         const bobAmplitude3D = 0.05;
 
         const animate = () => {
+            if (!isIntersecting) {
+                animationFrameId = 0;
+                return;
+            }
             animationFrameId = requestAnimationFrame(animate);
             const time = (performance.now() - startTime) * 0.001;
 
@@ -922,13 +926,43 @@ export default function IPhone3DCanvas({
                 gifPlayback.update(performance.now());
             }
 
-
             renderer.render(scene, camera);
         };
 
-        animate();
+        const startLoop = () => {
+            if (!animationFrameId) {
+                animationFrameId = requestAnimationFrame(animate);
+            }
+            if (videoElement && videoElement.paused) {
+                videoElement.play().catch(() => {});
+            }
+        };
 
-        // 7. Resize Observer
+        const stopLoop = () => {
+            if (animationFrameId) {
+                cancelAnimationFrame(animationFrameId);
+                animationFrameId = 0;
+            }
+            if (videoElement && !videoElement.paused) {
+                videoElement.pause();
+            }
+        };
+
+        // 7. Visibility Intersection Observer (pauses rendering and video decoding when off-screen)
+        const intersectionObserver = new IntersectionObserver(
+            ([entry]) => {
+                isIntersecting = entry.isIntersecting;
+                if (isIntersecting) {
+                    startLoop();
+                } else {
+                    stopLoop();
+                }
+            },
+            { rootMargin: "300px 0px" }
+        );
+        intersectionObserver.observe(container);
+
+        // 8. Resize Observer
         const resizeObserver = new ResizeObserver(() => {
             if (!container) return;
             const newW = container.clientWidth || 300;
@@ -940,16 +974,16 @@ export default function IPhone3DCanvas({
         });
         resizeObserver.observe(container);
 
-        // 8. Cleanup on Unmount
+        // 9. Cleanup on Unmount
         return () => {
             isCancelled = true;
+            intersectionObserver.disconnect();
+            stopLoop();
             if (videoElement) {
-                videoElement.pause();
                 videoElement.removeAttribute("src");
                 videoElement.load();
                 videoElement = null;
             }
-            cancelAnimationFrame(animationFrameId);
             resizeObserver.disconnect();
             container.removeEventListener("pointerdown", onPointerDown);
             container.removeEventListener("pointermove", onPointerMove);
