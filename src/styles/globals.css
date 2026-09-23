@@ -153,6 +153,8 @@ html::-webkit-scrollbar {
 html {
     margin: 0;
     width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
     min-height: 100vh;
     color-scheme: light dark;
     background-color: var(--background);

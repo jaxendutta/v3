@@ -61,8 +61,8 @@ export default function ProjectCard({
                 <div className={`w-full min-w-0 max-w-full ${isMobileProject ? "md:w-1/2 xl:w-3/5" : "md:w-[46%] lg:w-[45%]"} flex flex-col gap-1 md:gap-4 items-center ${reversed ? `md:items-start md:text-left ${chain ? "pl-4" : ""}` : `md:items-end md:text-right ${chain ? "pr-4" : ""}`}`}>
                     <div className={`w-full min-w-0 max-w-full flex ${reversed ? "flex-row" : "flex-row-reverse"} md:flex-row gap-3 sm:gap-6 md:gap-8 items-center justify-center ${reversed ? "md:justify-start" : "md:justify-end"} ${chain ? "pr-4" : ""}`}>
                         <div
-                            className={`w-fit min-w-0 max-w-full flex flex-wrap items-center ${reversed ? "justify-end text-right md:justify-start md:text-left" : "justify-start text-left md:justify-end md:text-right"} gap-x-1.5 md:gap-x-3 gap-y-0 md:gap-y-0.5`}
-                            style={wrappedWidth ? { maxWidth: `${wrappedWidth}px` } : undefined}
+                            className={`w-fit min-w-0 max-w-[calc(100%-85px)] md:max-w-full flex flex-wrap items-center ${reversed ? "justify-end text-right md:justify-start md:text-left" : "justify-start text-left md:justify-end md:text-right"} gap-x-1.5 md:gap-x-3 gap-y-0 md:gap-y-0.5`}
+                            style={wrappedWidth ? { maxWidth: `min(${wrappedWidth}px, 100%)` } : undefined}
                         >
                             <Link
                                 ref={titleRef}
@@ -125,19 +125,21 @@ export default function ProjectCard({
                                         : "mx-auto"
                                     }
                                     ${mockupType === "iphone"
-                                        ? "w-[82%] sm:w-[75%] md:w-full max-w-[380px] max-w-[90svh] max-h-[90svh] aspect-[1/1.9] mt-2 sm:mt-4 md:mt-0"
+                                        ? "w-[66%] sm:w-[60%] md:w-full max-w-[250px] sm:max-w-[280px] md:max-w-[380px] max-h-[60svh] md:max-h-[90svh] aspect-[1/1.9] mt-2 sm:mt-4 md:mt-0"
                                         : isMobileProject
-                                            ? "w-[58%] sm:w-[52%] md:w-full max-w-[200px] md:max-w-[300px] max-w-[90svh] max-h-[90svh]"
+                                            ? "w-[52%] sm:w-[48%] md:w-full max-w-[190px] md:max-w-[300px] max-h-[60svh] md:max-h-[90svh]"
                                             : mockupType === "ipad"
-                                                ? "w-[96%] sm:w-[92%] md:w-full max-w-[1100px] aspect-[1.43/1]"
-                                                : "w-full max-w-[800px]"
+                                                ? "w-[84%] sm:w-[86%] md:w-full max-w-[300px] sm:max-w-[460px] md:max-w-[1100px] aspect-[1.43/1]"
+                                                : "w-[84%] sm:w-[88%] md:w-full max-w-[320px] sm:max-w-[500px] md:max-w-[800px]"
                                     }`}
                                 frameStyle={
                                     mockupType === "iphone"
                                         ? { maxWidth: "min(380px, 90svh)", maxHeight: "90svh" }
                                         : isMobileProject
                                             ? { maxWidth: "min(300px, 90svh)", maxHeight: "90svh" }
-                                            : undefined
+                                            : mockupType === "ipad"
+                                                ? { maxWidth: "min(1100px, 80svh)", maxHeight: "80svh" }
+                                                : undefined
                                 }
                                 imageClassName="w-full h-full"
                                 tilt={is3DMockup ? 0 : (reversed ? -8 : 8)}
