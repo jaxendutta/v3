@@ -144,8 +144,8 @@ export default function ProjectCard({
                                 bobPhase={reversed ? 0.8 : 0}
                                 borderOnLandscape={!is3DMockup && !isMobileProject}
                                 mockup={mockupType}
-                                iphoneColor={(mockupColor as any) ?? "cosmic-orange"}
-                                ipadColor={(mockupColor as any) ?? "silver"}
+                                iphoneColor={mockupColor ?? "cosmic-orange"}
+                                ipadColor={mockupColor ?? "silver"}
                                 initialTiltY={reversed ? (mockupType === "ipad" ? 0.15 : 0.16) : (mockupType === "ipad" ? -0.15 : -0.16)}
                                 initialTiltZ={mockupType === "iphone" ? (reversed ? 0.10 : -0.10) : 0}
                                 boomerang={boomerang}

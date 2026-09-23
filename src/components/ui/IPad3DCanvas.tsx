@@ -9,7 +9,14 @@ export type DeviceFinish =
     | "silver"
     | "natural-titanium"
     | "black-titanium"
-    | "cosmic-orange";
+    | "cosmic-orange"
+    | "ultramarine"
+    | "blue"
+    | "teal"
+    | "green"
+    | "pink"
+    | "white"
+    | "black";
 
 interface IPad3DCanvasProps {
     src: string;
@@ -59,6 +66,48 @@ const FINISH_COLORS: Record<
         back: 0xc46938,
         ring: 0xdc814b,
         logo: 0xd57a44,
+    },
+    ultramarine: {
+        body: 0x4f78cf,
+        back: 0x688fe3,
+        ring: 0x7fa4f2,
+        logo: 0x4973cb,
+    },
+    blue: {
+        body: 0x4f78cf,
+        back: 0x688fe3,
+        ring: 0x7fa4f2,
+        logo: 0x4973cb,
+    },
+    teal: {
+        body: 0x338f89,
+        back: 0x4caea7,
+        ring: 0x60c2bb,
+        logo: 0x308882,
+    },
+    green: {
+        body: 0x4a7856,
+        back: 0x60946d,
+        ring: 0x75ad84,
+        logo: 0x467351,
+    },
+    pink: {
+        body: 0xb04c6c,
+        back: 0xc86082,
+        ring: 0xdb7597,
+        logo: 0xa64664,
+    },
+    white: {
+        body: 0xe2e4e8,
+        back: 0xf0f2f5,
+        ring: 0xf5f7fa,
+        logo: 0xd2d5db,
+    },
+    black: {
+        body: 0x1f2023,
+        back: 0x18191b,
+        ring: 0x2e3034,
+        logo: 0x28292c,
     },
 };
 

@@ -48,10 +48,24 @@ export interface ProjectDate {
     end?: Date;
 }
 
+export type DeviceColor =
+    | "cosmic-orange"
+    | "natural-titanium"
+    | "black-titanium"
+    | "silver"
+    | "space-gray"
+    | "ultramarine"
+    | "blue"
+    | "teal"
+    | "green"
+    | "pink"
+    | "white"
+    | "black";
+
 export interface ProjectMediaConfig {
     device: "desktop" | "mobile" | "tablet";
     mockup: "iphone" | "ipad" | "none";
-    mockupColor?: "cosmic-orange" | "natural-titanium" | "black-titanium" | "silver" | "space-gray";
+    mockupColor?: DeviceColor;
     source: string;
     boomerang?: boolean;
 }
@@ -81,7 +95,7 @@ export function getProjectMedia(project: Project | undefined, id?: string): {
     source: string;
     device: "desktop" | "mobile" | "tablet";
     mockup: "iphone" | "ipad" | "none";
-    mockupColor?: "cosmic-orange" | "natural-titanium" | "black-titanium" | "silver" | "space-gray";
+    mockupColor?: DeviceColor;
     boomerang: boolean;
 } {
     if (!project) {

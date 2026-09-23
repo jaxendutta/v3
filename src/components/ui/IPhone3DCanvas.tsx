@@ -4,7 +4,19 @@ import React, { useEffect, useRef, useState } from "react";
 import * as THREE from "three";
 import { parseGIF, decompressFrames } from "gifuct-js";
 
-export type IPhoneFinish = "cosmic-orange" | "natural-titanium" | "black-titanium" | "silver";
+export type IPhoneFinish =
+    | "cosmic-orange"
+    | "natural-titanium"
+    | "black-titanium"
+    | "silver"
+    | "space-gray"
+    | "ultramarine"
+    | "blue"
+    | "teal"
+    | "green"
+    | "pink"
+    | "white"
+    | "black";
 
 interface IPhone3DCanvasProps {
     src: string;
@@ -54,6 +66,63 @@ const FINISH_COLORS: Record<
         plateau: 0xc2c6cc,
         ring: 0xe6e9ee,
         logo: 0xd4d8de,
+    },
+    "space-gray": {
+        body: 0x3d3f44,
+        back: 0x323438,
+        plateau: 0x2a2c30,
+        ring: 0x5a5d64,
+        logo: 0x484b52,
+    },
+    // iPhone 16 / 17 Signature Colors
+    ultramarine: {
+        body: 0x4f78cf, // Vibrant luminous cerulean/ultramarine aluminum rim
+        back: 0x688fe3, // Silky bright luminous frosted ultramarine blue glass
+        plateau: 0x456ec4, // Saturated camera plateau
+        ring: 0x7fa4f2, // Polished bright reflective cobalt/sky lens rings
+        logo: 0x4973cb,
+    },
+    blue: {
+        body: 0x4f78cf,
+        back: 0x688fe3,
+        plateau: 0x456ec4,
+        ring: 0x7fa4f2,
+        logo: 0x4973cb,
+    },
+    teal: {
+        body: 0x338f89, // iPhone 16 fresh vibrant cyan-seafoam teal aluminum
+        back: 0x4caea7, // Silky frosted luminous tropical seafoam glass
+        plateau: 0x28807a,
+        ring: 0x60c2bb, // Bright polished cyan-teal lens rings
+        logo: 0x308882,
+    },
+    green: {
+        body: 0x4a7856, // iPhone 17 elegant botanical sage/forest metallic green
+        back: 0x60946d, // Silky luminous frosted sage green rear glass
+        plateau: 0x3e6b49, // Deep botanical camera plateau
+        ring: 0x75ad84, // Polished metallic sage-green lens rings
+        logo: 0x467351,
+    },
+    pink: {
+        body: 0xb04c6c, // Vibrant pop-pink / saturated magenta-rose aluminum
+        back: 0xc86082, // Luminous silky frosted punchy pink glass
+        plateau: 0x9c3e5c,
+        ring: 0xdb7597,
+        logo: 0xa64664,
+    },
+    white: {
+        body: 0xe2e4e8, // Clean bright porcelain white
+        back: 0xf0f2f5,
+        plateau: 0xdcdfe4,
+        ring: 0xf5f7fa,
+        logo: 0xd2d5db,
+    },
+    black: {
+        body: 0x1f2023, // Deep stealth matte black
+        back: 0x18191b,
+        plateau: 0x141517,
+        ring: 0x2e3034,
+        logo: 0x28292c,
     },
 };
 
