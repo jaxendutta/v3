@@ -4,6 +4,7 @@ import { majorMono, googleSansCode } from "@/lib/fonts";
 import { Analytics } from "@vercel/analytics/react";
 import { ThemeProvider } from "@/components/theme/ThemeProvider";
 import BottomBar from "@/components/layout/BottomBar";
+import SafeAreaScrim from "@/components/layout/SafeAreaScrim";
 import BrowserThemeColor from "@/components/pwa/BrowserThemeColor";
 import PWARegister from "@/components/pwa/PWARegister";
 
@@ -122,6 +123,7 @@ export default function RootLayout({
                     <BrowserThemeColor />
                     <PWARegister />
                     <BottomBar />
+                    <SafeAreaScrim />
                     <div className="max-w-[2048px] mx-auto w-full">
                         {children}
                     </div>
