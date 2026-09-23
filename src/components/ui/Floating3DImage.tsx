@@ -174,8 +174,8 @@ export default function Floating3DImage({
     };
 
     const combinedFrameStyle: CSSProperties = {
-        ...(frameStyle ?? {}),
         aspectRatio: is3DMockup ? undefined : `${imageSize.width} / ${imageSize.height}`,
+        ...(frameStyle ?? {}),
         position: "relative",
         transformStyle: "preserve-3d",
     };
