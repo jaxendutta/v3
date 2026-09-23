@@ -299,7 +299,7 @@ export default function IPhone3DCanvas({
         const bodyMesh = new THREE.Mesh(bodyGeometry, bodyMaterial);
         phoneGroup.add(bodyMesh);
 
-        // Hardware Side Details on the Titanium Edges
+        // Hardware Side Details on the Titanium Edges (Rounded pill buttons with bevels)
         const buttonMat = new THREE.MeshStandardMaterial({
             color: finish.button,
             metalness: 0.82,
@@ -307,27 +307,48 @@ export default function IPhone3DCanvas({
         });
         disposables.push(buttonMat);
 
+        const createPillButtonGeometry = (lengthY: number, thicknessZ: number, protrusionX: number) => {
+            const cornerRadius = Math.min(thicknessZ * 0.45, 0.042);
+            const shape = createRoundedRectShape(thicknessZ, lengthY, cornerRadius);
+            const geom = new THREE.ExtrudeGeometry(shape, {
+                depth: protrusionX,
+                bevelEnabled: true,
+                bevelSegments: 4,
+                steps: 1,
+                bevelSize: 0.008,
+                bevelThickness: 0.008,
+                curveSegments: 16,
+            });
+            geom.center();
+            disposables.push(geom);
+            return geom;
+        };
+
+        const buttonThickness = 0.10;
+        const buttonProtrusion = 0.024;
+        const buttonOffset = phoneWidth / 2 + 0.015;
+
         // Left Edge Action Button (near the top)
-        const actionBtnGeom = new THREE.BoxGeometry(0.05, 0.30, phoneThickness * 0.4);
-        disposables.push(actionBtnGeom);
+        const actionBtnGeom = createPillButtonGeometry(0.28, buttonThickness, buttonProtrusion);
         const actionBtn = new THREE.Mesh(actionBtnGeom, buttonMat);
-        actionBtn.position.set(-(phoneWidth / 2 + 0.025), 1.75, 0);
+        actionBtn.rotation.y = -Math.PI / 2;
+        actionBtn.position.set(-buttonOffset, 1.75, 0);
         phoneGroup.add(actionBtn);
 
         // Left Edge Volume Up / Volume Down Rockers
-        [{ y: 1.05, h: 0.46 }, { y: 0.48, h: 0.46 }].forEach(({ y, h }) => {
-            const volGeom = new THREE.BoxGeometry(0.05, h, phoneThickness * 0.4);
-            disposables.push(volGeom);
+        [{ y: 1.05, h: 0.44 }, { y: 0.48, h: 0.44 }].forEach(({ y, h }) => {
+            const volGeom = createPillButtonGeometry(h, buttonThickness, buttonProtrusion);
             const volBtn = new THREE.Mesh(volGeom, buttonMat);
-            volBtn.position.set(-(phoneWidth / 2 + 0.025), y, 0);
+            volBtn.rotation.y = -Math.PI / 2;
+            volBtn.position.set(-buttonOffset, y, 0);
             phoneGroup.add(volBtn);
         });
 
         // Right Edge Power / Side Button
-        const powerBtnGeom = new THREE.BoxGeometry(0.05, 0.62, phoneThickness * 0.4);
-        disposables.push(powerBtnGeom);
+        const powerBtnGeom = createPillButtonGeometry(0.60, buttonThickness, buttonProtrusion);
         const powerBtn = new THREE.Mesh(powerBtnGeom, buttonMat);
-        powerBtn.position.set(phoneWidth / 2 + 0.025, 0.95, 0);
+        powerBtn.rotation.y = Math.PI / 2;
+        powerBtn.position.set(buttonOffset, 0.95, 0);
         phoneGroup.add(powerBtn);
 
         // B. Back Frosted Glass Panel
