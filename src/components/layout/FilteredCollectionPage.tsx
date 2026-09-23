@@ -42,30 +42,40 @@ export default function FilteredCollectionPage({
     footerClassName = "mt-6",
 }: FilteredCollectionPageProps) {
     return (
-        <div className="min-h-screen flex flex-col gap-4 p-4 md:p-6 lg:p-8 xl:p-12 2xl:p-16 text-[13px] md:text-sm lg:text-base w-full max-w-full overflow-x-clip">
+        <div id="top" className="min-h-screen flex flex-col gap-4 p-4 md:p-6 lg:p-8 xl:p-12 2xl:p-16 text-[13px] md:text-sm lg:text-base w-full max-w-full overflow-x-clip">
             <motion.header
-                className="sticky top-4 z-50 flex justify-between items-center"
+                className="fixed top-0 left-0 right-0 z-50 pointer-events-none"
                 initial={{ y: -100 }}
                 animate={{ y: 0 }}
                 transition={{ duration: 0.4, ease: "easeOut" }}
             >
-                <RotatingButton
-                    href={backHref}
-                    texts={backTexts}
-                    centerIcon={HiOutlineArrowLeft}
-                    size={80}
-                    fontSize={12}
-                    variant="glow"
-                />
-                <RotatingButton
-                    href="#top"
-                    texts={["Back to top", "Scroll up"]}
-                    centerIcon={HiOutlineArrowUp}
-                    size={80}
-                    fontSize={12}
-                    variant="glow"
-                />
+                <div className="max-w-[2048px] mx-auto w-full flex justify-between items-center px-4 md:px-6 lg:px-8 xl:px-12 2xl:px-16 pt-[max(1rem,env(safe-area-inset-top))] md:pt-[max(1.5rem,env(safe-area-inset-top))] lg:pt-[max(2rem,env(safe-area-inset-top))] xl:pt-[max(3rem,env(safe-area-inset-top))] 2xl:pt-[max(4rem,env(safe-area-inset-top))]">
+                    <div className="pointer-events-auto">
+                        <RotatingButton
+                            href={backHref}
+                            texts={backTexts}
+                            centerIcon={HiOutlineArrowLeft}
+                            size={80}
+                            fontSize={12}
+                            variant="glow"
+                        />
+                    </div>
+                    <div className="pointer-events-auto">
+                        <RotatingButton
+                            href="#top"
+                            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+                            texts={["Back to top", "Scroll up"]}
+                            centerIcon={HiOutlineArrowUp}
+                            size={80}
+                            fontSize={12}
+                            variant="glow"
+                        />
+                    </div>
+                </div>
             </motion.header>
+
+            {/* In-flow spacer preserving vertical height for fixed header */}
+            <div className="h-20 shrink-0 pointer-events-none" aria-hidden="true" />
 
             <motion.div variants={fadeIn} initial="hidden" animate="visible" className="w-full max-w-full overflow-visible">
                 <motion.div className={`${titleClassName} text-center`}>
