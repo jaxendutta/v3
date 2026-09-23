@@ -1,9 +1,22 @@
 import "@/styles/globals.css";
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { majorMono, googleSansCode } from "@/lib/fonts";
 import { Analytics } from "@vercel/analytics/react";
 import { ThemeProvider } from "@/components/theme/ThemeProvider";
 import BottomBar from "@/components/layout/BottomBar";
+import BrowserThemeColor from "@/components/pwa/BrowserThemeColor";
+import PWARegister from "@/components/pwa/PWARegister";
+
+export const viewport: Viewport = {
+    width: "device-width",
+    initialScale: 1,
+    maximumScale: 5,
+    viewportFit: "cover",
+    themeColor: [
+        { media: "(prefers-color-scheme: light)", color: "#fff7ed" },
+        { media: "(prefers-color-scheme: dark)", color: "#18181b" },
+    ],
+};
 
 export const metadata: Metadata = {
     metadataBase: new URL('https://anirban.ca'),
@@ -23,6 +36,28 @@ export const metadata: Metadata = {
     ],
     authors: [{ name: "Jaxen Dutta" }],
     creator: "Jaxen Dutta",
+    appleWebApp: {
+        capable: true,
+        statusBarStyle: "black-translucent",
+        title: "Jaxen Dutta",
+    },
+    formatDetection: {
+        telephone: false,
+    },
+    icons: {
+        icon: [
+            { url: "/favicon.ico" },
+            { url: "/favicon.png", type: "image/png" },
+            { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+            { url: "/icon-48.png", sizes: "48x48", type: "image/png" },
+            { url: "/icon-96.png", sizes: "96x96", type: "image/png" },
+            { url: "/icon-192.png", sizes: "192x192", type: "image/png" },
+            { url: "/icon-512.png", sizes: "512x512", type: "image/png" },
+        ],
+        apple: [
+            { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
+        ],
+    },
     openGraph: {
         type: "website",
         locale: "en_US",
@@ -61,10 +96,6 @@ export default function RootLayout({
         >
             <head>
                 <meta charSet="utf-8" />
-                <meta
-                    name="viewport"
-                    content="width=device-width, initial-scale=1.0, maximum-scale=5.0"
-                />
                 <link rel="icon" href="/favicon.ico" sizes="any" />
                 <link rel="icon" href="/favicon.png" type="image/png" />
 
@@ -88,6 +119,8 @@ export default function RootLayout({
             <body className="min-h-dvh w-full cursor-crosshair">
                 <Analytics />
                 <ThemeProvider>
+                    <BrowserThemeColor />
+                    <PWARegister />
                     <BottomBar />
                     <div className="max-w-[2048px] mx-auto w-full">
                         {children}

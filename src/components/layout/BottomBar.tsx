@@ -15,7 +15,7 @@ export default function BottomBar() {
     }
 
     return (
-        <div className="w-full fixed bottom-0 z-100 flex items-center justify-between p-2 text-theme mix-blend-difference invert dark:invert-0">
+        <div className="w-full fixed bottom-0 z-100 flex items-center justify-between px-2 pt-2 pb-[max(0.5rem,env(safe-area-inset-bottom))] text-theme mix-blend-difference invert dark:invert-0">
             <DateTimePlace />
             <ThemeSwitch />
         </div>

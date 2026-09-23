@@ -128,7 +128,7 @@ export default function ProjectsPageHeader({
     };
 
     return (
-        <header className="fixed top-0 left-0 right-0 z-50 p-3 pb-5 flex items-center bg-linear-to-b from-background/95 to-transparent backdrop-blur-sm mask-[linear-gradient(to_bottom,black_70%,transparent_100%)]">
+        <header className="fixed top-0 left-0 right-0 z-50 px-3 pb-5 pt-[max(0.75rem,env(safe-area-inset-top))] flex items-center bg-linear-to-b from-background/95 to-transparent backdrop-blur-sm mask-[linear-gradient(to_bottom,black_70%,transparent_100%)]">
             <LayoutGroup>
                 <motion.div
                     className={`w-full flex items-center justify-between ${titleVisible && "gap-4 lg:gap-6"}`}

@@ -87,6 +87,19 @@ const nextConfig: NextConfig = {
 
         return [
             {
+                source: "/sw.js",
+                headers: [
+                    {
+                        key: "Cache-Control",
+                        value: "no-cache, no-store, must-revalidate",
+                    },
+                    {
+                        key: "Content-Type",
+                        value: "application/javascript; charset=utf-8",
+                    },
+                ],
+            },
+            {
                 source: "/:all*(svg|jpg|jpeg|png|webp|avif|woff2|woff|gif|pdf)",
                 headers: [
                     {
