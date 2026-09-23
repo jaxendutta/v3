@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { Project } from "@/types/project";
+import { Project, getProjectMedia } from "@/types/project";
 import { getProjectCardFont } from "@/lib/fonts";
 import { fadeIn } from "@/lib/motionVariants";
 import Tag, { SkillTag } from "@/components/ui/Tag";
@@ -29,8 +29,9 @@ export default function ProjectCard({
     chain = false,
     className = "max-w-[90vw] mx-auto mt-4 mb-6 md:my-8",
 }: ProjectCardProps) {
-    // Use mobile screenshot vs desktop logic based on the ID
-    const isMobileProject = project.screenshotDevice === "mobile";
+    const { source, device, mockup: mockupType, mockupColor, boomerang } =
+        getProjectMedia(project, id);
+    const isMobileProject = device === "mobile";
     const projectLink = `/projects/${id}`;
     const skillCount = Object.values(project.techStack || []).flat().length;
 
@@ -100,7 +101,6 @@ export default function ProjectCard({
 
                 {/* Project Image */}
                 {(() => {
-                    const mockupType = project.mockup ?? (isMobileProject ? "none" : "ipad");
                     const is3DMockup = mockupType === "iphone" || mockupType === "ipad";
 
                     return (
@@ -112,7 +112,7 @@ export default function ProjectCard({
                                 }`}
                         >
                             <Floating3DImage
-                                src={project.image ?? `/${id}.png`}
+                                src={source}
                                 alt={project.name}
                                 width={isMobileProject ? 280 : 800}
                                 height={isMobileProject ? 600 : 450}
@@ -144,10 +144,11 @@ export default function ProjectCard({
                                 bobPhase={reversed ? 0.8 : 0}
                                 borderOnLandscape={!is3DMockup && !isMobileProject}
                                 mockup={mockupType}
-                                iphoneColor={(project.mockupColor as any) ?? "cosmic-orange"}
-                                ipadColor={(project.mockupColor as any) ?? "silver"}
+                                iphoneColor={(mockupColor as any) ?? "cosmic-orange"}
+                                ipadColor={(mockupColor as any) ?? "silver"}
                                 initialTiltY={reversed ? (mockupType === "ipad" ? 0.15 : 0.16) : (mockupType === "ipad" ? -0.15 : -0.16)}
                                 initialTiltZ={mockupType === "iphone" ? (reversed ? 0.10 : -0.10) : 0}
+                                boomerang={boomerang}
                                 priority
                             />
                         </Link>

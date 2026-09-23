@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 import { GiSquareBottle } from 'react-icons/gi';
 import { projectsData } from '@/data/projects';
 import { loadOgFonts, getProjectImageSrc } from '@/lib/og';
+import { getProjectMedia } from '@/types/project';
 
 export const size = { width: 1200, height: 630 };
 export const contentType = 'image/png';
@@ -16,7 +17,7 @@ export default async function Image({ params }: Props) {
 
     const { sansFamily, codeFamily, csDeviousFamily, fonts } = await loadOgFonts();
     const imageSrc = getProjectImageSrc(projectId);
-    const isMobile = project.screenshotDevice === 'mobile';
+    const isMobile = getProjectMedia(project, projectId).device === 'mobile';
 
     return new ImageResponse(
         (

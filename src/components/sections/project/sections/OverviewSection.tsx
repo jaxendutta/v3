@@ -1,6 +1,6 @@
 "use client";
 
-import { OverviewItem } from "@/types/project";
+import { OverviewItem, getProjectMedia } from "@/types/project";
 import { Social } from "@/types/contact";
 import {
     motion,
@@ -114,7 +114,8 @@ function OverviewSlide({ items, links, isLandscape, index, projectId }: { items:
     );
 
     // Determine device type: desktop vs mobile
-    const isDesktopDevice = projectsData[projectId]?.screenshotDevice === "desktop" || (!isImageVertical && projectsData[projectId]?.screenshotDevice !== "mobile");
+    const media = getProjectMedia(projectsData[projectId], projectId);
+    const isDesktopDevice = media.device === "desktop" || (!isImageVertical && media.device !== "mobile");
 
     const invertedPhoneRotate = useTransform(phoneRotate, (v) => -v);
     // Desktop screenshots use the opposite tilt direction of mobile screenshots
@@ -211,7 +212,7 @@ function OverviewSlide({ items, links, isLandscape, index, projectId }: { items:
                     <div className={`${isLandscape ? "w-5/12 h-full" : "w-full min-h-1/2"} flex items-center justify-center perspective-distant z-20`}>
 
                         <FloatingDraggableImage
-                            src={projectsData[projectId].image ?? `/${projectId}.png`}
+                            src={media.source}
                             alt={`${calloutText} interface`}
                             className="relative w-full h-full touch-auto"
                             style={{

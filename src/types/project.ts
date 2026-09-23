@@ -48,6 +48,14 @@ export interface ProjectDate {
     end?: Date;
 }
 
+export interface ProjectMediaConfig {
+    device: "desktop" | "mobile" | "tablet";
+    mockup: "iphone" | "ipad" | "none";
+    mockupColor?: "cosmic-orange" | "natural-titanium" | "black-titanium" | "silver" | "space-gray";
+    source: string;
+    boomerang?: boolean;
+}
+
 export interface Project {
     name: string;
     label: string;
@@ -64,13 +72,35 @@ export interface Project {
     colors?: ColorSet[];
     techStack?: Record<string, Tech[]>;
     footer?: string;
-    screenshotDevice?: "desktop" | "mobile" | "tablet";
-    mockup?: "iphone" | "ipad" | "none";
-    mockupColor?: "cosmic-orange" | "natural-titanium" | "black-titanium" | "silver" | "space-gray";
-    image?: string;
+    image: ProjectMediaConfig;
 }
 
 export type ProjectsData = Record<string, Project>;
+
+export function getProjectMedia(project: Project | undefined, id?: string): {
+    source: string;
+    device: "desktop" | "mobile" | "tablet";
+    mockup: "iphone" | "ipad" | "none";
+    mockupColor?: "cosmic-orange" | "natural-titanium" | "black-titanium" | "silver" | "space-gray";
+    boomerang: boolean;
+} {
+    if (!project) {
+        return {
+            source: id ? `/${id}.png` : "",
+            device: "mobile",
+            mockup: "none",
+            boomerang: false,
+        };
+    }
+
+    return {
+        source: project.image.source,
+        device: project.image.device,
+        mockup: project.image.mockup,
+        mockupColor: project.image.mockupColor,
+        boomerang: project.image.boomerang ?? false,
+    };
+}
 
 export function formatProjectDate(date: ProjectDate): string {
     const startStr = date.start.toLocaleDateString("en-US", { month: "short", year: "numeric" });

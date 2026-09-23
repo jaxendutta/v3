@@ -2,6 +2,7 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import * as THREE from "three";
+import { parseGIF, decompressFrames } from "gifuct-js";
 
 export type IPhoneFinish = "cosmic-orange" | "natural-titanium" | "black-titanium" | "silver";
 
@@ -12,6 +13,7 @@ interface IPhone3DCanvasProps {
     color?: IPhoneFinish;
     initialTiltY?: number;
     initialTiltZ?: number;
+    boomerang?: boolean;
     onClick?: () => void;
 }
 
@@ -92,6 +94,7 @@ export default function IPhone3DCanvas({
     color = "cosmic-orange",
     initialTiltY = -0.16,
     initialTiltZ = 0.0,
+    boomerang = false,
     onClick,
 }: IPhone3DCanvasProps) {
     const containerRef = useRef<HTMLDivElement>(null);
@@ -390,32 +393,182 @@ export default function IPhone3DCanvas({
         screenMesh.position.z = phoneThickness / 2 + 0.046;
         phoneGroup.add(screenMesh);
 
-        // Load screenshot texture
-        const textureLoader = new THREE.TextureLoader();
-        textureLoader.load(
-            src,
-            (texture) => {
-                disposables.push(texture);
-                texture.colorSpace = THREE.SRGBColorSpace;
-                // Mipmaps + anisotropy are essential here: the screen is viewed at a persistent
-                // oblique angle (unlike the flat CSS mockups), and a single non-mipmapped
-                // bilinear tap looks noticeably blurrier at that kind of grazing angle
-                texture.minFilter = THREE.LinearMipmapLinearFilter;
-                texture.magFilter = THREE.LinearFilter;
-                texture.generateMipmaps = true;
-                texture.anisotropy = renderer.capabilities.getMaxAnisotropy();
+        // Load screenshot, animated GIF, or MP4/WebM video texture
+        let gifPlayback: { update: (time: number) => void } | null = null;
+        let videoElement: HTMLVideoElement | null = null;
+        let isCancelled = false;
 
-                screenMaterial.map = texture;
-                screenMaterial.color.setHex(0xffffff);
-                screenMaterial.needsUpdate = true;
+        const cleanSrc = src.split("?")[0].toLowerCase();
+        const isVideo = cleanSrc.endsWith(".mp4") || cleanSrc.endsWith(".webm") || cleanSrc.endsWith(".ogg");
+        const isGif = cleanSrc.endsWith(".gif");
+
+        if (isVideo) {
+            const video = document.createElement("video");
+            video.src = src;
+            video.crossOrigin = "anonymous";
+            video.loop = true;
+            video.muted = true;
+            video.autoplay = true;
+            video.playsInline = true;
+            video.setAttribute("playsinline", "true");
+            video.setAttribute("webkit-playsinline", "true");
+            video.preload = "auto";
+            videoElement = video;
+            const videoTexture = new THREE.VideoTexture(video);
+            videoTexture.colorSpace = THREE.SRGBColorSpace;
+            videoTexture.minFilter = THREE.LinearFilter;
+            videoTexture.magFilter = THREE.LinearFilter;
+            videoTexture.generateMipmaps = false;
+            videoTexture.anisotropy = renderer.capabilities.getMaxAnisotropy();
+            disposables.push(videoTexture);
+
+            screenMaterial.map = videoTexture;
+            screenMaterial.color.setHex(0xffffff);
+            screenMaterial.needsUpdate = true;
+
+
+
+            const startPlayback = () => {
+                video.play().catch(() => {
+                    video.muted = true;
+                    video.play().catch(() => {});
+                });
+            };
+
+            const onReady = () => {
                 setIsLoaded(true);
-            },
-            undefined,
-            () => {
-                // If texture fails to load, mark loaded so spinner dismisses
-                setIsLoaded(true);
-            }
-        );
+                startPlayback();
+            };
+
+            video.addEventListener("loadeddata", onReady, { once: true });
+            video.addEventListener("canplay", onReady, { once: true });
+
+            startPlayback();
+        } else if (isGif) {
+            fetch(src)
+                .then((res) => {
+                    if (!res.ok) throw new Error("Failed to fetch GIF");
+                    return res.arrayBuffer();
+                })
+                .then((buffer) => {
+                    if (isCancelled) return;
+                    const parsedGif = parseGIF(buffer);
+                    const frames = decompressFrames(parsedGif, true);
+                    if (!frames || frames.length === 0) {
+                        setIsLoaded(true);
+                        return;
+                    }
+
+                    const gifW = parsedGif.lsd.width;
+                    const gifH = parsedGif.lsd.height;
+
+                    const gifCanvas = document.createElement("canvas");
+                    gifCanvas.width = gifW;
+                    gifCanvas.height = gifH;
+                    const gifCtx = gifCanvas.getContext("2d", { willReadFrequently: true })!;
+
+                    const patchCanvas = document.createElement("canvas");
+                    const patchCtx = patchCanvas.getContext("2d")!;
+
+                    const canvasTexture = new THREE.CanvasTexture(gifCanvas);
+                    canvasTexture.colorSpace = THREE.SRGBColorSpace;
+                    // Mipmaps + anisotropy so the animated screen holds up at the phone's
+                    // persistent oblique viewing angle, same as the static-image path below
+                    canvasTexture.minFilter = THREE.LinearMipmapLinearFilter;
+                    canvasTexture.magFilter = THREE.LinearFilter;
+                    canvasTexture.generateMipmaps = true;
+                    canvasTexture.anisotropy = renderer.capabilities.getMaxAnisotropy();
+                    disposables.push(canvasTexture);
+
+                    const drawFrame = (frame: (typeof frames)[0]) => {
+                        if (
+                            frame.dims.width === gifW &&
+                            frame.dims.height === gifH &&
+                            frame.dims.left === 0 &&
+                            frame.dims.top === 0
+                        ) {
+                            const imgData = new ImageData(new Uint8ClampedArray(frame.patch), gifW, gifH);
+                            gifCtx.putImageData(imgData, 0, 0);
+                        } else {
+                            if (frame.disposalType === 2) {
+                                gifCtx.clearRect(0, 0, gifW, gifH);
+                            }
+                            patchCanvas.width = frame.dims.width;
+                            patchCanvas.height = frame.dims.height;
+                            const patchData = new ImageData(
+                                new Uint8ClampedArray(frame.patch),
+                                frame.dims.width,
+                                frame.dims.height
+                            );
+                            patchCtx.putImageData(patchData, 0, 0);
+                            gifCtx.drawImage(patchCanvas, frame.dims.left, frame.dims.top);
+                        }
+                    };
+
+                    drawFrame(frames[0]);
+                    canvasTexture.needsUpdate = true;
+
+                    screenMaterial.map = canvasTexture;
+                    screenMaterial.color.setHex(0xffffff);
+                    screenMaterial.needsUpdate = true;
+                    setIsLoaded(true);
+
+                    let currentFrame = 0;
+                    let lastFrameTime = performance.now();
+                    let gifDirection = 1;
+
+                    gifPlayback = {
+                        update: (time: number) => {
+                            const delay = Math.max(30, frames[currentFrame].delay || 50);
+                            if (time - lastFrameTime >= delay) {
+                                if (boomerang) {
+                                    if (currentFrame >= frames.length - 1) {
+                                        gifDirection = -1;
+                                    } else if (currentFrame <= 0) {
+                                        gifDirection = 1;
+                                    }
+                                    currentFrame = Math.max(0, Math.min(frames.length - 1, currentFrame + gifDirection));
+                                } else {
+                                    currentFrame = (currentFrame + 1) % frames.length;
+                                }
+                                drawFrame(frames[currentFrame]);
+                                canvasTexture.needsUpdate = true;
+                                lastFrameTime = time;
+                            }
+                        },
+                    };
+                })
+                .catch(() => {
+                    setIsLoaded(true);
+                });
+        } else {
+            const textureLoader = new THREE.TextureLoader();
+            textureLoader.load(
+                src,
+                (texture) => {
+                    if (isCancelled) return;
+                    disposables.push(texture);
+                    texture.colorSpace = THREE.SRGBColorSpace;
+                    // Mipmaps + anisotropy are essential here: the screen is viewed at a persistent
+                    // oblique angle (unlike the flat CSS mockups), and a single non-mipmapped
+                    // bilinear tap looks noticeably blurrier at that kind of grazing angle
+                    texture.minFilter = THREE.LinearMipmapLinearFilter;
+                    texture.magFilter = THREE.LinearFilter;
+                    texture.generateMipmaps = true;
+                    texture.anisotropy = renderer.capabilities.getMaxAnisotropy();
+
+                    screenMaterial.map = texture;
+                    screenMaterial.color.setHex(0xffffff);
+                    screenMaterial.needsUpdate = true;
+                    setIsLoaded(true);
+                },
+                undefined,
+                () => {
+                    // If texture fails to load, mark loaded so spinner dismisses
+                    setIsLoaded(true);
+                }
+            );
+        }
 
         // E. Front Dynamic Island Pill (slightly larger authentic proportion)
         const islandPillShape = createRoundedRectShape(0.74, 0.22, 0.11);
@@ -427,19 +580,6 @@ export default function IPhone3DCanvas({
         dynamicIslandMesh.position.set(0, screenHeight / 2 - 0.20, phoneThickness / 2 + 0.047);
         phoneGroup.add(dynamicIslandMesh);
 
-        // F. iOS Home Indicator Bar (Dark/Black swipe-up bottom pill)
-        const homeBarShape = createRoundedRectShape(0.96, 0.048, 0.024);
-        const homeBarGeom = new THREE.ShapeGeometry(homeBarShape, 16);
-        disposables.push(homeBarGeom);
-        const homeBarMat = new THREE.MeshBasicMaterial({
-            color: 0x141518,
-            transparent: true,
-            opacity: 0.90,
-        });
-        disposables.push(homeBarMat);
-        const homeBarMesh = new THREE.Mesh(homeBarGeom, homeBarMat);
-        homeBarMesh.position.set(0, -(screenHeight / 2) + 0.055, phoneThickness / 2 + 0.047);
-        phoneGroup.add(homeBarMesh);
 
         // Initial resting angle: upright vertically, facing project text horizontally with playful idle roll
         phoneGroup.rotation.set(0.0, initialTiltY, initialTiltZ);
@@ -675,6 +815,11 @@ export default function IPhone3DCanvas({
             shadowUniforms.uMeshHeight.value = capsuleHeightNow * shadowMeshPadding;
             shadowUniforms.uOpacity.value = Math.max(0.15, shadowBaseOpacity * (1 - elevationT * 0.45));
 
+            if (gifPlayback) {
+                gifPlayback.update(performance.now());
+            }
+
+
             renderer.render(scene, camera);
         };
 
@@ -694,6 +839,13 @@ export default function IPhone3DCanvas({
 
         // 8. Cleanup on Unmount
         return () => {
+            isCancelled = true;
+            if (videoElement) {
+                videoElement.pause();
+                videoElement.removeAttribute("src");
+                videoElement.load();
+                videoElement = null;
+            }
             cancelAnimationFrame(animationFrameId);
             resizeObserver.disconnect();
             container.removeEventListener("pointerdown", onPointerDown);

@@ -53,10 +53,12 @@ export const projectsData: ProjectsData = {
             start: new Date("2026-08-15"),
             end: new Date("2026-08-15")
         },
-        screenshotDevice: "desktop",
-        mockup: "ipad",
-        mockupColor: "silver",
-        image: "/sqlite-xplore.gif",
+        image: {
+            device: "desktop",
+            mockup: "ipad",
+            mockupColor: "silver",
+            source: "/sqlite-xplore.gif",
+        },
         overview: [
             [
                 {
@@ -146,8 +148,11 @@ export const projectsData: ProjectsData = {
         date: {
             start: new Date("2026-06-01")
         },
-        screenshotDevice: "mobile",
-        image: "/jaxpot.png",
+        image: {
+            device: "mobile",
+            mockup: "none",
+            source: "/jaxpot.png",
+        },
         overview: [
             [
                 {
@@ -246,7 +251,11 @@ export const projectsData: ProjectsData = {
             start: new Date("2026-05-05"),
             end: new Date("2026-05-05")
         },
-        screenshotDevice: "mobile",
+        image: {
+            device: "mobile",
+            mockup: "none",
+            source: "/jeffrey.png",
+        },
         overview: [
             [
                 {
@@ -351,7 +360,13 @@ export const projectsData: ProjectsData = {
             start: new Date("2026-04-29"),
             end: new Date("2026-04-29")
         },
-        screenshotDevice: "mobile",
+        image: {
+            device: "mobile",
+            mockup: "iphone",
+            mockupColor: "natural-titanium",
+            source: "/sabeer.mp4",
+            boomerang: true,
+        },
         overview: [
             [
                 {
@@ -447,7 +462,11 @@ export const projectsData: ProjectsData = {
             start: new Date("2026-04-18"),
             end: new Date("2026-04-18")
         },
-        screenshotDevice: "mobile",
+        image: {
+            device: "mobile",
+            mockup: "none",
+            source: "/emma.png",
+        },
         links: [
             {
                 label: "GitHub",
@@ -507,7 +526,11 @@ export const projectsData: ProjectsData = {
             start: new Date("2025-05-20"),
             end: new Date("2025-05-20")
         },
-        screenshotDevice: "mobile",
+        image: {
+            device: "mobile",
+            mockup: "none",
+            source: "/asher.png",
+        },
         overview: [
             [
                 {
@@ -610,7 +633,11 @@ export const projectsData: ProjectsData = {
             start: new Date("2026-01-24"),
             end: new Date("2026-01-24")
         },
-        screenshotDevice: "mobile",
+        image: {
+            device: "mobile",
+            mockup: "none",
+            source: "/rgap.png",
+        },
         overview: [
             [
                 {
@@ -702,10 +729,12 @@ export const projectsData: ProjectsData = {
             start: new Date("2025-11-10"),
             end: new Date("2025-11-10")
         },
-        screenshotDevice: "mobile",
-        mockup: "iphone",
-        mockupColor: "cosmic-orange",
-        image: "/pvc.png",
+        image: {
+            device: "mobile",
+            mockup: "iphone",
+            mockupColor: "cosmic-orange",
+            source: "/pvc.png",
+        },
         overview: [
             [
                 {
@@ -783,7 +812,11 @@ export const projectsData: ProjectsData = {
             start: new Date("2025-04-10"),
             end: new Date("2025-04-10")
         },
-        screenshotDevice: "mobile",
+        image: {
+            device: "mobile",
+            mockup: "none",
+            source: "/v2.png",
+        },
         overview: [
             [
                 {
@@ -880,7 +913,11 @@ export const projectsData: ProjectsData = {
             start: new Date("2024-12-18"),
             end: new Date("2024-12-18")
         },
-        screenshotDevice: "mobile",
+        image: {
+            device: "mobile",
+            mockup: "none",
+            source: "/evse-opt.png",
+        },
         links: [
             {
                 label: "GitHub",
@@ -912,7 +949,11 @@ export const projectsData: ProjectsData = {
             start: new Date("2024-08-18"),
             end: new Date("2024-08-18")
         },
-        screenshotDevice: "mobile",
+        image: {
+            device: "mobile",
+            mockup: "none",
+            source: "/fabler.png",
+        },
         overview: [
             [
                 {
@@ -1012,7 +1053,11 @@ export const projectsData: ProjectsData = {
             start: new Date("2023-12-22"),
             end: new Date("2023-12-22")
         },
-        screenshotDevice: "mobile",
+        image: {
+            device: "mobile",
+            mockup: "none",
+            source: "/v1.png",
+        },
         overview: [
             [
                 {
@@ -1090,7 +1135,11 @@ export const projectsData: ProjectsData = {
             start: new Date("2023-08-18"),
             end: new Date("2023-08-18")
         },
-        screenshotDevice: "mobile",
+        image: {
+            device: "mobile",
+            mockup: "none",
+            source: "/hivemind.png",
+        },
         categories: ["frontend"],
         layoutType: "showcase",
         overview: [
@@ -1171,9 +1220,12 @@ export const projectsData: ProjectsData = {
             start: new Date("2023-08-18"),
             end: new Date("2023-08-18")
         },
-        screenshotDevice: "desktop",
-        mockup: "ipad",
-        mockupColor: "silver",
+        image: {
+            device: "desktop",
+            mockup: "ipad",
+            mockupColor: "silver",
+            source: "/space-invaders.png",
+        },
         overview: [
             [
                 {
@@ -1253,9 +1305,12 @@ export const projectsData: ProjectsData = {
             start: new Date("2023-08-18"),
             end: new Date("2023-08-18")
         },
-        screenshotDevice: "desktop",
-        mockup: "ipad",
-        mockupColor: "silver",
+        image: {
+            device: "desktop",
+            mockup: "ipad",
+            mockupColor: "silver",
+            source: "/file-explorer.png",
+        },
         overview: [
             [
                 {
@@ -1337,9 +1392,12 @@ export const projectsData: ProjectsData = {
             start: new Date("2023-08-18"),
             end: new Date("2023-08-18")
         },
-        screenshotDevice: "desktop",
-        mockup: "ipad",
-        mockupColor: "silver",
+        image: {
+            device: "desktop",
+            mockup: "ipad",
+            mockupColor: "silver",
+            source: "/lightbox.png",
+        },
         overview: [
             [
                 {
@@ -1421,9 +1479,12 @@ export const projectsData: ProjectsData = {
             start: new Date("2022-08-18"),
             end: new Date("2022-08-18")
         },
-        screenshotDevice: "desktop",
-        mockup: "ipad",
-        mockupColor: "silver",
+        image: {
+            device: "desktop",
+            mockup: "ipad",
+            mockupColor: "silver",
+            source: "/straights.png",
+        },
         overview: [
             [
                 {
@@ -1500,7 +1561,11 @@ export const projectsData: ProjectsData = {
             start: new Date("2019-06-29"),
             end: new Date("2019-06-29")
         },
-        screenshotDevice: "mobile",
+        image: {
+            device: "mobile",
+            mockup: "none",
+            source: "/minimax-tic-tac-toe.png",
+        },
         overview: [
             [
                 {

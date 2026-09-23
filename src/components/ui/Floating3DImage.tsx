@@ -38,6 +38,7 @@ interface Floating3DImageProps {
     ipadColor?: DeviceFinish;
     initialTiltY?: number;
     initialTiltZ?: number;
+    boomerang?: boolean;
     align?: "center" | "start" | "end" | "left" | "right";
     onImageLoad?: (details: { width: number; height: number; isVertical: boolean }) => void;
 }
@@ -66,10 +67,12 @@ export default function Floating3DImage({
     ipadColor = "silver",
     initialTiltY,
     initialTiltZ,
+    boomerang = false,
     align = "center",
     onImageLoad,
 }: Floating3DImageProps) {
     const is3DMockup = mockup === "iphone" || mockup === "ipad";
+    const isVideo = src.toLowerCase().endsWith(".mp4") || src.toLowerCase().endsWith(".webm");
     const [imageSize, setImageSize] = useState({ width, height });
     const [isImageVertical, setIsImageVertical] = useState(mockup === "iphone" || (mockup !== "ipad" && height > width));
     const [isDragging, setIsDragging] = useState(false);
@@ -278,6 +281,7 @@ export default function Floating3DImage({
                                 color={iphoneColor}
                                 initialTiltY={initialTiltY}
                                 initialTiltZ={initialTiltZ}
+                                boomerang={boomerang}
                                 className={imageClassName}
                             />
                         </div>
@@ -288,7 +292,27 @@ export default function Floating3DImage({
                                 alt={alt}
                                 color={ipadColor}
                                 initialTiltY={initialTiltY}
+                                boomerang={boomerang}
                                 className={imageClassName}
+                            />
+                        </div>
+                    ) : isVideo ? (
+                        <div
+                            className={`relative z-10 w-full h-full touch-none ${cursorClass} ${borderOnLandscape && !isImageVertical
+                                    ? "border-[6px] sm:border-8 md:border-10 border-[#202734] rounded-2xl md:rounded-3xl overflow-hidden ring-1.5 sm:ring-2 ring-slate-400/90 shadow-2xl"
+                                    : ""
+                                }`}
+                            style={{
+                                transformStyle: "preserve-3d",
+                            }}
+                        >
+                            <video
+                                src={src}
+                                autoPlay
+                                loop
+                                muted
+                                playsInline
+                                className={`${isImageVertical ? "object-contain" : "object-cover"} w-full h-full pointer-events-none ${imageClassName ?? ""}`}
                             />
                         </div>
                     ) : (

@@ -17,6 +17,7 @@ interface IPad3DCanvasProps {
     className?: string;
     color?: DeviceFinish;
     initialTiltY?: number;
+    boomerang?: boolean;
     onClick?: () => void;
 }
 
@@ -96,6 +97,7 @@ export default function IPad3DCanvas({
     className = "",
     color = "silver",
     initialTiltY = -0.15,
+    boomerang = false,
     onClick,
 }: IPad3DCanvasProps) {
     const containerRef = useRef<HTMLDivElement>(null);
@@ -389,12 +391,59 @@ export default function IPad3DCanvas({
         screenMesh.position.z = tabletThickness / 2 + 0.041;
         tabletGroup.add(screenMesh);
 
-        // Load screenshot or animated GIF texture
+        // Load screenshot, animated GIF, or MP4/WebM video texture
         let gifPlayback: { update: (time: number) => void } | null = null;
+        let videoElement: HTMLVideoElement | null = null;
         let isCancelled = false;
 
-        const isGif = src.toLowerCase().endsWith(".gif");
-        if (isGif) {
+        const cleanSrc = src.split("?")[0].toLowerCase();
+        const isVideo = cleanSrc.endsWith(".mp4") || cleanSrc.endsWith(".webm") || cleanSrc.endsWith(".ogg");
+        const isGif = cleanSrc.endsWith(".gif");
+
+        if (isVideo) {
+            const video = document.createElement("video");
+            video.src = src;
+            video.crossOrigin = "anonymous";
+            video.loop = true;
+            video.muted = true;
+            video.autoplay = true;
+            video.playsInline = true;
+            video.setAttribute("playsinline", "true");
+            video.setAttribute("webkit-playsinline", "true");
+            video.preload = "auto";
+            videoElement = video;
+
+            const videoTexture = new THREE.VideoTexture(video);
+            videoTexture.colorSpace = THREE.SRGBColorSpace;
+            videoTexture.minFilter = THREE.LinearFilter;
+            videoTexture.magFilter = THREE.LinearFilter;
+            videoTexture.generateMipmaps = false;
+            videoTexture.anisotropy = renderer.capabilities.getMaxAnisotropy();
+            disposables.push(videoTexture);
+
+            screenMaterial.map = videoTexture;
+            screenMaterial.color.setHex(0xffffff);
+            screenMaterial.needsUpdate = true;
+
+
+
+            const startPlayback = () => {
+                video.play().catch(() => {
+                    video.muted = true;
+                    video.play().catch(() => {});
+                });
+            };
+
+            const onReady = () => {
+                setIsLoaded(true);
+                startPlayback();
+            };
+
+            video.addEventListener("loadeddata", onReady, { once: true });
+            video.addEventListener("canplay", onReady, { once: true });
+
+            startPlayback();
+        } else if (isGif) {
             fetch(src)
                 .then((res) => {
                     if (!res.ok) throw new Error("Failed to fetch GIF");
@@ -465,12 +514,22 @@ export default function IPad3DCanvas({
 
                     let currentFrame = 0;
                     let lastFrameTime = performance.now();
+                    let gifDirection = 1;
 
                     gifPlayback = {
                         update: (time: number) => {
                             const delay = Math.max(30, frames[currentFrame].delay || 50);
                             if (time - lastFrameTime >= delay) {
-                                currentFrame = (currentFrame + 1) % frames.length;
+                                if (boomerang) {
+                                    if (currentFrame >= frames.length - 1) {
+                                        gifDirection = -1;
+                                    } else if (currentFrame <= 0) {
+                                        gifDirection = 1;
+                                    }
+                                    currentFrame = Math.max(0, Math.min(frames.length - 1, currentFrame + gifDirection));
+                                } else {
+                                    currentFrame = (currentFrame + 1) % frames.length;
+                                }
                                 drawFrame(frames[currentFrame]);
                                 canvasTexture.needsUpdate = true;
                                 lastFrameTime = time;
@@ -634,6 +693,7 @@ export default function IPad3DCanvas({
                 gifPlayback.update(performance.now());
             }
 
+
             renderer.render(scene, camera);
         };
 
@@ -653,6 +713,13 @@ export default function IPad3DCanvas({
 
         // 8. Cleanup on Unmount
         return () => {
+            isCancelled = true;
+            if (videoElement) {
+                videoElement.pause();
+                videoElement.removeAttribute("src");
+                videoElement.load();
+                videoElement = null;
+            }
             cancelAnimationFrame(animationFrameId);
             resizeObserver.disconnect();
             container.removeEventListener("pointerdown", onPointerDown);

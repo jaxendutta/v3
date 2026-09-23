@@ -118,11 +118,7 @@ export default function IPhoneMockup({
                             aria-hidden
                         />
 
-                        {/* Home Indicator Bar */}
-                        <div
-                            className="absolute bottom-2 left-1/2 z-30 h-1 w-25 -translate-x-1/2 rounded-full bg-white/40 shadow-xs"
-                            aria-hidden
-                        />
+
                     </div>
                 </div>
             </div>
