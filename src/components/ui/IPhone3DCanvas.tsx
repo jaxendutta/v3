@@ -37,6 +37,7 @@ const FINISH_COLORS: Record<
         plateau: number;
         ring: number;
         logo: number;
+        button: number;
     }
 > = {
     "cosmic-orange": {
@@ -45,6 +46,7 @@ const FINISH_COLORS: Record<
         plateau: 0xb85d2c, // Camera island plateau
         ring: 0xdc814b, // Polished titanium lens rings
         logo: 0xd57a44,
+        button: 0xcd7442,
     },
     "natural-titanium": {
         body: 0x8a8781,
@@ -52,6 +54,7 @@ const FINISH_COLORS: Record<
         plateau: 0x706e69,
         ring: 0x9e9b95,
         logo: 0x918e88,
+        button: 0x8a8781,
     },
     "black-titanium": {
         body: 0x27282b,
@@ -59,6 +62,7 @@ const FINISH_COLORS: Record<
         plateau: 0x191a1b,
         ring: 0x3e4044,
         logo: 0x333538,
+        button: 0x27282b,
     },
     silver: {
         body: 0xd8dbe0,
@@ -66,6 +70,7 @@ const FINISH_COLORS: Record<
         plateau: 0xc2c6cc,
         ring: 0xe6e9ee,
         logo: 0xd4d8de,
+        button: 0xd8dbe0,
     },
     "space-gray": {
         body: 0x3d3f44,
@@ -73,6 +78,7 @@ const FINISH_COLORS: Record<
         plateau: 0x2a2c30,
         ring: 0x5a5d64,
         logo: 0x484b52,
+        button: 0x3d3f44,
     },
     // iPhone 16 / 17 Signature Colors
     ultramarine: {
@@ -81,6 +87,7 @@ const FINISH_COLORS: Record<
         plateau: 0x8bbdf0, // Tinted pastel sky camera plateau
         ring: 0xbedcf8, // Polished pale ice-blue reflective lens rings
         logo: 0x659ad9,
+        button: 0x5a9ee6, // Matching anodized sky blue hardware buttons
     },
     blue: {
         body: 0x73aae6,
@@ -88,6 +95,7 @@ const FINISH_COLORS: Record<
         plateau: 0x8bbdf0,
         ring: 0xbedcf8,
         logo: 0x659ad9,
+        button: 0x5a9ee6,
     },
     teal: {
         body: 0x338f89, // iPhone 16 fresh vibrant cyan-seafoam teal aluminum
@@ -95,13 +103,15 @@ const FINISH_COLORS: Record<
         plateau: 0x28807a,
         ring: 0x60c2bb, // Bright polished cyan-teal lens rings
         logo: 0x308882,
+        button: 0x28857f,
     },
     green: {
-        body: 0xa6d6b4, // iPhone signature fresh light pastel mint/sage aluminum chassis
-        back: 0xd4edd9, // Silky luminous soft pale pastel mint rear glass
-        plateau: 0xbce2c6, // Delicate pale pastel camera island
-        ring: 0xe3f5e8, // Polished bright pale mint reflective lens rings
-        logo: 0x94c4a2,
+        body: 0x8ad0a2, // Balanced pastel mint anodized aluminum chassis
+        back: 0xb7eac7, // Silky luminous soft pastel mint rear glass
+        plateau: 0xa3e1b7, // Delicate pastel mint camera island
+        ring: 0xd0f4dc, // Polished bright pale mint reflective lens rings
+        logo: 0x78be90,
+        button: 0x78be90, // Matching balanced pastel mint hardware buttons
     },
     pink: {
         body: 0xdc7d9b, // iPhone signature elegant pastel blossom rose aluminum chassis
@@ -109,6 +119,7 @@ const FINISH_COLORS: Record<
         plateau: 0xe895ae, // Delicate pastel rose camera island
         ring: 0xf7c6d6, // Polished pale rose reflective lens rings
         logo: 0xcb6b8a,
+        button: 0xd66d8e, // Matching vibrant blossom rose hardware buttons
     },
     white: {
         body: 0xe2e4e8, // Clean bright porcelain white
@@ -116,6 +127,7 @@ const FINISH_COLORS: Record<
         plateau: 0xdcdfe4,
         ring: 0xf5f7fa,
         logo: 0xd2d5db,
+        button: 0xdcdfe4,
     },
     black: {
         body: 0x1f2023, // Deep stealth matte black
@@ -123,6 +135,7 @@ const FINISH_COLORS: Record<
         plateau: 0x141517,
         ring: 0x2e3034,
         logo: 0x28292c,
+        button: 0x222428,
     },
 };
 
@@ -288,7 +301,7 @@ export default function IPhone3DCanvas({
 
         // Hardware Side Details on the Titanium Edges
         const buttonMat = new THREE.MeshStandardMaterial({
-            color: finish.ring,
+            color: finish.button,
             metalness: 0.82,
             roughness: 0.32,
         });

@@ -35,6 +35,7 @@ const FINISH_COLORS: Record<
         back: number;
         ring: number;
         logo: number;
+        button: number;
     }
 > = {
     "space-gray": {
@@ -42,72 +43,84 @@ const FINISH_COLORS: Record<
         back: 0x323438,
         ring: 0x5a5d64,
         logo: 0x484b52,
+        button: 0x3d3f44,
     },
     silver: {
         body: 0xdce0e6, // Brilliant Apple Silver aluminum
         back: 0xd0d5dc,
         ring: 0xedf1f7,
         logo: 0xd8dde4,
+        button: 0xdce0e6,
     },
     "natural-titanium": {
         body: 0x8a8781,
         back: 0x7c7974,
         ring: 0x9e9b95,
         logo: 0x918e88,
+        button: 0x8a8781,
     },
     "black-titanium": {
         body: 0x27282b,
         back: 0x1f2022,
         ring: 0x3e4044,
         logo: 0x333538,
+        button: 0x27282b,
     },
     "cosmic-orange": {
         body: 0xcd7442,
         back: 0xc46938,
         ring: 0xdc814b,
         logo: 0xd57a44,
+        button: 0xcd7442,
     },
     ultramarine: {
         body: 0x73aae6,
         back: 0x9cc7f2,
         ring: 0xbedcf8,
         logo: 0x659ad9,
+        button: 0x5a9ee6,
     },
     blue: {
         body: 0x73aae6,
         back: 0x9cc7f2,
         ring: 0xbedcf8,
         logo: 0x659ad9,
+        button: 0x5a9ee6,
     },
     teal: {
         body: 0x338f89,
         back: 0x4caea7,
         ring: 0x60c2bb,
         logo: 0x308882,
+        button: 0x28857f,
     },
     green: {
-        body: 0xa6d6b4,
-        back: 0xd4edd9,
-        ring: 0xe3f5e8,
-        logo: 0x94c4a2,
+        body: 0x8ad0a2,
+        back: 0xb7eac7,
+        ring: 0xd0f4dc,
+        logo: 0x78be90,
+        button: 0x78be90,
     },
     pink: {
         body: 0xdc7d9b,
         back: 0xf0a8bf,
         ring: 0xf7c6d6,
         logo: 0xcb6b8a,
+        button: 0xd66d8e,
     },
     white: {
         body: 0xe2e4e8,
         back: 0xf0f2f5,
         ring: 0xf5f7fa,
         logo: 0xd2d5db,
+        button: 0xdcdfe4,
     },
     black: {
         body: 0x1f2023,
         back: 0x18191b,
         ring: 0x2e3034,
         logo: 0x28292c,
+        button: 0x222428,
     },
 };
 
@@ -259,7 +272,7 @@ export default function IPad3DCanvas({
 
         // Hardware Side Details on Aluminum Edges
         const buttonMat = new THREE.MeshStandardMaterial({
-            color: finish.ring,
+            color: finish.button,
             metalness: 0.82,
             roughness: 0.32,
         });
