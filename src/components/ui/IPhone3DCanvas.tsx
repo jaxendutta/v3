@@ -412,54 +412,78 @@ export default function IPhone3DCanvas({
         // rather than a shadow cast straight down onto a floor. Parented to phoneGroup so it
         // rotates and floats rigidly with the phone, the same way the CSS version's shadow
         // shares its parent's 3D transform instead of being independently animated.
-        const shadowTexW = 96;
-        const shadowTexH = 256;
-        const shadowTextureCanvas = document.createElement("canvas");
-        shadowTextureCanvas.width = shadowTexW;
-        shadowTextureCanvas.height = shadowTexH;
-        const shadowCtx = shadowTextureCanvas.getContext("2d");
-        if (shadowCtx) {
-            shadowCtx.filter = "blur(9px)";
-            const gradient = shadowCtx.createLinearGradient(0, 0, shadowTexW, 0);
-            gradient.addColorStop(0, "rgba(0,0,0,0.85)");
-            gradient.addColorStop(0.55, "rgba(0,0,0,0.42)");
-            gradient.addColorStop(1, "rgba(0,0,0,0)");
-            shadowCtx.fillStyle = gradient;
-            // Inset must comfortably exceed the blur radius above, or the feather gets
-            // hard-clipped by the canvas's own edge instead of fading to zero
-            const inset = 26;
-            const radius = (shadowTexW - inset * 2) / 2;
-            shadowCtx.beginPath();
-            if (typeof shadowCtx.roundRect === "function") {
-                shadowCtx.roundRect(inset, inset, shadowTexW - inset * 2, shadowTexH - inset * 2, radius);
-            } else {
-                shadowCtx.rect(inset, inset, shadowTexW - inset * 2, shadowTexH - inset * 2);
-            }
-            shadowCtx.fill();
-        }
-        const shadowTexture = new THREE.CanvasTexture(shadowTextureCanvas);
-        shadowTexture.colorSpace = THREE.SRGBColorSpace;
-        disposables.push(shadowTexture);
-
-        const shadowGeometry = new THREE.PlaneGeometry(1, 1);
-        disposables.push(shadowGeometry);
-        const shadowMaterial = new THREE.MeshBasicMaterial({
-            map: shadowTexture,
+        //
+        // The soft edge is computed analytically in a fragment shader (a capsule signed-distance
+        // field) rather than baked via CanvasRenderingContext2D's `filter` blur: iOS Safari only
+        // gained ctx.filter support in 17.4, so on older/unsupported devices the blur silently
+        // never applied, leaving a hard-edged, unblurred shape. A GLSL smoothstep has no such
+        // compatibility gap — it's the same WebGL path already required to render the phone itself.
+        const shadowCapsuleWidth = phoneWidth * 0.5;
+        const shadowCapsuleHeight = phoneHeight * 0.8;
+        const shadowBaseOpacity = 0.8;
+        // The plane must be noticeably larger than the capsule shape it draws, or the feather
+        // has nowhere to fade into before hitting the plane's own edge — same class of bug as
+        // the earlier canvas-texture inset, just recurring in the shader version.
+        const shadowMeshPadding = 1.3;
+        const shadowUniforms = {
+            uCapsuleWidth: { value: shadowCapsuleWidth },
+            uCapsuleHeight: { value: shadowCapsuleHeight },
+            uMeshWidth: { value: shadowCapsuleWidth * shadowMeshPadding },
+            uMeshHeight: { value: shadowCapsuleHeight * shadowMeshPadding },
+            uFeather: { value: 0.16 },
+            uOpacity: { value: shadowBaseOpacity },
+        };
+        const shadowMaterial = new THREE.ShaderMaterial({
+            uniforms: shadowUniforms,
             transparent: true,
             depthWrite: false,
-            toneMapped: false,
+            vertexShader: `
+                varying vec2 vUv;
+                void main() {
+                    vUv = uv;
+                    gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+                }
+            `,
+            fragmentShader: `
+                varying vec2 vUv;
+                uniform float uCapsuleWidth;
+                uniform float uCapsuleHeight;
+                uniform float uMeshWidth;
+                uniform float uMeshHeight;
+                uniform float uFeather;
+                uniform float uOpacity;
+                void main() {
+                    // Reconstruct local world-unit position across the (padded) plane, then test
+                    // it against the smaller nominal capsule shape so there's real margin around
+                    // the shape for the feather to fade into
+                    vec2 p = (vUv - 0.5) * vec2(uMeshWidth, uMeshHeight);
+                    float halfW = uCapsuleWidth * 0.5;
+                    float bodyHalfH = max(uCapsuleHeight * 0.5 - halfW, 0.0);
+                    float distY = max(abs(p.y) - bodyHalfH, 0.0);
+                    float dist = length(vec2(p.x, distY)) - halfW;
+                    float shapeAlpha = 1.0 - smoothstep(-uFeather, uFeather, dist);
+
+                    // Dark near the phone (left edge), fading to transparent toward the right,
+                    // matching the flat mockups' "leaning against a surface" CSS gradient.
+                    // Anchored to the capsule's own width, not the padded plane's.
+                    float t = clamp((p.x + halfW) / uCapsuleWidth, 0.0, 1.0);
+                    float gradAlpha = mix(0.85, 0.42, smoothstep(0.0, 0.55, t));
+                    gradAlpha = mix(gradAlpha, 0.0, smoothstep(0.55, 1.0, t));
+
+                    gl_FragColor = vec4(0.0, 0.0, 0.0, shapeAlpha * gradAlpha * uOpacity);
+                }
+            `,
         });
         disposables.push(shadowMaterial);
 
+        const shadowGeometry = new THREE.PlaneGeometry(1, 1);
+        disposables.push(shadowGeometry);
+
         const shadowMesh = new THREE.Mesh(shadowGeometry, shadowMaterial);
-        // Sized and anchored off the phone's own footprint, hugging its right edge
-        const shadowBaseWidth = phoneWidth * 0.5;
-        const shadowBaseHeight = phoneHeight * 0.8;
-        const shadowBaseOpacity = 0.8;
         // Kept just inside the camera's bled viewport (see BLEED above) so the soft trailing
         // edge fades out on its own instead of being hard-cropped by the canvas boundary
-        shadowMesh.position.set(phoneWidth / 2 - shadowBaseWidth * 0.001, -phoneHeight * 0.04, -0.35);
-        shadowMesh.scale.set(shadowBaseWidth, shadowBaseHeight, 1);
+        shadowMesh.position.set(phoneWidth / 2 - shadowCapsuleWidth * 0.001, -phoneHeight * 0.04, -0.35);
+        shadowMesh.scale.set(shadowCapsuleWidth * shadowMeshPadding, shadowCapsuleHeight * shadowMeshPadding, 1);
         phoneGroup.add(shadowMesh);
 
         // 5. Interactive 3D Controls (Desktop Hover-Tracking + Mobile Touch Drag)
@@ -600,10 +624,18 @@ export default function IPhone3DCanvas({
             );
 
             // Mirrors the plain draggable image's CSS shadow: higher in the bob -> shadow
-            // shrinks and lightens (further away); lower in the bob -> grows and darkens
+            // shrinks and lightens (further away); lower in the bob -> grows and darkens.
+            // Capsule and plane sizes scale together so the padding margin (and thus the
+            // feather) stays proportionally correct at every size.
             const elevationSpread = 1 - elevationT * 0.22;
-            shadowMesh.scale.set(shadowBaseWidth * elevationSpread, shadowBaseHeight * elevationSpread, 1);
-            shadowMaterial.opacity = Math.max(0.15, shadowBaseOpacity * (1 - elevationT * 0.45));
+            const capsuleWidthNow = shadowCapsuleWidth * elevationSpread;
+            const capsuleHeightNow = shadowCapsuleHeight * elevationSpread;
+            shadowMesh.scale.set(capsuleWidthNow * shadowMeshPadding, capsuleHeightNow * shadowMeshPadding, 1);
+            shadowUniforms.uCapsuleWidth.value = capsuleWidthNow;
+            shadowUniforms.uCapsuleHeight.value = capsuleHeightNow;
+            shadowUniforms.uMeshWidth.value = capsuleWidthNow * shadowMeshPadding;
+            shadowUniforms.uMeshHeight.value = capsuleHeightNow * shadowMeshPadding;
+            shadowUniforms.uOpacity.value = Math.max(0.15, shadowBaseOpacity * (1 - elevationT * 0.45));
 
             renderer.render(scene, camera);
         };
