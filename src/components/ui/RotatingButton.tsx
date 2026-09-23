@@ -1,7 +1,7 @@
 // src/components/ui/RotatingButton.tsx
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useId } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { IconType } from "react-icons";
@@ -36,9 +36,7 @@ const RotatingButton: React.FC<RotatingButtonProps> = ({
     disabled = false,
 }) => {
     texts = texts.map((text) => text.toUpperCase());
-    const [pathId] = useState(
-        `circle-path-${Math.random().toString(36).slice(2, 11)}`
-    );
+    const pathId = `circle-path-${useId().replace(/:/g, "")}`;
     const [currentSize, setCurrentSize] = useState<number>(
         typeof size === "number" ? size : size.default
     );

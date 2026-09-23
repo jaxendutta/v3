@@ -6,7 +6,7 @@ import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
-import remarkUnwrapImages from "rehype-unwrap-images";
+import rehypeUnwrapImages from "rehype-unwrap-images";
 import rehypeSlug from "rehype-slug";
 import { serifFont } from "@/lib/fonts";
 import {
@@ -206,8 +206,8 @@ export default function ArticleLayout({ projectId, markdownContent }: ArticleLay
                 ">
                     <ReactMarkdown
                         // Added remarkAlerts here to process the tags
-                        remarkPlugins={[remarkGfm, remarkUnwrapImages, remarkMath, remarkAlerts]}
-                        rehypePlugins={[rehypeSlug, rehypeFigureIds, rehypeKatex]}
+                        remarkPlugins={[remarkGfm, remarkMath, remarkAlerts]}
+                        rehypePlugins={[rehypeUnwrapImages, rehypeSlug, rehypeFigureIds, rehypeKatex]}
                         components={{
                             // --- ALERTS & BLOCKQUOTES ---
                             blockquote: ({ node, children, ...props }: any) => {
@@ -256,6 +256,11 @@ export default function ArticleLayout({ projectId, markdownContent }: ArticleLay
                             li: ({ node, ...props }) => <li className="md:pl-2" {...props} />,
 
                             // --- CODE BLOCKS ---
+                            // Our `code` renderer below returns the full block markup itself
+                            // (a <figure> for mermaid, a <div><pre>...</pre></div> for regular
+                            // code), so react-markdown's own default <pre> wrapper around it
+                            // would produce invalid nesting (e.g. <pre><figure>...). Unwrap it.
+                            pre: ({ children }: any) => <>{children}</>,
                             code({ node, inline, className, children, ...props }: any) {
                                 const match = /language-(\w+)/.exec(className || '');
                                 const codeString = String(children).replace(/\n$/, '');
