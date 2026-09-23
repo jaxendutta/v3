@@ -356,6 +356,8 @@ function ProjectsContent() {
                                         zIndex: index + 1,
                                         backgroundColor: `var(--project-card-bg-${index % 4})`,
                                         color: `var(--project-card-fg-${index % 4})`,
+                                        ["--card-bg" as string]: `var(--project-card-bg-${index % 4})`,
+                                        ["--card-fg" as string]: `var(--project-card-fg-${index % 4})`,
                                     }}
                                 >
                                     <ProjectCard

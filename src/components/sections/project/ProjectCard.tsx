@@ -92,7 +92,7 @@ export default function ProjectCard({
                         {/* Show more indicator if technologies are truncated */}
                         {project.techStack &&
                             Object.values(project.techStack).flat().length > skillLimit && (
-                                <Tag text={`+${skillCount - skillLimit} more`} glowOnHover={true} />
+                                <Tag text={`+${skillCount - skillLimit} more`} glowOnHover={false} />
                             )}
                     </div>
 

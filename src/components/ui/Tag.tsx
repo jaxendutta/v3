@@ -6,22 +6,23 @@ interface TagProps {
     glowOnHover?: boolean;
     href?: string;
     action?: () => void;
+    className?: string;
 }
 
-const Tag = ({ text, glowOnHover = false, href, action }: TagProps) => {
+const Tag = ({ text, glowOnHover = false, href, action, className = "" }: TagProps) => {
     const commonProps = {
         className:
-            "px-2 md:px-3 py-1 border border-current rounded-full text-[10px] md:text-sm whitespace-nowrap cursor-pointer leading-none md:leading-tight font-thin",
+            `px-2 md:px-3 py-1 border border-current rounded-full text-[10px] md:text-sm whitespace-nowrap cursor-pointer leading-none md:leading-tight font-thin ${className}`,
         style: {
             textDecoration: "none",
         },
         whileHover: {
-            backgroundColor: "var(--color-text)",
-            color: "var(--color-background)",
-            boxShadow: glowOnHover ? "0 0 6px var(--color-text)" : "",
-            border: glowOnHover ? "1px solid var(--color-text)" : "1px solid currentColor",
+            backgroundColor: "var(--card-fg, var(--foreground, var(--color-text)))",
+            color: "var(--card-bg, var(--background, var(--color-background)))",
+            border: "1px solid var(--card-fg, var(--foreground, var(--color-text)))",
+            boxShadow: "none",
         },
-        transition: { duration: 0.2 },
+        transition: { duration: 0.15 },
     };
 
     if (href) {
@@ -52,7 +53,7 @@ export const SkillTag = ({ skill }: { skill: string }) => {
     return (
         <Tag
             text={skill}
-            glowOnHover={true}
+            glowOnHover={false}
             href={`/projects?tech=${encodeURIComponent(skill.toLowerCase())}`}
         />
     );

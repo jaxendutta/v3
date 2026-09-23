@@ -81,6 +81,10 @@
     --project-card-fg-1: #064e3b;       /* Deep Forest Emerald */
     --project-card-fg-2: #78350f;       /* Deep Roasted Amber */
     --project-card-fg-3: #881337;       /* Deep Burgundy Rose */
+
+    /* Default Card Colors (swapped on hover for tags/badges) */
+    --card-bg: var(--background);
+    --card-fg: var(--foreground);
 }
 
 /* 3. DARK MODE OVERRIDES */
@@ -131,6 +135,10 @@
     --project-card-fg-1: #064e3b;       /* Deep Forest Emerald */
     --project-card-fg-2: #78350f;       /* Deep Roasted Amber */
     --project-card-fg-3: #881337;       /* Deep Burgundy Rose */
+
+    /* Default Card Colors (swapped on hover for tags/badges) */
+    --card-bg: var(--background);
+    --card-fg: var(--foreground);
 }
 
 /* 4. BASE STYLES */
