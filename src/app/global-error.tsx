@@ -147,14 +147,14 @@ export default function GlobalError({
                                     <h2 className="text-sm md:text-base font-sans font-bold uppercase tracking-widest flex items-center justify-center md:justify-start gap-3">
                                         Unable to Load Page
                                     </h2>
-                                    <p className="text-xs md:text-sm font-sans text-muted-foreground-subtle max-w-[340px] leading-relaxed">
+                                    <p className="text-xs md:text-sm font-sans text-muted-foreground-subtle max-w-85 leading-relaxed">
                                         An unexpected client error occurred while rendering this page.
                                         <br />
                                         Let&apos;s get you back to safety.
                                     </p>
 
                                     {error && (
-                                        <details className="pointer-events-auto text-left mt-1 max-w-[340px] md:max-w-[450px]">
+                                        <details className="pointer-events-auto text-left mt-1 max-w-85 md:max-w-112.5">
                                             <summary className="font-mono text-[11px] text-muted-foreground cursor-pointer hover:text-foreground">
                                                 Inspect Error Details
                                             </summary>
