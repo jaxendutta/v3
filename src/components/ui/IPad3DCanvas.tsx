@@ -218,12 +218,18 @@ export default function IPad3DCanvas({
         updateCameraDistance(width, height);
 
         // 2. WebGL Renderer
-        const renderer = new THREE.WebGLRenderer({
-            canvas,
-            alpha: true,
-            antialias: true,
-            powerPreference: "high-performance",
-        });
+        let renderer: THREE.WebGLRenderer;
+        try {
+            renderer = new THREE.WebGLRenderer({
+                canvas,
+                alpha: true,
+                antialias: true,
+                powerPreference: "high-performance",
+            });
+        } catch (e) {
+            console.warn("Could not create WebGLRenderer for iPad3DCanvas", e);
+            return;
+        }
         const canvasW = Math.round(width * (1 + BLEED * 2));
         const canvasH = Math.round(height * (1 + BLEED * 2));
         renderer.setSize(canvasW, canvasH);
@@ -912,16 +918,7 @@ export default function IPad3DCanvas({
             container.removeEventListener("click", onClickCapture, { capture: true });
 
             disposables.forEach((d) => d.dispose());
-            try {
-                renderer.forceContextLoss();
-            } catch {}
             renderer.dispose();
-            const gl = renderer.getContext();
-            if (gl && typeof gl.getExtension === "function") {
-                try {
-                    gl.getExtension("WEBGL_lose_context")?.loseContext();
-                } catch {}
-            }
         };
     }, [isInView, src, color, initialTiltY, onClick]);
 
@@ -930,10 +927,12 @@ export default function IPad3DCanvas({
             ref={containerRef}
             className={`group relative mx-auto flex items-center justify-center cursor-grab active:cursor-grabbing select-none w-full h-full touch-none overflow-visible ${className}`}
         >
-            <canvas
-                ref={canvasRef}
-                className="absolute top-[-12%] left-[-12%] w-[124%] h-[124%] block pointer-events-none overflow-visible"
-            />
+            {isInView && (
+                <canvas
+                    ref={canvasRef}
+                    className="absolute top-[-12%] left-[-12%] w-[124%] h-[124%] block pointer-events-none overflow-visible"
+                />
+            )}
 
             {(!isLoaded || !isInView) && (
                 <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
