@@ -214,6 +214,37 @@ export default function IPhone3DCanvas({
         const bodyMesh = new THREE.Mesh(bodyGeometry, bodyMaterial);
         phoneGroup.add(bodyMesh);
 
+        // Hardware Side Details on the Titanium Edges
+        const buttonMat = new THREE.MeshStandardMaterial({
+            color: finish.ring,
+            metalness: 0.82,
+            roughness: 0.32,
+        });
+        disposables.push(buttonMat);
+
+        // Left Edge Action Button (near the top)
+        const actionBtnGeom = new THREE.BoxGeometry(0.05, 0.30, phoneThickness * 0.4);
+        disposables.push(actionBtnGeom);
+        const actionBtn = new THREE.Mesh(actionBtnGeom, buttonMat);
+        actionBtn.position.set(-(phoneWidth / 2 + 0.025), 1.75, 0);
+        phoneGroup.add(actionBtn);
+
+        // Left Edge Volume Up / Volume Down Rockers
+        [{ y: 1.05, h: 0.46 }, { y: 0.48, h: 0.46 }].forEach(({ y, h }) => {
+            const volGeom = new THREE.BoxGeometry(0.05, h, phoneThickness * 0.4);
+            disposables.push(volGeom);
+            const volBtn = new THREE.Mesh(volGeom, buttonMat);
+            volBtn.position.set(-(phoneWidth / 2 + 0.025), y, 0);
+            phoneGroup.add(volBtn);
+        });
+
+        // Right Edge Power / Side Button
+        const powerBtnGeom = new THREE.BoxGeometry(0.05, 0.62, phoneThickness * 0.4);
+        disposables.push(powerBtnGeom);
+        const powerBtn = new THREE.Mesh(powerBtnGeom, buttonMat);
+        powerBtn.position.set(phoneWidth / 2 + 0.025, 0.95, 0);
+        phoneGroup.add(powerBtn);
+
         // B. Back Frosted Glass Panel
         const backShape = createRoundedRectShape(phoneWidth - 0.04, phoneHeight - 0.04, cornerRadius - 0.02);
         const backGeometry = new THREE.ShapeGeometry(backShape, 24);
@@ -380,7 +411,7 @@ export default function IPhone3DCanvas({
         );
 
         // E. Front Dynamic Island Pill (slightly larger authentic proportion)
-        const islandPillShape = createRoundedRectShape(0.66, 0.19, 0.095);
+        const islandPillShape = createRoundedRectShape(0.74, 0.22, 0.11);
         const islandPillGeom = new THREE.ShapeGeometry(islandPillShape, 20);
         disposables.push(islandPillGeom);
         const islandPillMat = new THREE.MeshBasicMaterial({ color: 0x000000 });
@@ -400,7 +431,7 @@ export default function IPhone3DCanvas({
         });
         disposables.push(homeBarMat);
         const homeBarMesh = new THREE.Mesh(homeBarGeom, homeBarMat);
-        homeBarMesh.position.set(0, -(screenHeight / 2) + 0.13, phoneThickness / 2 + 0.047);
+        homeBarMesh.position.set(0, -(screenHeight / 2) + 0.055, phoneThickness / 2 + 0.047);
         phoneGroup.add(homeBarMesh);
 
         // Initial resting angle: upright vertically, facing project text horizontally with playful idle roll
