@@ -3,7 +3,19 @@
 import React from "react";
 import Image from "next/image";
 
-export type IPhoneColor = "cosmic-orange" | "natural-titanium" | "black-titanium" | "silver";
+export type IPhoneColor =
+    | "cosmic-orange"
+    | "natural-titanium"
+    | "black-titanium"
+    | "silver"
+    | "ultramarine"
+    | "blue"
+    | "teal"
+    | "green"
+    | "pink"
+    | "white"
+    | "black"
+    | "space-gray";
 
 interface IPhoneMockupProps {
     src: string;
@@ -33,6 +45,46 @@ const COLOR_STYLES: Record<IPhoneColor, { outerChassis: string; ring: string; bu
         outerChassis: "bg-gradient-to-b from-[#f0f2f5] via-[#d4d8de] to-[#a8adb5]",
         ring: "ring-1 ring-white/60",
         button: "bg-[#b8bcc4]",
+    },
+    ultramarine: {
+        outerChassis: "bg-gradient-to-b from-[#688fe3] via-[#4f78cf] to-[#3a60b5]",
+        ring: "ring-1 ring-[#9bbcf7]/50",
+        button: "bg-[#456ec4]",
+    },
+    blue: {
+        outerChassis: "bg-gradient-to-b from-[#688fe3] via-[#4f78cf] to-[#3a60b5]",
+        ring: "ring-1 ring-[#9bbcf7]/50",
+        button: "bg-[#456ec4]",
+    },
+    teal: {
+        outerChassis: "bg-gradient-to-b from-[#4caea7] via-[#338f89] to-[#24706b]",
+        ring: "ring-1 ring-[#7ce0d8]/50",
+        button: "bg-[#28807a]",
+    },
+    green: {
+        outerChassis: "bg-gradient-to-b from-[#d4edd9] via-[#a6d6b4] to-[#88be98]",
+        ring: "ring-1 ring-[#e8f7ec]/60",
+        button: "bg-[#94c4a2]",
+    },
+    pink: {
+        outerChassis: "bg-gradient-to-b from-[#e87f9f] via-[#c86082] to-[#a04664]",
+        ring: "ring-1 ring-[#f8b4c8]/50",
+        button: "bg-[#b04c6c]",
+    },
+    white: {
+        outerChassis: "bg-gradient-to-b from-[#ffffff] via-[#ebedf2] to-[#d0d4dc]",
+        ring: "ring-1 ring-white/80",
+        button: "bg-[#dcdfe4]",
+    },
+    black: {
+        outerChassis: "bg-gradient-to-b from-[#2a2c30] via-[#1a1b1d] to-[#0e0f11]",
+        ring: "ring-1 ring-[#3a3c42]/40",
+        button: "bg-[#222428]",
+    },
+    "space-gray": {
+        outerChassis: "bg-gradient-to-b from-[#484c52] via-[#2f3238] to-[#1d1f23]",
+        ring: "ring-1 ring-[#5c616a]/40",
+        button: "bg-[#383b42]",
     },
 };
 

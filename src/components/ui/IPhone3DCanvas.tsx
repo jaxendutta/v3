@@ -97,11 +97,11 @@ const FINISH_COLORS: Record<
         logo: 0x308882,
     },
     green: {
-        body: 0x4a7856, // iPhone 17 elegant botanical sage/forest metallic green
-        back: 0x60946d, // Silky luminous frosted sage green rear glass
-        plateau: 0x3e6b49, // Deep botanical camera plateau
-        ring: 0x75ad84, // Polished metallic sage-green lens rings
-        logo: 0x467351,
+        body: 0xa6d6b4, // iPhone signature fresh light pastel mint/sage aluminum chassis
+        back: 0xd4edd9, // Silky luminous soft pale pastel mint rear glass
+        plateau: 0xbce2c6, // Delicate pale pastel camera island
+        ring: 0xe3f5e8, // Polished bright pale mint reflective lens rings
+        logo: 0x94c4a2,
     },
     pink: {
         body: 0xb04c6c, // Vibrant pop-pink / saturated magenta-rose aluminum

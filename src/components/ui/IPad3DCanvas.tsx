@@ -86,10 +86,10 @@ const FINISH_COLORS: Record<
         logo: 0x308882,
     },
     green: {
-        body: 0x4a7856,
-        back: 0x60946d,
-        ring: 0x75ad84,
-        logo: 0x467351,
+        body: 0xa6d6b4,
+        back: 0xd4edd9,
+        ring: 0xe3f5e8,
+        logo: 0x94c4a2,
     },
     pink: {
         body: 0xb04c6c,

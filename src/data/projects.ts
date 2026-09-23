@@ -254,6 +254,7 @@ export const projectsData: ProjectsData = {
         image: {
             device: "mobile",
             mockup: "iphone",
+            mockupColor: "green",
             source: "/jeffrey.mp4",
         },
         overview: [
