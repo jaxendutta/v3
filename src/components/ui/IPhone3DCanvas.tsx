@@ -380,6 +380,9 @@ export default function IPhone3DCanvas({
         // Initial placeholder screen (dark OLED glass)
         const screenMaterial = new THREE.MeshBasicMaterial({
             color: 0x0a0c10,
+            // Render the screenshot as-authored; the scene's ACES filmic tone curve is meant
+            // for lit chassis surfaces, not for a flat UI screenshot texture, and was dulling it
+            toneMapped: false,
         });
         disposables.push(screenMaterial);
 
@@ -394,9 +397,13 @@ export default function IPhone3DCanvas({
             (texture) => {
                 disposables.push(texture);
                 texture.colorSpace = THREE.SRGBColorSpace;
-                texture.minFilter = THREE.LinearFilter;
+                // Mipmaps + anisotropy are essential here: the screen is viewed at a persistent
+                // oblique angle (unlike the flat CSS mockups), and a single non-mipmapped
+                // bilinear tap looks noticeably blurrier at that kind of grazing angle
+                texture.minFilter = THREE.LinearMipmapLinearFilter;
                 texture.magFilter = THREE.LinearFilter;
-                texture.generateMipmaps = false;
+                texture.generateMipmaps = true;
+                texture.anisotropy = renderer.capabilities.getMaxAnisotropy();
 
                 screenMaterial.map = texture;
                 screenMaterial.color.setHex(0xffffff);

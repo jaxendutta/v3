@@ -379,6 +379,9 @@ export default function IPad3DCanvas({
 
         const screenMaterial = new THREE.MeshBasicMaterial({
             color: 0x0a0c10,
+            // Render the screenshot as-authored; the scene's ACES filmic tone curve is meant
+            // for lit chassis surfaces, not for a flat UI screenshot texture, and was dulling it
+            toneMapped: false,
         });
         disposables.push(screenMaterial);
 
@@ -419,9 +422,12 @@ export default function IPad3DCanvas({
 
                     const canvasTexture = new THREE.CanvasTexture(gifCanvas);
                     canvasTexture.colorSpace = THREE.SRGBColorSpace;
-                    canvasTexture.minFilter = THREE.LinearFilter;
+                    // Mipmaps + anisotropy so the animated screen holds up at the tablet's
+                    // persistent oblique viewing angle, same as the static-image path below
+                    canvasTexture.minFilter = THREE.LinearMipmapLinearFilter;
                     canvasTexture.magFilter = THREE.LinearFilter;
-                    canvasTexture.generateMipmaps = false;
+                    canvasTexture.generateMipmaps = true;
+                    canvasTexture.anisotropy = renderer.capabilities.getMaxAnisotropy();
                     disposables.push(canvasTexture);
 
                     const drawFrame = (frame: (typeof frames)[0]) => {
@@ -483,9 +489,13 @@ export default function IPad3DCanvas({
                     if (isCancelled) return;
                     disposables.push(texture);
                     texture.colorSpace = THREE.SRGBColorSpace;
-                    texture.minFilter = THREE.LinearFilter;
+                    // Mipmaps + anisotropy are essential here: the screen is viewed at a
+                    // persistent oblique angle (unlike the flat CSS mockups), and a single
+                    // non-mipmapped bilinear tap looks noticeably blurrier at that kind of angle
+                    texture.minFilter = THREE.LinearMipmapLinearFilter;
                     texture.magFilter = THREE.LinearFilter;
-                    texture.generateMipmaps = false;
+                    texture.generateMipmaps = true;
+                    texture.anisotropy = renderer.capabilities.getMaxAnisotropy();
 
                     screenMaterial.map = texture;
                     screenMaterial.color.setHex(0xffffff);
