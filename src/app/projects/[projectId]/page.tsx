@@ -11,6 +11,12 @@ type Props = {
     params: Promise<{ projectId: string }>;
 };
 
+export function generateStaticParams() {
+    return Object.keys(projectsData).map((projectId) => ({
+        projectId,
+    }));
+}
+
 // Generate dynamic metadata
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const { projectId } = await params;

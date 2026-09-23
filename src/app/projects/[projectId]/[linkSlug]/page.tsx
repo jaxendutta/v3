@@ -1,7 +1,22 @@
-import { findProjectLinkBySlug } from "@/lib/project-links";
+import { findProjectLinkBySlug, slugifyLinkLabel } from "@/lib/project-links";
 import { notFound, redirect } from "next/navigation";
 
-export const dynamic = "force-dynamic";
+import { projectsData } from "@/data/projects";
+
+export function generateStaticParams() {
+    const params: { projectId: string; linkSlug: string }[] = [];
+    for (const [projectId, project] of Object.entries(projectsData)) {
+        if (project.links) {
+            for (const link of project.links) {
+                params.push({
+                    projectId,
+                    linkSlug: slugifyLinkLabel(link.label),
+                });
+            }
+        }
+    }
+    return params;
+}
 
 type Props = {
     params: Promise<{ projectId: string; linkSlug: string }>;

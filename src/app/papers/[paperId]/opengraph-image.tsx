@@ -7,6 +7,12 @@ import { loadOgFonts } from '@/lib/og';
 export const size = { width: 1200, height: 630 };
 export const contentType = 'image/png';
 
+export function generateStaticParams() {
+    return Object.keys(papersData).map((paperId) => ({
+        paperId,
+    }));
+}
+
 type Props = { params: Promise<{ paperId: string }> };
 
 export default async function Image({ params }: Props) {

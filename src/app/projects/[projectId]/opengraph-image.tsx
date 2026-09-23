@@ -8,6 +8,12 @@ import { getProjectMedia } from '@/types/project';
 export const size = { width: 1200, height: 630 };
 export const contentType = 'image/png';
 
+export function generateStaticParams() {
+    return Object.keys(projectsData).map((projectId) => ({
+        projectId,
+    }));
+}
+
 type Props = { params: Promise<{ projectId: string }> };
 
 export default async function Image({ params }: Props) {
@@ -53,7 +59,7 @@ export default async function Image({ params }: Props) {
                         justifyContent: 'flex-end',
                         paddingBottom: 40,
                         gap: 14,
-                        maxWidth: imageSrc ? (isMobile ? 700 : 520) : undefined,
+                        ...(imageSrc ? { maxWidth: isMobile ? 700 : 520 } : {}),
                     }}
                 >
                     <div
