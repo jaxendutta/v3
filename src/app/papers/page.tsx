@@ -287,7 +287,7 @@ function PapersContent() {
             backHref="/#papers"
             backTexts={["Back Home", "Over & Out"]}
             title="Papers / Written Records"
-            titleClassName="text-6xl md:text-[7rem] lg:[8rem] pb-8 md:pb-10 lg:pb-12"
+            titleClassName="text-6xl md:text-[7rem] lg:text-[8rem] pb-8 md:pb-10 lg:pb-12"
             summary={summary}
             isFilterVisible={showFilters}
             onToggleFilters={() => setShowFilters(!showFilters)}

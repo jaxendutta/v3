@@ -144,7 +144,7 @@ export const PaperItem = ({
             </div>
             <span
                 className={
-                    `${sansFont} font-thin text-[13px] md:text-base md:tracking-wide` +
+                    `${sansFont} text-[13px] md:text-base md:tracking-wide` +
                     (!isActive ? " group-hover:text-highlight-text" : "")
                 }
             >

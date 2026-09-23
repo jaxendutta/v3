@@ -66,7 +66,7 @@ export const PresentationItem = ({
                                 <span dangerouslySetInnerHTML={{ __html: data.title }} />
                                 {data.status && <> <StatusBadge status={data.status} /></>}
                             </p>
-                            <span className={`${sansFont} font-thin text-[13px] md:text-base text-muted-foreground md:tracking-wide group-hover:text-highlight-text`}>
+                            <span className={`${sansFont} text-[13px] md:text-base text-muted-foreground md:tracking-wide group-hover:text-highlight-text`}>
                                 {data.presentationType}
                                 {(data.event?.short ?? data.event?.long) && (
                                     <> ✧ <span dangerouslySetInnerHTML={{ __html: data.event?.short ?? data.event?.long ?? "" }} /></>

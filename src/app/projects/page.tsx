@@ -323,7 +323,7 @@ function ProjectsContent() {
             backHref="/#projects"
             backTexts={["Back Home", "Over & Out"]}
             title="Projects"
-            titleClassName="text-5xl sm:text-7xl md:text-[10rem] pb-8 md:pb-10 lg:pb-12"
+            titleClassName="text-7xl sm:text-8xl md:text-[8rem] lg:text-[10rem] pb-8 md:pb-10 lg:pb-12"
             summary={summary}
             isFilterVisible={showFilters}
             onToggleFilters={() => setShowFilters(!showFilters)}
