@@ -125,32 +125,32 @@ export default function ProjectCard({
                                         : "mx-auto"
                                     }
                                     ${mockupType === "iphone"
-                                        ? "w-[48%] sm:w-[52%] md:w-full [--mockup-max-w:185px] sm:[--mockup-max-w:220px] md:[--mockup-max-w:360px] [--mockup-max-h:50svh] sm:[--mockup-max-h:58svh] md:[--mockup-max-h:85svh] aspect-[1/1.9] mt-2 sm:mt-4 md:mt-0"
+                                        ? "w-[54%] sm:w-[58%] md:w-full [--mockup-max-w:205px] sm:[--mockup-max-w:240px] md:[--mockup-max-w:360px] [--mockup-max-h:54svh] sm:[--mockup-max-h:60svh] md:[--mockup-max-h:85svh] aspect-[1/1.9] mt-2 sm:mt-4 md:mt-0"
                                         : isMobileProject
-                                            ? "w-[42%] sm:w-[45%] md:w-full [--mockup-max-w:165px] sm:[--mockup-max-w:200px] md:[--mockup-max-w:280px] [--mockup-max-h:48svh] md:[--mockup-max-h:85svh]"
+                                            ? "w-[46%] sm:w-[48%] md:w-full [--mockup-max-w:180px] sm:[--mockup-max-w:215px] md:[--mockup-max-w:280px] [--mockup-max-h:52svh] md:[--mockup-max-h:85svh]"
                                             : mockupType === "ipad"
-                                                ? "w-[75%] sm:w-[80%] md:w-full [--mockup-max-w:245px] sm:[--mockup-max-w:380px] md:[--mockup-max-w:960px] [--mockup-max-h:38svh] sm:[--mockup-max-h:50svh] md:[--mockup-max-h:75svh] aspect-[1.43/1]"
-                                                : "w-[78%] sm:w-[82%] md:w-full max-w-[280px] sm:max-w-[420px] md:max-w-[760px]"
+                                                ? "w-[80%] sm:w-[84%] md:w-full [--mockup-max-w:270px] sm:[--mockup-max-w:400px] md:[--mockup-max-w:960px] [--mockup-max-h:42svh] sm:[--mockup-max-h:52svh] md:[--mockup-max-h:75svh] aspect-[1.43/1]"
+                                                : "w-[82%] sm:w-[85%] md:w-full max-w-[310px] sm:max-w-[440px] md:max-w-[760px]"
                                     }`}
                                 frameStyle={
                                     mockupType === "iphone"
                                         ? {
                                             width: "100%",
-                                            maxWidth: "var(--mockup-max-w, 185px)",
-                                            maxHeight: "var(--mockup-max-h, 50svh)",
+                                            maxWidth: "var(--mockup-max-w, 205px)",
+                                            maxHeight: "var(--mockup-max-h, 54svh)",
                                             aspectRatio: "1 / 1.9",
                                         }
                                         : isMobileProject
                                             ? {
                                                 width: "100%",
-                                                maxWidth: "var(--mockup-max-w, 165px)",
-                                                maxHeight: "var(--mockup-max-h, 48svh)",
+                                                maxWidth: "var(--mockup-max-w, 180px)",
+                                                maxHeight: "var(--mockup-max-h, 52svh)",
                                             }
                                             : mockupType === "ipad"
                                                 ? {
                                                     width: "100%",
-                                                    maxWidth: "var(--mockup-max-w, 245px)",
-                                                    maxHeight: "var(--mockup-max-h, 38svh)",
+                                                    maxWidth: "var(--mockup-max-w, 270px)",
+                                                    maxHeight: "var(--mockup-max-h, 42svh)",
                                                     aspectRatio: "1.43 / 1",
                                                 }
                                                 : undefined
