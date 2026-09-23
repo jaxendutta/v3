@@ -167,7 +167,14 @@ body {
     width: 100%;
     max-width: 100%;
     min-height: 100vh;
+    /* The single source of page background, everywhere. Fixed attachment
+       pins it to the viewport (not the scrolling page), so the soft glow
+       always sits at the very top of the screen — behind the notch — on
+       every route and at any scroll position, instead of each page
+       painting its own flat rectangle that stops dead at the safe area. */
     background-color: var(--background);
+    background-image: radial-gradient(circle at 50% 0%, var(--secondary) 0%, var(--background) 60%);
+    background-attachment: fixed;
     color: var(--foreground);
 }
 
