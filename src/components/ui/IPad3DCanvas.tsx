@@ -165,8 +165,30 @@ export default function IPad3DCanvas({
     const containerRef = useRef<HTMLDivElement>(null);
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const [isLoaded, setIsLoaded] = useState(false);
+    const [isInView, setIsInView] = useState(false);
+
+    // 1. Viewport Observer: Only instantiate heavy WebGL context & video decoders when near viewport
+    useEffect(() => {
+        const container = containerRef.current;
+        if (!container) return;
+
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                setIsInView(entry.isIntersecting);
+            },
+            { rootMargin: "500px 0px" }
+        );
+
+        observer.observe(container);
+        return () => observer.disconnect();
+    }, []);
 
     useEffect(() => {
+        if (!isInView) {
+            setIsLoaded(false);
+            return;
+        }
+
         const container = containerRef.current;
         const canvas = canvasRef.current;
         if (!container || !canvas) return;
@@ -205,7 +227,9 @@ export default function IPad3DCanvas({
         const canvasW = Math.round(width * (1 + BLEED * 2));
         const canvasH = Math.round(height * (1 + BLEED * 2));
         renderer.setSize(canvasW, canvasH);
-        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        // On mobile devices, capping pixel ratio at 1.5 saves ~50% VRAM while staying retina-crisp
+        const maxDpr = typeof window !== "undefined" && window.innerWidth < 768 ? 1.5 : 2;
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, maxDpr));
         renderer.outputColorSpace = THREE.SRGBColorSpace;
         renderer.toneMapping = THREE.ACESFilmicToneMapping;
         renderer.toneMappingExposure = 1.05;
@@ -453,11 +477,12 @@ export default function IPad3DCanvas({
         screenMesh.position.z = tabletThickness / 2 + 0.041;
         tabletGroup.add(screenMesh);
 
-        // Load screenshot, animated GIF, or MP4/WebM video texture
         let gifPlayback: { update: (time: number) => void } | null = null;
         let videoElement: HTMLVideoElement | null = null;
+        let videoTexture: THREE.VideoTexture | null = null;
+        let removeGestureListeners: (() => void) | null = null;
         let isCancelled = false;
-        let isIntersecting = false;
+        let isIntersecting = true;
 
         const cleanSrc = src.split("?")[0].toLowerCase();
         const isVideo = cleanSrc.endsWith(".mp4") || cleanSrc.endsWith(".webm") || cleanSrc.endsWith(".ogg");
@@ -468,43 +493,78 @@ export default function IPad3DCanvas({
             video.src = src;
             video.crossOrigin = "anonymous";
             video.loop = true;
+            video.defaultMuted = true;
             video.muted = true;
             video.autoplay = true;
             video.playsInline = true;
-            video.setAttribute("playsinline", "true");
-            video.setAttribute("webkit-playsinline", "true");
+            video.setAttribute("muted", "");
+            video.setAttribute("playsinline", "");
+            video.setAttribute("webkit-playsinline", "");
+            video.setAttribute("disablePictureInPicture", "");
+            video.setAttribute("disableRemotePlayback", "");
             video.preload = "auto";
             videoElement = video;
+            video.load();
 
-            const videoTexture = new THREE.VideoTexture(video);
-            videoTexture.colorSpace = THREE.SRGBColorSpace;
-            videoTexture.minFilter = THREE.LinearFilter;
-            videoTexture.magFilter = THREE.LinearFilter;
-            videoTexture.generateMipmaps = false;
-            videoTexture.anisotropy = renderer.capabilities.getMaxAnisotropy();
-            disposables.push(videoTexture);
+            const vTexture = new THREE.VideoTexture(video);
+            vTexture.colorSpace = THREE.SRGBColorSpace;
+            vTexture.minFilter = THREE.LinearFilter;
+            vTexture.magFilter = THREE.LinearFilter;
+            vTexture.generateMipmaps = false;
+            vTexture.anisotropy = renderer.capabilities.getMaxAnisotropy();
+            videoTexture = vTexture;
+            disposables.push(vTexture);
 
-            screenMaterial.map = videoTexture;
+            screenMaterial.map = vTexture;
             screenMaterial.color.setHex(0xffffff);
             screenMaterial.needsUpdate = true;
 
-            const startPlayback = () => {
-                if (!isIntersecting) return;
-                video.play().catch(() => {
-                    video.muted = true;
-                    video.play().catch(() => {});
-                });
+            const tryPlay = () => {
+                if (isCancelled || !videoElement) return;
+                videoElement.muted = true;
+                const playPromise = videoElement.play();
+                if (playPromise !== undefined) {
+                    playPromise
+                        .then(() => {
+                            if (!isCancelled) setIsLoaded(true);
+                        })
+                        .catch(() => {
+                            // Autoplay restricted on page refresh or Low Power Mode; mark loaded and recover on gesture
+                            if (!isCancelled) setIsLoaded(true);
+                        });
+                }
             };
 
             const onReady = () => {
-                setIsLoaded(true);
-                startPlayback();
+                if (!isCancelled) setIsLoaded(true);
+                tryPlay();
             };
 
             video.addEventListener("loadeddata", onReady, { once: true });
             video.addEventListener("canplay", onReady, { once: true });
+            video.addEventListener("loadedmetadata", onReady, { once: true });
 
-            startPlayback();
+            if (video.readyState >= 2) {
+                onReady();
+            } else {
+                tryPlay();
+            }
+
+            // User gesture fallback for iOS Safari refresh & Low Power Mode:
+            const unlockPlay = () => {
+                if (videoElement && videoElement.paused && isIntersecting) {
+                    videoElement.muted = true;
+                    videoElement.play().catch(() => {});
+                }
+            };
+            window.addEventListener("touchstart", unlockPlay, { passive: true });
+            window.addEventListener("pointerdown", unlockPlay, { passive: true });
+            window.addEventListener("scroll", unlockPlay, { passive: true });
+            removeGestureListeners = () => {
+                window.removeEventListener("touchstart", unlockPlay);
+                window.removeEventListener("pointerdown", unlockPlay);
+                window.removeEventListener("scroll", unlockPlay);
+            };
         } else if (isGif) {
             fetch(src)
                 .then((res) => {
@@ -759,6 +819,10 @@ export default function IPad3DCanvas({
                 gifPlayback.update(performance.now());
             }
 
+            if (videoTexture && videoElement && !videoElement.paused && videoElement.readyState >= 2) {
+                videoTexture.needsUpdate = true;
+            }
+
             renderer.render(scene, camera);
         };
 
@@ -767,6 +831,7 @@ export default function IPad3DCanvas({
                 animationFrameId = requestAnimationFrame(animate);
             }
             if (videoElement && videoElement.paused) {
+                videoElement.muted = true;
                 videoElement.play().catch(() => {});
             }
         };
@@ -791,9 +856,24 @@ export default function IPad3DCanvas({
                     stopLoop();
                 }
             },
-            { rootMargin: "300px 0px" }
+            { rootMargin: "100px 0px" }
         );
         intersectionObserver.observe(container);
+
+        // Resume playback if tab was hidden and becomes visible again
+        const onVisibilityChange = () => {
+            if (document.visibilityState === "visible") {
+                if (videoElement && videoElement.paused && isIntersecting) {
+                    videoElement.muted = true;
+                    videoElement.play().catch(() => {});
+                }
+            } else {
+                if (videoElement && !videoElement.paused) {
+                    videoElement.pause();
+                }
+            }
+        };
+        document.addEventListener("visibilitychange", onVisibilityChange);
 
         // 8. Resize Observer
         const resizeObserver = new ResizeObserver(() => {
@@ -812,7 +892,13 @@ export default function IPad3DCanvas({
             isCancelled = true;
             intersectionObserver.disconnect();
             stopLoop();
+            if (removeGestureListeners) {
+                removeGestureListeners();
+                removeGestureListeners = null;
+            }
+            document.removeEventListener("visibilitychange", onVisibilityChange);
             if (videoElement) {
+                videoElement.pause();
                 videoElement.removeAttribute("src");
                 videoElement.load();
                 videoElement = null;
@@ -826,9 +912,18 @@ export default function IPad3DCanvas({
             container.removeEventListener("click", onClickCapture, { capture: true });
 
             disposables.forEach((d) => d.dispose());
+            try {
+                renderer.forceContextLoss();
+            } catch {}
             renderer.dispose();
+            const gl = renderer.getContext();
+            if (gl && typeof gl.getExtension === "function") {
+                try {
+                    gl.getExtension("WEBGL_lose_context")?.loseContext();
+                } catch {}
+            }
         };
-    }, [src, color, initialTiltY, onClick]);
+    }, [isInView, src, color, initialTiltY, onClick]);
 
     return (
         <div
@@ -840,7 +935,7 @@ export default function IPad3DCanvas({
                 className="absolute top-[-12%] left-[-12%] w-[124%] h-[124%] block pointer-events-none overflow-visible"
             />
 
-            {!isLoaded && (
+            {(!isLoaded || !isInView) && (
                 <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
                     <div className="w-8 h-8 rounded-full border-2 border-accent border-t-transparent animate-spin" />
                 </div>
