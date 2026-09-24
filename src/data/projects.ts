@@ -365,8 +365,7 @@ export const projectsData: ProjectsData = {
             device: "mobile",
             mockup: "iphone",
             mockupColor: "pink",
-            source: "/sabeer.mp4",
-            boomerang: true,
+            source: "/sabeer.mp4"
         },
         overview: [
             [
@@ -465,8 +464,8 @@ export const projectsData: ProjectsData = {
         },
         image: {
             device: "mobile",
-            mockup: "none",
-            source: "/emma.png",
+            mockup: "iphone",
+            source: "/emma.mp4"
         },
         links: [
             {
@@ -735,8 +734,7 @@ export const projectsData: ProjectsData = {
             device: "mobile",
             mockup: "iphone",
             mockupColor: "green",
-            source: "/pvc.mp4",
-            boomerang: true
+            source: "/pvc.mp4"
         },
         overview: [
             [
