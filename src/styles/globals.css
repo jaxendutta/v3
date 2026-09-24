@@ -471,3 +471,18 @@ a:hover {
 .font-lunazzi {
     line-height: 0.8 !important;
 }
+
+/* Footer PWA standalone clearance on mobile:
+   Standard iOS Safari browser retains py-6 (24px bottom padding).
+   PWA standalone mode on mobile receives 4rem (64px / pb-16) to clear home indicator. */
+@media (max-width: 767px) {
+    @media (display-mode: standalone) {
+        .footer-standalone-pb {
+            padding-bottom: 4rem;
+        }
+    }
+    :where(html.standalone-mode, .standalone-mode) .footer-standalone-pb {
+        padding-bottom: 4rem;
+    }
+}
+
