@@ -59,7 +59,7 @@ export default function FilteredCollectionPage({
                     centerIcon={HiOutlineArrowLeft}
                     size={80}
                     fontSize={12}
-                    variant="frost"
+                    variant="glow"
                 />
             </motion.div>
 
@@ -76,7 +76,7 @@ export default function FilteredCollectionPage({
                     centerIcon={HiOutlineArrowUp}
                     size={80}
                     fontSize={12}
-                    variant="frost"
+                    variant="glow"
                 />
             </motion.div>
 

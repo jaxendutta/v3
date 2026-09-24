@@ -125,7 +125,6 @@ export default function ProjectsPageHeader({
     const buttonProps = {
         size: 80,
         fontSize: 12,
-        variant: "frost" as const,
     };
 
     return (

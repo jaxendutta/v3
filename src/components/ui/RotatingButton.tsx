@@ -147,10 +147,11 @@ const RotatingButton: React.FC<RotatingButtonProps> = ({
     const getVariantClass = () => {
         switch (variant) {
             case "frost":
-            case "glow":
-                return "bg-background/40 backdrop-blur-xl border border-current/15 shadow-sm";
+                return "bg-opacity-10 backdrop-blur-md shadow-md";
             case "raised":
                 return "shadow-md hover:shadow-lg";
+            case "glow":
+                return "bg-theme shadow-[0_0_15px_15px_var(--color-background)] hover:shadow-[0_0_45px_45px_var(--color-background)]";
             default:
                 return "";
         }

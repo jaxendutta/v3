@@ -79,7 +79,7 @@ export default function TalkDetailContent({ talkId }: { talkId: string }) {
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ duration: 0.35, ease: "easeOut" }}
             >
-                <RotatingButton href="/papers" texts={["Papers & Talks", "Back"]} centerIcon={HiOutlineArrowLeft} size={80} fontSize={12} variant="frost" />
+                <RotatingButton href="/papers" texts={["Papers & Talks", "Back"]} centerIcon={HiOutlineArrowLeft} size={80} fontSize={12} variant="glow" />
             </motion.div>
 
             <motion.div
@@ -88,7 +88,7 @@ export default function TalkDetailContent({ talkId }: { talkId: string }) {
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ duration: 0.35, ease: "easeOut" }}
             >
-                <RotatingButton href="#top" texts={["Back to top", "Scroll up"]} centerIcon={HiOutlineArrowUp} size={80} fontSize={12} variant="frost" />
+                <RotatingButton href="#top" texts={["Back to top", "Scroll up"]} centerIcon={HiOutlineArrowUp} size={80} fontSize={12} variant="glow" />
             </motion.div>
 
             {/* Event headline */}
