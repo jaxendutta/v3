@@ -71,7 +71,7 @@ export default function Navbar() {
 
     return (
         <nav
-            className="fixed left-0 right-0 top-0 z-50 px-4 pb-4 pt-[calc(max(1rem,env(safe-area-inset-top))+var(--pwa-extra-top))] text-theme mix-blend-difference invert dark:invert-0"
+            className="fixed left-0 right-0 top-0 z-50 px-4 pb-4 pt-[max(1rem,env(safe-area-inset-top))] text-theme mix-blend-difference invert dark:invert-0"
         >
             {/* Mobile Layout (equidistant tabs) */}
             <div className={`flex md:hidden items-center justify-between w-full ${codeFont}`}>

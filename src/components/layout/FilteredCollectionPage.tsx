@@ -49,7 +49,7 @@ export default function FilteredCollectionPage({
                 animate={{ y: 0 }}
                 transition={{ duration: 0.4, ease: "easeOut" }}
             >
-                <div className="max-w-[2048px] mx-auto w-full flex justify-between items-center px-4 md:px-6 lg:px-8 xl:px-12 2xl:px-16 pt-[calc(max(1rem,env(safe-area-inset-top))+var(--pwa-extra-top))] md:pt-[calc(max(1.5rem,env(safe-area-inset-top))+var(--pwa-extra-top))] lg:pt-[calc(max(2rem,env(safe-area-inset-top))+var(--pwa-extra-top))] xl:pt-[calc(max(3rem,env(safe-area-inset-top))+var(--pwa-extra-top))] 2xl:pt-[calc(max(4rem,env(safe-area-inset-top))+var(--pwa-extra-top))]">
+                <div className="max-w-[2048px] mx-auto w-full flex justify-between items-center px-4 md:px-6 lg:px-8 xl:px-12 2xl:px-16 pt-[max(1rem,env(safe-area-inset-top))] md:pt-[max(1.5rem,env(safe-area-inset-top))] lg:pt-[max(2rem,env(safe-area-inset-top))] xl:pt-[max(3rem,env(safe-area-inset-top))] 2xl:pt-[max(4rem,env(safe-area-inset-top))]">
                     <div className="pointer-events-auto">
                         <RotatingButton
                             href={backHref}

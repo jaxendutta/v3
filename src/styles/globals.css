@@ -167,30 +167,15 @@ body {
     width: 100%;
     max-width: 100%;
     min-height: 100vh;
+    /* The single source of page background, everywhere. Fixed attachment
+       pins it to the viewport (not the scrolling page), so the soft glow
+       always sits at the very top of the screen — behind the notch — on
+       every route and at any scroll position, instead of each page
+       painting its own flat rectangle that stops dead at the safe area. */
     background-color: var(--background);
+    background-image: radial-gradient(circle at 50% 0%, var(--secondary) 0%, var(--background) 60%);
+    background-attachment: fixed;
     color: var(--foreground);
-}
-
-/* iOS PWA standalone mode sits its own status bar slightly differently than
-   Safari's browser-tab safe area, so fixed top bars need a touch more
-   clearance there. `standalone-mode` is toggled on <html> by
-   BrowserThemeColor.tsx; the display-mode media query is a CSS-only
-   backup for the same detection. Headers add this on top of their normal
-   safe-area padding via var(--pwa-extra-top). */
-:root {
-    --pwa-extra-top: 0px;
-}
-
-@media (max-width: 767px) {
-    html.standalone-mode {
-        --pwa-extra-top: 0.5rem;
-    }
-
-    @media (display-mode: standalone) {
-        :root {
-            --pwa-extra-top: 0.5rem;
-        }
-    }
 }
 
 /* Smooth transitions for theme changes (fallback when View Transitions is not active) */
