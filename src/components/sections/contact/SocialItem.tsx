@@ -6,7 +6,8 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { BsArrowUpRight } from "react-icons/bs";
 import { Social } from "@/types/contact";
-import { PiCheckSquare, PiCopySimple, PiFilePdf, PiDownloadSimple } from "react-icons/pi";
+import { PiCheckSquare, PiCopySimple, PiFilePdf } from "react-icons/pi";
+import { GoDownload } from "react-icons/go";
 
 export interface SocialItemProps {
     item: Social;
@@ -104,7 +105,7 @@ export const SocialItem = ({ item, index, copy = true, className = "" }: SocialI
                         style={{ color: "inherit", textDecoration: "none" }}
                         title="Download"
                     >
-                        <PiDownloadSimple />
+                        <GoDownload />
                     </a>
                 )}
 
