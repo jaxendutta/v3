@@ -1,7 +1,7 @@
 // src/components/ui/RotatingButton.tsx
 "use client";
 
-import { useState, useEffect, useId } from "react";
+import { useState, useEffect, useId, useMemo } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { IconType } from "react-icons";
@@ -11,7 +11,7 @@ export interface RotatingButtonProps
     texts: string[];
     delimiters?: string[];
     size?: number | { default: number; md?: number; lg?: number };
-    variant?: "default" | "frost" | "raised" | "glow";
+    variant?: "default" | "frost" | "raised" | "glow" | "wavy";
     href?: string;
     onClick?: () => void;
     centerIcon?: IconType;
@@ -19,6 +19,73 @@ export interface RotatingButtonProps
     rotationDuration?: number;
     fontSize?: number | { default: number; md?: number; lg?: number };
     disabled?: boolean;
+}
+
+// Generate smooth, natural wavy circle badge with round crests and wide, pillowy valleys
+function generateWavyCirclePath(
+    cx: number,
+    cy: number,
+    radius: number,
+    amplitude: number = 3.8,
+    waves: number = 12
+): string {
+    const rCrest = radius + amplitude;
+    const rTrough = radius - amplitude * 0.85;
+    const lFactor = 0.44;
+
+    let d = "";
+
+    for (let i = 0; i < waves; i++) {
+        const thetaPeak = (i * 2 * Math.PI) / waves;
+        const thetaValley = ((i + 0.5) * 2 * Math.PI) / waves;
+        const thetaNextPeak = ((i + 1) * 2 * Math.PI) / waves;
+
+        const pPeak = {
+            x: cx + rCrest * Math.cos(thetaPeak),
+            y: cy + rCrest * Math.sin(thetaPeak),
+        };
+        const pValley = {
+            x: cx + rTrough * Math.cos(thetaValley),
+            y: cy + rTrough * Math.sin(thetaValley),
+        };
+        const pNextPeak = {
+            x: cx + rCrest * Math.cos(thetaNextPeak),
+            y: cy + rCrest * Math.sin(thetaNextPeak),
+        };
+
+        const tPeak = { x: -Math.sin(thetaPeak), y: Math.cos(thetaPeak) };
+        const tValley = { x: -Math.sin(thetaValley), y: Math.cos(thetaValley) };
+        const tNextPeak = { x: -Math.sin(thetaNextPeak), y: Math.cos(thetaNextPeak) };
+
+        const dist1 = Math.hypot(pValley.x - pPeak.x, pValley.y - pPeak.y);
+        const dist2 = Math.hypot(pNextPeak.x - pValley.x, pNextPeak.y - pValley.y);
+
+        const c1 = {
+            x: pPeak.x + tPeak.x * dist1 * lFactor,
+            y: pPeak.y + tPeak.y * dist1 * lFactor,
+        };
+        const c2 = {
+            x: pValley.x - tValley.x * dist1 * lFactor,
+            y: pValley.y - tValley.y * dist1 * lFactor,
+        };
+        const c3 = {
+            x: pValley.x + tValley.x * dist2 * lFactor,
+            y: pValley.y + tValley.y * dist2 * lFactor,
+        };
+        const c4 = {
+            x: pNextPeak.x - tNextPeak.x * dist2 * lFactor,
+            y: pNextPeak.y - tNextPeak.y * dist2 * lFactor,
+        };
+
+        if (i === 0) {
+            d += `M ${pPeak.x.toFixed(2)} ${pPeak.y.toFixed(2)}`;
+        }
+        d += ` C ${c1.x.toFixed(2)} ${c1.y.toFixed(2)}, ${c2.x.toFixed(2)} ${c2.y.toFixed(2)}, ${pValley.x.toFixed(2)} ${pValley.y.toFixed(2)}`;
+        d += ` C ${c3.x.toFixed(2)} ${c3.y.toFixed(2)}, ${c4.x.toFixed(2)} ${c4.y.toFixed(2)}, ${pNextPeak.x.toFixed(2)} ${pNextPeak.y.toFixed(2)}`;
+    }
+
+    d += " Z";
+    return d;
 }
 
 const RotatingButton: React.FC<RotatingButtonProps> = ({
@@ -143,6 +210,13 @@ const RotatingButton: React.FC<RotatingButtonProps> = ({
         return centerIcon;
     };
 
+    // Calculate wavy path for wavy variant
+    const wavyPad = 10;
+    const wavyPath = useMemo(() => {
+        if (variant !== "wavy") return "";
+        return generateWavyCirclePath(radius, radius, radius + 2, radius * 0.085, 12);
+    }, [variant, radius]);
+
     // Apply variant-specific styles
     const getVariantClass = () => {
         switch (variant) {
@@ -152,6 +226,8 @@ const RotatingButton: React.FC<RotatingButtonProps> = ({
                 return "shadow-md hover:shadow-lg";
             case "glow":
                 return "bg-theme shadow-[0_0_15px_15px_var(--color-background)] hover:shadow-[0_0_45px_45px_var(--color-background)]";
+            case "wavy":
+                return "";
             default:
                 return "";
         }
@@ -166,6 +242,30 @@ const RotatingButton: React.FC<RotatingButtonProps> = ({
                 height: currentSize,
             }}
         >
+            {/* Wavy silhouette backdrop - completely invisible on default page background,
+                crisply reveals itself as a scalloped mask when scrolling over different-colored content */}
+            {variant === "wavy" && (
+                <svg
+                    className="absolute pointer-events-none select-none transition-transform duration-300 group-hover:scale-105"
+                    style={{
+                        width: currentSize + wavyPad * 2,
+                        height: currentSize + wavyPad * 2,
+                        top: -wavyPad,
+                        left: -wavyPad,
+                    }}
+                    viewBox={`${-wavyPad} ${-wavyPad} ${currentSize + wavyPad * 2} ${currentSize + wavyPad * 2}`}
+                    aria-hidden="true"
+                >
+                    <path
+                        d={wavyPath}
+                        fill="var(--color-background)"
+                        stroke="var(--color-background)"
+                        strokeWidth="1.5"
+                        strokeLinejoin="round"
+                        className="transition-colors duration-200 group-hover:stroke-accent/50"
+                    />
+                </svg>
+            )}
             {/* Rotating SVG with text */}
             <motion.svg
                 className="p-1 absolute inset-0 h-full w-full fill-current group-hover:fill-accent"

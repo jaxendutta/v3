@@ -14,7 +14,7 @@ import {
     GiJumpingDog,
     GiLifeInTheBalance,
     // GiTicTacToe,
-    GiAmplitude,
+    GiArmadillo,
     GiResonance,
     // GiAce
 } from "react-icons/gi";
@@ -44,7 +44,7 @@ export const projectsData: ProjectsData = {
     "sqlite-xplore": {
         name: "SQLite Xplore",
         label: "SQLite Xplore",
-        icon: GiAbstract079,
+        icon: GiArmadillo,
         cardFont: acidicFont,
         type: "development",
         categories: ["fullstack", "frontend"],
@@ -242,7 +242,7 @@ export const projectsData: ProjectsData = {
     jeffrey: {
         name: "Jeffrey's Aria",
         label: "Jeffrey's Aria",
-        icon: GiAmplitude,
+        icon: GiAbstract079,
         cardFont: modernPrestigeFont,
         type: "development",
         categories: ["frontend"],
