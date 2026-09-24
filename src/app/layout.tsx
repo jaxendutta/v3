@@ -117,6 +117,22 @@ export default function RootLayout({
                 />
             </head>
             <body className="min-h-dvh w-full cursor-crosshair">
+                {/*
+                    A real fixed-position element, not a `background-attachment: fixed`
+                    trick — that CSS property is notoriously unreliable in iOS Safari's
+                    browser-tab mode (it only behaves in standalone/PWA mode, where the
+                    dynamic toolbar doesn't resize the viewport). Actual `position: fixed`
+                    elements are handled correctly in both, the same way RotatingButton's
+                    pills already are. One layer, mounted once, identical on every route.
+                */}
+                <div
+                    className="fixed inset-0 -z-10 pointer-events-none"
+                    style={{
+                        backgroundImage:
+                            "radial-gradient(circle at 50% 0%, var(--secondary) 0%, var(--background) 60%)",
+                    }}
+                    aria-hidden="true"
+                />
                 <Analytics />
                 <ThemeProvider>
                     <BrowserThemeColor />
