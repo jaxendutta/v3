@@ -125,10 +125,11 @@ export default function ProjectsPageHeader({
     const buttonProps = {
         size: 80,
         fontSize: 12,
+        variant: "frost" as const,
     };
 
     return (
-        <header className="fixed top-0 left-0 right-0 z-50 px-3 pb-5 pt-[max(0.75rem,env(safe-area-inset-top))] flex items-center pointer-events-none">
+        <div className="fixed top-0 left-0 right-0 z-50 px-3 pb-5 pt-[max(0.75rem,env(safe-area-inset-top))] flex items-center pointer-events-none">
             <LayoutGroup>
                 <motion.div
                     className={`w-full flex items-center justify-between pointer-events-auto ${titleVisible && "gap-4 lg:gap-6"}`}
@@ -224,6 +225,6 @@ export default function ProjectsPageHeader({
                     </motion.div>
                 </motion.div>
             </LayoutGroup>
-        </header>
+        </div>
     );
 }

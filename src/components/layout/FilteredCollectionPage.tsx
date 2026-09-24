@@ -42,40 +42,43 @@ export default function FilteredCollectionPage({
     footerClassName = "mt-6",
 }: FilteredCollectionPageProps) {
     return (
-        <div id="top" className="min-h-screen flex flex-col gap-4 p-4 md:p-6 lg:p-8 xl:p-12 2xl:p-16 text-[13px] md:text-sm lg:text-base w-full max-w-full overflow-visible">
-            <motion.header
-                className="fixed top-0 left-0 right-0 z-50 pointer-events-none"
-                initial={{ y: -100 }}
-                animate={{ y: 0 }}
-                transition={{ duration: 0.4, ease: "easeOut" }}
+        <div
+            id="top"
+            className="min-h-screen flex flex-col gap-4 px-4 md:px-6 lg:px-8 xl:px-12 2xl:px-16 pb-4 md:pb-6 lg:pb-8 xl:pb-12 2xl:pb-16 pt-[calc(env(safe-area-inset-top,0px)+4.75rem)] md:pt-16 text-[13px] md:text-sm lg:text-base w-full max-w-full overflow-visible"
+        >
+            {/* Top Navigation Controls - floating corner buttons matching ../jeffrey */}
+            <motion.div
+                className="fixed top-[calc(env(safe-area-inset-top,0px)+0.75rem)] md:top-6 lg:top-8 left-3 md:left-6 lg:left-8 xl:left-12 2xl:left-16 z-50 pointer-events-auto"
+                initial={{ y: -50, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ duration: 0.35, ease: "easeOut" }}
             >
-                <div className="max-w-[2048px] mx-auto w-full flex justify-between items-center px-4 md:px-6 lg:px-8 xl:px-12 2xl:px-16 pt-[max(1rem,env(safe-area-inset-top))] md:pt-[max(1.5rem,env(safe-area-inset-top))] lg:pt-[max(2rem,env(safe-area-inset-top))] xl:pt-[max(3rem,env(safe-area-inset-top))] 2xl:pt-[max(4rem,env(safe-area-inset-top))]">
-                    <div className="pointer-events-auto">
-                        <RotatingButton
-                            href={backHref}
-                            texts={backTexts}
-                            centerIcon={HiOutlineArrowLeft}
-                            size={80}
-                            fontSize={12}
-                            variant="glow"
-                        />
-                    </div>
-                    <div className="pointer-events-auto">
-                        <RotatingButton
-                            href="#top"
-                            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-                            texts={["Back to top", "Scroll up"]}
-                            centerIcon={HiOutlineArrowUp}
-                            size={80}
-                            fontSize={12}
-                            variant="glow"
-                        />
-                    </div>
-                </div>
-            </motion.header>
+                <RotatingButton
+                    href={backHref}
+                    texts={backTexts}
+                    centerIcon={HiOutlineArrowLeft}
+                    size={80}
+                    fontSize={12}
+                    variant="frost"
+                />
+            </motion.div>
 
-            {/* In-flow spacer preserving vertical height for fixed header */}
-            <div className="h-20 shrink-0 pointer-events-none" aria-hidden="true" />
+            <motion.div
+                className="fixed top-[calc(env(safe-area-inset-top,0px)+0.75rem)] md:top-6 lg:top-8 right-3 md:right-6 lg:right-8 xl:right-12 2xl:right-16 z-50 pointer-events-auto"
+                initial={{ y: -50, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ duration: 0.35, ease: "easeOut" }}
+            >
+                <RotatingButton
+                    href="#top"
+                    onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+                    texts={["Back to top", "Scroll up"]}
+                    centerIcon={HiOutlineArrowUp}
+                    size={80}
+                    fontSize={12}
+                    variant="frost"
+                />
+            </motion.div>
 
             <motion.div variants={fadeIn} initial="hidden" animate="visible" className="w-full max-w-full overflow-visible">
                 <motion.div className={`${titleClassName} text-center`}>

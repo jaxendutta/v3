@@ -71,17 +71,25 @@ export default function TalkDetailContent({ talkId }: { talkId: string }) {
     const aspectRatio = resolveAspectRatio(data.embed?.url ?? "", data.embed?.aspectRatio);
 
     return (
-        <div className="min-h-screen flex flex-col gap-8 p-4 md:p-6 lg:p-8 xl:p-12 2xl:p-16 text-[13px] md:text-sm lg:text-base">
-            {/* Sticky nav */}
-            <motion.header
-                className="sticky top-4 z-50 flex justify-between items-center"
-                initial={{ y: -100 }}
-                animate={{ y: 0 }}
-                transition={{ duration: 0.4, ease: "easeOut" }}
+        <div className="min-h-screen flex flex-col gap-8 px-4 md:px-6 lg:px-8 xl:px-12 2xl:px-16 pb-4 md:pb-6 lg:pb-8 xl:pb-12 2xl:pb-16 pt-[calc(env(safe-area-inset-top,0px)+4.75rem)] md:pt-16 text-[13px] md:text-sm lg:text-base">
+            {/* Top Navigation Controls - floating corner buttons matching ../jeffrey */}
+            <motion.div
+                className="fixed top-[calc(env(safe-area-inset-top,0px)+0.75rem)] md:top-6 lg:top-8 left-3 md:left-6 lg:left-8 xl:left-12 2xl:left-16 z-50 pointer-events-auto"
+                initial={{ y: -50, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ duration: 0.35, ease: "easeOut" }}
             >
-                <RotatingButton href="/papers" texts={["Papers & Talks", "Back"]} centerIcon={HiOutlineArrowLeft} size={80} fontSize={12} variant="glow" />
-                <RotatingButton href="#top" texts={["Back to top", "Scroll up"]} centerIcon={HiOutlineArrowUp} size={80} fontSize={12} variant="glow" />
-            </motion.header>
+                <RotatingButton href="/papers" texts={["Papers & Talks", "Back"]} centerIcon={HiOutlineArrowLeft} size={80} fontSize={12} variant="frost" />
+            </motion.div>
+
+            <motion.div
+                className="fixed top-[calc(env(safe-area-inset-top,0px)+0.75rem)] md:top-6 lg:top-8 right-3 md:right-6 lg:right-8 xl:right-12 2xl:right-16 z-50 pointer-events-auto"
+                initial={{ y: -50, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ duration: 0.35, ease: "easeOut" }}
+            >
+                <RotatingButton href="#top" texts={["Back to top", "Scroll up"]} centerIcon={HiOutlineArrowUp} size={80} fontSize={12} variant="frost" />
+            </motion.div>
 
             {/* Event headline */}
             <motion.div variants={fadeIn} initial="hidden" animate="visible" className="w-full text-center mt-4 md:mt-6">
