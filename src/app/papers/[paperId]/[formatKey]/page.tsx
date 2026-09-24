@@ -55,7 +55,7 @@ export default async function PaperDocumentPage({ params }: Props) {
     const pdfPath = `/papers/${paperId}/${formatKey}/${fileName}`;
 
     return (
-        <main className="min-h-dvh w-full bg-background no-scrollbar overflow-x-hidden relative">
+        <main className="min-h-dvh w-full no-scrollbar overflow-x-hidden relative">
             <IOSRedirect pdfUrl={pdfPath} />
             <iframe
                 src={pdfPath}

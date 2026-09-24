@@ -128,12 +128,10 @@ export default function ProjectsPageHeader({
     };
 
     return (
-        <header className="fixed top-0 left-0 right-0 z-50 px-3 pb-5 pt-[max(0.75rem,env(safe-area-inset-top))] flex items-center">
-            {/* Scrim sits below the notch/status bar so the safe area itself stays see-through, matching the home page */}
-            <div className="absolute inset-x-0 bottom-0 top-[env(safe-area-inset-top)] bg-linear-to-b from-background/95 to-transparent backdrop-blur-sm mask-[linear-gradient(to_bottom,black_70%,transparent_100%)]" />
+        <header className="fixed top-0 left-0 right-0 z-50 px-3 pb-5 pt-[max(0.75rem,env(safe-area-inset-top))] flex items-center pointer-events-none">
             <LayoutGroup>
                 <motion.div
-                    className={`w-full flex items-center justify-between ${titleVisible && "gap-4 lg:gap-6"}`}
+                    className={`w-full flex items-center justify-between pointer-events-auto ${titleVisible && "gap-4 lg:gap-6"}`}
                     layout
                     transition={springTransition}
                 >

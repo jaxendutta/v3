@@ -160,7 +160,7 @@ export default function ShowcaseLayout({ projectId }: { projectId: keyof typeof 
     }, [isLandscape]);
 
     return (
-        <div className="h-full w-screen overflow-hidden relative bg-background text-foreground flex flex-col">
+        <div className="h-full w-screen overflow-hidden relative text-foreground flex flex-col">
             <ProjectsPageHeader titleVisible={titleVisible} isLandscape={isLandscape} />
 
             <main

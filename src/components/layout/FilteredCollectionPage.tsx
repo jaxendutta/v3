@@ -42,7 +42,7 @@ export default function FilteredCollectionPage({
     footerClassName = "mt-6",
 }: FilteredCollectionPageProps) {
     return (
-        <div id="top" className="min-h-screen flex flex-col gap-4 p-4 md:p-6 lg:p-8 xl:p-12 2xl:p-16 text-[13px] md:text-sm lg:text-base w-full max-w-full overflow-x-clip">
+        <div id="top" className="min-h-screen flex flex-col gap-4 p-4 md:p-6 lg:p-8 xl:p-12 2xl:p-16 text-[13px] md:text-sm lg:text-base w-full max-w-full overflow-visible">
             <motion.header
                 className="fixed top-0 left-0 right-0 z-50 pointer-events-none"
                 initial={{ y: -100 }}

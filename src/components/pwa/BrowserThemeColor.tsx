@@ -18,6 +18,13 @@ export default function BrowserThemeColor() {
             window.matchMedia("(display-mode: standalone)").matches ||
             Boolean((window.navigator as unknown as { standalone?: boolean }).standalone);
 
+        const activeColor =
+            theme === "dark" ? THEME_COLORS.dark : THEME_COLORS.light;
+
+        // Update body/html background for Safari overscroll bounce
+        document.body.style.backgroundColor = activeColor;
+        document.documentElement.style.backgroundColor = activeColor;
+
         if (!isStandalone) {
             document.documentElement.classList.remove("standalone-mode");
             let meta = document.querySelector('meta[name="theme-color"]');
@@ -26,8 +33,6 @@ export default function BrowserThemeColor() {
                 meta.setAttribute("name", "theme-color");
                 document.head.appendChild(meta);
             }
-            const activeColor =
-                theme === "dark" ? THEME_COLORS.dark : THEME_COLORS.light;
             meta.setAttribute("content", activeColor);
         } else {
             document.documentElement.classList.add("standalone-mode");
