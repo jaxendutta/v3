@@ -635,9 +635,9 @@ export const projectsData: ProjectsData = {
             end: new Date("2026-01-24")
         },
         image: {
-            device: "mobile",
-            mockup: "none",
-            source: "/rgap.png",
+            device: "tablet",
+            mockup: "ipad",
+            source: "/rgap.mp4",
         },
         overview: [
             [
@@ -815,8 +815,9 @@ export const projectsData: ProjectsData = {
         },
         image: {
             device: "mobile",
-            mockup: "none",
-            source: "/v2.png",
+            mockup: "iphone",
+            mockupColor: "lavendar",
+            source: "/v2.mp4",
         },
         overview: [
             [
@@ -916,8 +917,9 @@ export const projectsData: ProjectsData = {
         },
         image: {
             device: "mobile",
-            mockup: "none",
-            source: "/evse-opt.png",
+            mockup: "iphone",
+            mockupColor: "pink",
+            source: "/evse-opt.mp4",
         },
         links: [
             {
@@ -1056,8 +1058,9 @@ export const projectsData: ProjectsData = {
         },
         image: {
             device: "mobile",
-            mockup: "none",
-            source: "/v1.png",
+            mockup: "iphone",
+            mockupColor: "green",
+            source: "/v1.mp4",
         },
         overview: [
             [

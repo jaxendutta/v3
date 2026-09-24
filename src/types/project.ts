@@ -59,6 +59,9 @@ export type DeviceColor =
     | "teal"
     | "green"
     | "pink"
+    | "purple"
+    | "lavender"
+    | "lavendar"
     | "white"
     | "black";
 

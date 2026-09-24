@@ -13,6 +13,9 @@ export type IPhoneColor =
     | "teal"
     | "green"
     | "pink"
+    | "purple"
+    | "lavender"
+    | "lavendar"
     | "white"
     | "black"
     | "space-gray";
@@ -70,6 +73,21 @@ const COLOR_STYLES: Record<IPhoneColor, { outerChassis: string; ring: string; bu
         outerChassis: "bg-gradient-to-b from-[#f0a8bf] via-[#dc7d9b] to-[#ba5979]",
         ring: "ring-1 ring-[#f7c6d6]/70",
         button: "bg-[#d66d8e]",
+    },
+    purple: {
+        outerChassis: "bg-gradient-to-b from-[#e4dcf2] via-[#b8a4d4] to-[#9980b8]",
+        ring: "ring-1 ring-[#f2ecf8]/70",
+        button: "bg-[#b8a4d4]",
+    },
+    lavender: {
+        outerChassis: "bg-gradient-to-b from-[#e4dcf2] via-[#b8a4d4] to-[#9980b8]",
+        ring: "ring-1 ring-[#f2ecf8]/70",
+        button: "bg-[#b8a4d4]",
+    },
+    lavendar: {
+        outerChassis: "bg-gradient-to-b from-[#e4dcf2] via-[#b8a4d4] to-[#9980b8]",
+        ring: "ring-1 ring-[#f2ecf8]/70",
+        button: "bg-[#b8a4d4]",
     },
     white: {
         outerChassis: "bg-gradient-to-b from-[#ffffff] via-[#ebedf2] to-[#d0d4dc]",

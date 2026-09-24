@@ -15,6 +15,9 @@ export type DeviceFinish =
     | "teal"
     | "green"
     | "pink"
+    | "purple"
+    | "lavender"
+    | "lavendar"
     | "white"
     | "black";
 
@@ -107,6 +110,27 @@ const FINISH_COLORS: Record<
         ring: 0xf7c6d6,
         logo: 0xcb6b8a,
         button: 0xd66d8e,
+    },
+    purple: {
+        body: 0xb8a4d4,
+        back: 0xe4dcf2,
+        ring: 0xf2ecf8,
+        logo: 0x9f8cb8,
+        button: 0xb8a4d4,
+    },
+    lavender: {
+        body: 0xb8a4d4,
+        back: 0xe4dcf2,
+        ring: 0xf2ecf8,
+        logo: 0x9f8cb8,
+        button: 0xb8a4d4,
+    },
+    lavendar: {
+        body: 0xb8a4d4,
+        back: 0xe4dcf2,
+        ring: 0xf2ecf8,
+        logo: 0x9f8cb8,
+        button: 0xb8a4d4,
     },
     white: {
         body: 0xe2e4e8,
