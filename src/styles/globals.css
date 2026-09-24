@@ -486,3 +486,19 @@ a:hover {
     }
 }
 
+/* Top Navbar PWA standalone clearance on mobile:
+   Standard browser mode retains standard pt-[max(1rem,env(safe-area-inset-top))].
+   In PWA standalone mode on iOS/mobile, pull down slightly (0.75rem / 12px below safe area)
+   to clear the native iOS status bar progressive blur. */
+@media (max-width: 767px) {
+    @media (display-mode: standalone) {
+        .navbar-standalone-pt {
+            padding-top: calc(max(1rem, env(safe-area-inset-top, 0px)) + 0.75rem);
+        }
+    }
+    :where(html.standalone-mode, .standalone-mode) .navbar-standalone-pt {
+        padding-top: calc(max(1rem, env(safe-area-inset-top, 0px)) + 0.75rem);
+    }
+}
+
+
