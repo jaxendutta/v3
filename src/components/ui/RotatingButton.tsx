@@ -19,6 +19,7 @@ export interface RotatingButtonProps
     rotationDuration?: number;
     fontSize?: number | { default: number; md?: number; lg?: number };
     disabled?: boolean;
+    wavyPadding?: number;
 }
 
 // Generate smooth, natural wavy circle badge with round crests and wide, pillowy valleys
@@ -101,6 +102,7 @@ const RotatingButton: React.FC<RotatingButtonProps> = ({
     fontSize = { default: 11, md: 12, lg: 14 },
     type = "button",
     disabled = false,
+    wavyPadding = 7,
 }) => {
     texts = texts.map((text) => text.toUpperCase());
     const pathId = `circle-path-${useId().replace(/:/g, "")}`;
@@ -210,12 +212,13 @@ const RotatingButton: React.FC<RotatingButtonProps> = ({
         return centerIcon;
     };
 
-    // Calculate wavy path for wavy variant
-    const wavyPad = 10;
+    // Calculate wavy path for wavy variant with comfortable breathing room from inner text
+    const amplitude = Math.max(3.5, radius * 0.09);
+    const wavyPad = wavyPadding + amplitude + 6;
     const wavyPath = useMemo(() => {
         if (variant !== "wavy") return "";
-        return generateWavyCirclePath(radius, radius, radius + 2, radius * 0.085, 12);
-    }, [variant, radius]);
+        return generateWavyCirclePath(radius, radius, radius + wavyPadding, amplitude, 12);
+    }, [variant, radius, wavyPadding, amplitude]);
 
     // Apply variant-specific styles
     const getVariantClass = () => {
