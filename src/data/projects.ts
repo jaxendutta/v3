@@ -567,12 +567,6 @@ export const projectsData: ProjectsData = {
         ],
         typography: [
             {
-                name: "Press Start 2P",
-                fontFamily: '"Press Start 2P", cursive',
-                url: "https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap",
-                description: "This definitive 8-bit font anchors the site's hero section. It establishes the retro-gaming aesthetic immediately, turning the portfolio header into a title screen for Asher's world.",
-            },
-            {
                 name: "Jacquard 24",
                 fontFamily: '"Jacquard 24", sans-serif',
                 url: "https://fonts.googleapis.com/css2?family=Jacquard+24&display=swap",
