@@ -34,7 +34,7 @@ import {
     brushstrikeFont,
     stampTypoFont,
     stripeDiscoFont,
-    celexaFont,
+    damsterdamFont,
     csDeviousItalicFont,
 } from "@/lib/fonts";
 
@@ -519,7 +519,7 @@ export const projectsData: ProjectsData = {
         name: "Asher's Garden",
         label: "Asher's Garden",
         icon: GiJumpingDog,
-        cardFont: celexaFont,
+        cardFont: damsterdamFont,
         type: "development",
         categories: ["frontend"],
         layoutType: "showcase",

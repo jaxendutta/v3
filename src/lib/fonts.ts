@@ -75,13 +75,10 @@ export const lostar = localFont({
     display: 'swap',
 });
 
-export const celexa = localFont({
-    src: '../../public/fonts/celexa.ttf',
-    variable: '--font-celexa',
-    display: 'swap',
-    declarations: [
-        { prop: 'size-adjust', value: '88%' },
-    ],
+export const damsterdam = localFont({
+    src: '../../public/fonts/damsterdam.ttf',
+    variable: '--font-damsterdam',
+    display: 'swap'
 });
 
 export const modernPrestige = localFont({
@@ -225,7 +222,7 @@ export const stripeDiscoFont = stripeDisco?.className || "";
 export const lunazziFont = `${lunazzi?.className || ""} leading-[0.8]! md:leading-[0.8]!`;
 export const jackTheHipperFont = jackTheHipper?.className || "";
 export const lostarFont = lostar?.className || "";
-export const celexaFont = celexa?.className || "";
+export const damsterdamFont = damsterdam?.className || "";
 export const modernPrestigeFont = modernPrestige?.className || "";
 export const rcFont = rc?.className || "";
 export const stampTypoFont = stampTypo?.className || "";
