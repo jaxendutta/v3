@@ -101,50 +101,50 @@ export default function ColorSection({ id, colors }: ColorSectionProps) {
         const textColor = isLight ? "text-gray-900" : "text-white";
 
         return (
-        <motion.div
-            className="relative w-full shrink-0 overflow-hidden"
-            animate={{ height: activeSet ? panelHeight : 0 }}
-            transition={swingIn}
-        >
-            <AnimatePresence mode="popLayout">
-                {activeSet && (
-                    <motion.div
-                        key={`${keyPrefix}-panel-${activeSetIdx}`}
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        transition={{ duration: 0.3 }}
-                        className="absolute inset-0"
-                        style={{ background: getGradient(activeSet) }}
-                    >
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/25 to-transparent" />
+            <motion.div
+                className="relative w-full shrink-0 overflow-hidden"
+                animate={{ height: activeSet ? panelHeight : 0 }}
+                transition={swingIn}
+            >
+                <AnimatePresence mode="popLayout">
+                    {activeSet && (
                         <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            exit={{ opacity: 0 }}
-                            transition={{ duration: 0.35, delay: 0.15 }}
-                            className={`absolute bottom-0 ${pClass} ${textColor}`}
-                        >
-                            <p className="font-mono text-xs uppercase tracking-[0.3em] mb-3 opacity-60">
-                                [ Palette {String((activeSetIdx ?? 0) + 1).padStart(2, "0")} ]
-                            </p>
-                            <p className="text-xs md:text-sm lg:text-base leading-relaxed max-w-2xl opacity-90">
-                                {activeSet.description}
-                            </p>
-                        </motion.div>
-
-                        {/* White line at the panel bottom: visually ties it to the selected strips */}
-                        <motion.div
-                            className="absolute bottom-0 inset-x-0 h-px bg-white"
+                            key={`${keyPrefix}-panel-${activeSetIdx}`}
                             initial={{ opacity: 0 }}
-                            animate={{ opacity: 0.45 }}
+                            animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
-                            transition={{ duration: 0.3, delay: 0.3 }}
-                        />
-                    </motion.div>
-                )}
-            </AnimatePresence>
-        </motion.div>
+                            transition={{ duration: 0.3 }}
+                            className="absolute inset-0"
+                            style={{ background: getGradient(activeSet) }}
+                        >
+                            <div className="absolute inset-0 bg-linear-to-t from-black/25 to-transparent" />
+                            <motion.div
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                exit={{ opacity: 0 }}
+                                transition={{ duration: 0.35, delay: 0.15 }}
+                                className={`absolute bottom-0 ${pClass} ${textColor}`}
+                            >
+                                <p className="font-mono text-xs uppercase tracking-[0.3em] mb-3 opacity-60">
+                                    [ Palette {String((activeSetIdx ?? 0) + 1).padStart(2, "0")} ]
+                                </p>
+                                <p className="text-xs md:text-sm lg:text-base leading-relaxed max-w-2xl opacity-90">
+                                    {activeSet.description}
+                                </p>
+                            </motion.div>
+
+                            {/* White line at the panel bottom: visually ties it to the selected strips */}
+                            <motion.div
+                                className="absolute bottom-0 inset-x-0 h-px bg-white"
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 0.45 }}
+                                exit={{ opacity: 0 }}
+                                transition={{ duration: 0.3, delay: 0.3 }}
+                            />
+                        </motion.div>
+                    )}
+                </AnimatePresence>
+            </motion.div>
         );
     };
 
