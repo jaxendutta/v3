@@ -7,11 +7,13 @@ import TypographySpiral from "@/components/ui/TypographySpiral";
 interface TypographySectionProps {
     id?: string;
     typography: FontInfo[];
+    isLandscape: boolean;
 }
 
 export default function TypographySection({
     id,
     typography,
+    isLandscape,
 }: TypographySectionProps) {
     // Load fonts dynamically
     useEffect(() => {
@@ -37,17 +39,5 @@ export default function TypographySection({
         };
     }, [typography]);
 
-    return (
-        <>
-            {typography.map((font, index) => (
-                <section
-                    key={index}
-                    id={index === 0 ? id : undefined}
-                    className="relative snap-center shrink-0 w-screen h-full flex items-center justify-center overflow-hidden"
-                >
-                    <TypographySpiral font={font} />
-                </section>
-            ))}
-        </>
-    );
+    return <TypographySpiral id={id} fonts={typography} isLandscape={isLandscape} />;
 }

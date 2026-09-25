@@ -52,6 +52,10 @@ export default function ShowcaseLayout({ projectId }: { projectId: keyof typeof 
         let isAnimating = false;
         let animationFrameId: number;
         let snapTimeout: NodeJS.Timeout;
+        // Extra "gravity" (px) keeping scroll within a multi-point section's
+        // own items rather than bleeding into an adjacent section - see
+        // snapToNearestSection below.
+        const STICKY_BIAS = 220;
 
         const updateScroll = () => {
             if (!mainElement) return;
@@ -81,41 +85,81 @@ export default function ShowcaseLayout({ projectId }: { projectId: keyof typeof 
             if (!mainElement) return;
 
             const sections = Array.from(mainElement.children) as HTMLElement[];
-            let closestSection = sections[0];
-            let minDistance = Infinity;
 
             // Define offset: In portrait, we want to snap BELOW the 100px header.
             // In landscape, we snap to 0 (left edge).
             const snapOffset = isLandscape ? 0 : 100;
 
+            // Guard against the NameSection free-scroll zone using each
+            // section's own start position only (not sub-points below).
+            let closestSection = sections[0];
+            let minSectionDistance = Infinity;
             sections.forEach((section) => {
-                // Calculate ideal scroll position: Section Start - Header Height
                 const idealScroll = getSectionPos(section) - snapOffset;
-
-                // Compare distance to our CURRENT target
                 const distance = Math.abs(idealScroll - targetScroll);
-
-                if (distance < minDistance) {
-                    minDistance = distance;
+                if (distance < minSectionDistance) {
+                    minSectionDistance = distance;
                     closestSection = section;
                 }
             });
-
-            // If the closest section is the NameSection, abort the snap!
-            // This turns the entire NameSection into a "free-scroll" zone.
             if (closestSection && closestSection.id === "project-name") {
                 return;
             }
 
-            if (closestSection) {
-                // Update target to the ideal position
-                targetScroll = getSectionPos(closestSection) - snapOffset;
+            // A section can widen/heighten itself past one viewport and
+            // declare extra internal snap points via data-snap-points (a
+            // JSON array of pixel offsets from its own start) - e.g. a
+            // "pinned" section that scrubs through several items as you
+            // scroll through its extra length. Snapping considers every
+            // section's start plus any such sub-points, and settles on
+            // whichever is nearest overall.
+            //
+            // A multi-point section's OWN nearest sub-point gets a distance
+            // discount when compared globally - so scrolling among a
+            // section's own items (e.g. its last item, which is right next
+            // to where the following section starts) stays decisively
+            // "inside" that section instead of bleeding into the next one on
+            // the same scroll. Picking between a section's own points stays
+            // undiscounted, so a hard scroll can still power through several
+            // of them - only *leaving* the section gets the extra resistance.
+            let bestScroll = closestSection ? getSectionPos(closestSection) - snapOffset : 0;
+            let minDistance = Infinity;
+            sections.forEach((section) => {
+                const base = getSectionPos(section);
+                const offsets = [0];
+                const raw = section.dataset.snapPoints;
+                if (raw) {
+                    try {
+                        (JSON.parse(raw) as number[]).forEach((offset) => offsets.push(offset));
+                    } catch {
+                        // ignore malformed data
+                    }
+                }
 
-                // Clamp (e.g. don't scroll above 0)
-                targetScroll = Math.max(0, Math.min(targetScroll, getMaxScroll()));
+                let sectionBestScroll = base - snapOffset;
+                let sectionBestDistance = Infinity;
+                offsets.forEach((offset) => {
+                    const idealScroll = base + offset - snapOffset;
+                    const distance = Math.abs(idealScroll - targetScroll);
+                    if (distance < sectionBestDistance) {
+                        sectionBestDistance = distance;
+                        sectionBestScroll = idealScroll;
+                    }
+                });
 
-                startAnimation();
-            }
+                const effectiveDistance = offsets.length > 1
+                    ? Math.max(0, sectionBestDistance - STICKY_BIAS)
+                    : sectionBestDistance;
+
+                if (effectiveDistance < minDistance) {
+                    minDistance = effectiveDistance;
+                    bestScroll = sectionBestScroll;
+                }
+            });
+
+            // Clamp (e.g. don't scroll above 0)
+            targetScroll = Math.max(0, Math.min(bestScroll, getMaxScroll()));
+            startAnimation();
         };
 
         const handleWheel = (e: WheelEvent) => {
@@ -175,7 +219,7 @@ export default function ShowcaseLayout({ projectId }: { projectId: keyof typeof 
             >
                 <NameSection project={project} projectId={projectId} />
                 {project.overview && <OverviewSection projectId={projectId} overview={project.overview} links={project.links} isLandscape={isLandscape} />}
-                {project.typography && <TypographySection typography={project.typography} />}
+                {project.typography && <TypographySection typography={project.typography} isLandscape={isLandscape} />}
                 {project.colors && <ColorSection colors={project.colors} />}
                 {project.techStack && <TechStackSection techStack={project.techStack} />}
                 {project.footer && <FooterSection footer={project.footer} />}
