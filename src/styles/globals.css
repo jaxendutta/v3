@@ -244,15 +244,6 @@ svg {
     transition: none !important;
 }
 
-a {
-    text-decoration: underline;
-    color: inherit;
-}
-
-a:hover {
-    color: var(--primary);
-}
-
 /* 5. UTILITY CLASSES */
 .bg-theme {
     background-color: var(--background);
@@ -279,6 +270,15 @@ a:hover {
     button:not(:disabled),
     [role="button"]:not(:disabled) {
         cursor: pointer;
+    }
+
+    a {
+        text-decoration: underline;
+        color: inherit;
+    }
+
+    a:hover {
+        color: var(--primary);
     }
 }
 
