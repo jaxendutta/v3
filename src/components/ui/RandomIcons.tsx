@@ -55,11 +55,23 @@ export const getRandomIcons = (count: number = 4): IconType[] => {
 
 export function RandomIconsLoader({ count = 3, shuffleCount = 16, interval = 100 }) {
     const [shuffle, setShuffle] = useState(0);
+    // Math.random() picks a different icon set on the server than on the
+    // client, so rendering it immediately mismatches during hydration.
+    // Render nothing until mounted (identical on server and the client's
+    // first pass), then let the shuffle animation take over client-side.
+    const [mounted, setMounted] = useState(false);
+
     useEffect(() => {
-        if (shuffle >= shuffleCount) return;
+        setMounted(true);
+    }, []);
+
+    useEffect(() => {
+        if (!mounted || shuffle >= shuffleCount) return;
         const timer = setTimeout(() => setShuffle(s => s + 1), interval);
         return () => clearTimeout(timer);
-    }, [shuffle, shuffleCount, interval]);
+    }, [mounted, shuffle, shuffleCount, interval]);
+
+    if (!mounted) return null;
     return <RandomIcons count={count} key={shuffle} />;
 }
 
