@@ -151,7 +151,7 @@ export default function NameSection({ project, projectId }: NameSectionProps) {
                     </div>
                     {/* Right: Vertical Label */}
                     <div className="flex flex-col justify-center items-end min-h-0 max-h-full">
-                        <h1 className={`leading-[1.1] h-fit! max-h-[calc(100vh-200px)] max-w-[40vw] text-[clamp(3.5rem,24vw,5rem)] [writing-mode:vertical-rl] text-foreground ${projectFont} text-left`}>
+                        <h1 className={`leading-[1.1] h-fit! max-h-[calc(100vh-200px)] max-w-[40vw] text-[clamp(4rem,24vw,5rem)] [writing-mode:vertical-rl] text-foreground ${projectFont} text-left`}>
                             {renderFormattedTitle(project.label)}
                         </h1>
                     </div>

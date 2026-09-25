@@ -11,9 +11,9 @@ import {
 } from "framer-motion";
 import TextBorderAnimation from "@/components/ui/TextBorder";
 import ProjectButton from "@/components/ui/ProjectButton";
-import FloatingDraggableImage from "@/components/ui/FloatingDraggableImage";
+import Floating3DImage from "@/components/ui/Floating3DImage";
 import { projectsData } from "@/data/projects";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import { serifFont } from "@/lib/fonts";
 
 interface OverviewSectionProps {
@@ -42,8 +42,12 @@ export default function OverviewSection({ projectId, overview, links, isLandscap
 
 function OverviewSlide({ items, links, isLandscape, index, projectId }: { items: OverviewItem[], links?: Social[], isLandscape: boolean, index: number, projectId: keyof typeof import("@/data/projects").projectsData }) {
     const slideRef = useRef<HTMLElement>(null);
-    const [imageSize, setImageSize] = useState({ width: 1200, height: 1200 });
-    const [viewport, setViewport] = useState({ width: 1280, height: 720 });
+    const project = projectsData[projectId];
+    const { source, device, mockup: mockupType, mockupColor, boomerang } = getProjectMedia(project, projectId);
+    const isMobileProject = device === "mobile";
+    const is3DMockup = mockupType === "iphone" || mockupType === "ipad";
+
+    const [isImageVertical, setIsImageVertical] = useState(mockupType === "iphone" || isMobileProject);
 
     const { calloutText, bodyContent } = useMemo(() => {
         const calloutItem = items.find(item => item.className);
@@ -61,19 +65,7 @@ function OverviewSlide({ items, links, isLandscape, index, projectId }: { items:
     }, [bodyContent]);
 
     const isEven = index % 2 === 0;
-
-    // Calculate if image is longer in height than width (for portrait vs landscape styling)
-    const [isImageVertical, setIsImageVertical] = useState(false);
-
-    useEffect(() => {
-        const syncViewport = () => {
-            setViewport({ width: window.innerWidth, height: window.innerHeight });
-        };
-
-        syncViewport();
-        window.addEventListener("resize", syncViewport);
-        return () => window.removeEventListener("resize", syncViewport);
-    }, []);
+    const isReversed = !isEven;
 
     // --- SCROLL SCRUB LOGIC ---
     const rawProgress = useMotionValue(0);
@@ -104,36 +96,21 @@ function OverviewSlide({ items, links, isLandscape, index, projectId }: { items:
     });
 
     // --- RESPONSIVE PARALLAX KINEMATICS ---
-    const phoneY = useTransform(smoothProgress, [0, 1], isLandscape ? [150, -150] : [60, -60]);
+    const phoneY = useTransform(smoothProgress, [0, 1], isLandscape ? [120, -120] : [50, -50]);
     const textY = useTransform(smoothProgress, [0, 1], isLandscape ? [-40, 40] : [-15, 15]);
 
     const phoneRotate = useTransform(
         smoothProgress,
         [0, 1],
-        [isEven ? 12 : -12, isEven ? -4 : 4]
+        [isEven ? 10 : -10, isEven ? -4 : 4]
     );
 
     // Determine device type: desktop vs mobile
-    const media = getProjectMedia(projectsData[projectId], projectId);
-    const isDesktopDevice = media.device === "desktop" || (!isImageVertical && media.device !== "mobile");
+    const isDesktopDevice = device === "desktop" || (!isImageVertical && device !== "mobile");
 
     const invertedPhoneRotate = useTransform(phoneRotate, (v) => -v);
     // Desktop screenshots use the opposite tilt direction of mobile screenshots
     const finalRotate = isDesktopDevice ? invertedPhoneRotate : phoneRotate;
-
-    const imageMaxWidthPx = (isImageVertical
-        ? (isLandscape ? 0.34 : 0.72)
-        : (isLandscape ? 0.48 : 0.92)) * viewport.width;
-    const imageMaxHeightPx = (isImageVertical
-        ? (isLandscape ? 0.72 : 0.46)
-        : (isLandscape ? 0.72 : 0.52)) * viewport.height;
-    const imageScale = Math.min(
-        1,
-        imageMaxWidthPx / imageSize.width,
-        imageMaxHeightPx / imageSize.height
-    );
-    const renderedImageWidth = Math.max(1, Math.round(imageSize.width * imageScale));
-    const renderedImageHeight = Math.max(1, Math.round(imageSize.height * imageScale));
 
     return (
         <section
@@ -156,7 +133,9 @@ function OverviewSlide({ items, links, isLandscape, index, projectId }: { items:
                     p-6 sm:p-8 md:p-16 lg:p-24
                     ${isLandscape
                         ? (isEven ? "flex-row" : "flex-row-reverse")
-                        : "flex-col md:pt-12"
+                        : mockupType === "iphone"
+                            ? (isEven ? "flex-col sm:flex-row" : "flex-col sm:flex-row-reverse")
+                            : "flex-col md:pt-12"
                     }
                 `}>
 
@@ -164,7 +143,12 @@ function OverviewSlide({ items, links, isLandscape, index, projectId }: { items:
                     <motion.div
                         style={{ y: textY }}
                         className={`
-                            ${isLandscape && "w-1/2 h-full"} 
+                            ${isLandscape
+                                ? "w-1/2 h-full"
+                                : mockupType === "iphone"
+                                    ? "sm:w-1/2 sm:h-full"
+                                    : ""
+                            }
                             px-6 sm:px-0
                             flex flex-col justify-center relative z-10
                             ${!isEven ? "items-end text-right" : "items-start text-left"}
@@ -208,29 +192,69 @@ function OverviewSlide({ items, links, isLandscape, index, projectId }: { items:
                         )}
                     </motion.div>
 
-                    {/* --- INTERACTIVE IMAGE HALF --- */}
-                    <div className={`${isLandscape ? "w-5/12 h-full" : "w-full min-h-1/2"} flex items-center justify-center perspective-distant z-20`}>
-
-                        <FloatingDraggableImage
-                            src={media.source}
-                            alt={`${calloutText} interface`}
-                            className="relative w-full h-full touch-auto"
-                            style={{
-                                y: phoneY,
-                                rotateZ: finalRotate,
-                                rotateX: isLandscape ? 5 : 0,
-                            }}
-                            tilt={finalRotate}
+                    {/* --- INTERACTIVE 3D IMAGE HALF --- */}
+                    <div className={`${isLandscape
+                        ? "w-1/2 lg:w-5/12 h-full"
+                        : mockupType === "iphone"
+                            ? "w-full min-h-[45vh] sm:w-1/2 sm:min-h-0 sm:h-full lg:w-5/12"
+                            : "w-full min-h-[45vh]"
+                        } flex items-center justify-center perspective-distant z-20 overflow-visible`}>
+                        <Floating3DImage
+                            src={source}
+                            alt={`${project ? project.name : ""} ${calloutText}`}
+                            width={isMobileProject ? 280 : 800}
+                            height={isMobileProject ? 600 : 450}
+                            baseCursor="grab"
+                            align="center"
+                            className="relative w-full touch-auto overflow-visible mx-auto"
+                            frameClassName={`overflow-visible mx-auto
+                                ${mockupType === "iphone"
+                                    ? "w-[56%] sm:w-[60%] md:w-[60%] lg:w-full [--mockup-max-w:210px] sm:[--mockup-max-w:260px] md:[--mockup-max-w:260px] lg:[--mockup-max-w:350px] [--mockup-max-h:48svh] sm:[--mockup-max-h:56svh] md:[--mockup-max-h:56svh] lg:[--mockup-max-h:76svh] aspect-[1/1.9]"
+                                    : isMobileProject
+                                        ? "w-[48%] sm:w-[52%] md:w-full [--mockup-max-w:190px] sm:[--mockup-max-w:230px] md:[--mockup-max-w:300px] [--mockup-max-h:46svh] md:[--mockup-max-h:74svh]"
+                                        : mockupType === "ipad"
+                                            ? "w-[82%] sm:w-[86%] md:w-full [--mockup-max-w:280px] sm:[--mockup-max-w:420px] md:[--mockup-max-w:840px] [--mockup-max-h:40svh] sm:[--mockup-max-h:50svh] md:[--mockup-max-h:72svh] aspect-[1.43/1]"
+                                            : "w-[84%] sm:w-[88%] md:w-full max-w-[320px] sm:max-w-[460px] md:max-w-[760px] max-h-[44svh] md:max-h-[70svh]"
+                                }`}
+                            frameStyle={
+                                mockupType === "iphone"
+                                    ? {
+                                        width: "100%",
+                                        maxWidth: "var(--mockup-max-w, 210px)",
+                                        maxHeight: "var(--mockup-max-h, 48svh)",
+                                        aspectRatio: "1 / 1.9",
+                                    }
+                                    : isMobileProject
+                                        ? {
+                                            width: "100%",
+                                            maxWidth: "var(--mockup-max-w, 190px)",
+                                            maxHeight: "var(--mockup-max-h, 46svh)",
+                                        }
+                                        : mockupType === "ipad"
+                                            ? {
+                                                width: "100%",
+                                                maxWidth: "var(--mockup-max-w, 280px)",
+                                                maxHeight: "var(--mockup-max-h, 40svh)",
+                                                aspectRatio: "1.43 / 1",
+                                            }
+                                            : undefined
+                            }
+                            imageClassName="w-full h-full"
+                            style={{ y: phoneY }}
+                            tilt={is3DMockup ? 0 : finalRotate}
                             bobPhase={index * 0.4}
-                            frameStyle={{ width: `${renderedImageWidth}px`, height: `${renderedImageHeight}px` }}
-                            imageClassName="h-full w-full"
-                            onImageLoad={({ width, height, isVertical }) => {
+                            borderOnLandscape={!is3DMockup && !isMobileProject}
+                            mockup={mockupType}
+                            iphoneColor={mockupColor ?? "cosmic-orange"}
+                            ipadColor={mockupColor ?? "silver"}
+                            initialTiltY={isReversed ? (mockupType === "ipad" ? 0.15 : 0.16) : (mockupType === "ipad" ? -0.15 : -0.16)}
+                            initialTiltZ={mockupType === "iphone" ? (isReversed ? 0.10 : -0.10) : 0}
+                            boomerang={boomerang}
+                            onImageLoad={({ isVertical }) => {
                                 setIsImageVertical(isVertical);
-                                setImageSize({ width, height });
                             }}
                             priority
                         />
-
                     </div>
 
                 </div>

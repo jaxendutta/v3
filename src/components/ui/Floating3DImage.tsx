@@ -224,11 +224,16 @@ export default function Floating3DImage({
                 ? "justify-center md:justify-end"
                 : "justify-center";
 
+    const { rotateX: _ignoredRotateX, rotateZ: _ignoredRotateZ, ...motionStyle } = (style || {}) as any;
+
     return (
-        <div
+        <motion.div
             ref={containerRef}
             className={`relative select-none perspective-distant overflow-visible flex items-center ${justifyClass} ${className ?? ""}`}
-            style={{ transformStyle: "preserve-3d" }}
+            style={{
+                transformStyle: "preserve-3d",
+                ...motionStyle,
+            }}
         >
             <motion.div
                 style={{
@@ -316,6 +321,16 @@ export default function Floating3DImage({
                                 loop
                                 muted
                                 playsInline
+                                onLoadedMetadata={(e) => {
+                                    const v = e.currentTarget;
+                                    const nextIsVertical = v.videoHeight > v.videoWidth;
+                                    setIsImageVertical(nextIsVertical);
+                                    if (v.videoWidth > 0 && v.videoHeight > 0) {
+                                        const nextSize = { width: v.videoWidth, height: v.videoHeight };
+                                        setImageSize(nextSize);
+                                        onImageLoad?.({ ...nextSize, isVertical: nextIsVertical });
+                                    }
+                                }}
                                 className={`${isImageVertical ? "object-contain" : "object-cover"} w-full h-full pointer-events-none ${imageClassName ?? ""}`}
                             />
                         </div>
@@ -355,6 +370,6 @@ export default function Floating3DImage({
                     )}
                 </motion.div>
             </motion.div>
-        </div>
+        </motion.div>
     );
 }
