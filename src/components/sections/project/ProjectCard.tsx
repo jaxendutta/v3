@@ -16,6 +16,7 @@ interface ProjectCardProps {
     project: Project;
 
     skillLimit?: number;
+    mobileSkillLimit?: number;
     reversed?: boolean;
     chain?: boolean;
     className?: string;
@@ -25,6 +26,7 @@ export default function ProjectCard({
     id,
     project,
     skillLimit = 12,
+    mobileSkillLimit = 6,
     reversed = false,
     chain = false,
     className = "max-w-[90vw] mx-auto mt-4 mb-6 md:my-8",
@@ -34,6 +36,11 @@ export default function ProjectCard({
     const isMobileProject = device === "mobile";
     const projectLink = `/projects/${id}`;
     const skillCount = Object.values(project.techStack || []).flat().length;
+    const effectiveMobileLimit = Math.min(mobileSkillLimit, skillLimit);
+
+    // If there is only 1 overflow tag beyond the limit, show it directly instead of "+1 more"
+    const mobileShowCount = skillCount === effectiveMobileLimit + 1 ? effectiveMobileLimit + 1 : effectiveMobileLimit;
+    const desktopShowCount = skillCount === skillLimit + 1 ? skillLimit + 1 : skillLimit;
 
     const { ref: titleRef, wrappedWidth } = useTightWrappedWidth<HTMLAnchorElement>(project.label);
 
@@ -86,14 +93,32 @@ export default function ProjectCard({
                             Object.values(project.techStack)
                                 .flat()
                                 .sort((a, b) => a.name.localeCompare(b.name))
-                                .slice(0, skillLimit)
-                                .map((tech, i) => <SkillTag key={i} skill={tech.name} />)}
+                                .slice(0, desktopShowCount)
+                                .map((tech, i) => (
+                                    <SkillTag
+                                        key={i}
+                                        skill={tech.name}
+                                        className={i >= mobileShowCount ? "hidden md:inline-flex" : ""}
+                                    />
+                                ))}
 
-                        {/* Show more indicator if technologies are truncated */}
-                        {project.techStack &&
-                            Object.values(project.techStack).flat().length > skillLimit && (
-                                <Tag text={`+${skillCount - skillLimit} more`} glowOnHover={false} />
-                            )}
+                        {/* Show more indicator on phones/mobile only when 2+ tags are hidden beyond limit */}
+                        {project.techStack && skillCount > effectiveMobileLimit + 1 && (
+                            <Tag
+                                className="md:hidden"
+                                text={`+${skillCount - effectiveMobileLimit} more`}
+                                glowOnHover={false}
+                            />
+                        )}
+
+                        {/* Show more indicator on desktop only when 2+ tags are hidden beyond limit */}
+                        {project.techStack && skillCount > skillLimit + 1 && (
+                            <Tag
+                                className="hidden md:inline-flex"
+                                text={`+${skillCount - skillLimit} more`}
+                                glowOnHover={false}
+                            />
+                        )}
                     </div>
 
                     <div className={`hidden md:flex`}>{exploreButton}</div>

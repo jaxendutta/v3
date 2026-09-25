@@ -31,7 +31,7 @@ import {
     newRomanticsFont,
     rcFont,
     schizoidPersonalityFont,
-    silvusFont,
+    brushstrikeFont,
     stampTypoFont,
     stripeDiscoFont,
     celexaFont,
@@ -942,9 +942,9 @@ export const projectsData: ProjectsData = {
 
     fabler: {
         name: "Fabler",
-        label: "FABLER",
+        label: "Fabler",
         icon: GiBrainTentacle,
-        cardFont: silvusFont,
+        cardFont: brushstrikeFont,
         type: "design",
         categories: ["fullstack", "data", "frontend"],
         layoutType: "showcase",

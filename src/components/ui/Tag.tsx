@@ -49,11 +49,12 @@ const Tag = ({ text, glowOnHover = false, href, action, className = "" }: TagPro
     return <motion.span {...commonProps}>{text}</motion.span>;
 };
 
-export const SkillTag = ({ skill }: { skill: string }) => {
+export const SkillTag = ({ skill, className = "" }: { skill: string; className?: string }) => {
     return (
         <Tag
             text={skill}
             glowOnHover={false}
+            className={className}
             href={`/projects?tech=${encodeURIComponent(skill.toLowerCase())}`}
         />
     );

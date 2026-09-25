@@ -105,14 +105,6 @@ export const stampTypo = localFont({
     display: 'swap',
 });
 
-export const silvus = localFont({
-    src: '../../public/fonts/silvus.ttf',
-    variable: '--font-silvus',
-    display: 'swap',
-    declarations: [
-        { prop: 'size-adjust', value: '78%' },
-    ],
-});
 
 export const blastimoSans = localFont({
     src: '../../public/fonts/blastimo_sans.ttf',
@@ -127,6 +119,15 @@ export const beaconAesthetic = localFont({
     src: '../../public/fonts/beacon_aesthetic.ttf',
     variable: '--font-beacon-aesthetic',
     display: 'swap',
+});
+
+export const brushstrike = localFont({
+    src: '../../public/fonts/brushstrike_trial.ttf',
+    variable: '--font-brushstrike',
+    display: 'swap',
+    declarations: [
+        { prop: 'size-adjust', value: '125%' },
+    ],
 });
 
 export const csDevious = localFont({
@@ -228,9 +229,9 @@ export const celexaFont = celexa?.className || "";
 export const modernPrestigeFont = modernPrestige?.className || "";
 export const rcFont = rc?.className || "";
 export const stampTypoFont = stampTypo?.className || "";
-export const silvusFont = `${silvus?.className || ""} uppercase`;
 export const blastimoSansFont = `${blastimoSans?.className || ""} leading-[1.35]! md:leading-[1.3]!`;
 export const beaconAestheticFont = beaconAesthetic?.className || "";
+export const brushstrikeFont = brushstrike?.className || "";
 
 export const PROJECT_CARD_FONTS: Record<string, string> = {
     "sqlite-xplore": acidicFont,
@@ -246,7 +247,7 @@ export const PROJECT_CARD_FONTS: Record<string, string> = {
     "hivemind": lostarFont,
     "jeffrey": modernPrestigeFont,
     "asher": celexaFont,
-    "fabler": silvusFont,
+    "fabler": brushstrikeFont,
     "lightbox": rcFont,
     "straights": stampTypoFont,
 };
