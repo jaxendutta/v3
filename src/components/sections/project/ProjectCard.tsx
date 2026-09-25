@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { Project, getProjectMedia } from "@/types/project";
-import { getProjectCardFont } from "@/lib/fonts";
+import { csDeviousItalicFont } from "@/lib/fonts";
 import { fadeIn } from "@/lib/motionVariants";
 import Tag, { SkillTag } from "@/components/ui/Tag";
 import RotatingButton from "@/components/ui/RotatingButton";
@@ -74,7 +74,7 @@ export default function ProjectCard({
                             <Link
                                 ref={titleRef}
                                 href={projectLink}
-                                className={`text-[40px] sm:text-[48px] md:text-7xl lg:text-8xl hover:text-accent transition-colors no-underline! leading-9 md:leading-16 lg:leading-22 wrap-break-word ${reversed ? "text-right md:text-left" : "text-left md:text-right"} ${project.cardFont || getProjectCardFont(id)} px-2 md:px-0 ${reversed ? "md:pl-2" : "md:pr-2"
+                                className={`text-[40px] sm:text-[48px] md:text-7xl lg:text-8xl hover:text-accent transition-colors no-underline! leading-9 md:leading-16 lg:leading-22 wrap-break-word ${reversed ? "text-right md:text-left" : "text-left md:text-right"} ${project.cardFont || csDeviousItalicFont} px-2 md:px-0 ${reversed ? "md:pl-2" : "md:pr-2"
                                     }`}
                             >
                                 {renderFormattedTitle(project.label)}

@@ -35,6 +35,7 @@ import {
     stampTypoFont,
     stripeDiscoFont,
     celexaFont,
+    csDeviousItalicFont,
 } from "@/lib/fonts";
 
 const calloutStyle =
@@ -1648,3 +1649,7 @@ export const projectsData: ProjectsData = {
     },
     */
 };
+
+export function getProjectCardFont(id: string): string {
+    return projectsData[id]?.cardFont || csDeviousItalicFont;
+}

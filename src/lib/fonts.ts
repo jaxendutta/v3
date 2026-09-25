@@ -232,26 +232,3 @@ export const stampTypoFont = stampTypo?.className || "";
 export const blastimoSansFont = `${blastimoSans?.className || ""} leading-[1.35]! md:leading-[1.3]!`;
 export const beaconAestheticFont = beaconAesthetic?.className || "";
 export const brushstrikeFont = brushstrike?.className || "";
-
-export const PROJECT_CARD_FONTS: Record<string, string> = {
-    "sqlite-xplore": acidicFont,
-    "sabeer": jackTheHipperFont,
-    "file-explorer": stripeDiscoFont,
-    "v1": newRomanticsFont,
-    "v2": newRomanticsFont,
-    "evse-opt": lunazziFont,
-    "space-invaders": josephinFont,
-    "emma": blastimoSansFont,
-    "rgap": josephinFont,
-    "pvc": beaconAestheticFont,
-    "hivemind": lostarFont,
-    "jeffrey": modernPrestigeFont,
-    "asher": celexaFont,
-    "fabler": brushstrikeFont,
-    "lightbox": rcFont,
-    "straights": stampTypoFont,
-};
-
-export function getProjectCardFont(id: string): string {
-    return PROJECT_CARD_FONTS[id] || csDeviousItalicFont;
-}
