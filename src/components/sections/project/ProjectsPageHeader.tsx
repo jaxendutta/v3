@@ -129,6 +129,7 @@ export default function ProjectsPageHeader({
 
     return (
         <div className="fixed top-0 left-0 right-0 z-50 px-3 pb-5 pt-[max(0.75rem,env(safe-area-inset-top))] flex items-center pointer-events-none">
+            <div className="absolute inset-0 -z-10 bg-background/75 backdrop-blur-md mask-[linear-gradient(to_bottom,black_60%,transparent)]" />
             <LayoutGroup>
                 <motion.div
                     className={`w-full flex items-center justify-between pointer-events-auto ${titleVisible && "gap-4 lg:gap-6"}`}
@@ -167,8 +168,7 @@ export default function ProjectsPageHeader({
                         {titleVisible && isLandscape && (
                             <motion.div
                                 key="project-title"
-                                className={`flex-1 flex justify-center text-3xl tracking-wider ${project?.cardFont || headingFont}`}
-                                style={{ fontStyle: "italic" }}
+                                className={`flex-1 flex justify-center text-3xl lg:text-5xl tracking-wider ${project?.cardFont || headingFont}`}
                                 {...getMotionProps("fadeUp")}
                             >
                                 {project.name}
